@@ -182,7 +182,7 @@ function copyLink() {
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
     
-    fireToast("Link de indicação cobiado!");
+    fireToast("Link de indicação copiado!");
 }
 
 // SISTEMA PREMIUM DE TOAST
@@ -211,7 +211,15 @@ function fireToast(message, isError = false) {
     }, 4000);
 }
 
-window.onclick = function(event) {
+// CAPTURA CLIQUES FORA DO MODAL PARA FECHAMENTO DE TELA
+window.addEventListener("click", function(event) {
     const backdrop = document.getElementById("modalCompra");
-    if (backdrop && event.target === backdrop) closeModal();
-}
+    if (backdrop && event.target === backdrop) {
+        closeModal();
+    }
+});
+
+// INICIALIZAÇÃO AUTOMÁTICA DA INTERFACE ASSIM QUE A PÁGINA CARREGA
+document.addEventListener("DOMContentLoaded", () => {
+    updateDashboardMetrics();
+});
