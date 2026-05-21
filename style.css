@@ -518,6 +518,8 @@ header {
     flex-wrap: wrap;
     gap: 1.5rem;
     margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
 }
 
 .banner-info h3 {
@@ -559,11 +561,14 @@ header {
     border: 1px solid var(--border-soft);
     padding: 2rem;
     border-radius: 16px;
+    position: relative;
+    overflow: hidden;
 }
 
 .card-meta {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 600;
@@ -574,9 +579,9 @@ header {
 .card-meta .icon-wallet { color: #F5A623; }
 .card-meta .icon-ticket { color: var(--neon-green); }
 
-.metric-card h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; }
+.metric-card h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; position: relative; z-index: 2; }
 
-.sub-text { font-size: 0.8rem; color: var(--text-muted); }
+.sub-text { font-size: 0.8rem; color: var(--text-muted); position: relative; z-index: 2; }
 
 .btn-simulate-bonus {
     background: rgba(255,255,255,0.05);
@@ -588,6 +593,8 @@ header {
     margin-top: 1rem;
     cursor: pointer;
     transition: var(--transition-smooth);
+    position: relative;
+    z-index: 2;
 }
 
 .btn-simulate-bonus:hover {
@@ -852,10 +859,168 @@ header {
 
 .toast-wrapper.active { top: 20px; opacity: 1; transform: translateX(-50%) translateY(0); }
 
+/* ==========================================================================
+   ELEMENTOS ADICIONAIS DO DASHBOARD (ESTILO PREMIUM & GLASS)
+   ========================================================================== */
+.premium-glass {
+    background: rgba(17, 26, 46, 0.6) !important;
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.action-card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.card-header-icon {
+    font-size: 1.5rem;
+}
+
+.text-gold { color: #F5A623; }
+.text-green { color: var(--neon-green); }
+
+.icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-badge, .tier-badge {
+    background: rgba(245, 166, 35, 0.1);
+    color: #F5A623;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.price-tables-card {
+    background: var(--bg-dark-card);
+    border: 1px solid var(--border-soft);
+    padding: 2rem;
+    border-radius: 16px;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.investment-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+}
+
+.tier-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-soft);
+    padding: 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.tier-item:hover {
+    border-color: rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.tier-item.highlight-tier {
+    background: rgba(16, 185, 129, 0.03);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.tier-item.highlight-tier .tier-badge {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--neon-green);
+}
+
+.tier-cost {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0.5rem 0 0.25rem 0;
+}
+
+.tier-cost strong {
+    color: var(--text-white);
+    font-size: 1.3rem;
+}
+
+.tier-prize {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.tier-prize strong {
+    color: var(--neon-green);
+}
+
+.tier-rule-info {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.draw-calendar-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-soft);
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+}
+
+.draw-calendar-info span i {
+    color: #F5A623;
+    margin-right: 4px;
+}
+
+.btn-support-direct:hover {
+    background: rgba(16, 185, 129, 0.1) !important;
+    border-color: var(--neon-green) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
 /* RESPONSIVIDADE COMPLETA MÍDIA QUERIES */
 @media (max-width: 992px) {
     .rules-container {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 1rem;
+    }
+    .logo {
+        font-size: 1.2rem;
+    }
+    .group-banner-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
+    .btn-join-group {
+        width: 100%;
+        justify-content: center;
+    }
+    .draw-calendar-info {
+        flex-direction: column;
+        gap: 0.5rem;
     }
 }
 
