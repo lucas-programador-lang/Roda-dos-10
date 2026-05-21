@@ -235,6 +235,8 @@
                     referredBy: referral || "NENHUM",
                     createdAt: new Date().toISOString()
                 });
+                
+                console.log("Dados enviados com sucesso para: users/" + user.uid);
 
                 showToast("Conta criada! Redirecionando para o painel...");
                 setTimeout(() => {
