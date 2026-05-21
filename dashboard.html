@@ -6,7 +6,7 @@
     <title>Painel Principal — Roda dos 10</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -23,7 +23,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); overflow-x: hidden; padding-top: 100px; padding-bottom: 60px; }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); overflow-x: hidden; padding-top: 110px; padding-bottom: 60px; }
 
         /* FLOATING NAVBAR */
         .navbar {
@@ -73,7 +73,7 @@
         .progress-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
         .progress-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
         .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.5rem; }
-        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 60%; border-radius: 50px; }
+        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 35%; border-radius: 50px; }
         .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
 
         /* GRUPO BANNER */
@@ -83,7 +83,7 @@
         .btn-join-group { background: #25D366; color: #FFF; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: var(--transition-smooth); }
         .btn-join-group:hover { opacity: 0.9; transform: scale(0.98); }
 
-        /* PLANOS COM VISUAL PREMIUM */
+        /* PLANOS DE INVESTIMENTO */
         .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; }
         .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
         .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.8rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; }
@@ -91,18 +91,35 @@
         .tier-badge { background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin: 0 auto 0.8rem auto; }
         .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .tier-cost strong { color: var(--text-white); font-size: 1.5rem; }
-        .tier-prize { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .tier-prize { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.6rem; }
         .tier-prize strong { color: var(--neon-green); }
-        .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); }
         
-        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; margin-top: 1.5rem; cursor: pointer; transition: var(--transition-smooth); }
+        /* Contador de Compras do Pandinha */
+        .quota-progress { background: rgba(245, 166, 35, 0.08); border: 1px dashed rgba(245, 166, 35, 0.2); padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; color: #FFE57F; font-weight: 700; margin-bottom: 0.2rem; }
+        .tier-rule-info { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; }
+        
+        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; margin-top: 1.2rem; cursor: pointer; transition: var(--transition-smooth); }
         .btn-buy-tier:hover { opacity: 0.9; }
 
-        /* TOAST SYSTEM */
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border-left: 4px solid var(--neon-green); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
-        .toast-wrapper.active { top: 30px; opacity: 1; }
+        /* MODAL PREMIUM FIX */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(4, 7, 13, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .modal-card { background: #111A2E; border: 1px solid var(--border-soft); border-radius: 20px; width: calc(100% - 32px); max-width: 440px; padding: 2rem; text-align: center; transform: scale(0.9); transition: var(--transition-smooth); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .modal-overlay.active .modal-card { transform: scale(1); }
+        .modal-icon { font-size: 2.8rem; color: #F5A623; margin-bottom: 1rem; }
+        .modal-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .modal-card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .modal-actions { display: flex; flex-direction: column; gap: 10px; }
+        .btn-modal-confirm { background: var(--primary-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
+        .btn-modal-cancel { background: transparent; border: 1px solid var(--border-soft); color: var(--text-muted); padding: 0.9rem; border-radius: 10px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); }
+        .btn-modal-cancel:hover { color: white; background: rgba(255,255,255,0.02); }
 
-        /* RESPONSIVIDADE COMPLETA */
+        /* TOAST PREMIUM DESIGN REBUILT */
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border: 1px solid rgba(16, 185, 129, 0.2); border-left: 5px solid var(--neon-green); padding: 1.1rem 1.8rem; border-radius: 12px; display: flex; align-items: center; gap: 14px; z-index: 999999; width: calc(100% - 40px); max-width: 420px; opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
+        .toast-wrapper.active { top: 30px; opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast-wrapper i { font-size: 1.3rem; color: var(--neon-green); }
+        .toast-wrapper span { font-weight: 700; font-size: 0.92rem; color: var(--text-white); }
+
         @media (max-width: 768px) {
             body { padding-top: 150px; }
             .navbar { top: 10px; width: calc(100% - 20px); }
@@ -133,90 +150,121 @@
     <main class="main-layout">
         <header class="page-header">
             <h1 id="welcome-user">Olá, ...</h1>
-            <p>Escolha seus planos ativos, compre quantos quiser e acompanhe os sorteios.</p>
+            <p>Compre quantas cotas quiser. Seu nome será inserido múltiplas vezes no sorteio mensal!</p>
         </header>
 
         <div class="metrics-grid">
             <div class="metric-card">
-                <div class="card-meta"><span>SALDO DISPONÍVEL</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
+                <div class="card-meta"><span>SALDO RENDIMENTOS</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
                 <h2 id="dash-balance">R$ 0,00</h2>
-                <div class="sub-text">Sorteios mensais e semanais</div>
+                <div class="sub-text">Saque mínimo de R$ 25,00</div>
             </div>
             <div class="metric-card">
                 <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
                 <h2 id="dash-tickets">0</h2>
-                <div class="sub-text">Suas chances ativas</div>
+                <div class="sub-text">Mais compras aumentam sua chance</div>
             </div>
         </div>
 
         <div class="progress-banner-card">
             <div class="progress-info">
-                <h3><i class="fa-solid fa-calendar-check"></i> Ciclo de Rodadas</h3>
-                <p>Data de sorteio a cada 10 dias! Resultados publicados em nossa comunidade.</p>
+                <h3><i class="fa-solid fa-clock-history"></i> Ciclo Ativo de 10 Dias</h3>
+                <p>Os sorteios ocorrem de 10 em 10 dias e os resultados são postados dentro do grupo oficial.</p>
             </div>
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill"></div>
             </div>
             <div class="progress-text-status">
-                <span>STATUS DO CICLO ATUAL</span>
-                <span>EM ANDAMENTO</span>
+                <span>STATUS DO SORTEIO</span>
+                <span>AGUARDANDO META DE COMPRAS</span>
             </div>
         </div>
 
         <div class="group-banner-card">
             <div class="banner-info">
-                <h3>Sorteios Divulgados Dentro do Grupo</h3>
-                <p>Clique abaixo e entre agora no link oficial para não perder as apurações.</p>
+                <h3>Sorteios Divulgados no Grupo VIP</h3>
+                <p>Monitore as tabelas de nomes e apurações semanais e mensais entrando na comunidade.</p>
             </div>
             <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
-                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo do WhatsApp
+                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
             </a>
         </div>
 
         <div class="price-tables-card">
-            <h3 style="font-size: 1.3rem; font-weight: 700;"><i class="fa-solid fa-fire" style="color: #F5A623; margin-right: 6px;"></i> Planos de Cotas Ativos</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;"><i class="fa-solid fa-dice" style="color: #F5A623; margin-right: 6px;"></i> Escolha as Cotas para Adquirir</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Cada cota comprada adiciona seu nome uma vez a mais no sorteio do plano correspondente.</p>
             
             <div class="investment-options-grid">
                 <div class="tier-item">
                     <div class="tier-badge">Plano Bronze</div>
                     <div class="tier-cost">Invista <strong>R$ 3,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 25,00</strong></div>
-                    <p class="tier-rule-info">No Pix instantâneo</p>
-                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Bronze')">Adquirir</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 25,00 no PIX</strong></div>
+                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 7 / 20 compras</div>
+                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Bronze', '3,50', '25,00')">Adquirir Cota</button>
                 </div>
                 <div class="tier-item" style="border-color: rgba(245, 166, 35, 0.25);">
                     <div class="tier-badge" style="background: rgba(245, 166, 35, 0.15); color: #F5A623;">Plano Silver</div>
                     <div class="tier-cost">Invista <strong>R$ 5,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 50,00</strong></div>
-                    <p class="tier-rule-info">No Pix instantâneo</p>
-                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Silver')">Adquirir</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 50,00 no PIX</strong></div>
+                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 12 / 20 compras</div>
+                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Silver', '5,50', '50,00')">Adquirir Cota</button>
                 </div>
                 <div class="tier-item">
-                    <div class="tier-badge">Plano Gold</div>
+                    <div class="tier-badge">Plano Gold VIP</div>
                     <div class="tier-cost">Invista <strong>R$ 10,00</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 100,00</strong></div>
-                    <p class="tier-rule-info">No Pix instantâneo</p>
-                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Gold')">Adquirir</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 100,00 no PIX</strong></div>
+                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 4 / 20 compras</div>
+                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Gold VIP', '10,00', '100,00')">Adquirir Cota</button>
                 </div>
             </div>
         </div>
     </main>
 
+    <div class="modal-overlay" id="purchaseModal">
+        <div class="modal-card">
+            <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
+            <h3 id="modalPlanTitle">Confirmar Pedido</h3>
+            <p id="modalPlanDesc">Você está gerando uma nova cota de investimento sem rendimentos automáticos. Se o seu nome for sorteado, o prêmio será adicionado ao seu saldo.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-confirm" onclick="confirmPurchase()">Confirmar e Gerar PIX</button>
+                <button class="btn-modal-cancel" onclick="closePurchaseModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast-wrapper" id="toastNotification">
         <i class="fa-solid fa-circle-notch fa-spin"></i>
-        <span id="toastMsg">Processando pedido...</span>
+        <span id="toastMsg">Carregando gateway de pagamento...</span>
     </div>
 
     <script>
-        function triggerPurchase(planName) {
+        let currentSelectedPlan = "";
+
+        function openPurchaseModal(planName, price, prize) {
+            currentSelectedPlan = planName;
+            document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
+            document.getElementById("modalPlanDesc").innerText = `Confirmar cota no valor de R$ ${price} para concorrer ao prêmio de R$ ${prize} no PIX. O sorteio ocorre após o plano atingir 20 compras totais.`;
+            document.getElementById("purchaseModal").classList.add("active");
+        }
+
+        function closePurchaseModal() {
+            document.getElementById("purchaseModal").classList.remove("active");
+        }
+
+        function confirmPurchase() {
+            closePurchaseModal();
             const toast = document.getElementById("toastNotification");
             const msg = document.getElementById("toastMsg");
+            
             toast.classList.add("active");
-            msg.innerText = `Gerando PIX para o ${planName}...`;
+            msg.innerText = `Iniciando checkout do ${currentSelectedPlan}...`;
             
             setTimeout(() => {
                 toast.classList.remove("active");
-                alert("Redirecionando você para o checkout seguro de pagamento!");
+                alert("Redirecionando você com segurança para o pagamento via PIX!");
             }, 2000);
         }
     </script>
