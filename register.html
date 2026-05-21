@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro - Premium Platform</title>
+    <title>Cadastro — Roda dos 10</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,8 +94,11 @@
         <div class="auth-container">
             
             <div class="auth-header">
-                <div class="logo"><i class="fa-solid fa-gem"></i><span>PREMIUM</span></div>
-                <p>Crie sua conta e comece a pontuar agora mesmo</p>
+                <!-- Logo atualizada para manter a consistência da marca Roda dos 10 -->
+                <div class="logo">
+                    <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
+                </div>
+                <p>Crie sua conta para acompanhar suas cotas e comissões</p>
             </div>
 
             <form id="register-form" autocomplete="off">
@@ -103,7 +106,7 @@
                     <label for="reg-name">Nome Completo</label>
                     <div class="input-group-icon">
                         <i class="fa-regular fa-user"></i>
-                        <input type="text" id="reg-name" placeholder="John Doe" required>
+                        <input type="text" id="reg-name" placeholder="Ex: José Lucas" required>
                     </div>
                 </div>
 
@@ -134,7 +137,7 @@
 
                 <label class="terms-label">
                     <input type="checkbox" id="reg-terms" required>
-                    <span>Declaro que li e concordo com os Termos de Serviço e as Políticas de Uso da plataforma.</span>
+                    <span>Declaro que li e concordo com os Termos de Serviço e as Políticas de Uso da plataforma Roda dos 10.</span>
                 </label>
 
                 <button type="submit" class="btn-primary">
@@ -172,9 +175,11 @@
             const password = document.getElementById('reg-password').value;
             const referral = document.getElementById('reg-ref').value;
 
+            // Log mantido para validação do desenvolvedor
             console.log('Dados do Cadastro:', { name, email, password, referral });
             
-            // Aqui você disparará seu fetch() para salvar no banco futuramente.
+            // Fluxo ativo: redireciona para a tela de login após criar a conta com sucesso
+            window.location.href = 'login.html';
         });
     </script>
 </body>
