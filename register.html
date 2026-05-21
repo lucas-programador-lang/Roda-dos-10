@@ -229,14 +229,17 @@
                const referralInput = document.getElementById('reg-ref').value.trim().toLowerCase();
                 let uidIndicador = "NENHUM";
             
-                if (referralInput) {
-                    // Busca o UID real do dono do apelido no seu banco de dados
-                    const snap = await get(ref(db, `referral_map/${referralInput}`));
-                    if (snap.exists()) {
-                        uidIndicador = snap.val().uid; // Pega o UID do afiliado
-                    }
+               if (referralInput) {
+                console.log("Tentando buscar apelido no banco:", referralInput);
+                const snap = await get(ref(db, `referral_map/${referralInput}`));
+                
+                if (snap.exists()) {
+                    uidIndicador = snap.val().uid;
+                    console.log("SUCESSO: Apelido encontrado! UID do indicador:", uidIndicador);
+                } else {
+                    console.log("ERRO: Apelido não encontrado no referral_map.");
                 }
-            
+            }
                 // 4. Salva no banco com o UID do indicador
                 await set(ref(db, `users/${user.uid}`), {
                     fullName: name,
