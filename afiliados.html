@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Afiliados — Roda dos 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
+                <li><a href="afiliados.html" class="active"><i class="fa-solid fa-users"></i> Afiliados</a></li>
+                <li><a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-layout">
+        <header class="page-header">
+            <div>
+                <h1>Sistema de Afiliados</h1>
+                <p>Indique amigos e ganhe comissões direto no seu saldo por cada cota adquirida.</p>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="premium-card text-center">
+                <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
+                <h3>Seu Link de Indicação</h3>
+                <div class="input-block" style="margin-top: 1rem;">
+                    <div class="input-group-icon" style="display: flex; gap: 10px;">
+                        <input type="text" id="referral-link" readonly style="width: 100%; padding: 0.8rem; background: rgba(255,255,255,0.05); border: 1px solid var(--border-soft); color: white; border-radius: 8px;">
+                        <button id="btn-copy-link" class="btn-primary" style="width: auto; padding: 0 1.5rem;"><i class="fa-regular fa-copy"></i> Copiar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+            msgSpan.innerText = message;
+            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+            icon.style.color = isError ? "#EF4444" : "#10B981";
+            toast.classList.add("active");
+            setTimeout(() => toast.classList.remove("active"), 3500);
+        }
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Cria o link dinâmico de afiliado baseado no UID único do Auth do usuário
+                const currentUrl = window.location.origin + window.location.pathname.replace('afiliados.html', 'register.html');
+                document.getElementById("referral-link").value = `${currentUrl}?ref=${user.uid}`;
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Copiar Link
+        document.getElementById("btn-copy-link").addEventListener("click", () => {
+            const linkInput = document.getElementById("referral-link");
+            linkInput.select();
+            navigator.clipboard.writeText(linkInput.value);
+            showToast("Link de afiliado copiado com sucesso!");
+        });
+
+        // Logout
+        document.getElementById("btn-logout").addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        });
+    </script>
+</body>
+</html>
