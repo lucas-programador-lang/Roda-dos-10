@@ -384,6 +384,31 @@
         </div>
     </div>
 
+
+
+    <div class="modal-overlay" id="withdrawModal">
+    <div class="modal-card">
+        <div class="modal-icon"><i class="fa-solid fa-money-bill-transfer" style="color: #00E676;"></i></div>
+        <h3>Solicitar Saque</h3>
+        <p>Preencha os dados para receber seu rendimento via PIX.</p>
+        
+        <div style="margin-bottom: 1.2rem; text-align: left;">
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
+            <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 1.2rem; text-align: left;">
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
+            <input type="text" id="withdraw-pix" placeholder="Sua chave PIX" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+        </div>
+
+        <div class="modal-actions">
+            <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
+            <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
+        </div>
+    </div>
+</div>
+
     <div class="toast-wrapper" id="toastNotification">
         <i id="toastIcon" class="fa-solid fa-circle-notch fa-spin"></i>
         <span id="toastMsg">Carregando gateway de faturamento...</span>
@@ -432,18 +457,39 @@
         });
 
         // LÓGICA DE VERIFICAÇÃO DE SAQUE
+        // Substitua sua função antiga por esta:
         function handleWithdrawTrigger() {
             if (globalUserBalance < 25) {
-                // Abre o modal de erro caso o saldo seja insuficiente
                 document.getElementById("withdrawErrorModal").classList.add("active");
             } else {
-                // Avisa com o Toast e redireciona para a carteira
-                fireToast("Redirecionando para a sua carteira...");
-                setTimeout(() => {
-                    window.location.href = "carteira.html";
-                }, 1000);
+                document.getElementById("withdrawModal").classList.add("active");
             }
         }
+
+        // Adicione estes novos eventos antes do fechamento do script:
+        document.getElementById("btn-cancel-withdraw").addEventListener("click", () => {
+            document.getElementById("withdrawModal").classList.remove("active");
+        });
+
+        document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
+            const name = document.getElementById("withdraw-name").value.trim();
+            const pix = document.getElementById("withdraw-pix").value.trim();
+            const balance = globalUserBalance.toFixed(2).replace('.', ',');
+
+            if (!name || !pix) {
+                fireToast("Preencha nome e chave PIX.", true);
+                return;
+            }
+
+            const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
+                        `👤 Nome: ${name}\n` +
+                        `🔑 Chave PIX: ${pix}\n` +
+                        `💵 Valor: R$ ${balance}\n\n` +
+                        `Enviado via Painel Roda dos 10.`;
+
+            window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
+            document.getElementById("withdrawModal").classList.remove("active");
+        });
 
         // FUNÇÕES DO MODAL DE COMPRAS
         function openPurchaseModal(planName, price) {
@@ -546,6 +592,10 @@
             if (e.target === document.getElementById("purchaseModal")) closePurchaseModal();
             if (e.target === document.getElementById("withdrawErrorModal")) {
                 document.getElementById("withdrawErrorModal").classList.remove("active");
+            }
+            // ADICIONE ESTA LINHA ABAIXO PARA O NOVO MODAL:
+            if (e.target === document.getElementById("withdrawModal")) {
+                document.getElementById("withdrawModal").classList.remove("active");
             }
         });
     </script>
