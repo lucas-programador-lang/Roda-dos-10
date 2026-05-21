@@ -6,7 +6,7 @@
     <title>Painel Principal — Roda dos 10</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2 family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -73,7 +73,7 @@
         .progress-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
         .progress-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
         .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.5rem; }
-        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 35%; border-radius: 50px; }
+        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 55%; border-radius: 50px; transition: var(--transition-smooth); }
         .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
 
         /* GRUPO BANNER */
@@ -94,27 +94,26 @@
         .tier-prize { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.6rem; }
         .tier-prize strong { color: var(--neon-green); }
         
-        /* Contador de Compras do Pandinha */
         .quota-progress { background: rgba(245, 166, 35, 0.08); border: 1px dashed rgba(245, 166, 35, 0.2); padding: 0.5rem; border-radius: 8px; font-size: 0.75rem; color: #FFE57F; font-weight: 700; margin-bottom: 0.2rem; }
         .tier-rule-info { font-size: 0.72rem; color: var(--text-muted); line-height: 1.3; }
         
         .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; margin-top: 1.2rem; cursor: pointer; transition: var(--transition-smooth); }
         .btn-buy-tier:hover { opacity: 0.9; }
 
-        /* MODAL PREMIUM FIX */
+        /* MODAL PREMIUM FIX & INPUTS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(4, 7, 13, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-card { background: #111A2E; border: 1px solid var(--border-soft); border-radius: 20px; width: calc(100% - 32px); max-width: 440px; padding: 2rem; text-align: center; transform: scale(0.9); transition: var(--transition-smooth); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
         .modal-overlay.active .modal-card { transform: scale(1); }
-        .modal-icon { font-size: 2.8rem; color: #F5A623; margin-bottom: 1rem; }
+        .modal-icon { font-size: 2.5rem; color: #F5A623; margin-bottom: 0.8rem; }
         .modal-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
-        .modal-card p { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 1.5rem; line-height: 1.5; }
+        .modal-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.5; }
         .modal-actions { display: flex; flex-direction: column; gap: 10px; }
         .btn-modal-confirm { background: var(--primary-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
         .btn-modal-cancel { background: transparent; border: 1px solid var(--border-soft); color: var(--text-muted); padding: 0.9rem; border-radius: 10px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); }
         .btn-modal-cancel:hover { color: white; background: rgba(255,255,255,0.02); }
 
-        /* TOAST PREMIUM DESIGN REBUILT */
+        /* TOAST SYSTEM */
         .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border: 1px solid rgba(16, 185, 129, 0.2); border-left: 5px solid var(--neon-green); padding: 1.1rem 1.8rem; border-radius: 12px; display: flex; align-items: center; gap: 14px; z-index: 999999; width: calc(100% - 40px); max-width: 420px; opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; box-shadow: 0 15px 40px rgba(0,0,0,0.5); }
         .toast-wrapper.active { top: 30px; opacity: 1; transform: translateX(-50%) translateY(0); }
         .toast-wrapper i { font-size: 1.3rem; color: var(--neon-green); }
@@ -150,7 +149,7 @@
     <main class="main-layout">
         <header class="page-header">
             <h1 id="welcome-user">Olá, ...</h1>
-            <p>Compre quantas cotas quiser. Seu nome será inserido múltiplas vezes no sorteio mensal!</p>
+            <p>Compre quantas cotas quiser. Seu nome será inserido múltiplas vezes no sorteio de metas!</p>
         </header>
 
         <div class="metrics-grid">
@@ -201,7 +200,7 @@
                     <div class="tier-prize">Concorra a <strong>R$ 25,00 no PIX</strong></div>
                     <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 7 / 20 compras</div>
                     <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Bronze', '3,50', '25,00')">Adquirir Cota</button>
+                    <button class="btn-buy-tier" id="btn-buy-bronze">Adquirir Cota</button>
                 </div>
                 <div class="tier-item" style="border-color: rgba(245, 166, 35, 0.25);">
                     <div class="tier-badge" style="background: rgba(245, 166, 35, 0.15); color: #F5A623;">Plano Silver</div>
@@ -209,7 +208,7 @@
                     <div class="tier-prize">Concorra a <strong>R$ 50,00 no PIX</strong></div>
                     <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 12 / 20 compras</div>
                     <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Silver', '5,50', '50,00')">Adquirir Cota</button>
+                    <button class="btn-buy-tier" id="btn-buy-silver">Adquirir Cota</button>
                 </div>
                 <div class="tier-item">
                     <div class="tier-badge">Plano Gold VIP</div>
@@ -217,7 +216,7 @@
                     <div class="tier-prize">Concorra a <strong>R$ 100,00 no PIX</strong></div>
                     <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 4 / 20 compras</div>
                     <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" onclick="openPurchaseModal('Plano Gold VIP', '10,00', '100,00')">Adquirir Cota</button>
+                    <button class="btn-buy-tier" id="btn-buy-gold">Adquirir Cota</button>
                 </div>
             </div>
         </div>
@@ -227,53 +226,45 @@
         <div class="modal-card">
             <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
             <h3 id="modalPlanTitle">Confirmar Pedido</h3>
-            <p id="modalPlanDesc">Você está gerando uma nova cota de investimento sem rendimentos automáticos. Se o seu nome for sorteado, o prêmio será adicionado ao seu saldo.</p>
+            <p id="modalPlanDesc">Aguardando carregamento do plano...</p>
+            
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">NOME COMPLETO DO PARTICIPANTE:</label>
+                <input type="text" id="client-name" placeholder="Digite seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <button id="btn-qty-minus" style="background: var(--bg-dark-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">-</button>
+                    <span id="qty-display" style="font-weight: 800; font-size: 1.1rem; min-width: 20px; text-align: center;">1</span>
+                    <button id="btn-qty-plus" style="background: var(--bg-dark-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">+</button>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">VALOR TOTAL:</span>
+                <span id="total-display" style="font-size: 1.3rem; font-weight: 800; color: #FFE57F;">R$ 0,00</span>
+            </div>
+
             <div class="modal-actions">
-                <button class="btn-modal-confirm" onclick="confirmPurchase()">Confirmar e Gerar PIX</button>
-                <button class="btn-modal-cancel" onclick="closePurchaseModal()">Cancelar</button>
+                <button class="btn-modal-confirm" id="btn-modal-confirm">Confirmar e Enviar ao Suporte</button>
+                <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
             </div>
         </div>
     </div>
 
     <div class="toast-wrapper" id="toastNotification">
-        <i class="fa-solid fa-circle-notch fa-spin"></i>
-        <span id="toastMsg">Carregando gateway de pagamento...</span>
+        <i id="toastIcon" class="fa-solid fa-circle-notch fa-spin"></i>
+        <span id="toastMsg">Carregando gateway de faturamento...</span>
     </div>
-
-    <script>
-        let currentSelectedPlan = "";
-
-        function openPurchaseModal(planName, price, prize) {
-            currentSelectedPlan = planName;
-            document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
-            document.getElementById("modalPlanDesc").innerText = `Confirmar cota no valor de R$ ${price} para concorrer ao prêmio de R$ ${prize} no PIX. O sorteio ocorre após o plano atingir 20 compras totais.`;
-            document.getElementById("purchaseModal").classList.add("active");
-        }
-
-        function closePurchaseModal() {
-            document.getElementById("purchaseModal").classList.remove("active");
-        }
-
-        function confirmPurchase() {
-            closePurchaseModal();
-            const toast = document.getElementById("toastNotification");
-            const msg = document.getElementById("toastMsg");
-            
-            toast.classList.add("active");
-            msg.innerText = `Iniciando checkout do ${currentSelectedPlan}...`;
-            
-            setTimeout(() => {
-                toast.classList.remove("active");
-                alert("Redirecionando você com segurança para o pagamento via PIX!");
-            }, 2000);
-        }
-    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
+        // CONFIGURAÇÃO DO SEU BANCO DE DADOS
         const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
             authDomain: "roda-dos-10.firebaseapp.com",
@@ -288,10 +279,18 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
+        // ESTADO INTERNO DO MODAL
+        let pricePerUnit = 0;
+        let currentTicketName = "";
+        let currentQuantity = 1;
+
+        // INICIALIZAÇÃO DE SESSÃO DO USUÁRIO
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
                 const userRef = ref(db, `users/${user.uid}`);
+                
+                // Monitoramento em tempo real do banco Firebase
                 onValue(userRef, (snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
@@ -304,9 +303,106 @@
             }
         });
 
+        // REGRAS DE MANIPULAÇÃO DO MODAL DE COMPRAS
+        function openPurchaseModal(planName, price) {
+            currentTicketName = planName;
+            pricePerUnit = price;
+            currentQuantity = 1;
+
+            document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
+            document.getElementById("client-name").value = "";
+            
+            recalculateTotal();
+            document.getElementById("purchaseModal").classList.add("active");
+        }
+
+        function closePurchaseModal() {
+            document.getElementById("purchaseModal").classList.remove("active");
+        }
+
+        function changeQuantity(factor) {
+            currentQuantity += factor;
+            if (currentQuantity < 1) currentQuantity = 1;
+            recalculateTotal();
+        }
+
+        function recalculateTotal() {
+            const finalPrice = pricePerUnit * currentQuantity;
+            document.getElementById("qty-display").innerText = currentQuantity;
+            document.getElementById("total-display").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
+            document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>. Seu nome entrará múltiplas vezes nas apurações!`;
+        }
+
+        // CONFIRMAÇÃO DE ENVIO PARA O SUPORTE (WHATSAPP)
+        function confirmPurchase() {
+            const clientName = document.getElementById("client-name").value.trim();
+
+            if (!clientName) {
+                fireToast("Por favor, preencha seu nome completo para o sorteio.", true);
+                return;
+            }
+
+            const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
+            
+            // Layout da mensagem contendo as regras de negócio alinhadas
+            const textMessage = 
+                `🎯 *RODA DOS 10 - NOVO PEDIDO DE COTAS* 🎯\n\n` +
+                `👤 *Nome do Participante:* ${clientName}\n` +
+                `🎫 *Plano Escolhido:* ${currentTicketName}\n` +
+                `🔢 *Quantidade Adquirida:* ${currentQuantity} Cota(s)\n` +
+                `💰 *Valor Total do Pedido:* R$ ${finalValueStr}\n\n` +
+                `🍀 *Regra de Inserção:* O nome deste usuário será inserido *${currentQuantity} vezes* na lista de sorteio oficial assim que o plano atingir o fechamento de 20 compras totais!`;
+
+            closePurchaseModal();
+            fireToast("Cota gerada! Redirecionando para o suporte...");
+
+            setTimeout(() => {
+                window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
+            }, 1200);
+        }
+
+        // GERENCIADOR DE ALERTA TOAST PREMIUM
+        function fireToast(message, isError = false) {
+            const toast = document.getElementById("toastNotification");
+            const icon = document.getElementById("toastIcon");
+            const msg = document.getElementById("toastMsg");
+
+            msg.innerText = message;
+
+            if (isError) {
+                toast.style.borderLeftColor = "#EF4444";
+                icon.className = "fa-solid fa-circle-xmark";
+                icon.style.color = "#EF4444";
+            } else {
+                toast.style.borderLeftColor = "var(--neon-green)";
+                icon.className = "fa-solid fa-circle-check";
+                icon.style.color = "var(--neon-green)";
+            }
+
+            toast.classList.add("active");
+            setTimeout(() => { toast.classList.remove("active"); }, 3500);
+        }
+
+        // ATRIBUIÇÃO DOS EVENTOS COM SECURITY LISTENERS (PREVINE CONFLITOS DE ESCOPO COM MODULE)
+        document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
+        document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
+        document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
+        
+        document.getElementById("btn-qty-minus").addEventListener("click", () => changeQuantity(-1));
+        document.getElementById("btn-qty-plus").addEventListener("click", () => changeQuantity(1));
+        
+        document.getElementById("btn-modal-confirm").addEventListener("click", confirmPurchase);
+        document.getElementById("btn-modal-cancel").addEventListener("click", closePurchaseModal);
+
         document.getElementById("btn-logout").addEventListener("click", (e) => {
             e.preventDefault();
             signOut(auth).then(() => { window.location.href = "login.html"; });
+        });
+
+        // Fechar modal clicando fora do card
+        window.addEventListener("click", (e) => {
+            const modal = document.getElementById("purchaseModal");
+            if (e.target === modal) closePurchaseModal();
         });
     </script>
 </body>
