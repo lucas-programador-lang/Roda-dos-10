@@ -1028,3 +1028,83 @@ header {
     .hero-container h1 { font-size: 3.4rem; }
     .grid-sorteios { padding: 0; }
 }
+
+/* ==========================================================================
+   AJUSTES FINOS E REFINAMENTO DO MODAL (ESTILO PREMIUM COMBINADO)
+   ========================================================================== */
+.modal-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-header h2 {
+    color: var(--text-white);
+    font-size: 1.6rem;
+    font-weight: 800;
+}
+
+.modal-body .input-block input {
+    width: 100%;
+    background: rgba(7, 11, 19, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: var(--transition-smooth);
+}
+
+.modal-body .input-block input:focus {
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
+}
+
+.quantity-control {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(7, 11, 19, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    height: 52px;
+    padding: 0 10px !important;
+}
+
+.qty-btn {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    width: 38px !important;
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.2rem !important;
+}
+
+.qty-btn:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: var(--neon-green);
+}
+
+.total-row {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+.btn-submit-order {
+    background: var(--primary-gold) !important;
+    color: #000 !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    height: 50px;
+    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.15);
+}
+
+.btn-submit-order i {
+    font-size: 1.1rem;
+}
+
+.btn-submit-order:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.25);
+}
