@@ -134,8 +134,8 @@ function requestWithdraw() {
     const name = nameInput.value.trim();
     let data = getLocalData();
 
-    if (isNaN(amount) || amount < 30) {
-        fireToast("O valor mínimo para saques é de R$ 30,00.", true);
+    if (isNaN(amount) || amount < 25) {
+        fireToast("O valor mínimo para saques é de R$ 25,00.", true);
         return;
     }
     if (!name) {
