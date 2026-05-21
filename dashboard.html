@@ -41,19 +41,22 @@
                     <span class="tier-badge">Popular</span>
                     <p class="tier-cost">Investe <strong>R$ 3,50</strong></p>
                     <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 25,00</strong></p>
-                    <p class="tier-rule-info">Liberado a cada 20 compras</p>
+                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
+                    <button class="btn-primary" onclick="openModal('Cota Bronze', 3.50, 25.00)" style="width: 100%; padding: 8px; font-size: 0.85rem;">Comprar Cota</button>
                 </div>
                 <div class="tier-item highlight-tier">
                     <span class="tier-badge">Recomendado</span>
                     <p class="tier-cost">Investe <strong>R$ 5,50</strong></p>
                     <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 50,00</strong></p>
-                    <p class="tier-rule-info">Liberado a cada 20 compras</p>
+                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
+                    <button class="btn-primary" onclick="openModal('Cota Prata', 5.50, 50.00)" style="width: 100%; padding: 8px; font-size: 0.85rem; background: var(--neon-green); color: #000;">Comprar Cota</button>
                 </div>
                 <div class="tier-item">
                     <span class="tier-badge">VIP</span>
                     <p class="tier-cost">Investe <strong>R$ 10,00</strong></p>
                     <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 100,00</strong></p>
-                    <p class="tier-rule-info">Liberado a cada 20 compras</p>
+                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
+                    <button class="btn-primary" onclick="openModal('Cota Ouro', 10.00, 100.00)" style="width: 100%; padding: 8px; font-size: 0.85rem;">Comprar Cota</button>
                 </div>
             </div>
 
@@ -82,7 +85,7 @@
         <div class="group-banner-card">
             <div class="banner-glow-effect"></div>
             <div class="banner-info">
-                <span class="banner-badge"><i class="fa-solid fa-bell"></i> Resultados Aqui</span>
+                <span class="banner-badge"><i class="fa-solid fa-bell"></i> Resultados Here</span>
                 <h3>Grupo Exclusivo Roda dos 10</h3>
                 <p>Os resultados são divulgados exclusivamente dentro do grupo assim que a meta de 20 compras é atingida.</p>
             </div>
@@ -127,13 +130,13 @@
                     <i class="fa-solid fa-money-bill-wave card-header-icon text-gold"></i>
                     <div>
                         <h3>Solicitar Saque Manual</h3>
-                        <p class="action-desc">Saque a qualquer momento. Mínimo de R$ 25,00.</p>
+                        <p class="action-desc">Saque a qualquer momento. Mínimo de R$ 30,00.</p>
                     </div>
                 </div>
                 
                 <div class="input-block">
                     <label for="withdraw-amount">Valor do Saque (R$)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Ex: 25.00" min="25">
+                    <input type="number" id="withdraw-amount" placeholder="Ex: 30.00" min="30">
                 </div>
                 <div class="input-block">
                     <label for="withdraw-name">Seu Nome Completo</label>
@@ -170,6 +173,40 @@
         </section>
     </main>
 
+    <!-- STRUCTURED PREMIUM MODAL COMPRA -->
+    <div id="modalCompra" class="modal-backdrop">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            
+            <h2 id="m-ticket-name">Cota Bronze</h2>
+            <p id="m-ticket-prize" class="prize-highlight">Concorra a R$ 25,00 no Pix</p>
+            
+            <div class="input-group" style="margin-top: 20px;">
+                <label for="client-name" style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94A3B8;">Seu Nome Completo (Usado no Sorteio)</label>
+                <input type="text" id="client-name" placeholder="Digite seu nome para o sorteio..." style="width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 1rem;">
+            </div>
+            
+            <div class="quantity-selector" style="margin-top: 20px;">
+                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94A3B8;">Quantidade de Cotas (Acelera a meta de liberação)</label>
+                <div class="selector-controls" style="display: flex; align-items: center; gap: 15px; background: rgba(15, 23, 42, 0.6); padding: 8px 16px; border-radius: 8px; width: fit-content; border: 1px solid rgba(255, 255, 255, 0.05);">
+                    <button type="button" onclick="changeQuantity(-1)" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; width: 30px; height: 30px;">-</button>
+                    <span id="qty-display" style="font-size: 1.2rem; font-weight: 700; min-width: 20px; text-align: center;">1</span>
+                    <button type="button" onclick="changeQuantity(1)" style="background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; width: 30px; height: 30px;">+</button>
+                </div>
+            </div>
+            
+            <div class="total-box" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #94A3B8;">Total a Pagar:</span>
+                <strong id="total-display" style="font-size: 1.5rem; color: var(--neon-green); font-weight: 800;">R$ 3,50</strong>
+            </div>
+            
+            <button class="btn-send" onclick="sendOrder()" style="width: 100%; padding: 14px; background: var(--neon-green); border: none; border-radius: 8px; color: #000; font-weight: 700; font-size: 1rem; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;">
+                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <!-- PREMIUM NOTIFICATION SYSTEM -->
     <div class="toast-wrapper" id="toastBox">
         <i class="fa-solid fa-circle-check" id="toastIcon"></i>
         <span id="toastMessage">Sucesso!</span>
