@@ -129,31 +129,31 @@
             <p>Gerencie as credenciais da sua conta privada de forma automatizada.</p>
         </header>
 
-        <div class="premium-card">
+        <<div class="premium-card">
     <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
-    <h3>Alterar Senha</h3>
+    <h3>Alterar Minha Senha</h3>
     
     <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
         <div class="input-group-icon">
             <i class="fa-solid fa-unlock-keyhole"></i>
-            <input type="password" id="current-password" placeholder="Senha Atual" required>
+            <input type="password" id="current-password" placeholder="Senha Atual" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
         </div>
         <div class="input-group-icon">
             <i class="fa-solid fa-lock"></i>
-            <input type="password" id="new-password" placeholder="Nova Senha" required>
+            <input type="password" id="new-password" placeholder="Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
         </div>
         <div class="input-group-icon">
             <i class="fa-solid fa-check-double"></i>
-            <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required>
+            <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
         </div>
-        <button id="btn-update-password" class="btn-reset-password">Atualizar Minha Senha</button>
+        <button id="btn-update-password" class="btn-reset-password">Atualizar Senha</button>
     </div>
 
     <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
     
-    <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu sua senha atual? Receba instruções de recuperação por e-mail.</p>
+    <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu a senha atual? Use o botão abaixo:</p>
     <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
-        <i class="fa-regular fa-envelope"></i> Redefinir por E-mail
+        <i class="fa-regular fa-envelope"></i> Redefinir pelo E-mail
     </button>
 </div>
     </main>
@@ -162,8 +162,7 @@
         <i id="toastIcon" class="fa-solid"></i>
         <span id="toastMessage">Status</span>
     </div>
-
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { 
         getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
@@ -222,6 +221,12 @@
         }
 
         const user = auth.currentUser;
+        
+        if (!user) {
+            showFeedback("Usuário não autenticado.", false);
+            return;
+        }
+
         const credential = EmailAuthProvider.credential(user.email, currentPass);
 
         try {
