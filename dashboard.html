@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Premium Pix — Controle Geral</title>
+    <title>Painel Roda dos 10 — Controle Geral</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,7 @@
     <header>
         <div class="nav-container">
             <div class="logo">
-                <i class="fa-solid fa-chart-line"></i> Painel<span>Premium</span>
+                <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
             </div>
             <nav class="nav-menu">
                 <a href="index.html">Sorteios</a>
@@ -27,8 +27,8 @@
     <main class="dashboard-container">
         <div class="group-banner-card">
             <div class="banner-info">
-                <h3>Grupo Exclusivo de Sorteios</h3>
-                <p>Todos os sorteios acontecem de 10 em 10 dias e são divulgados aqui.</p>
+                <h3>Grupo Exclusivo Roda dos 10</h3>
+                <p>Os sorteios ocorrem de 10 em 10 dias e os resultados são divulgados dentro do grupo.</p>
             </div>
             <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
                 <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
@@ -38,17 +38,17 @@
         <section class="metrics-grid">
             <div class="metric-card">
                 <div class="card-meta">
-                    <span>Saldo Disponível (Indicações)</span>
+                    <span>Saldo de Indicações</span>
                     <i class="fa-solid fa-wallet icon-wallet"></i>
                 </div>
                 <h2 id="dash-balance">R$ 0,00</h2>
-                <p class="sub-text">Comissão única de 20% por amigo</p>
-                <button class="btn-simulate-bonus" onclick="simulateCommission()"><i class="fa-solid fa-plus"></i> Simular +R$20 Comissão</button>
+                <p class="sub-text">Comissão única de 20% por convidado</p>
+                <button class="btn-simulate-bonus" onclick="simulateCommission()"><i class="fa-solid fa-plus"></i> Simular +R$20 de Comissão</button>
             </div>
 
             <div class="metric-card">
                 <div class="card-meta">
-                    <span>Cotas Adquiridas</span>
+                    <span>Minhas Cotas</span>
                     <i class="fa-solid fa-ticket-simple icon-ticket"></i>
                 </div>
                 <h2 id="dash-tickets">0</h2>
@@ -59,29 +59,29 @@
         <section class="dash-actions-grid">
             <div class="action-card">
                 <h3><i class="fa-solid fa-money-bill-wave"></i> Solicitar Saque Manual</h3>
-                <p class="action-desc">Saques permitidos a qualquer momento. Mínimo de R$ 30,00.</p>
+                <p class="action-desc">Saque a qualquer momento. Mínimo de R$ 30,00.</p>
                 
                 <div class="input-block">
                     <label for="withdraw-amount">Valor do Saque (R$)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Ex: 35.00" min="30">
+                    <input type="number" id="withdraw-amount" placeholder="Ex: 30.00" min="30">
                 </div>
                 <div class="input-block">
                     <label for="withdraw-name">Seu Nome Completo</label>
-                    <input type="text" id="withdraw-name" placeholder="Confirme seu nome completo">
+                    <input type="text" id="withdraw-name" placeholder="Digite seu nome completo">
                 </div>
                 <button class="btn-primary" onclick="requestWithdraw()"><i class="fa-solid fa-hand-holding-dollar"></i> Solicitar via WhatsApp</button>
             </div>
 
             <div class="action-card">
                 <h3><i class="fa-solid fa-share-nodes"></i> Seu Link de Indicação</h3>
-                <p class="action-desc">Copie o link abaixo e ganhe 20% de todas as compras feitas pelos seus amigos.</p>
+                <p class="action-desc">Compartilhe seu link e acumule 20% de comissão em todas as compras dos seus indicados.</p>
                 
                 <div class="referral-box">
-                    <input type="text" id="referral-link" readonly value="https://seu-usuario.github.io/seu-repositorio/?ref=user123">
+                    <input type="text" id="referral-link" readonly value="">
                     <button class="btn-copy" onclick="copyLink()"><i class="fa-solid fa-copy"></i> Copiar</button>
                 </div>
                 <div class="affiliate-alert">
-                    <i class="fa-solid fa-circle-info"></i> Lembrete: Após o saque, envie o valor e seu nome ao suporte para a conferência manual de chaves.
+                    <i class="fa-solid fa-circle-info"></i> Atenção: Após solicitar o saque, envie o valor e seu nome ao suporte para efetuar o pagamento.
                 </div>
             </div>
         </section>
@@ -94,10 +94,9 @@
 
     <script src="script.js"></script>
     <script>
-        // Atualiza a URL de indicação baseada no link atual da página do Github Pages
         document.addEventListener("DOMContentLoaded", () => {
             const currentUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'index.html');
-            document.getElementById("referral-link").value = currentUrl + "?ref=VIP" + Math.floor(1000 + Math.random() * 9000);
+            document.getElementById("referral-link").value = currentUrl + "?ref=Roda" + Math.floor(1000 + Math.random() * 9000);
             updateDashboardMetrics();
         });
     </script>
