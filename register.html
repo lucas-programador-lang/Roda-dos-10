@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro — Roda dos 10</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link para o seu CSS unificado -->
     <link rel="stylesheet" href="style.css">
     <style>
         /* Reaproveitando a estrutura de centralização refinada */
@@ -91,10 +88,9 @@
 <body>
 
     <div class="auth-wrapper">
-        <div class="auth-container">
+        <div class="auth-container premium-glass">
             
             <div class="auth-header">
-                <!-- Logo atualizada para manter a consistência da marca Roda dos 10 -->
                 <div class="logo">
                     <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
                 </div>
@@ -126,7 +122,6 @@
                     </div>
                 </div>
 
-                <!-- Campo de Indicação (Opcional) - Perfeito para o sistema de afiliados -->
                 <div class="input-block">
                     <label for="reg-ref">Código de Indicação (Opcional)</label>
                     <div class="input-group-icon">
@@ -152,7 +147,47 @@
         </div>
     </div>
 
-    <script>
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        // Suas credenciais oficiais configuradas com a URL do Database corrigida
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        };
+
+        // Inicializando os módulos do ecossistema Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+
+        // Feedback visual dinâmico (Toast)
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+            
+            msgSpan.innerText = message;
+            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+            icon.style.color = isError ? "#EF4444" : "#10B981";
+            
+            toast.classList.add("active");
+            setTimeout(() => toast.classList.remove("active"), 3500);
+        }
+
         // Captura automática de parâmetros da URL para o sistema de afiliados
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -161,25 +196,62 @@
                 const refInput = document.getElementById('reg-ref');
                 if (refInput) {
                     refInput.value = refCode.toUpperCase();
-                    // Opcional: desabilitar o campo se quiser forçar o código vindo da URL
-                    // refInput.readOnly = true; 
                 }
             }
         });
 
-        document.getElementById('register-form').addEventListener('submit', function(e) {
+        // Evento de envio e tratamento do formulário de registro
+        document.getElementById('register-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const name = document.getElementById('reg-name').value;
-            const email = document.getElementById('reg-email').value;
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
-            const referral = document.getElementById('reg-ref').value;
+            const referral = document.getElementById('reg-ref').value.trim().toUpperCase();
+            const termsChecked = document.getElementById('reg-terms').checked;
 
-            // Log mantido para validação do desenvolvedor
-            console.log('Dados do Cadastro:', { name, email, password, referral });
-            
-            // Fluxo ativo: redireciona para a tela de login após criar a conta com sucesso
-            window.location.href = 'login.html';
+            if (!termsChecked) {
+                showToast("Você precisa aceitar os Termos de Serviço.", true);
+                return;
+            }
+
+            try {
+                // 1. Cria a conta do usuário no Firebase Authentication
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+
+                // 2. Atualiza o perfil interno do Auth com o Nome Completo digitado
+                await updateProfile(user, { displayName: name });
+
+                // 3. Monta a árvore de dados dele dentro do nó 'users/' seguro do Realtime Database
+                await set(ref(db, `users/${user.uid}`), {
+                    fullName: name,
+                    email: user.email,
+                    balance: 0.00, // Inicializa a conta com o saldo em R$ 0,00 reais
+                    tickets: 0,    // Inicializa sem cotas ativas
+                    referredBy: referral || "NENHUM",
+                    createdAt: new Date().toISOString()
+                });
+
+                showToast("Conta criada! Redirecionando para o painel...");
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+
+            } catch (error) {
+                console.error("Erro no registro:", error.code);
+                
+                // Tratamento detalhado de erros do servidor Auth
+                if (error.code === 'auth/email-already-in-use') {
+                    showToast("Este e-mail já está em uso por outra conta.", true);
+                } else if (error.code === 'auth/weak-password') {
+                    showToast("A senha precisa ter pelo menos 6 dígitos.", true);
+                } else if (error.code === 'auth/invalid-email') {
+                    showToast("Formato de e-mail inválido.", true);
+                } else {
+                    showToast("Ocorreu um erro ao processar o cadastro.", true);
+                }
+            }
         });
     </script>
 </body>
