@@ -23,7 +23,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); padding-top: 100px; padding-bottom: 60px; }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); padding-top: 110px; padding-bottom: 60px; }
 
         /* FLOATING NAVBAR */
         .navbar {
@@ -93,22 +93,22 @@
 
     <main class="main-layout">
         <header class="page-header">
-            <h1>Segurança da Conta</h1>
-            <p>Gerencie o método de autenticação e redefinição da sua credencial privada.</p>
+            <h1>Segurança de Acesso</h1>
+            <p>Gerencie as credenciais da sua conta privada de forma automatizada.</p>
         </header>
 
         <div class="premium-card">
-            <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <div class="card-icon"><i class="fa-solid fa-key"></i></div>
             <h3>Alterar Minha Senha</h3>
-            <p class="instruction-text">Se você deseja trocar de senha ou não se lembra da sua credencial atual, clique no botão abaixo. Enviaremos um e-mail de redefinição seguro para o seu endereço cadastrado.</p>
+            <p class="instruction-text">Se deseja trocar sua credencial secreta por motivos de segurança, ou caso não lembre da senha atual, clique no botão abaixo para receber as instruções seguras no seu e-mail cadastrado.</p>
             
-            <button id="btn-send-reset" class="btn-reset-password"><i class="fa-regular fa-envelope"></i> Enviar E-mail de Redefinição</button>
+            <button id="btn-send-reset" class="btn-reset-password"><i class="fa-regular fa-envelope"></i> Redefinir Senha pelo E-mail</button>
         </div>
     </main>
 
     <div class="toast-wrapper" id="toastBox">
         <i id="toastIcon" class="fa-solid"></i>
-        <span id="toastMessage">Mensagem</span>
+        <span id="toastMessage">Status</span>
     </div>
 
     <script type="module">
@@ -152,16 +152,16 @@
 
         document.getElementById("btn-send-reset").addEventListener("click", () => {
             if (!userEmail) {
-                showFeedback("Erro ao carregar e-mail da sessão.", false);
+                showFeedback("Erro ao validar sessão.", false);
                 return;
             }
 
             sendPasswordResetEmail(auth, userEmail)
                 .then(() => {
-                    showFeedback(`E-mail enviado com sucesso para ${userEmail}! Siga as instruções da mensagem.`);
+                    showFeedback(`Link enviado! Verifique a caixa de entrada de: ${userEmail}`);
                 })
                 .catch((error) => {
-                    showFeedback(`Erro ao tentar enviar: ${error.message}`, false);
+                    showFeedback(`Falha ao disparar e-mail: ${error.message}`, false);
                 });
         });
 
