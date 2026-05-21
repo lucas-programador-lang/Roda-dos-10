@@ -112,8 +112,13 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const currentUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'index.html');
-            document.getElementById("referral-link").value = currentUrl + "?ref=Roda" + Math.floor(1000 + Math.random() * 9000);
-            updateDashboardMetrics();
+            const referralInput = document.getElementById("referral-link");
+            if (referralInput) {
+                referralInput.value = currentUrl + "?ref=Roda" + Math.floor(1000 + Math.random() * 9000);
+            }
+            if (typeof updateDashboardMetrics === "function") {
+                updateDashboardMetrics();
+            }
         });
     </script>
 </body>
