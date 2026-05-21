@@ -8,11 +8,14 @@ let currentQuantity = 1;
 function getLocalData() {
     let data = localStorage.getItem("roda_dos_10_data");
     if (!data) {
-        data = { balance: 0.00, purchasedTicketsCount: 0 };
+        // Inicializa simulando que o pool global de compras já está em 6 para não ficar zerado
+        data = { balance: 0.00, purchasedTicketsCount: 0, globalPoolCount: 6 };
         localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
         return data;
     }
-    return JSON.parse(data);
+    let parsed = JSON.parse(data);
+    if (parsed.globalPoolCount === undefined) parsed.globalPoolCount = 6;
+    return parsed;
 }
 
 function saveLocalData(data) {
@@ -20,14 +23,26 @@ function saveLocalData(data) {
     updateDashboardMetrics();
 }
 
-// ATUALIZA INTERFACE DO DASHBOARD
+// ATUALIZA INTERFACE DO DASHBOARD E PROGRESSO DE COMPRAS
 function updateDashboardMetrics() {
     const balanceEl = document.getElementById("dash-balance");
     const ticketsEl = document.getElementById("dash-tickets");
+    const progressFill = document.getElementById("meta-progress-fill");
+    const progressText = document.getElementById("meta-text-count");
+    
     const data = getLocalData();
 
     if (balanceEl) balanceEl.innerText = `R$ ${data.balance.toFixed(2).replace(".", ",")}`;
     if (ticketsEl) ticketsEl.innerText = data.purchasedTicketsCount;
+
+    // Atualiza a barra de progresso (Limite de 20 compras)
+    let currentPool = data.globalPoolCount;
+    if (currentPool > 20) currentPool = 20; // limite de segurança visual
+    
+    const percentage = (currentPool / 20) * 100;
+    
+    if (progressFill) progressFill.style.width = `${percentage}%`;
+    if (progressText) progressText.innerText = `${currentPool} / 20 Compras`;
 }
 
 // COMPRA / MODAL FUNCTIONS
@@ -53,7 +68,6 @@ function closeModal() {
     document.getElementById("modalCompra").classList.remove("active");
 }
 
-// CONTROLE DE QUANTIDADE (+ ou -)
 function changeQuantity(factor) {
     currentQuantity += factor;
     if (currentQuantity < 1) currentQuantity = 1;
@@ -85,12 +99,14 @@ function sendOrder() {
         `👤 *Nome:* ${clientName}\n` +
         `🎫 *Tipo:* ${currentTicketName}\n` +
         `🔢 *Quantidade:* ${currentQuantity} cota(s)\n` +
+        `📈 *Contagem de Metas:* Conta como +${currentQuantity} compras na rodada!\n` +
         `💰 *Valor Total:* R$ ${finalValueStr}\n\n` +
-        `🍀 *Concorrendo a:* R$ ${prizeValue.toFixed(2)} no Pix!`;
+        `🍀 *Sorteio por Nome:* Seu nome será inserido ${currentQuantity} vezes no sorteio assim que bater a meta de 20!`;
 
-    // Simula as cotas sendo salvas no painel
+    // Incrementa dados de simulação locais
     let data = getLocalData();
     data.purchasedTicketsCount += currentQuantity;
+    data.globalPoolCount += currentQuantity; // Incrementa a barra de meta
     saveLocalData(data);
 
     fireToast("Pedido gerado! Abrindo suporte...");
@@ -125,7 +141,6 @@ function requestWithdraw() {
         return;
     }
 
-    // Deduz do saldo interno
     data.balance -= amount;
     saveLocalData(data);
 
@@ -133,7 +148,7 @@ function requestWithdraw() {
         `💰 *RODA DOS 10 - SOLICITAÇÃO DE SAQUE* 💰\n\n` +
         `👤 *Nome:* ${name}\n` +
         `💵 *Valor do Saque:* R$ ${amount.toFixed(2).replace(".", ",")}\n\n` +
-        `Solicito o pagamento das minhas comissões acumuladas!`;
+        `Enviei os dados e solicito o pagamento manual conforme as regras de indicação.`;
 
     fireToast("Solicitação gerada! Enviando dados ao suporte...");
     
@@ -188,7 +203,6 @@ function fireToast(message, isError = false) {
     setTimeout(() => toast.classList.remove("active"), 4000);
 }
 
-// Fechamento básico clicando fora do modal
 window.onclick = function(event) {
     const backdrop = document.getElementById("modalCompra");
     if (event.target === backdrop) closeModal();
