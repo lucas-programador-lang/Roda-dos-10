@@ -243,21 +243,15 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Corrigido: Apenas uma chamada de onAuthStateChanged
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // 1. Busca os dados do usuário para pegar o 'username'
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
-            // Define o apelido (se não existir username, usa o uid)
             const apelido = userData?.username || user.uid; 
 
-            // 2. Gera o link curto (Certifique-se que o id é 'referral-link')
             document.getElementById("referral-link").value = window.location.origin + '/r?id=' + apelido;
 
-            // 3. Busca os indicados 
-            // Corrigido: O ID no seu HTML é 'afiliados-lista'
             const usersRef = ref(db, 'users');
             const q = query(usersRef, orderByChild('referredBy'), equalTo(user.uid));
             
@@ -266,14 +260,16 @@
             tabela.innerHTML = "";
 
             if (snapshot.exists()) {
+                // Correção: Iterar sobre o snapshot.val() se necessário ou usar o childSnapshot.val() diretamente
                 snapshot.forEach((childSnapshot) => {
                     const dados = childSnapshot.val();
+                    const nomeIndicado = dados.fullName || 'Sem nome';
                     const valorCompra = dados.valor || 0; 
-                    const comissao = (valorCompra * 0.20).toFixed(2);
+                    const comissao = (parseFloat(valorCompra) * 0.20).toFixed(2);
                     
                     tabela.innerHTML += `
                         <tr style="border-bottom: 1px solid var(--border-soft);">
-                            <td style="padding: 10px;">${dados.fullName || 'Sem nome'}</td>
+                            <td style="padding: 10px;">${nomeIndicado}</td>
                             <td style="padding: 10px; color: var(--text-neon);">R$ ${comissao}</td>
                         </tr>
                     `;
