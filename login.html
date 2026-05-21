@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Premium Platform</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Link para o seu CSS unificado -->
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Estilos específicos para centralizar a caixa de autenticação na tela */
+        .auth-wrapper {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: var(--bg-dark-base);
+        }
+        .auth-container {
+            background: var(--bg-dark-card);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-premium);
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .auth-header .logo {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .auth-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        .auth-footer a {
+            color: #F5A623;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-smooth);
+        }
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        .input-group-icon {
+            position: relative;
+        }
+        .input-group-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+        .input-group-icon input {
+            padding-left: 2.8rem !important;
+        }
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+        .checkbox-label input {
+            accent-color: #F5A623;
+        }
+        .forgot-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+        .forgot-link:hover {
+            color: var(--text-white);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="auth-wrapper">
+        <div class="auth-container">
+            
+            <div class="auth-header">
+                <div class="logo"><i class="fa-solid fa-gem"></i><span>PREMIUM</span></div>
+                <p>Entre na sua conta para gerenciar seus planos</p>
+            </div>
+
+            <form id="login-form" autocomplete="off">
+                <div class="input-block">
+                    <label for="login-email">E-mail</label>
+                    <div class="input-group-icon">
+                        <i class="fa-regular fa-envelope"></i>
+                        <input type="email" id="login-email" placeholder="seu@email.com" required>
+                    </div>
+                </div>
+
+                <div class="input-block">
+                    <label for="login-password">Senha</label>
+                    <div class="input-group-icon">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="login-password" placeholder="••••••••" required>
+                    </div>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="remember-me"> Lembrar de mim
+                    </label>
+                    <a href="#" class="forgot-link" id="btn-forgot-password">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <i class="fa-solid fa-right-to-bracket"></i> Acessar Conta
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Não tem uma conta? <a href="register.html">Cadastre-se</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Script básico para tratamento de eventos -->
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            // Log de verificação técnica para sua integração backend futura
+            console.log('Tentativa de Login:', { email, password });
+            
+            // Exemplo de redirecionamento manual pós-sucesso para fins de teste
+            // window.location.href = 'dashboard.html';
+        });
+    </script>
+</body>
+</html>
