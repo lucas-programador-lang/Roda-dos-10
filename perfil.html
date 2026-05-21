@@ -50,8 +50,11 @@
 
         .input-block { margin-top: 1rem; }
         .input-block label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-        .input-block input { width: 100%; padding: 0.9rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 10px; color: white; outline: none; margin-bottom: 1rem; }
+        .input-block input { width: 100%; padding: 0.9rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 10px; color: white; outline: none; margin-bottom: 0.5rem; }
         
+        .rule-note { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1.2rem; display: block; }
+        .rule-note strong { color: #FFE57F; }
+
         .btn-withdraw { width: 100%; background: #10B981; color: white; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); }
         .btn-withdraw:hover { opacity: 0.9; }
 
@@ -62,6 +65,7 @@
             .nav-container { flex-direction: column; gap: 1rem; padding: 1rem; }
             .nav-menu { gap: 1rem; flex-wrap: wrap; justify-content: center; }
             .profile-grid { grid-template-columns: 1fr; }
+            .page-header { text-align: center; }
         }
     </style>
 </head>
@@ -82,25 +86,26 @@
     <main class="main-layout">
         <header class="page-header">
             <h1>Configurações e Perfil</h1>
-            <p>Confira seus dados de cadastro oficiais e faça solicitações de retiradas.</p>
+            <p>Monitore suas credenciais de acesso seguras e realize saques instantâneos.</p>
         </header>
 
         <div class="profile-grid">
             <div class="premium-card">
-                <h3><i class="fa-regular fa-id-card" style="color: #F5A623;"></i> Informações de Conta</h3>
+                <h3><i class="fa-regular fa-id-card" style="color: #F5A623;"></i> Credenciais do Usuário</h3>
                 <div class="info-row">
                     <p>Nome Completo: <span id="prof-name">...</span></p>
                     <p>E-mail Cadastrado: <span id="prof-email">...</span></p>
-                    <p>ID Exclusivo (UID): <span id="prof-uid" style="font-family: monospace; color: #FFE57F;">...</span></p>
+                    <p>ID da Conta (UID): <span id="prof-uid" style="font-family: monospace; color: #FFE57F;">...</span></p>
                 </div>
             </div>
 
             <div class="premium-card">
-                <h3><i class="fa-solid fa-money-bill-transfer" style="color: #10B981;"></i> Solicitar Retirada</h3>
+                <h3><i class="fa-solid fa-money-bill-transfer" style="color: #10B981;"></i> Retirada Manual</h3>
                 <div class="input-block">
-                    <label>Valor do Saque (Mínimo R$ 25,00)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Ex: 50.00">
-                    <button id="btn-withdraw" class="btn-withdraw"><i class="fa-brands fa-whatsapp"></i> Solicitar via WhatsApp</button>
+                    <label>Valor do Saque (Mínimo R$ 30,00)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Ex: 35.00">
+                    <span class="rule-note"><i class="fa-solid fa-circle-info"></i> O saque pode ser solicitado <strong>a qualquer momento</strong>. Após concluir, envie o valor e seu nome ao suporte para a liberação imediata.</span>
+                    <button id="btn-withdraw" class="btn-withdraw"><i class="fa-brands fa-whatsapp"></i> Enviar Dados ao Suporte</button>
                 </div>
             </div>
         </div>
@@ -158,19 +163,18 @@
             const amountInput = document.getElementById("withdraw-amount");
             const amount = parseFloat(amountInput.value);
             const userName = document.getElementById("prof-name").innerText;
-            const userUid = document.getElementById("prof-uid").innerText;
 
-            if (!amount || amount < 25) {
-                showError("O valor mínimo para saque é R$ 25,00.");
+            if (!amount || amount < 30) {
+                showError("O valor mínimo para a realização do saque é R$ 30,00.");
                 return;
             }
             if (amount > userBalance) {
-                showError(`Saldo insuficiente. Você possui R$ ${userBalance.toFixed(2).replace('.',',')}`);
+                showError(`Saldo insuficiente. Seu balanço atual é R$ ${userBalance.toFixed(2).replace('.',',')}`);
                 return;
             }
 
-            const message = `Olá! Solicito meu saque na Roda dos 10.\n\n👤 *Nome:* ${userName}\n💰 *Valor:* R$ ${amount.toFixed(2).replace('.',',')}\n🆔 *UID:* ${userUid}`;
-            window.open(`https://wa.me/55639759981028?text=${encodeURIComponent(message)}`, "_blank");
+            const message = `Solicitação de Saque Efetuada!\n\n👤 *Nome:* ${userName}\n💰 *Valor Solicitado:* R$ ${amount.toFixed(2).replace('.',',')}\n\nFavor efetuar o pagamento via PIX.`;
+            window.open(`https://wa.me/639759981028?text=${encodeURIComponent(message)}`, "_blank");
             amountInput.value = "";
         });
 
