@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Premium Platform</title>
+    <title>Login — Roda dos 10</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,8 +105,11 @@
         <div class="auth-container">
             
             <div class="auth-header">
-                <div class="logo"><i class="fa-solid fa-gem"></i><span>PREMIUM</span></div>
-                <p>Entre na sua conta para gerenciar seus planos</p>
+                <!-- Logo atualizada para o padrão da marca Roda dos 10 -->
+                <div class="logo">
+                    <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
+                </div>
+                <p>Entre na sua conta para gerenciar seus planos e afiliados</p>
             </div>
 
             <form id="login-form" autocomplete="off">
@@ -145,7 +148,6 @@
         </div>
     </div>
 
-    <!-- Script básico para tratamento de eventos -->
     <script>
         document.getElementById('login-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -153,11 +155,11 @@
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
 
-            // Log de verificação técnica para sua integração backend futura
+            // Log de verificação técnica mantido para sua futura integração com banco de dados
             console.log('Tentativa de Login:', { email, password });
             
-            // Exemplo de redirecionamento manual pós-sucesso para fins de teste
-            // window.location.href = 'dashboard.html';
+            // Redirecionamento automático ativo para a Dashboard do cliente
+            window.location.href = 'dashboard.html';
         });
     </script>
 </body>
