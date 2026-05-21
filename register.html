@@ -226,13 +226,24 @@
                 // 2. Atualiza o perfil interno do Auth com o Nome Completo digitado
                 await updateProfile(user, { displayName: name });
 
-                // 3. Monta a árvore de dados dele dentro do nó 'users/' seguro do Realtime Database
+               const referralInput = document.getElementById('reg-ref').value.trim().toLowerCase();
+                let uidIndicador = "NENHUM";
+            
+                if (referralInput) {
+                    // Busca o UID real do dono do apelido no seu banco de dados
+                    const snap = await get(ref(db, `referral_map/${referralInput}`));
+                    if (snap.exists()) {
+                        uidIndicador = snap.val().uid; // Pega o UID do afiliado
+                    }
+                }
+            
+                // 4. Salva no banco com o UID do indicador
                 await set(ref(db, `users/${user.uid}`), {
                     fullName: name,
                     email: user.email,
-                    balance: 0.00, // Inicializa a conta com o saldo em R$ 0,00 reais
-                    tickets: 0,    // Inicializa sem cotas ativas
-                    referredBy: referral || "NENHUM",
+                    balance: 0.00,
+                    tickets: 0,
+                    referredBy: uidIndicador, // Agora grava o ID único, perfeito para comissões
                     createdAt: new Date().toISOString()
                 });
                 
