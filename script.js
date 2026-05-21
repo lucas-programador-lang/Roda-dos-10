@@ -6,21 +6,21 @@ let currentQuantity = 1;
 
 // SISTEMA DE MEMÓRIA LOCAL (LOCALSTORAGE)
 function getLocalData() {
-    let data = localStorage.getItem("premium_pix_data");
+    let data = localStorage.getItem("roda_dos_10_data");
     if (!data) {
         data = { balance: 0.00, purchasedTicketsCount: 0 };
-        localStorage.setItem("premium_pix_data", JSON.stringify(data));
+        localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
         return data;
     }
     return JSON.parse(data);
 }
 
 function saveLocalData(data) {
-    localStorage.setItem("premium_pix_data", JSON.stringify(data));
+    localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
     updateDashboardMetrics();
 }
 
-// ATUALIZA INTERFACE DO DASHBOARD SE EXISTIR NA TELA
+// ATUALIZA INTERFACE DO DASHBOARD
 function updateDashboardMetrics() {
     const balanceEl = document.getElementById("dash-balance");
     const ticketsEl = document.getElementById("dash-tickets");
@@ -53,6 +53,7 @@ function closeModal() {
     document.getElementById("modalCompra").classList.remove("active");
 }
 
+// CONTROLE DE QUANTIDADE (+ ou -)
 function changeQuantity(factor) {
     currentQuantity += factor;
     if (currentQuantity < 1) currentQuantity = 1;
@@ -68,7 +69,7 @@ function recalculateTotal() {
     if (totalDisplay) totalDisplay.innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
 }
 
-// COMPRA ENVIADA AO WHATSAPP
+// COMPRA ENVIADA AO WHATSAPP DO SUPORTE
 function sendOrder() {
     const clientName = document.getElementById("client-name").value.trim();
 
@@ -80,14 +81,14 @@ function sendOrder() {
     const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
     
     const textMessage = 
-        `🚀 *NOVO PEDIDO DE COTA* 🚀\n\n` +
+        `🎯 *RODA DOS 10 - NOVO PEDIDO* 🎯\n\n` +
         `👤 *Nome:* ${clientName}\n` +
         `🎫 *Tipo:* ${currentTicketName}\n` +
         `🔢 *Quantidade:* ${currentQuantity} cota(s)\n` +
         `💰 *Valor Total:* R$ ${finalValueStr}\n\n` +
         `🍀 *Concorrendo a:* R$ ${prizeValue.toFixed(2)} no Pix!`;
 
-    // Atualiza a quantidade local salva para simular o painel preenchido
+    // Simula as cotas sendo salvas no painel
     let data = getLocalData();
     data.purchasedTicketsCount += currentQuantity;
     saveLocalData(data);
@@ -100,7 +101,7 @@ function sendOrder() {
     }, 1200);
 }
 
-// SOLICITAÇÃO DE SAQUE VIA DASHBOARD
+// SOLICITAÇÃO DE SAQUE MANUAL VIA WHATSAPP
 function requestWithdraw() {
     const amountInput = document.getElementById("withdraw-amount");
     const nameInput = document.getElementById("withdraw-name");
@@ -116,25 +117,25 @@ function requestWithdraw() {
         return;
     }
     if (!name) {
-        fireToast("Insira seu nome para validação da chave manual.", true);
+        fireToast("Insira seu nome completo para a liberação manual.", true);
         return;
     }
     if (amount > data.balance) {
-        fireToast("Saldo insuficiente para concluir esse saque.", true);
+        fireToast("Saldo de indicação insuficiente para esse saque.", true);
         return;
     }
 
-    // Deduz do saldo
+    // Deduz do saldo interno
     data.balance -= amount;
     saveLocalData(data);
 
     const withdrawMessage = 
-        `💰 *SOLICITAÇÃO DE SAQUE MANUAL* 💰\n\n` +
+        `💰 *RODA DOS 10 - SOLICITAÇÃO DE SAQUE* 💰\n\n` +
         `👤 *Nome:* ${name}\n` +
         `💵 *Valor do Saque:* R$ ${amount.toFixed(2).replace(".", ",")}\n\n` +
-        `Por favor, efetue o pagamento do meu saldo de indicações acumulado!`;
+        `Solicito o pagamento das minhas comissões acumuladas!`;
 
-    fireToast("Solicitação salva! Enviando comprovante...");
+    fireToast("Solicitação gerada! Enviando dados ao suporte...");
     
     setTimeout(() => {
         window.open(`https://wa.me/639759981028?text=${encodeURIComponent(withdrawMessage)}`, '_blank');
@@ -143,12 +144,12 @@ function requestWithdraw() {
     }, 1200);
 }
 
-// ADICIONAR COMISSÃO FICTÍCIA (Para testes e simulação no GitHub)
+// ADICIONAR BÔNUS SIMULADO DE AFILIADO
 function simulateCommission() {
     let data = getLocalData();
     data.balance += 20.00;
     saveLocalData(data);
-    fireToast("Indicação simulada! +R$ 20,00 adicionados.");
+    fireToast("Indicação simulada com sucesso! +R$ 20,00");
 }
 
 // COPIAR LINK AFILIADO
@@ -163,7 +164,7 @@ function copyLink() {
     fireToast("Link de indicação copiado!");
 }
 
-// TOAST NOTIFICATION ENGINE
+// SISTEMA PREMIUM DE TOAST
 function fireToast(message, isError = false) {
     const toast = document.getElementById("toastBox");
     const icon = document.getElementById("toastIcon");
@@ -187,7 +188,7 @@ function fireToast(message, isError = false) {
     setTimeout(() => toast.classList.remove("active"), 4000);
 }
 
-// Fecha modal clicando fora dele
+// Fechamento básico clicando fora do modal
 window.onclick = function(event) {
     const backdrop = document.getElementById("modalCompra");
     if (event.target === backdrop) closeModal();
