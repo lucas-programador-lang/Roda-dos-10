@@ -23,39 +23,43 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); overflow-x: hidden; padding-bottom: 60px; }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); overflow-x: hidden; padding-top: 100px; padding-bottom: 60px; }
 
-        /* NAVBAR PREMIUM */
+        /* FLOATING NAVBAR */
         .navbar {
-            background: rgba(17, 26, 46, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-soft);
-            position: sticky;
-            top: 0;
-            z-index: 999;
-            width: 100%;
+            background: rgba(17, 26, 46, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: calc(100% - 40px);
+            max-width: 1160px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
+        .nav-container { margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
         .logo span { background: var(--primary-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .logo i { color: #F5A623; margin-right: 6px; }
         .nav-menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
-        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px; }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); }
+        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 8px; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); background: rgba(255, 255, 255, 0.03); }
         .nav-menu a.active { color: #F5A623; }
         .logout-link { color: #EF4444 !important; }
-        .logout-link:hover { opacity: 0.8; }
 
         /* LAYOUT PRINCIPAL */
-        .main-layout { max-width: 1200px; margin: 2.5rem auto; padding: 0 1rem; }
+        .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
         .page-header { margin-bottom: 2.5rem; }
         .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
         .page-header p { color: var(--text-muted); font-size: 0.95rem; }
 
         /* METRICS GRID */
         .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .metric-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; position: relative; overflow: hidden; transition: var(--transition-smooth); }
+        .metric-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; transition: var(--transition-smooth); }
         .metric-card:hover { border-color: rgba(245, 166, 35, 0.2); transform: translateY(-2px); }
         .card-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
         .card-meta i { font-size: 1.2rem; }
@@ -69,7 +73,7 @@
         .progress-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
         .progress-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
         .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.5rem; }
-        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 55%; border-radius: 50px; transition: width 0.5s ease-in-out; }
+        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 60%; border-radius: 50px; }
         .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
 
         /* GRUPO BANNER */
@@ -79,33 +83,36 @@
         .btn-join-group { background: #25D366; color: #FFF; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: var(--transition-smooth); }
         .btn-join-group:hover { opacity: 0.9; transform: scale(0.98); }
 
-        /* TABELA DE PREÇOS / TIERS */
-        .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; }
-        .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
-        .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.5rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; }
-        .tier-item:hover { border-color: rgba(245, 166, 35, 0.3); background: rgba(255, 255, 255, 0.04); }
-        .tier-badge { background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin: 0 auto 0.5rem auto; }
-        .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin: 0.5rem 0 0.25rem 0; }
-        .tier-cost strong { color: var(--text-white); font-size: 1.3rem; }
-        .tier-prize { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        /* PLANOS COM VISUAL PREMIUM */
+        .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; }
+        .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+        .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.8rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; }
+        .tier-item:hover { border-color: rgba(245, 166, 35, 0.3); background: rgba(255, 255, 255, 0.04); transform: translateY(-3px); }
+        .tier-badge { background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 0.3rem 0.8rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin: 0 auto 0.8rem auto; }
+        .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .tier-cost strong { color: var(--text-white); font-size: 1.5rem; }
+        .tier-prize { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .tier-prize strong { color: var(--neon-green); }
-        .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); }
         
-        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.7rem; border-radius: 8px; font-weight: 700; margin-top: 1.2rem; cursor: pointer; transition: var(--transition-smooth); }
+        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; margin-top: 1.5rem; cursor: pointer; transition: var(--transition-smooth); }
         .btn-buy-tier:hover { opacity: 0.9; }
 
-        .draw-calendar-info { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); padding-top: 1.2rem; margin-top: 1.5rem; justify-content: center; }
-        .draw-calendar-info span i { color: #F5A623; margin-right: 4px; }
+        /* TOAST SYSTEM */
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border-left: 4px solid var(--neon-green); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
+        .toast-wrapper.active { top: 30px; opacity: 1; }
 
-        /* RESPONSIVIDADE (MOBILE & DESKTOP) */
+        /* RESPONSIVIDADE COMPLETA */
         @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 1rem; padding: 1rem; text-align: center; }
-            .nav-menu { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            body { padding-top: 150px; }
+            .navbar { top: 10px; width: calc(100% - 20px); }
+            .nav-container { flex-direction: column; gap: 0.8rem; padding: 1rem; text-align: center; }
+            .nav-menu { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+            .nav-menu a { font-size: 0.8rem; padding: 0.4rem 0.6rem; }
             .metrics-grid, .investment-options-grid { grid-template-columns: 1fr; }
             .group-banner-card { flex-direction: column; align-items: flex-start; }
             .btn-join-group { width: 100%; justify-content: center; }
             .page-header { text-align: center; }
-            .draw-calendar-info { flex-direction: column; align-items: center; gap: 0.8rem; }
         }
     </style>
 </head>
@@ -115,9 +122,9 @@
         <div class="nav-container">
             <a href="#" class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></a>
             <ul class="nav-menu">
-                <li><a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
+                <li><a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
                 <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
-                <li><a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="perfil.html"><i class="fa-solid fa-user"></i> Senha</a></li>
                 <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
@@ -126,81 +133,93 @@
     <main class="main-layout">
         <header class="page-header">
             <h1 id="welcome-user">Olá, ...</h1>
-            <p>Seja bem-vindo ao seu ambiente premium. Adquira cotas e multiplique seus rendimentos.</p>
+            <p>Escolha seus planos ativos, compre quantos quiser e acompanhe os sorteios.</p>
         </header>
 
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="card-meta"><span>SALDO DISPONÍVEL</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
                 <h2 id="dash-balance">R$ 0,00</h2>
-                <div class="sub-text">Saque mínimo de R$ 30,00</div>
+                <div class="sub-text">Sorteios mensais e semanais</div>
             </div>
             <div class="metric-card">
-                <div class="card-meta"><span>COTAS ADQUIRIDAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
+                <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
                 <h2 id="dash-tickets">0</h2>
-                <div class="sub-text">Compre quantas você quiser</div>
+                <div class="sub-text">Suas chances ativas</div>
             </div>
         </div>
 
         <div class="progress-banner-card">
             <div class="progress-info">
-                <h3><i class="fa-solid fa-spinner"></i> Próxima Rodada Premiada</h3>
-                <p>Os sorteios oficiais ocorrem de 10 em 10 dias e são divulgados diretamente no nosso grupo VIP.</p>
+                <h3><i class="fa-solid fa-calendar-check"></i> Ciclo de Rodadas</h3>
+                <p>Data de sorteio a cada 10 dias! Resultados publicados em nossa comunidade.</p>
             </div>
             <div class="progress-bar-bg">
-                <div class="progress-bar-fill" id="progress-fill"></div>
+                <div class="progress-bar-fill"></div>
             </div>
             <div class="progress-text-status">
-                <span>PROGRESSO ATUAL</span>
-                <span id="progress-percent">55%</span>
+                <span>STATUS DO CICLO ATUAL</span>
+                <span>EM ANDAMENTO</span>
             </div>
         </div>
 
         <div class="group-banner-card">
             <div class="banner-info">
-                <h3>Grupo VIP de Resultados</h3>
-                <p>Acompanhe a apuração, os sorteios divulgados e as tabelas de ganhadores diretamente na comunidade.</p>
+                <h3>Sorteios Divulgados Dentro do Grupo</h3>
+                <p>Clique abaixo e entre agora no link oficial para não perder as apurações.</p>
             </div>
             <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
-                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
+                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo do WhatsApp
             </a>
         </div>
 
         <div class="price-tables-card">
-            <div class="tier-badge" style="background: rgba(245, 166, 35, 0.1); color: #F5A623;"><i class="fa-solid fa-star"></i> Cotas Ativas</div>
-            <h3 style="margin-top: 0.5rem; margin-bottom: 1.5rem; font-size: 1.4rem;">Escolha seu Plano de Investimento</h3>
+            <h3 style="font-size: 1.3rem; font-weight: 700;"><i class="fa-solid fa-fire" style="color: #F5A623; margin-right: 6px;"></i> Planos de Cotas Ativos</h3>
             
             <div class="investment-options-grid">
                 <div class="tier-item">
-                    <div class="tier-badge">Plano Essencial</div>
+                    <div class="tier-badge">Plano Bronze</div>
                     <div class="tier-cost">Invista <strong>R$ 3,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 25,00 no PIX</strong></div>
-                    <p class="tier-rule-info">Compre quantas quiser</p>
-                    <button class="btn-buy-tier" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 25,00</strong></div>
+                    <p class="tier-rule-info">No Pix instantâneo</p>
+                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Bronze')">Adquirir</button>
                 </div>
-                <div class="tier-item" style="border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.01);">
-                    <div class="tier-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--neon-green);">Plano Avançado</div>
+                <div class="tier-item" style="border-color: rgba(245, 166, 35, 0.25);">
+                    <div class="tier-badge" style="background: rgba(245, 166, 35, 0.15); color: #F5A623;">Plano Silver</div>
                     <div class="tier-cost">Invista <strong>R$ 5,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 50,00 no PIX</strong></div>
-                    <p class="tier-rule-info">Retorno altamente escalável</p>
-                    <button class="btn-buy-tier" style="background: var(--primary-gold);" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 50,00</strong></div>
+                    <p class="tier-rule-info">No Pix instantâneo</p>
+                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Silver')">Adquirir</button>
                 </div>
                 <div class="tier-item">
-                    <div class="tier-badge">Plano Master VIP</div>
+                    <div class="tier-badge">Plano Gold</div>
                     <div class="tier-cost">Invista <strong>R$ 10,00</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 100,00 no PIX</strong></div>
-                    <p class="tier-rule-info">A maior premiação ativa</p>
-                    <button class="btn-buy-tier" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
+                    <div class="tier-prize">Concorra a <strong>R$ 100,00</strong></div>
+                    <p class="tier-rule-info">No Pix instantâneo</p>
+                    <button class="btn-buy-tier" onclick="triggerPurchase('Plano Gold')">Adquirir</button>
                 </div>
-            </div>
-
-            <div class="draw-calendar-info">
-                <span><i class="fa-solid fa-calendar-days"></i> Ciclo de Sorteios: Cada 10 dias</span>
-                <span><i class="fa-solid fa-bolt"></i> Frequência Global: Mensal recorrente</span>
-                <span><i class="fa-solid fa-layer-group"></i> Sorteio Semanal Adicional</span>
             </div>
         </div>
     </main>
+
+    <div class="toast-wrapper" id="toastNotification">
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+        <span id="toastMsg">Processando pedido...</span>
+    </div>
+
+    <script>
+        function triggerPurchase(planName) {
+            const toast = document.getElementById("toastNotification");
+            const msg = document.getElementById("toastMsg");
+            toast.classList.add("active");
+            msg.innerText = `Gerando PIX para o ${planName}...`;
+            
+            setTimeout(() => {
+                toast.classList.remove("active");
+                alert("Redirecionando você para o checkout seguro de pagamento!");
+            }, 2000);
+        }
+    </script>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
