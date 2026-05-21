@@ -8,15 +8,112 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        :root {
+            --bg-dark-base: #070B13;
+            --bg-dark-card: #111A2E;
+            --bg-dark-input: #1A2540;
+            --primary-gold: linear-gradient(135deg, #FFE57F 0%, #F5A623 100%);
+            --neon-green: #10B981;
+            --text-white: #FFFFFF;
+            --text-muted: #94A3B8;
+            --border-soft: rgba(255, 255, 255, 0.06);
+            --radius-premium: 20px;
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); overflow-x: hidden; padding-bottom: 60px; }
+
+        /* NAVBAR PREMIUM */
+        .navbar {
+            background: rgba(17, 26, 46, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-soft);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            width: 100%;
+        }
+        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
+        .logo span { background: var(--primary-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo i { color: #F5A623; margin-right: 6px; }
+        .nav-menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); }
+        .nav-menu a.active { color: #F5A623; }
+        .logout-link { color: #EF4444 !important; }
+        .logout-link:hover { opacity: 0.8; }
+
+        /* LAYOUT PRINCIPAL */
+        .main-layout { max-width: 1200px; margin: 2.5rem auto; padding: 0 1rem; }
+        .page-header { margin-bottom: 2.5rem; }
+        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
+        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* METRICS GRID */
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .metric-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; position: relative; overflow: hidden; transition: var(--transition-smooth); }
+        .metric-card:hover { border-color: rgba(245, 166, 35, 0.2); transform: translateY(-2px); }
+        .card-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .card-meta i { font-size: 1.2rem; }
+        .icon-wallet { color: #F5A623; }
+        .icon-ticket { color: var(--neon-green); }
+        .metric-card h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .sub-text { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* PROGRESS BANNER */
+        .progress-banner-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 1.5rem 2rem; border-radius: 16px; margin-bottom: 1.5rem; }
+        .progress-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
+        .progress-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
+        .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.5rem; }
+        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 45%; border-radius: 50px; transition: width 0.5s ease-in-out; }
+        .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+
+        /* GRUPO BANNER */
+        .group-banner-card { background: linear-gradient(90deg, #1E293B 0%, #111A2E 100%); border: 1px solid var(--border-soft); padding: 1.5rem 2rem; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 2rem; }
+        .banner-info h3 { margin-bottom: 0.3rem; }
+        .banner-info p { font-size: 0.9rem; color: var(--text-muted); }
+        .btn-join-group { background: #25D366; color: #FFF; text-decoration: none; padding: 0.8rem 1.5rem; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 8px; transition: var(--transition-smooth); }
+        .btn-join-group:hover { opacity: 0.9; transform: scale(0.98); }
+
+        /* TABELA DE PREÇOS / TIERS */
+        .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; }
+        .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
+        .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.5rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); }
+        .tier-item:hover { border-color: rgba(245, 166, 35, 0.3); background: rgba(255, 255, 255, 0.04); }
+        .tier-badge { background: rgba(245, 166, 35, 0.1); color: #F5A623; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 0.5rem; }
+        .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin: 0.5rem 0 0.25rem 0; }
+        .tier-cost strong { color: var(--text-white); font-size: 1.3rem; }
+        .tier-prize { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .tier-prize strong { color: var(--neon-green); }
+        .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
+        
+        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.6rem; border-radius: 8px; font-weight: 700; margin-top: 1rem; cursor: pointer; transition: var(--transition-smooth); }
+        .btn-buy-tier:hover { opacity: 0.9; }
+
+        /* TOAST NOTIFICATION */
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border-left: 4px solid var(--neon-green); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 99999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
+        .toast-wrapper.active { top: 20px; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* RESPONSIVIDADE (MOBILE & DESKTOP) */
+        @media (max-width: 768px) {
+            .nav-container { flex-direction: column; gap: 1rem; padding: 1rem; text-align: center; }
+            .nav-menu { gap: 1rem; flex-wrap: wrap; justify-content: center; }
+            .metrics-grid, .investment-options-grid { grid-template-columns: 1fr; }
+            .group-banner-card { flex-direction: column; align-items: flex-start; }
+            .btn-join-group { width: 100%; justify-content: center; }
+            .page-header { text-align: center; }
+        }
+    </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">
-                <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
-            </div>
+            <a href="#" class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></a>
             <ul class="nav-menu">
                 <li><a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
                 <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
@@ -28,25 +125,73 @@
 
     <main class="main-layout">
         <header class="page-header">
-            <div>
-                <h1 id="welcome-user">Olá, ...</h1>
-                <p>Bem-vindo ao seu painel de controle financeiro.</p>
-            </div>
+            <h1 id="welcome-user">Olá, ...</h1>
+            <p>Seja bem-vindo ao seu ambiente premium de gerenciamento.</p>
         </header>
 
-        <div class="dashboard-grid">
-            <div class="premium-card">
-                <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
-                <h3>Saldo Disponível</h3>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="card-meta"><span>SALDO DISPONÍVEL</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
                 <h2 id="dash-balance">R$ 0,00</h2>
-                <p class="card-detail">Atualizado em tempo real</p>
+                <div class="sub-text">Atualizado em tempo real</div>
             </div>
-
-            <div class="premium-card">
-                <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
-                <h3>Minhas Cotas / Ativas</h3>
+            <div class="metric-card">
+                <div class="card-meta"><span>COTAS ADQUIRIDAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
                 <h2 id="dash-tickets">0</h2>
-                <p class="card-detail">Participe dos sorteios ativos</p>
+                <div class="sub-text">Suas participações ativas</div>
+            </div>
+        </div>
+
+        <div class="progress-banner-card">
+            <div class="progress-info">
+                <h3><i class="fa-solid fa-spinner"></i> Meta do Sorteio Atual</h3>
+                <p>O sorteio será realizado automaticamente assim que atingirmos 100% das cotas preenchidas.</p>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+            <div class="progress-text-status">
+                <span>PROGRESSO GLOBAL</span>
+                <span id="progress-percent">45%</span>
+            </div>
+        </div>
+
+        <div class="group-banner-card">
+            <div class="banner-info">
+                <h3>Grupo de Resultados VIP</h3>
+                <p>Entre no grupo oficial para acompanhar as rodadas e premiações ao vivo.</p>
+            </div>
+            <a href="https://wa.me/55639759981028" target="_blank" class="btn-join-group">
+                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo
+            </a>
+        </div>
+
+        <div class="price-tables-card">
+            <div class="banner-badge"><i class="fa-solid fa-star"></i> Planos Disponíveis</div>
+            <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem;">Adquirir Novas Cotas</h3>
+            
+            <div class="investment-options-grid">
+                <div class="tier-item">
+                    <div class="tier-badge">Bronze</div>
+                    <div class="tier-cost">Por apenas <strong>R$ 10</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 100</strong></div>
+                    <p class="tier-rule-info">Sorteio rápido de 10 pessoas</p>
+                    <button class="btn-buy-tier" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                </div>
+                <div class="tier-item" style="border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.02);">
+                    <div class="tier-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--neon-green);">Silver</div>
+                    <div class="tier-cost">Por apenas <strong>R$ 20</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 200</strong></div>
+                    <p class="tier-rule-info">Multiplicador de 10x garantido</p>
+                    <button class="btn-buy-tier" style="background: var(--neon-green);" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                </div>
+                <div class="tier-item">
+                    <div class="tier-badge">Gold VIP</div>
+                    <div class="tier-cost">Por apenas <strong>R$ 50</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 500</strong></div>
+                    <p class="tier-rule-info">Acesso à mesa exclusiva alta</p>
+                    <button class="btn-buy-tier" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                </div>
             </div>
         </div>
     </main>
@@ -75,24 +220,9 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            const icon = document.getElementById("toastIcon");
-            const msgSpan = document.getElementById("toastMessage");
-            msgSpan.innerText = message;
-            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
-            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
-            icon.style.color = isError ? "#EF4444" : "#10B981";
-            toast.classList.add("active");
-            setTimeout(() => toast.classList.remove("active"), 3500);
-        }
-
-        // Segurança e Escuta em Tempo Real
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
-                
-                // Sincroniza Saldo e Cotas do banco de dados automaticamente
                 const userRef = ref(db, `users/${user.uid}`);
                 onValue(userRef, (snapshot) => {
                     if (snapshot.exists()) {
@@ -106,12 +236,9 @@
             }
         });
 
-        // Evento Sair da Conta (Logout)
         document.getElementById("btn-logout").addEventListener("click", (e) => {
             e.preventDefault();
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            });
+            signOut(auth).then(() => { window.location.href = "login.html"; });
         });
     </script>
 </body>
