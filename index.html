@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Pix — Sorteios Oficiais</title>
+    <!-- CSS Principal -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- NAV BAR -->
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-ticket-simple"></i> Premium<span>Pix</span>
+            </div>
+            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-whatsapp-top">
+                <i class="fa-brands fa-whatsapp"></i> Grupo Oficial
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero-container">
+        <span class="hero-badge"><i class="fa-solid fa-star"></i> Sorteios Semanais & Mensais</span>
+        <h1>Escolha sua cota e <br><span>concorra agora no Pix</span></h1>
+        <p>Participe da plataforma de sorteios mais segura. Compre quantas cotas quiser e acompanhe os resultados direto no grupo de membros.</p>
+        
+        <div class="features-badges">
+            <div class="f-badge"><i class="fa-solid fa-calendar-check"></i> Sorteio a cada 10 dias</div>
+            <div class="f-badge"><i class="fa-solid fa-bolt"></i> Saque a qualquer momento</div>
+            <div class="f-badge"><i class="fa-solid fa-hand-holding-dollar"></i> Saque Mínimo R$ 30,00</div>
+        </div>
+    </section>
+
+    <!-- PRODUTOS / SORTEIOS GRID -->
+    <main class="grid-sorteios">
+        <!-- Card 1 -->
+        <div class="sorteio-card">
+            <div class="card-badge">Econômico</div>
+            <div class="card-title">Concorra a R$ 25,00</div>
+            <div class="card-price"><span>Investimento de</span> R$ 3,50</div>
+            <ul class="card-benefits">
+                <li><i class="fa-solid fa-circle-check"></i> Quantidade ilimitada de cotas</li>
+                <li><i class="fa-solid fa-circle-check"></i> Resultado revelado no grupo</li>
+                <li><i class="fa-solid fa-circle-check"></i> Pagamento imediato via Pix</li>
+            </ul>
+            <button class="btn-primary" onclick="openModal('Cota Bronze', 3.50, 25.00)">
+                <i class="fa-solid fa-ticket"></i> Comprar Cota
+            </button>
+        </div>
+
+        <!-- Card 2 (Destaque Premium) -->
+        <div class="sorteio-card featured">
+            <div class="card-badge">Mais Popular</div>
+            <div class="card-title">Concorra a R$ 50,00</div>
+            <div class="card-price"><span>Investimento de</span> R$ 5,50</div>
+            <ul class="card-benefits">
+                <li><i class="fa-solid fa-circle-check"></i> Alta taxa de participação</li>
+                <li><i class="fa-solid fa-circle-check"></i> Sorteio rápido a cada 10 dias</li>
+                <li><i class="fa-solid fa-circle-check"></i> Suporte prioritário individual</li>
+            </ul>
+            <button class="btn-primary" onclick="openModal('Cota Prata', 5.50, 50.00)">
+                <i class="fa-solid fa-bolt"></i> Comprar Cota
+            </button>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="sorteio-card">
+            <div class="card-badge">VIP Master</div>
+            <div class="card-title">Concorra a R$ 100,00</div>
+            <div class="card-price"><span>Investimento de</span> R$ 10,00</div>
+            <ul class="card-benefits">
+                <li><i class="fa-solid fa-circle-check"></i> O maior prêmio da rodada</li>
+                <li><i class="fa-solid fa-circle-check"></i> Sorteio exclusivo quinzenal</li>
+                <li><i class="fa-solid fa-circle-check"></i> Participe quantas vezes quiser</li>
+            </ul>
+            <button class="btn-primary" onclick="openModal('Cota Ouro', 10.00, 100.00)">
+                <i class="fa-solid fa-ticket"></i> Comprar Cota
+            </button>
+        </div>
+    </main>
+
+    <!-- SEÇÃO DE REGRAS E AFILIADOS -->
+    <section class="rules-section">
+        <div class="rule-box">
+            <h3><i class="fa-solid fa-money-bill-transfer"></i> Sistema de Saques</h3>
+            <p>Nosso sistema de saque é transparente, flexível e totalmente simplificado:</p>
+            <ul>
+                <li><i class="fa-solid fa-check"></i> <strong>Saque Mínimo:</strong> Apenas R$ 30,00.</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Disponibilidade:</strong> Solicite a qualquer momento do dia.</li>
+                <li><i class="fa-solid fa-check"></i> <strong>Processamento Manual:</strong> Após solicitar seu saque, envie o valor desejado junto com seu nome ao suporte para a liberação rápida do Pix.</li>
+            </ul>
+        </div>
+
+        <div class="rule-box affiliate">
+            <h3><i class="fa-solid fa-users-gear"></i> Indique & Ganhe 20%</h3>
+            <p>Seja um afiliado da nossa plataforma e garanta sua renda extra sem depender de sorteios:</p>
+            <ul>
+                <li><i class="fa-solid fa-share-nodes"></i> <strong>Comissão Única:</strong> Você ganha 20% sobre o valor investido por cada indicado seu.</li>
+                <li><i class="fa-solid fa-bullhorn"></i> Transparência total e acompanhamento direto através do chat com o nosso suporte.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- BOTÃO FLUTUANTE SUPORTE -->
+    <a href="https://wa.me/639759981028" target="_blank" class="float-suporte" title="Falar com Suporte">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- MODAL DE COMPRA -->
+    <div class="modal-backdrop" id="modalCompra">
+        <div class="modal-card">
+            <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            
+            <div class="modal-header">
+                <h2 id="m-ticket-name">Cota Prata</h2>
+                <p id="m-ticket-prize">Concorra a R$ 50,00 no Pix</p>
+            </div>
+
+            <div class="modal-body">
+                <div class="input-block">
+                    <label for="client-name">Seu Nome Completo</label>
+                    <input type="text" id="client-name" placeholder="Ex: José Lucas">
+                </div>
+
+                <div class="input-block">
+                    <label>Quantidade de Cotas</label>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                        <span id="qty-display">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+
+                <div class="total-row">
+                    <span>Total a Pagar:</span>
+                    <span id="total-display">R$ 5,50</span>
+                </div>
+
+                <button class="btn-submit-order" onclick="sendOrder()">
+                    <i class="fa-solid fa-paper-plane"></i> Enviar Pedido via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICAÇÃO -->
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Ação realizada com sucesso!</span>
+    </div>
+
+    <!-- Script Principal -->
+    <script src="script.js"></script>
+</body>
+</html>
