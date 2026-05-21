@@ -1,52 +1,177 @@
-// VARIÁVEIS DE CONTROLE ESTADO DO APP
+// CONTROLE DE ESTADOS DO APP
 let pricePerUnit = 0;
 let prizeValue = 0;
 let currentTicketName = "";
 let currentQuantity = 1;
 
-// FUNÇÃO PARA ABRIR O MODAL
+// SISTEMA DE MEMÓRIA LOCAL (LOCALSTORAGE)
+function getLocalData() {
+    let data = localStorage.getItem("premium_pix_data");
+    if (!data) {
+        data = { balance: 0.00, purchasedTicketsCount: 0 };
+        localStorage.setItem("premium_pix_data", JSON.stringify(data));
+        return data;
+    }
+    return JSON.parse(data);
+}
+
+function saveLocalData(data) {
+    localStorage.setItem("premium_pix_data", JSON.stringify(data));
+    updateDashboardMetrics();
+}
+
+// ATUALIZA INTERFACE DO DASHBOARD SE EXISTIR NA TELA
+function updateDashboardMetrics() {
+    const balanceEl = document.getElementById("dash-balance");
+    const ticketsEl = document.getElementById("dash-tickets");
+    const data = getLocalData();
+
+    if (balanceEl) balanceEl.innerText = `R$ ${data.balance.toFixed(2).replace(".", ",")}`;
+    if (ticketsEl) ticketsEl.innerText = data.purchasedTicketsCount;
+}
+
+// COMPRA / MODAL FUNCTIONS
 function openModal(name, price, prize) {
     currentTicketName = name;
     pricePerUnit = price;
     prizeValue = prize;
     currentQuantity = 1;
 
-    // Atualiza dados estáticos dentro do modal
-    document.getElementById("m-ticket-name").innerText = name;
-    document.getElementById("m-ticket-prize").innerText = `Concorra a R$ ${prize.toFixed(2)} no Pix`;
-    document.getElementById("client-name").value = "";
+    const nameEl = document.getElementById("m-ticket-name");
+    const prizeEl = document.getElementById("m-ticket-prize");
+    const clientNameEl = document.getElementById("client-name");
+
+    if (nameEl) nameEl.innerText = name;
+    if (prizeEl) prizeEl.innerText = `Concorra a R$ ${prize.toFixed(2)} no Pix`;
+    if (clientNameEl) clientNameEl.value = "";
 
     recalculateTotal();
     document.getElementById("modalCompra").classList.add("active");
 }
 
-// FUNÇÃO PARA FECHAR O MODAL
 function closeModal() {
     document.getElementById("modalCompra").classList.remove("active");
 }
 
-// CONTROLE DE QUANTIDADE (+ ou -)
 function changeQuantity(factor) {
     currentQuantity += factor;
-    if (currentQuantity < 1) {
-        currentQuantity = 1;
-    }
+    if (currentQuantity < 1) currentQuantity = 1;
     recalculateTotal();
 }
 
-// RECALCULA O TOTAL DA COMPRA DO MODAL
 function recalculateTotal() {
-    document.getElementById("qty-display").innerText = currentQuantity;
+    const qtyDisplay = document.getElementById("qty-display");
+    const totalDisplay = document.getElementById("total-display");
+    if (qtyDisplay) qtyDisplay.innerText = currentQuantity;
+    
     const finalPrice = pricePerUnit * currentQuantity;
-    document.getElementById("total-display").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
+    if (totalDisplay) totalDisplay.innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
 }
 
-// MOSTRAR TOAST (ALERTA PREMIUM)
+// COMPRA ENVIADA AO WHATSAPP
+function sendOrder() {
+    const clientName = document.getElementById("client-name").value.trim();
+
+    if (!clientName) {
+        fireToast("Por favor, preencha seu nome completo.", true);
+        return;
+    }
+
+    const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
+    
+    const textMessage = 
+        `🚀 *NOVO PEDIDO DE COTA* 🚀\n\n` +
+        `👤 *Nome:* ${clientName}\n` +
+        `🎫 *Tipo:* ${currentTicketName}\n` +
+        `🔢 *Quantidade:* ${currentQuantity} cota(s)\n` +
+        `💰 *Valor Total:* R$ ${finalValueStr}\n\n` +
+        `🍀 *Concorrendo a:* R$ ${prizeValue.toFixed(2)} no Pix!`;
+
+    // Atualiza a quantidade local salva para simular o painel preenchido
+    let data = getLocalData();
+    data.purchasedTicketsCount += currentQuantity;
+    saveLocalData(data);
+
+    fireToast("Pedido gerado! Abrindo suporte...");
+    
+    setTimeout(() => {
+        window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
+        closeModal();
+    }, 1200);
+}
+
+// SOLICITAÇÃO DE SAQUE VIA DASHBOARD
+function requestWithdraw() {
+    const amountInput = document.getElementById("withdraw-amount");
+    const nameInput = document.getElementById("withdraw-name");
+    
+    if (!amountInput || !nameInput) return;
+
+    const amount = parseFloat(amountInput.value);
+    const name = nameInput.value.trim();
+    let data = getLocalData();
+
+    if (isNaN(amount) || amount < 30) {
+        fireToast("O valor mínimo para saques é de R$ 30,00.", true);
+        return;
+    }
+    if (!name) {
+        fireToast("Insira seu nome para validação da chave manual.", true);
+        return;
+    }
+    if (amount > data.balance) {
+        fireToast("Saldo insuficiente para concluir esse saque.", true);
+        return;
+    }
+
+    // Deduz do saldo
+    data.balance -= amount;
+    saveLocalData(data);
+
+    const withdrawMessage = 
+        `💰 *SOLICITAÇÃO DE SAQUE MANUAL* 💰\n\n` +
+        `👤 *Nome:* ${name}\n` +
+        `💵 *Valor do Saque:* R$ ${amount.toFixed(2).replace(".", ",")}\n\n` +
+        `Por favor, efetue o pagamento do meu saldo de indicações acumulado!`;
+
+    fireToast("Solicitação salva! Enviando comprovante...");
+    
+    setTimeout(() => {
+        window.open(`https://wa.me/639759981028?text=${encodeURIComponent(withdrawMessage)}`, '_blank');
+        amountInput.value = "";
+        nameInput.value = "";
+    }, 1200);
+}
+
+// ADICIONAR COMISSÃO FICTÍCIA (Para testes e simulação no GitHub)
+function simulateCommission() {
+    let data = getLocalData();
+    data.balance += 20.00;
+    saveLocalData(data);
+    fireToast("Indicação simulada! +R$ 20,00 adicionados.");
+}
+
+// COPIAR LINK AFILIADO
+function copyLink() {
+    const copyText = document.getElementById("referral-link");
+    if (!copyText) return;
+    
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+    
+    fireToast("Link de indicação copiado!");
+}
+
+// TOAST NOTIFICATION ENGINE
 function fireToast(message, isError = false) {
     const toast = document.getElementById("toastBox");
     const icon = document.getElementById("toastIcon");
+    const msgEl = document.getElementById("toastMessage");
 
-    document.getElementById("toastMessage").innerText = message;
+    if (!toast || !icon || !msgEl) return;
+
+    msgEl.innerText = message;
 
     if (isError) {
         toast.style.borderLeftColor = "#EF4444";
@@ -59,50 +184,11 @@ function fireToast(message, isError = false) {
     }
 
     toast.classList.add("active");
-
-    // Remove automaticamente após 4 segundos
-    setTimeout(() => {
-        toast.classList.remove("active");
-    }, 4000);
+    setTimeout(() => toast.classList.remove("active"), 4000);
 }
 
-// ENVIO DE INFORMAÇÕES VIA WHATSAPP
-function sendOrder() {
-    const clientName = document.getElementById("client-name").value.trim();
-
-    // Validação nativa com Toast de erro
-    if (!clientName) {
-        fireToast("Por favor, digite seu nome completo.", true);
-        return;
-    }
-
-    const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
-    
-    // Montagem da mensagem estruturada profissionalmente
-    const textMessage = 
-        `🚀 *NOVO PEDIDO DE COTA* 🚀\n\n` +
-        `👤 *Nome:* ${clientName}\n` +
-        `🎫 *Tipo:* ${currentTicketName}\n` +
-        `🔢 *Quantidade:* ${currentQuantity} cota(s)\n` +
-        `💰 *Valor Total:* R$ ${finalValueStr}\n\n` +
-        `🍀 *Concorrendo a:* R$ ${prizeValue.toFixed(2)} no Pix!`;
-
-    // Converte para formato de URL segura
-    const encodedMessage = encodeURIComponent(textMessage);
-    const targetUrl = `https://wa.me/639759981028?text=${encodedMessage}`;
-
-    fireToast("Pedido gerado! Redirecionando para o suporte...");
-
-    setTimeout(() => {
-        window.open(targetUrl, "_blank");
-        closeModal();
-    }, 1500);
-}
-
-// Fecha o modal caso o usuário clique na área borrada de fora
+// Fecha modal clicando fora dele
 window.onclick = function(event) {
-    const modalBackdrop = document.getElementById("modalCompra");
-    if (event.target === modalBackdrop) {
-        closeModal();
-    }
+    const backdrop = document.getElementById("modalCompra");
+    if (event.target === backdrop) closeModal();
 }
