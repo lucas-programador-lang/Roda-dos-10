@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos específicos para centralizar a caixa de autenticação na tela */
+        /* Container de Autenticação com centralização total */
         .auth-wrapper {
             min-height: 100vh;
             display: flex;
@@ -18,57 +18,54 @@
             align-items: center;
             padding: 1.5rem;
             background-color: var(--bg-dark-base);
+            background-image: var(--bg-texture);
         }
+
         .auth-container {
             background: var(--bg-dark-card);
+            backdrop-filter: blur(16px);
             border: 1px solid var(--border-soft);
             border-radius: var(--radius-premium);
             width: 100%;
             max-width: 420px;
-            padding: 2.5rem 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
-        .auth-header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .auth-header .logo {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-        .auth-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-        .auth-footer {
-            text-align: center;
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-        .auth-footer a {
-            color: #F5A623;
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-        }
-        .auth-footer a:hover {
-            text-decoration: underline;
-        }
-        .input-group-icon {
-            position: relative;
-        }
+
+        .auth-header { text-align: center; margin-bottom: 2rem; }
+        .auth-header .logo { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; display: block; }
+        .auth-header p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* Estilização de Inputs com Ícones */
+        .input-group-icon { position: relative; margin-bottom: 1.2rem; }
         .input-group-icon i {
             position: absolute;
-            left: 1rem;
+            left: 1.2rem;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
             font-size: 1rem;
+            transition: var(--transition-smooth);
         }
         .input-group-icon input {
-            padding-left: 2.8rem !important;
+            width: 100%;
+            background: #0E1420;
+            border: 1px solid var(--border-soft);
+            padding: 1rem 1rem 1rem 3rem;
+            border-radius: 12px;
+            color: white;
+            font-size: 0.95rem;
+            transition: var(--transition-smooth);
         }
+        .input-group-icon input:focus {
+            border-color: var(--whatsapp-green);
+            background: #131B2A;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.1);
+        }
+        .input-group-icon input:focus + i { color: var(--whatsapp-green); }
+
+        /* Ações de Acesso */
         .remember-forgot {
             display: flex;
             justify-content: space-between;
@@ -76,25 +73,31 @@
             font-size: 0.85rem;
             margin-bottom: 1.5rem;
         }
-        .checkbox-label {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-muted);
+        .checkbox-label { display: flex; align-items: center; gap: 8px; color: var(--text-muted); cursor: pointer; }
+        .checkbox-label input { accent-color: var(--whatsapp-green); width: 16px; height: 16px; cursor: pointer; }
+        .forgot-link { color: var(--text-muted); text-decoration: none; transition: var(--transition-smooth); }
+        .forgot-link:hover { color: var(--text-white); }
+
+        /* Botão de Login (Ouro Premium) */
+        .btn-login {
+            width: 100%;
+            background: var(--logo-gold);
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 800;
             cursor: pointer;
-        }
-        .checkbox-label input {
-            accent-color: #F5A623;
-        }
-        .forgot-link {
-            color: var(--text-muted);
-            text-decoration: none;
             transition: var(--transition-smooth);
+            font-size: 1rem;
+            color: #000;
+            margin-bottom: 1rem;
         }
-        .forgot-link:hover {
-            color: var(--text-white);
-        }
-    </style>
+        .btn-login:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 179, 0, 0.3); }
+
+        .auth-footer { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
+        .auth-footer a { color: var(--whatsapp-green); text-decoration: none; font-weight: 600; }
+        .auth-footer a:hover { text-decoration: underline; }
+</style>
 </head>
 <body>
 
