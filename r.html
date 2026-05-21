@@ -10,12 +10,16 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        const firebaseConfig = {
-            // Cole suas configurações aqui (as mesmas do seu register.html)
+       const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
             databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10"
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
         };
+
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
