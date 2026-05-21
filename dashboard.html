@@ -398,24 +398,19 @@
         </div>
 
         <div style="margin-bottom: 1.2rem; text-align: left;">
-    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
-    <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-</div>
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
+            <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
+                <option value="CPF">CPF</option>
+                <option value="E-mail">E-mail</option>
+                <option value="Telefone">Número de Telefone</option>
+                <option value="Chave Aleatória">Chave Aleatória</option>
+            </select>
 
-<div style="margin-bottom: 1.2rem; text-align: left;">
-    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
-    <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
-        <option value="CPF">CPF</option>
-        <option value="E-mail">E-mail</option>
-        <option value="Telefone">Número de Telefone</option>
-        <option value="Chave Aleatória">Chave Aleatória</option>
-    </select>
-
-    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
-    <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-</div>
-       
-    <div class="modal-actions">
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
+            <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+        </div>
+        
+        <div class="modal-actions">
             <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
             <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
         </div>
