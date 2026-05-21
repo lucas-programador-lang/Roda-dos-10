@@ -130,12 +130,32 @@
         </header>
 
         <div class="premium-card">
-            <div class="card-icon"><i class="fa-solid fa-key"></i></div>
-            <h3>Alterar Minha Senha</h3>
-            <p class="instruction-text">Se deseja trocar sua credencial secreta por motivos de segurança, ou caso não lembre da senha atual, clique no botão abaixo para receber as instruções seguras no seu e-mail cadastrado.</p>
-            
-            <button id="btn-send-reset" class="btn-reset-password"><i class="fa-regular fa-envelope"></i> Redefinir Senha pelo E-mail</button>
+    <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
+    <h3>Alterar Senha</h3>
+    
+    <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+        <div class="input-group-icon">
+            <i class="fa-solid fa-unlock-keyhole"></i>
+            <input type="password" id="current-password" placeholder="Senha Atual" required>
         </div>
+        <div class="input-group-icon">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="new-password" placeholder="Nova Senha" required>
+        </div>
+        <div class="input-group-icon">
+            <i class="fa-solid fa-check-double"></i>
+            <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required>
+        </div>
+        <button id="btn-update-password" class="btn-reset-password">Atualizar Minha Senha</button>
+    </div>
+
+    <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
+    
+    <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu sua senha atual? Receba instruções de recuperação por e-mail.</p>
+    <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
+        <i class="fa-regular fa-envelope"></i> Redefinir por E-mail
+    </button>
+</div>
     </main>
 
     <div class="toast-wrapper" id="toastBox">
@@ -144,63 +164,94 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { 
+        getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
+        updatePassword, EmailAuthProvider, reauthenticateWithCredential 
+    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-            authDomain: "roda-dos-10.firebaseapp.com",
-            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10",
-            storageBucket: "roda-dos-10.firebasestorage.app",
-            messagingSenderId: "1072183237747",
-            appId: "1:1072183237747:web:3a41a635187df2db809e06"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+        authDomain: "roda-dos-10.firebaseapp.com",
+        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+        projectId: "roda-dos-10",
+        storageBucket: "roda-dos-10.firebasestorage.app",
+        messagingSenderId: "1072183237747",
+        appId: "1:1072183237747:web:3a41a635187df2db809e06"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        let userEmail = "";
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    let userEmail = "";
 
-        function showFeedback(message, isSuccess = true) {
-            const toast = document.getElementById("toastBox");
-            const icon = document.getElementById("toastIcon");
-            const msgSpan = document.getElementById("toastMessage");
+    function showFeedback(message, isSuccess = true) {
+        const toast = document.getElementById("toastBox");
+        const icon = document.getElementById("toastIcon");
+        const msgSpan = document.getElementById("toastMessage");
 
-            toast.className = `toast-wrapper active ${isSuccess ? 'toast-success' : 'toast-error'}`;
-            icon.className = isSuccess ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
-            icon.style.color = isSuccess ? "#10B981" : "#EF4444";
-            msgSpan.innerText = message;
+        toast.className = `toast-wrapper active ${isSuccess ? 'toast-success' : 'toast-error'}`;
+        icon.className = isSuccess ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+        icon.style.color = isSuccess ? "#10B981" : "#EF4444";
+        msgSpan.innerText = message;
 
-            setTimeout(() => toast.classList.remove("active"), 4000);
+        setTimeout(() => toast.classList.remove("active"), 4000);
+    }
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            userEmail = user.email;
+        } else {
+            window.location.href = "login.html";
+        }
+    });
+
+    // Lógica para Alterar Senha (Campos Obrigatórios)
+    document.getElementById("btn-update-password").addEventListener("click", async () => {
+        const currentPass = document.getElementById("current-password").value;
+        const newPass = document.getElementById("new-password").value;
+        const confirmPass = document.getElementById("confirm-password").value;
+
+        if (!currentPass || !newPass || !confirmPass) {
+            showFeedback("Preencha todos os campos obrigatórios.", false);
+            return;
         }
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                userEmail = user.email;
-            } else {
-                window.location.href = "login.html";
-            }
-        });
+        if (newPass !== confirmPass) {
+            showFeedback("As novas senhas não coincidem!", false);
+            return;
+        }
 
-        document.getElementById("btn-send-reset").addEventListener("click", () => {
-            if (!userEmail) {
-                showFeedback("Erro ao validar sessão.", false);
-                return;
-            }
+        const user = auth.currentUser;
+        const credential = EmailAuthProvider.credential(user.email, currentPass);
 
-            sendPasswordResetEmail(auth, userEmail)
-                .then(() => {
-                    showFeedback(`Link enviado! Verifique a caixa de entrada de: ${userEmail}`);
-                })
-                .catch((error) => {
-                    showFeedback(`Falha ao disparar e-mail: ${error.message}`, false);
-                });
-        });
+        try {
+            // Reautentica para permitir a troca
+            await reauthenticateWithCredential(user, credential);
+            // Atualiza para a nova senha
+            await updatePassword(user, newPass);
+            showFeedback("Senha alterada com sucesso!");
+            // Limpa os campos
+            document.getElementById("current-password").value = "";
+            document.getElementById("new-password").value = "";
+            document.getElementById("confirm-password").value = "";
+        } catch (error) {
+            showFeedback("Erro: Verifique se sua senha atual está correta.", false);
+        }
+    });
 
-        document.getElementById("btn-logout").addEventListener("click", (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => { window.location.href = "login.html"; });
-        });
-    </script>
+    // Lógica para envio de e-mail (Recuperação)
+    document.getElementById("btn-send-reset").addEventListener("click", () => {
+        if (!userEmail) return;
+        sendPasswordResetEmail(auth, userEmail)
+            .then(() => showFeedback(`Instruções enviadas para: ${userEmail}`))
+            .catch((error) => showFeedback(`Falha ao disparar e-mail: ${error.message}`, false));
+    });
+
+    // Logout
+    document.getElementById("btn-logout").addEventListener("click", (e) => {
+        e.preventDefault();
+        signOut(auth).then(() => { window.location.href = "login.html"; });
+    });
+</script>
 </body>
 </html>
