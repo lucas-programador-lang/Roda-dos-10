@@ -43,6 +43,8 @@
         .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.5rem; text-align: center; max-width: 600px; margin: 0 auto; }
         .card-icon { font-size: 2.5rem; color: #F5A623; margin-bottom: 1rem; }
         
+        .commission-badge { background: rgba(16, 185, 129, 0.12); color: var(--neon-green); padding: 0.4rem 1rem; border-radius: 50px; font-weight: 700; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; margin-bottom: 1rem; border: 1px solid rgba(16, 185, 129, 0.2); }
+
         .referral-container { display: flex; gap: 10px; margin-top: 1.5rem; }
         .referral-input { flex-grow: 1; padding: 0.9rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 10px; color: white; font-size: 0.9rem; outline: none; }
         .btn-copy { background: var(--primary-gold); color: #000; border: none; padding: 0 1.5rem; border-radius: 10px; font-weight: 700; cursor: pointer; transition: var(--transition-smooth); }
@@ -56,6 +58,7 @@
             .nav-menu { gap: 1rem; flex-wrap: wrap; justify-content: center; }
             .referral-container { flex-direction: column; }
             .btn-copy { padding: 0.9rem; }
+            .page-header { text-align: center; }
         }
     </style>
 </head>
@@ -75,14 +78,15 @@
 
     <main class="main-layout">
         <header class="page-header">
-            <h1>Painel de Afiliados</h1>
-            <p>Compartilhe seu link exclusivo e ganhe comissões recorrentes direto no seu saldo.</p>
+            <h1>Programa de Indicações</h1>
+            <p>Monetize seu círculo de contatos convidando novos membros para as rodadas.</p>
         </header>
 
         <div class="premium-card">
+            <div class="commission-badge"><i class="fa-solid fa-percent"></i> 20% de Comissão Única</div>
             <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
-            <h3>Seu Link de Indicação Premium</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Qualquer usuário que se cadastrar por ele vira seu afiliado.</p>
+            <h3>Seu Link de Indicação Exclusivo</h3>
+            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">Faturamento automático direto no seu saldo em cada novo cadastro qualificado.</p>
             
             <div class="referral-container">
                 <input type="text" id="referral-link" class="referral-input" readonly>
@@ -93,7 +97,7 @@
 
     <div class="toast-wrapper" id="toastBox">
         <i class="fa-solid fa-circle-check"></i>
-        <span>Link de afiliado copiado!</span>
+        <span>Link copiado com sucesso!</span>
     </div>
 
     <script type="module">
