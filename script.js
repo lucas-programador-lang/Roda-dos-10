@@ -20,7 +20,9 @@ function getLocalData() {
 
 function saveLocalData(data) {
     localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
-    updateDashboardMetrics();
+    if (typeof updateDashboardMetrics === "function") {
+        updateDashboardMetrics();
+    }
 }
 
 // ATUALIZA INTERFACE DO DASHBOARD E PROGRESSO DE COMPRAS
@@ -61,11 +63,14 @@ function openModal(name, price, prize) {
     if (clientNameEl) clientNameEl.value = "";
 
     recalculateTotal();
-    document.getElementById("modalCompra").classList.add("active");
+    
+    const modal = document.getElementById("modalCompra");
+    if (modal) modal.classList.add("active");
 }
 
 function closeModal() {
-    document.getElementById("modalCompra").classList.remove("active");
+    const modal = document.getElementById("modalCompra");
+    if (modal) modal.classList.remove("active");
 }
 
 function changeQuantity(factor) {
@@ -85,7 +90,8 @@ function recalculateTotal() {
 
 // COMPRA ENVIADA AO WHATSAPP DO SUPORTE
 function sendOrder() {
-    const clientName = document.getElementById("client-name").value.trim();
+    const clientNameInput = document.getElementById("client-name");
+    const clientName = clientNameInput ? clientNameInput.value.trim() : "";
 
     if (!clientName) {
         fireToast("Por favor, preencha seu nome completo.", true);
@@ -176,7 +182,7 @@ function copyLink() {
     copyText.setSelectionRange(0, 99999);
     navigator.clipboard.writeText(copyText.value);
     
-    fireToast("Link de indicação copiado!");
+    fireToast("Link de indicação cobiado!");
 }
 
 // SISTEMA PREMIUM DE TOAST
@@ -200,10 +206,12 @@ function fireToast(message, isError = false) {
     }
 
     toast.classList.add("active");
-    setTimeout(() => toast.classList.remove("active"), 4000);
+    setTimeout(() => {
+        if (toast) toast.classList.remove("active");
+    }, 4000);
 }
 
 window.onclick = function(event) {
     const backdrop = document.getElementById("modalCompra");
-    if (event.target === backdrop) closeModal();
+    if (backdrop && event.target === backdrop) closeModal();
 }
