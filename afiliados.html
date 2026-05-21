@@ -224,11 +224,11 @@
         <i class="fa-solid fa-circle-check"></i>
         <span>Link de indicação copiado!</span>
     </div>
-
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    // Trocamos o Firestore pelo Realtime Database
+    import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
@@ -242,37 +242,43 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app);
+    const db = getDatabase(app);
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            // Link de indicação
-            const currentUrl = window.location.origin + window.location.pathname.replace('afiliados.html', 'register.html');
-            document.getElementById("referral-link").value = `${currentUrl}?ref=${user.uid}`;
+            // Gerador de Link (Apontando para seu r.html que redireciona)
+            const currentUrl = window.location.origin + '/r?id=' + user.uid;
+            document.getElementById("referral-link").value = currentUrl;
 
-            // Buscar indicados no Firestore
-            const q = query(collection(db, "usuarios"), where("indicadoPor", "==", user.uid));
-            const querySnapshot = await getDocs(q);
+            // Busca no Realtime Database: nó 'users' onde 'referredBy' == user.uid
+            const usersRef = ref(db, 'users');
+            const q = query(usersRef, orderByChild('referredBy'), equalTo(user.uid));
+            
+            const snapshot = await get(q);
             const tabela = document.getElementById("lista-afiliados");
             tabela.innerHTML = "";
 
-            querySnapshot.forEach((doc) => {
-                const dados = doc.data();
-                // Calcula 20% do valor (assumindo que existe o campo 'valor' no cadastro)
-                const comissao = (dados.valor * 0.20).toFixed(2);
-                
-                tabela.innerHTML += `
-                    <tr style="border-bottom: 1px solid var(--border-soft);">
-                        <td style="padding: 10px;">${dados.nome}</td>
-                        <td style="padding: 10px; color: var(--text-neon);">R$ ${comissao}</td>
-                    </tr>
-                `;
-            });
+            if (snapshot.exists()) {
+                snapshot.forEach((childSnapshot) => {
+                    const dados = childSnapshot.val();
+                    // Proteção caso o campo valor não exista
+                    const valorCompra = dados.valor || 0; 
+                    const comissao = (valorCompra * 0.20).toFixed(2);
+                    
+                    tabela.innerHTML += `
+                        <tr style="border-bottom: 1px solid var(--border-soft);">
+                            <td style="padding: 10px;">${dados.fullName || 'Sem nome'}</td>
+                            <td style="padding: 10px; color: var(--text-neon);">R$ ${comissao}</td>
+                        </tr>
+                    `;
+                });
+            }
         } else {
             window.location.href = "login.html";
         }
     });
 
+    // Manter o restante (botão copiar e logout)
     document.getElementById("btn-copy-link").addEventListener("click", () => {
         const linkInput = document.getElementById("referral-link");
         linkInput.select();
