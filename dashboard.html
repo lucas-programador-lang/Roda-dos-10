@@ -398,11 +398,24 @@
         </div>
 
         <div style="margin-bottom: 1.2rem; text-align: left;">
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
-            <input type="text" id="withdraw-pix" placeholder="Sua chave PIX" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-        </div>
+    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
+    <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+</div>
 
-        <div class="modal-actions">
+<div style="margin-bottom: 1.2rem; text-align: left;">
+    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
+    <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
+        <option value="CPF">CPF</option>
+        <option value="E-mail">E-mail</option>
+        <option value="Telefone">Número de Telefone</option>
+        <option value="Chave Aleatória">Chave Aleatória</option>
+    </select>
+
+    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
+    <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+</div>
+       
+    <div class="modal-actions">
             <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
             <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
         </div>
@@ -473,32 +486,30 @@
 
         document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
     const name = document.getElementById("withdraw-name").value.trim();
+    const pixType = document.getElementById("withdraw-pix-type").value; // Capture o select
     const pix = document.getElementById("withdraw-pix").value.trim();
     const balance = globalUserBalance.toFixed(2).replace('.', ',');
-    const user = auth.currentUser; // Obtém o usuário logado
+    const user = auth.currentUser;
 
     if (!name || !pix) {
         fireToast("Preencha nome e chave PIX.", true);
         return;
     }
 
+    // Mensagem atualizada com o tipo da chave
     const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
                 `👤 Nome: ${name}\n` +
-                `🔑 Chave PIX: ${pix}\n` +
+                `🔑 Tipo da Chave: ${pixType}\n` +
+                `🔢 Chave PIX: ${pix}\n` +
                 `💵 Valor: R$ ${balance}\n\n` +
                 `Enviado via Painel Roda dos 10.`;
 
-    // 1. Abre o WhatsApp para o usuário enviar a mensagem
     window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
 
-    // 2. Zera o saldo no Firebase
     if (user) {
         const userBalanceRef = ref(db, `users/${user.uid}/balance`);
-        
-        // Usamos o set para definir o saldo como 0
         set(userBalanceRef, 0)
             .then(() => {
-                console.log("Saldo zerado com sucesso!");
                 fireToast("Saque solicitado! Seu saldo foi processado.");
             })
             .catch((error) => {
@@ -507,7 +518,6 @@
             });
     }
 
-    // 3. Fecha o modal
     document.getElementById("withdrawModal").classList.remove("active");
 });
 
