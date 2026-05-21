@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil — Roda dos 10</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
+                <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
+                <li><a href="perfil.html" class="active"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-layout">
+        <header class="page-header">
+            <div>
+                <h1>Configurações do Perfil</h1>
+                <p>Gerencie suas informações cadastrais e realize pedidos de retiradas de saldo.</p>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="premium-card">
+                <h3><i class="fa-regular fa-id-card"></i> Dados da Conta</h3>
+                <div style="margin-top:1.5rem; display:flex; flex-direction:column; gap: 12px;">
+                    <p><strong>Nome:</strong> <span id="prof-name" style="color:var(--text-white);">...</span></p>
+                    <p><strong>E-mail:</strong> <span id="prof-email" style="color:var(--text-white);">...</span></p>
+                    <p><strong>ID da Conta:</strong> <span id="prof-uid" style="color: #F5A623; font-family: monospace;">...</span></p>
+                </div>
+            </div>
+
+            <div class="premium-card">
+                <h3><i class="fa-solid fa-money-bill-transfer"></i> Solicitar Saque Manual</h3>
+                <div style="margin-top:1rem;" class="input-block">
+                    <label>Valor do Saque (Mínimo R$ 25,00)</label>
+                    <input type="number" id="withdraw-amount" placeholder="0.00" style="width:100%; margin-bottom: 12px; padding: 0.8rem; background: rgba(0,0,0,0.2); border:1px solid var(--border-soft); color:white; border-radius:8px;">
+                    <button id="btn-withdraw" class="btn-primary" style="background:#10B981;"><i class="fa-brands fa-whatsapp"></i> Solicitar via WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const auth = getAuth(app);
+
+        let userBalance = 0;
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+            msgSpan.innerText = message;
+            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+            icon.style.color = isError ? "#EF4444" : "#10B981";
+            toast.classList.add("active");
+            setTimeout(() => toast.classList.remove("active"), 3500);
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                document.getElementById("prof-name").innerText = user.displayName || "Não definido";
+                document.getElementById("prof-email").innerText = user.email;
+                document.getElementById("prof-uid").innerText = user.uid;
+
+                // Carrega dados de segurança do banco
+                const snapshot = await get(ref(db, `users/${user.uid}`));
+                if (snapshot.exists()) {
+                    userBalance = parseFloat(snapshot.val().balance || 0);
+                }
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        // Validação Inteligente e Saque Oficial
+        document.getElementById("btn-withdraw").addEventListener("click", () => {
+            const amountInput = document.getElementById("withdraw-amount");
+            const amount = parseFloat(amountInput.value);
+            const userName = document.getElementById("prof-name").innerText;
+            const userUid = document.getElementById("prof-uid").innerText;
+
+            if (!amount || amount < 25) {
+                showToast("O valor mínimo para realizar o saque é R$ 25,00.", true);
+                return;
+            }
+            if (amount > userBalance) {
+                showToast(`Saldo insuficiente. Você possui R$ ${userBalance.toFixed(2).replace('.',',')}`, true);
+                return;
+            }
+
+            const message = `Olá Suporte! Gostaria de solicitar meu saque manual na Roda dos 10.\n\n👤 *Nome:* ${userName}\n💰 *Valor:* R$ ${amount.toFixed(2).replace('.',',')}\n🆔 *ID da Conta:* ${userUid}`;
+            window.open(`https://wa.me/55639759981028?text=${encodeURIComponent(message)}`, "_blank");
+            amountInput.value = "";
+        });
+
+        // Logout
+        document.getElementById("btn-logout").addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        });
+    </script>
+</body>
+</html>
