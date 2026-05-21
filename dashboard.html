@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Premium Pix — Controle Geral</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dashboard-body">
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fa-solid fa-chart-line"></i> Painel<span>Premium</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">Sorteios</a>
+                <a href="dashboard.html" class="active">Meu Painel</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        <div class="group-banner-card">
+            <div class="banner-info">
+                <h3>Grupo Exclusivo de Sorteios</h3>
+                <p>Todos os sorteios acontecem de 10 em 10 dias e são divulgados aqui.</p>
+            </div>
+            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
+                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
+            </a>
+        </div>
+
+        <section class="metrics-grid">
+            <div class="metric-card">
+                <div class="card-meta">
+                    <span>Saldo Disponível (Indicações)</span>
+                    <i class="fa-solid fa-wallet icon-wallet"></i>
+                </div>
+                <h2 id="dash-balance">R$ 0,00</h2>
+                <p class="sub-text">Comissão única de 20% por amigo</p>
+                <button class="btn-simulate-bonus" onclick="simulateCommission()"><i class="fa-solid fa-plus"></i> Simular +R$20 Comissão</button>
+            </div>
+
+            <div class="metric-card">
+                <div class="card-meta">
+                    <span>Cotas Adquiridas</span>
+                    <i class="fa-solid fa-ticket-simple icon-ticket"></i>
+                </div>
+                <h2 id="dash-tickets">0</h2>
+                <p class="sub-text">Atualizado após envio ao suporte</p>
+            </div>
+        </section>
+
+        <section class="dash-actions-grid">
+            <div class="action-card">
+                <h3><i class="fa-solid fa-money-bill-wave"></i> Solicitar Saque Manual</h3>
+                <p class="action-desc">Saques permitidos a qualquer momento. Mínimo de R$ 30,00.</p>
+                
+                <div class="input-block">
+                    <label for="withdraw-amount">Valor do Saque (R$)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Ex: 35.00" min="30">
+                </div>
+                <div class="input-block">
+                    <label for="withdraw-name">Seu Nome Completo</label>
+                    <input type="text" id="withdraw-name" placeholder="Confirme seu nome completo">
+                </div>
+                <button class="btn-primary" onclick="requestWithdraw()"><i class="fa-solid fa-hand-holding-dollar"></i> Solicitar via WhatsApp</button>
+            </div>
+
+            <div class="action-card">
+                <h3><i class="fa-solid fa-share-nodes"></i> Seu Link de Indicação</h3>
+                <p class="action-desc">Copie o link abaixo e ganhe 20% de todas as compras feitas pelos seus amigos.</p>
+                
+                <div class="referral-box">
+                    <input type="text" id="referral-link" readonly value="https://seu-usuario.github.io/seu-repositorio/?ref=user123">
+                    <button class="btn-copy" onclick="copyLink()"><i class="fa-solid fa-copy"></i> Copiar</button>
+                </div>
+                <div class="affiliate-alert">
+                    <i class="fa-solid fa-circle-info"></i> Lembrete: Após o saque, envie o valor e seu nome ao suporte para a conferência manual de chaves.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Atualiza a URL de indicação baseada no link atual da página do Github Pages
+        document.addEventListener("DOMContentLoaded", () => {
+            const currentUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'index.html');
+            document.getElementById("referral-link").value = currentUrl + "?ref=VIP" + Math.floor(1000 + Math.random() * 9000);
+            updateDashboardMetrics();
+        });
+    </script>
+</body>
+</html>
