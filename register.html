@@ -227,29 +227,36 @@
                 await updateProfile(user, { displayName: name });
 
                const referralInput = document.getElementById('reg-ref').value.trim().toLowerCase();
-                let uidIndicador = "NENHUM";
-            
-               if (referralInput) {
-                console.log("Tentando buscar apelido no banco:", referralInput);
-                const snap = await get(ref(db, `referral_map/${referralInput}`));
-                
-                if (snap.exists()) {
-                    uidIndicador = snap.val().uid;
-                    console.log("SUCESSO: Apelido encontrado! UID do indicador:", uidIndicador);
-                } else {
-                    console.log("ERRO: Apelido não encontrado no referral_map.");
-                }
-            }
-                // 4. Salva no banco com o UID do indicador
-                await set(ref(db, `users/${user.uid}`), {
-                    fullName: name,
-                    email: user.email,
-                    balance: 0.00,
-                    tickets: 0,
-                    referredBy: uidIndicador, // Agora grava o ID único, perfeito para comissões
-                    createdAt: new Date().toISOString()
-                });
-                
+                    let uidIndicador = "NENHUM";
+                    
+                    if (referralInput) {
+                        console.log("Tentando buscar apelido no banco:", referralInput);
+                        try {
+                            const snap = await get(ref(db, 'referral_map/' + referralInput));
+                            
+                            if (snap.exists()) {
+                                const data = snap.val();
+                                // Verifica se o objeto retornado possui a propriedade uid
+                                uidIndicador = data.uid ? data.uid : "NENHUM";
+                                console.log("SUCESSO: Apelido encontrado! UID do indicador:", uidIndicador);
+                            } else {
+                                console.log("ERRO: Apelido não encontrado no referral_map.");
+                            }
+                        } catch (err) {
+                            console.error("Erro ao acessar referral_map:", err);
+                        }
+                    }
+                    
+                    // 4. Salva no banco com o UID do indicador ou "NENHUM"
+                    await set(ref(db, `users/${user.uid}`), {
+                        fullName: name,
+                        email: user.email,
+                        balance: 0.00,
+                        tickets: 0,
+                        referredBy: uidIndicador, 
+                        createdAt: new Date().toISOString()
+                    });
+                                    
                 console.log("Dados enviados com sucesso para: users/" + user.uid);
 
                 showToast("Conta criada! Redirecionando para o painel...");
