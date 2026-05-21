@@ -1,0 +1,10 @@
+<script>
+    // Pega o parâmetro da URL atual e redireciona para o register
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('id');
+    if (ref) {
+        window.location.href = `register.html?ref=${ref}`;
+    } else {
+        window.location.href = 'register.html';
+    }
+</script>
