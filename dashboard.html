@@ -3,212 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Roda dos 10 — Controle Geral</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Painel Principal — Roda dos 10</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="dashboard-body">
+<body>
 
-    <header>
+    <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
                 <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
             </div>
-            <nav class="nav-menu">
-                <a href="index.html">Sorteios</a>
-                <a href="dashboard.html" class="active">Meu Painel</a>
-            </nav>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html" class="active"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
+                <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
+                <li><a href="perfil.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <main class="dashboard-container">
-        
-        <div class="progress-banner-card premium-glass">
-            <div class="progress-info">
-                <h3><i class="fa-solid fa-spinner fa-spin text-gold"></i> Progresso do Próximo Sorteio</h3>
-                <p>O sorteio é liberado assim que atingir <strong>20 compras</strong>. (Limite: 20 compras por rodada)</p>
+    <main class="main-layout">
+        <header class="page-header">
+            <div>
+                <h1 id="welcome-user">Olá, ...</h1>
+                <p>Bem-vindo ao seu painel de controle financeiro.</p>
             </div>
-            <div class="progress-bar-wrapper">
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" id="meta-progress-fill" style="width: 30%;"></div>
-                </div>
-                <div class="progress-text-status">
-                    <span id="meta-text-count">6 / 20 Compras</span>
-                    <span>Limite: 20</span>
-                </div>
-            </div>
-        </div>
+        </header>
 
-        <div class="group-banner-card">
-            <div class="banner-glow-effect"></div>
-            <div class="banner-info">
-                <span class="banner-badge"><i class="fa-solid fa-bell"></i> Resultados Aqui</span>
-                <h3>Grupo Exclusivo Roda dos 10</h3>
-                <p>Os resultados são divulgados exclusivamente dentro do grupo assim que o limite de 20 compras é atingido.</p>
-            </div>
-            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
-                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
-            </a>
-        </div>
-
-        <section class="metrics-grid">
-            <div class="metric-card premium-glass">
-                <div class="card-glow-effect"></div>
-                <div class="card-meta">
-                    <span>Saldo de Indicações</span>
-                    <div class="icon-container circle-gold">
-                        <i class="fa-solid fa-wallet icon-wallet"></i>
-                    </div>
-                </div>
-                <h2 id="dash-balance">R$ 860,00</h2>
-                <p class="sub-text">Comissão única de 20% por convidado</p>
-                <button class="btn-simulate-bonus" id="btn-simulate">
-                    <i class="fa-solid fa-plus"></i> Simular +R$20 de Comissão
-                </button>
+        <div class="dashboard-grid">
+            <div class="premium-card">
+                <div class="card-icon"><i class="fa-solid fa-wallet"></i></div>
+                <h3>Saldo Disponível</h3>
+                <h2 id="dash-balance">R$ 0,00</h2>
+                <p class="card-detail">Atualizado em tempo real</p>
             </div>
 
-            <div class="metric-card premium-glass">
-                <div class="card-glow-effect accent-glow"></div>
-                <div class="card-meta">
-                    <span>Minhas Cotas Ativas</span>
-                    <div class="icon-container circle-green">
-                        <i class="fa-solid fa-ticket-simple icon-ticket"></i>
-                    </div>
-                </div>
+            <div class="premium-card">
+                <div class="card-icon"><i class="fa-solid fa-ticket"></i></div>
+                <h3>Minhas Cotas / Ativas</h3>
                 <h2 id="dash-tickets">0</h2>
-                <p class="sub-text">Seu nome repetirá essa quantidade de vezes no sorteio</p>
-            </div>
-        </section>
-
-        <section class="dash-actions-grid">
-            
-            <div class="action-card premium-glass">
-                <div class="action-card-header">
-                    <i class="fa-solid fa-money-bill-wave card-header-icon text-gold"></i>
-                    <div>
-                        <h3>Solicitar Saque Manual</h3>
-                        <p class="action-desc">Saque a qualquer momento. Mínimo de R$ 25,00.</p>
-                    </div>
-                </div>
-                
-                <div class="input-block">
-                    <label for="withdraw-amount">Valor do Saque (R$)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Ex: 25.00" min="25">
-                </div>
-                <div class="input-block">
-                    <label for="withdraw-name">Seu Nome Completo</label>
-                    <input type="text" id="withdraw-name" placeholder="Digite seu nome completo">
-                </div>
-                <button class="btn-primary" id="btn-withdraw">
-                    <i class="fa-solid fa-hand-holding-dollar"></i> Solicitar via WhatsApp
-                </button>
-            </div>
-
-            <div class="action-card premium-glass">
-                <div class="action-card-header">
-                    <i class="fa-solid fa-share-nodes card-header-icon text-green"></i>
-                    <div>
-                        <h3>Seu Link de Indicação</h3>
-                        <p class="action-desc">Compartilhe seu link e acumule 20% de comissão em todas as compras dos seus indicados.</p>
-                    </div>
-                </div>
-                
-                <div class="referral-box">
-                    <input type="text" id="referral-link" readonly value="">
-                    <button class="btn-copy" id="btn-copy-link"><i class="fa-solid fa-copy"></i> Copiar</button>
-                </div>
-                
-                <div class="affiliate-alert">
-                    <i class="fa-solid fa-circle-info"></i> <strong>Atenção:</strong> Após solicitar o saque, envie o valor e seu nome ao suporte para efetuar o pagamento.
-                </div>
-
-                <a href="https://wa.me/639759981028" target="_blank" class="btn-support-direct" style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 15px; background: rgba(255,255,255,0.05); color: #fff; padding: 12px; border-radius: 12px; text-decoration: none; font-size: 0.9rem; font-weight: 600; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;">
-                    <i class="fa-solid fa-headset" style="color: #10B981;"></i> Falar com o Suporte Oficial
-                </a>
-            </div>
-            
-        </section>
-
-        <section class="price-tables-card premium-glass" style="margin-top: 2rem;">
-            <div class="card-glow-effect"></div>
-            <div class="action-card-header">
-                <i class="fa-solid fa-star card-header-icon text-gold"></i>
-                <div>
-                    <h3>Tabela de Investimentos & Prêmios</h3>
-                    <p class="action-desc">Cada lote de sorteio é liberado automaticamente assim que a categoria atinge o limite de <strong>20 compras</strong> acumuladas!</p>
-                </div>
-            </div>
-            
-            <div class="investment-options-grid">
-                <div class="tier-item">
-                    <span class="tier-badge">Popular</span>
-                    <p class="tier-cost">Investe <strong>R$ 3,50</strong></p>
-                    <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 25,00</strong></p>
-                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
-                    <button class="btn-primary" onclick="openModal('Cota Bronze', 3.50, 25.00)" style="width: 100%; padding: 8px; font-size: 0.85rem;">Comprar Cota</button>
-                </div>
-                <div class="tier-item highlight-tier">
-                    <span class="tier-badge">Recomendado</span>
-                    <p class="tier-cost">Investe <strong>R$ 5,50</strong></p>
-                    <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 50,00</strong></p>
-                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
-                    <button class="btn-primary" onclick="openModal('Cota Prata', 5.50, 50.00)" style="width: 100%; padding: 8px; font-size: 0.85rem; background: var(--neon-green); color: #000;">Comprar Cota</button>
-                </div>
-                <div class="tier-item">
-                    <span class="tier-badge">VIP</span>
-                    <p class="tier-cost">Investe <strong>R$ 10,00</strong></p>
-                    <p class="tier-prize"><i class="fa-solid fa-trophy"></i> Concorre a <strong>R$ 100,00</strong></p>
-                    <p class="tier-rule-info" style="margin-bottom: 12px;">Liberado a cada 20 compras</p>
-                    <button class="btn-primary" onclick="openModal('Cota Ouro', 10.00, 100.00)" style="width: 100%; padding: 8px; font-size: 0.85rem;">Comprar Cota</button>
-                </div>
-            </div>
-
-            <div class="draw-calendar-info">
-                <span><i class="fa-solid fa-cart-shopping"></i> 1 compra múltipla conta como novas cotas (Ex: 2 compras = 2 na contagem da meta)</span>
-                <span><i class="fa-solid fa-calendar-days"></i> Sorteio semanal a cada 10 dias</span>
-            </div>
-        </section>
-    </main>
-
-    <div id="modalCompra" class="modal-backdrop">
-        <div class="modal-card premium-glass">
-            <div class="card-glow-effect accent-glow"></div>
-            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
-            
-            <div class="modal-header">
-                <h2 id="m-ticket-name">Cota Bronze</h2>
-                <p id="m-ticket-prize">Concorra a R$ 25,00 no Pix</p>
-            </div>
-            
-            <div class="modal-body">
-                <div class="input-block">
-                    <label for="client-name">Seu Nome Completo (Usado no Sorteio)</label>
-                    <input type="text" id="client-name" placeholder="Digite seu nome para o sorteio...">
-                </div>
-                
-                <div class="input-block">
-                    <label>Quantidade de Cotas (Acelera a meta de liberação)</label>
-                    <div class="quantity-control">
-                        <button type="button" class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                        <span id="qty-display">1</span>
-                        <button type="button" class="qty-btn" onclick="changeQuantity(1)">+</button>
-                    </div>
-                </div>
-                
-                <div class="total-row">
-                    <span>Total a Pagar:</span>
-                    <span id="total-display">R$ 3,50</span>
-                </div>
-                
-                <button class="btn-submit-order" onclick="sendOrder()">
-                    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
-                </button>
+                <p class="card-detail">Participe dos sorteios ativos</p>
             </div>
         </div>
-    </div>
+    </main>
 
     <div class="toast-wrapper" id="toastBox">
         <i class="fa-solid fa-circle-check" id="toastIcon"></i>
@@ -216,126 +57,62 @@
     </div>
 
     <script type="module">
-        // Importações do Firebase SDK v10 (Utilizando CDN dinâmica para Produção)
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, set, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // Substitua pelas credenciais do seu projeto Firebase Console
-       const firebaseConfig = {
-          apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-          authDomain: "roda-dos-10.firebaseapp.com",
-          projectId: "roda-dos-10",
-          storageBucket: "roda-dos-10.firebasestorage.app",
-          messagingSenderId: "1072183237747",
-          appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
         };
 
-        // Inicializa o Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+        const auth = getAuth(app);
 
-        // Referência fixa para o usuário logado fictício ou dinâmico
-        const userId = "user_default"; 
-
-        // Função interna para exibir Toasts dinâmicos
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             const icon = document.getElementById("toastIcon");
             const msgSpan = document.getElementById("toastMessage");
-            
             msgSpan.innerText = message;
             toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
             icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
             icon.style.color = isError ? "#EF4444" : "#10B981";
-            
             toast.classList.add("active");
             setTimeout(() => toast.classList.remove("active"), 3500);
         }
 
-        // Sincronização em tempo real / Carregamento Inicial do Banco de Dados
-        async function loadUserData() {
-            const dbRef = ref(db);
-            try {
-                const snapshot = await get(child(dbRef, `users/${userId}`));
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    document.getElementById("dash-balance").innerText = `R$ ${parseFloat(data.balance || 0).toFixed(2).replace('.', ',')}`;
-                    document.getElementById("dash-tickets").innerText = data.tickets || 0;
-                } else {
-                    // Inicializa nó caso não exista no Realtime Database
-                    await set(ref(db, `users/${userId}`), {
-                        balance: 860.00,
-                        tickets: 0
-                    });
-                }
-            } catch (error) {
-                console.error("Erro ao ler dados do Firebase:", error);
-            }
-        }
-
-        // Lógica de Simulação de comissão persistindo no Firebase
-        document.getElementById("btn-simulate").addEventListener("click", async () => {
-            const dbRef = ref(db, `users/${userId}`);
-            try {
-                const snapshot = await get(dbRef);
-                let currentBalance = snapshot.exists() ? parseFloat(snapshot.val().balance || 0) : 0;
-                let newBalance = currentBalance + 20.00;
+        // Segurança e Escuta em Tempo Real
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
                 
-                await update(dbRef, { balance: newBalance });
-                document.getElementById("dash-balance").innerText = `R$ ${newBalance.toFixed(2).replace('.', ',')}`;
-                showToast("Simulação concluída! +R$ 20,00 adicionados.");
-            } catch (err) {
-                showToast("Falha ao salvar simulação.", true);
+                // Sincroniza Saldo e Cotas do banco de dados automaticamente
+                const userRef = ref(db, `users/${user.uid}`);
+                onValue(userRef, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const data = snapshot.val();
+                        document.getElementById("dash-balance").innerText = `R$ ${parseFloat(data.balance || 0).toFixed(2).replace('.', ',')}`;
+                        document.getElementById("dash-tickets").innerText = data.tickets || 0;
+                    }
+                });
+            } else {
+                window.location.href = "login.html";
             }
         });
 
-        // Solicitação de Saque via WhatsApp
-        document.getElementById("btn-withdraw").addEventListener("click", () => {
-            const amountInput = document.getElementById("withdraw-amount");
-            const nameInput = document.getElementById("withdraw-name");
-            const balanceText = document.getElementById("dash-balance").innerText;
-            const currentBalance = parseFloat(balanceText.replace("R$ ", "").replace(",", "."));
-
-            const amount = parseFloat(amountInput.value);
-            const name = nameInput.value.trim();
-
-            if (!amount || amount < 25) {
-                showToast("O valor mínimo para saque é R$ 25,00.", true);
-                return;
-            }
-            if (amount > currentBalance) {
-                showToast("Saldo de indicações insuficiente.", true);
-                return;
-            }
-            if (!name) {
-                showToast("Por favor, preencha seu nome completo.", true);
-                return;
-            }
-
-            const text = `Olá Suporte! Gostaria de solicitar o meu saque manual no Roda dos 10.\n\n👤 *Nome:* ${name}\n💰 *Valor:* R$ ${amount.toFixed(2)}`;
-            window.open(`https://wa.me/55639759981028?text=${encodeURIComponent(text)}`, "_blank");
-            
-            amountInput.value = "";
-            nameInput.value = "";
-        });
-
-        // Configuração do Link de Indicação & Cópia
-        document.getElementById("btn-copy-link").addEventListener("click", () => {
-            const linkInput = document.getElementById("referral-link");
-            linkInput.select();
-            linkInput.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(linkInput.value);
-            showToast("Link de indicação copiado com sucesso!");
-        });
-
-        // Execuções ao iniciar a página
-        window.addEventListener("DOMContentLoaded", () => {
-            loadUserData();
-            const currentUrl = window.location.origin + window.location.pathname.replace('dashboard.html', 'index.html');
-            document.getElementById("referral-link").value = currentUrl + "?ref=Roda" + Math.floor(1000 + Math.random() * 9000);
+        // Evento Sair da Conta (Logout)
+        document.getElementById("btn-logout").addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            });
         });
     </script>
-
-    <script src="script.js"></script>
 </body>
 </html>
