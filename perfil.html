@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meu Perfil — Roda dos 10</title>
+    <title>Segurança da Conta — Roda dos 10</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,48 +23,56 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); padding-bottom: 60px; }
+        body { background-color: var(--bg-dark-base); color: var(--text-white); padding-top: 100px; padding-bottom: 60px; }
 
-        .navbar { background: rgba(17, 26, 46, 0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid var(--border-soft); position: sticky; top: 0; z-index: 999; }
-        .nav-container { max-width: 1200px; margin: 0 auto; padding: 1.2rem 1rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.4rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
+        /* FLOATING NAVBAR */
+        .navbar {
+            background: rgba(17, 26, 46, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--border-soft);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: calc(100% - 40px);
+            max-width: 1160px;
+            border-radius: 16px;
+        }
+        .nav-container { margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
         .logo span { background: var(--primary-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .logo i { color: #F5A623; margin-right: 6px; }
         .nav-menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
-        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 8px; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); background: rgba(255, 255, 255, 0.03); }
         .nav-menu a.active { color: #F5A623; }
         .logout-link { color: #EF4444 !important; }
 
-        .main-layout { max-width: 1200px; margin: 2.5rem auto; padding: 0 1rem; }
+        .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
         .page-header { margin-bottom: 2.5rem; }
         .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
         .page-header p { color: var(--text-muted); }
 
-        .profile-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; }
-        .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.2rem 2rem; }
-        .premium-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border-soft); padding-bottom: 0.8rem; }
+        .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.5rem; max-width: 540px; margin: 0 auto; text-align: center; }
+        .card-icon { font-size: 2.5rem; color: #F5A623; margin-bottom: 1.2rem; }
         
-        .info-row { display: flex; flex-direction: column; gap: 12px; }
-        .info-row p { font-size: 0.95rem; color: var(--text-muted); }
-        .info-row span { color: var(--text-white); font-weight: 600; }
-
-        .input-block { margin-top: 1rem; }
-        .input-block label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-        .input-block input { width: 100%; padding: 0.9rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 10px; color: white; outline: none; margin-bottom: 0.5rem; }
+        .instruction-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.8rem; }
         
-        .rule-note { font-size: 0.78rem; color: var(--text-muted); line-height: 1.4; margin-bottom: 1.2rem; display: block; }
-        .rule-note strong { color: #FFE57F; }
+        .btn-reset-password { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); }
+        .btn-reset-password:hover { opacity: 0.9; }
 
-        .btn-withdraw { width: 100%; background: #10B981; color: white; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); }
-        .btn-withdraw:hover { opacity: 0.9; }
-
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border-left: 4px solid #EF4444; padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 99999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: transform 0.4s ease, opacity 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
-        .toast-wrapper.active { top: 20px; opacity: 1; transform: translateX(-50%) translateY(0); }
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
+        .toast-wrapper.active { top: 30px; opacity: 1; }
+        .toast-success { background: #111A2E; border-left: 4px solid var(--neon-green); color: white; }
+        .toast-error { background: #111A2E; border-left: 4px solid #EF4444; color: white; }
 
         @media (max-width: 768px) {
-            .nav-container { flex-direction: column; gap: 1rem; padding: 1rem; }
-            .nav-menu { gap: 1rem; flex-wrap: wrap; justify-content: center; }
-            .profile-grid { grid-template-columns: 1fr; }
+            body { padding-top: 150px; }
+            .navbar { top: 10px; width: calc(100% - 20px); }
+            .nav-container { flex-direction: column; gap: 0.8rem; padding: 1rem; }
+            .nav-menu { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
             .page-header { text-align: center; }
         }
     </style>
@@ -75,9 +83,9 @@
         <div class="nav-container">
             <a href="dashboard.html" class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></a>
             <ul class="nav-menu">
-                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Meu Painel</a></li>
+                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
                 <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
-                <li><a href="perfil.html" class="active"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="perfil.html" class="active"><i class="fa-solid fa-user"></i> Senha</a></li>
                 <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
             </ul>
         </div>
@@ -85,41 +93,27 @@
 
     <main class="main-layout">
         <header class="page-header">
-            <h1>Configurações e Perfil</h1>
-            <p>Monitore suas credenciais de acesso seguras e realize saques instantâneos.</p>
+            <h1>Segurança da Conta</h1>
+            <p>Gerencie o método de autenticação e redefinição da sua credencial privada.</p>
         </header>
 
-        <div class="profile-grid">
-            <div class="premium-card">
-                <h3><i class="fa-regular fa-id-card" style="color: #F5A623;"></i> Credenciais do Usuário</h3>
-                <div class="info-row">
-                    <p>Nome Completo: <span id="prof-name">...</span></p>
-                    <p>E-mail Cadastrado: <span id="prof-email">...</span></p>
-                    <p>ID da Conta (UID): <span id="prof-uid" style="font-family: monospace; color: #FFE57F;">...</span></p>
-                </div>
-            </div>
-
-            <div class="premium-card">
-                <h3><i class="fa-solid fa-money-bill-transfer" style="color: #10B981;"></i> Retirada Manual</h3>
-                <div class="input-block">
-                    <label>Valor do Saque (Mínimo R$ 30,00)</label>
-                    <input type="number" id="withdraw-amount" placeholder="Ex: 35.00">
-                    <span class="rule-note"><i class="fa-solid fa-circle-info"></i> O saque pode ser solicitado <strong>a qualquer momento</strong>. Após concluir, envie o valor e seu nome ao suporte para a liberação imediata.</span>
-                    <button id="btn-withdraw" class="btn-withdraw"><i class="fa-brands fa-whatsapp"></i> Enviar Dados ao Suporte</button>
-                </div>
-            </div>
+        <div class="premium-card">
+            <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+            <h3>Alterar Minha Senha</h3>
+            <p class="instruction-text">Se você deseja trocar de senha ou não se lembra da sua credencial atual, clique no botão abaixo. Enviaremos um e-mail de redefinição seguro para o seu endereço cadastrado.</p>
+            
+            <button id="btn-send-reset" class="btn-reset-password"><i class="fa-regular fa-envelope"></i> Enviar E-mail de Redefinição</button>
         </div>
     </main>
 
     <div class="toast-wrapper" id="toastBox">
-        <i class="fa-solid fa-circle-xmark" style="color:#EF4444;"></i>
-        <span id="toastMessage">Erro!</span>
+        <i id="toastIcon" class="fa-solid"></i>
+        <span id="toastMessage">Mensagem</span>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
@@ -132,50 +126,43 @@
         };
 
         const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
         const auth = getAuth(app);
+        let userEmail = "";
 
-        let userBalance = 0;
-
-        function showError(message) {
+        function showFeedback(message, isSuccess = true) {
             const toast = document.getElementById("toastBox");
-            document.getElementById("toastMessage").innerText = message;
-            toast.classList.add("active");
-            setTimeout(() => toast.classList.remove("active"), 3500);
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+
+            toast.className = `toast-wrapper active ${isSuccess ? 'toast-success' : 'toast-error'}`;
+            icon.className = isSuccess ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+            icon.style.color = isSuccess ? "#10B981" : "#EF4444";
+            msgSpan.innerText = message;
+
+            setTimeout(() => toast.classList.remove("active"), 4000);
         }
 
-        onAuthStateChanged(auth, async (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
-                document.getElementById("prof-name").innerText = user.displayName || "Usuário Cadastrado";
-                document.getElementById("prof-email").innerText = user.email;
-                document.getElementById("prof-uid").innerText = user.uid;
-
-                const snapshot = await get(ref(db, `users/${user.uid}`));
-                if (snapshot.exists()) {
-                    userBalance = parseFloat(snapshot.val().balance || 0);
-                }
+                userEmail = user.email;
             } else {
                 window.location.href = "login.html";
             }
         });
 
-        document.getElementById("btn-withdraw").addEventListener("click", () => {
-            const amountInput = document.getElementById("withdraw-amount");
-            const amount = parseFloat(amountInput.value);
-            const userName = document.getElementById("prof-name").innerText;
-
-            if (!amount || amount < 30) {
-                showError("O valor mínimo para a realização do saque é R$ 30,00.");
-                return;
-            }
-            if (amount > userBalance) {
-                showError(`Saldo insuficiente. Seu balanço atual é R$ ${userBalance.toFixed(2).replace('.',',')}`);
+        document.getElementById("btn-send-reset").addEventListener("click", () => {
+            if (!userEmail) {
+                showFeedback("Erro ao carregar e-mail da sessão.", false);
                 return;
             }
 
-            const message = `Solicitação de Saque Efetuada!\n\n👤 *Nome:* ${userName}\n💰 *Valor Solicitado:* R$ ${amount.toFixed(2).replace('.',',')}\n\nFavor efetuar o pagamento via PIX.`;
-            window.open(`https://wa.me/639759981028?text=${encodeURIComponent(message)}`, "_blank");
-            amountInput.value = "";
+            sendPasswordResetEmail(auth, userEmail)
+                .then(() => {
+                    showFeedback(`E-mail enviado com sucesso para ${userEmail}! Siga as instruções da mensagem.`);
+                })
+                .catch((error) => {
+                    showFeedback(`Erro ao tentar enviar: ${error.message}`, false);
+                });
         });
 
         document.getElementById("btn-logout").addEventListener("click", (e) => {
