@@ -177,34 +177,39 @@
 
     <!-- STRUCTURED PREMIUM MODAL COMPRA -->
     <div id="modalCompra" class="modal-backdrop">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="modal-card premium-glass">
+            <div class="card-glow-effect accent-glow"></div>
+            <button class="modal-close-btn" onclick="closeModal()">&times;</button>
             
-            <h2 id="m-ticket-name">Cota Bronze</h2>
-            <p id="m-ticket-prize" class="prize-highlight">Concorra a R$ 25,00 no Pix</p>
-            
-            <div class="input-group" style="margin-top: 20px;">
-                <label for="client-name" style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94A3B8;">Seu Nome Completo (Usado no Sorteio)</label>
-                <input type="text" id="client-name" placeholder="Digite seu nome para o sorteio..." style="width: 100%; padding: 12px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; color: #fff; font-size: 1rem;">
+            <div class="modal-header">
+                <h2 id="m-ticket-name">Cota Bronze</h2>
+                <p id="m-ticket-prize">Concorra a R$ 25,00 no Pix</p>
             </div>
             
-            <div class="quantity-selector" style="margin-top: 20px;">
-                <label style="display: block; margin-bottom: 8px; font-size: 0.9rem; color: #94A3B8;">Quantidade de Cotas (Acelera a meta de liberação)</label>
-                <div class="selector-controls" style="display: flex; align-items: center; gap: 15px; background: rgba(15, 23, 42, 0.6); padding: 8px 16px; border-radius: 8px; width: fit-content; border: 1px solid rgba(255, 255, 255, 0.05);">
-                    <button type="button" onclick="changeQuantity(-1)" style="background: none; border: none; color: #fff; font-size: 1.5rem; cursor: pointer; width: 30px; height: 30px;">-</button>
-                    <span id="qty-display" style="font-size: 1.2rem; font-weight: 700; min-width: 20px; text-align: center;">1</span>
-                    <button type="button" onclick="changeQuantity(1)" style="background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; width: 30px; height: 30px;">+</button>
+            <div class="modal-body">
+                <div class="input-block">
+                    <label for="client-name">Seu Nome Completo (Usado no Sorteio)</label>
+                    <input type="text" id="client-name" placeholder="Digite seu nome para o sorteio...">
                 </div>
+                
+                <div class="input-block">
+                    <label>Quantidade de Cotas (Acelera a meta de liberação)</label>
+                    <div class="quantity-control">
+                        <button type="button" class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                        <span id="qty-display">1</span>
+                        <button type="button" class="qty-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+                
+                <div class="total-row">
+                    <span>Total a Pagar:</span>
+                    <span id="total-display">R$ 3,50</span>
+                </div>
+                
+                <button class="btn-submit-order" onclick="sendOrder()">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
+                </button>
             </div>
-            
-            <div class="total-box" style="margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, 0.1); display: flex; justify-content: space-between; align-items: center;">
-                <span style="color: #94A3B8;">Total a Pagar:</span>
-                <strong id="total-display" style="font-size: 1.5rem; color: var(--neon-green); font-weight: 800;">R$ 3,50</strong>
-            </div>
-            
-            <button class="btn-send" onclick="sendOrder()" style="width: 100%; padding: 14px; background: var(--neon-green); border: none; border-radius: 8px; color: #000; font-weight: 700; font-size: 1rem; margin-top: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.2s;">
-                <i class="fa-brands fa-whatsapp"></i> Enviar Pedido via WhatsApp
-            </button>
         </div>
     </div>
 
