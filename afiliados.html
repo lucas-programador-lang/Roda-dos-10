@@ -195,16 +195,19 @@
             <p>Garanta comissões imediatas recomendando nossa plataforma para novos compradores.</p>
         </header>
 
-        <div class="premium-card">
-            <div class="commission-badge"><i class="fa-solid fa-gift"></i> Indicação: 20% de Comissão Única</div>
-            <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
-            <h3>Seu Link Exclusivo de Afiliado</h3>
-            
-            <div class="referral-container">
-                <input type="text" id="referral-link" class="referral-input" readonly>
-                <button id="btn-copy-link" class="btn-copy">Copiar</button>
-            </div>
-        </div>
+        <div class="premium-card" style="margin-top: 2rem; max-width: 800px;">
+    <h3>Seus Indicados</h3>
+    <table style="width: 100%; margin-top: 1.5rem; border-collapse: collapse; text-align: left;">
+        <thead>
+            <tr style="color: var(--text-muted); border-bottom: 1px solid var(--border-soft);">
+                <th style="padding: 10px;">Nome do Indicado</th>
+                <th style="padding: 10px;">Comissão (20%)</th>
+            </tr>
+        </thead>
+        <tbody id="afiliados-lista">
+            </tbody>
+    </table>
+</div>
     </main>
 
     <div class="toast-wrapper" id="toastBox">
