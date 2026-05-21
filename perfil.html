@@ -8,33 +8,41 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <style>
+  <style>
         :root {
-            /* Fundo ultra-escuro com nuance esmeralda premium */
-            --bg-dark-base: #040906; 
-            /* Cards em tom verde-floresta fechado e luxuoso */
-            --bg-dark-card: #0A1710; 
-            /* Inputs visíveis e elegantes */
-            --bg-dark-input: #12261B; 
+            /* Fundo Carbon Deep Blue - Profundidade e Elegância */
+            --bg-dark-base: #0B0F17; 
             
-            /* Identidade Visual Extraída Diretamente da Logo */
-            --whatsapp-green: #00E676; /* Verde vibrante dos trevos e balão */
-            --logo-gold: linear-gradient(135deg, #FFF176 0%, #F5B000 50%, #BD7A00 100%); /* Ouro 3D do número 10 */
-            --text-white: #FFFFFF; /* Mesmo branco puro do texto 'Roda' */
-            --text-muted: #7DA38F; /* Texto secundário esverdeado elegante */
-            --border-soft: rgba(0, 230, 118, 0.12); /* Bordas com brilho sutil verde */
+            /* Textura de fundo sutil para ambiente profissional */
+            --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%);
+            
+            /* Cards com Glassmorphism */
+            --bg-dark-card: rgba(20, 29, 43, 0.75); 
+            
+            /* Identidade de Cores */
+            --whatsapp-green: #00E676;
+            --text-neon: #02FF8A; 
+            --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
+            --text-white: #FFFFFF; 
+            --text-muted: #64748B; 
+            --border-soft: rgba(255, 255, 255, 0.04);
             --radius-premium: 20px;
-            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark-base); color: var(--text-white); padding-top: 110px; padding-bottom: 60px; }
+        body { 
+            background-color: var(--bg-dark-base); 
+            background-image: var(--bg-texture);
+            color: var(--text-white); 
+            padding-top: 110px; 
+            padding-bottom: 60px; 
+        }
 
         /* FLOATING NAVBAR */
         .navbar {
-            background: rgba(10, 23, 16, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(15, 23, 36, 0.7);
+            backdrop-filter: blur(20px);
             border: 1px solid var(--border-soft);
             position: fixed;
             top: 20px;
@@ -43,46 +51,61 @@
             z-index: 9999;
             width: calc(100% - 40px);
             max-width: 1160px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        .nav-container { margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav-container { margin: 0 auto; padding: 0.7rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
         .logo span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .logo i { color: var(--whatsapp-green); margin-right: 6px; }
-        .nav-menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
-        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 8px; }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); background: rgba(0, 230, 118, 0.05); }
-        .nav-menu a.active { color: var(--whatsapp-green); }
-        .logout-link { color: #EF4444 !important; }
+        .nav-menu { display: flex; align-items: center; gap: 1.2rem; list-style: none; }
+        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.88rem; padding: 0.5rem 0.8rem; border-radius: 10px; transition: var(--transition-smooth); }
+        .nav-menu a:hover { color: var(--text-white); background: rgba(255, 255, 255, 0.03); }
+        .nav-menu a.active { color: var(--text-neon); background: rgba(0, 230, 118, 0.06); }
+        .logout-link { color: #F87171 !important; }
 
-        .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-        .page-header { margin-bottom: 2.5rem; }
-        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
+        /* CONTENT */
+        .page-header { text-align: center; margin-bottom: 2.5rem; }
+        .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
         .page-header p { color: var(--text-muted); }
 
-        .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.5rem; max-width: 540px; margin: 0 auto; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
-        .premium-card:hover { border-color: var(--whatsapp-green); box-shadow: 0 0 20px rgba(0, 230, 118, 0.15); }
-        .card-icon { font-size: 2.5rem; color: #F5B000; margin-bottom: 1.2rem; }
+        .premium-card { 
+            background: var(--bg-dark-card); 
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-soft); 
+            border-radius: var(--radius-premium); 
+            padding: 2.5rem; 
+            max-width: 500px; 
+            margin: 0 auto; 
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25); 
+        }
+        .card-icon { font-size: 2.5rem; color: #FFB300; margin-bottom: 1.2rem; }
         
-        .instruction-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.8rem; }
+        .instruction-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1.8rem; }
         
-        .btn-reset-password { width: 100%; background: var(--logo-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); box-shadow: 0 4px 12px rgba(245, 176, 0, 0.2); }
-        .btn-reset-password:hover { opacity: 0.9; }
+        .btn-reset-password { 
+            width: 100%; 
+            background: var(--logo-gold); 
+            color: #000; 
+            border: none; 
+            padding: 0.9rem; 
+            border-radius: 12px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: var(--transition-smooth); 
+        }
+        .btn-reset-password:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 179, 0, 0.35); }
 
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 15px 40px rgba(0,0,0,0.6); border: 1px solid var(--border-soft); }
+        /* TOAST */
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); padding: 1rem 1.5rem; border-radius: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); border-left: 5px solid; }
         .toast-wrapper.active { top: 30px; opacity: 1; }
-        .toast-success { background: #0A1710; border-left: 4px solid var(--whatsapp-green); color: white; }
-        .toast-error { background: #0A1710; border-left: 4px solid #EF4444; color: white; }
+        .toast-success { background: #0E1420; border-color: var(--whatsapp-green); }
+        .toast-error { background: #0E1420; border-color: #EF4444; }
 
         @media (max-width: 768px) {
-            body { padding-top: 160px; }
-            .navbar { top: 10px; width: calc(100% - 20px); border-radius: 12px; }
-            .nav-container { flex-direction: column; gap: 0.6rem; padding: 0.8rem; text-align: center; }
-            .nav-menu { gap: 0.3rem; flex-wrap: wrap; justify-content: center; width: 100%; }
-            .nav-menu a { font-size: 0.78rem; padding: 0.4rem 0.5rem; justify-content: center; }
-            .page-header { text-align: center; }
-            .premium-card { width: calc(100% - 10px); padding: 2rem 1.2rem; }
+            body { padding-top: 150px; }
+            .premium-card { width: calc(100% - 20px); }
         }
 </style>
 </head>
