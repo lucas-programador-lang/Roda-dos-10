@@ -1,10 +1,49 @@
-<script>
-    // Pega o parâmetro da URL atual e redireciona para o register
-    const urlParams = new URLSearchParams(window.location.search);
-    const ref = urlParams.get('id');
-    if (ref) {
-        window.location.href = `register.html?ref=${ref}`;
-    } else {
-        window.location.href = 'register.html';
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecionando...</title>
+</head>
+<body>
+    <p>Carregando sua indicação...</p>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            // Cole suas configurações aqui (as mesmas do seu register.html)
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        async function processarRedirecionamento() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apelido = urlParams.get('id');
+
+            if (apelido) {
+                try {
+                    // Busca no 'referral_map' quem é o dono desse apelido
+                    const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
+                    
+                    if (snapshot.exists()) {
+                        const uidIndicador = snapshot.val().uid;
+                        // Salva no navegador do visitante quem o indicou
+                        localStorage.setItem("indicadoPor", uidIndicador);
+                        console.log("Indicador gravado:", uidIndicador);
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar afiliado:", error);
+                }
+            }
+            // Vai para o cadastro de qualquer jeito
+            window.location.href = 'register.html';
+        }
+
+        processarRedirecionamento();
+    </script>
+</body>
+</html>
