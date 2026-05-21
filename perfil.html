@@ -8,16 +8,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
+   <style>
         :root {
-            --bg-dark-base: #070B13;
-            --bg-dark-card: #111A2E;
-            --bg-dark-input: #1A2540;
-            --primary-gold: linear-gradient(135deg, #FFE57F 0%, #F5A623 100%);
-            --neon-green: #10B981;
-            --text-white: #FFFFFF;
-            --text-muted: #94A3B8;
-            --border-soft: rgba(255, 255, 255, 0.06);
+            /* Fundo ultra-escuro com nuance esmeralda premium */
+            --bg-dark-base: #040906; 
+            /* Cards em tom verde-floresta fechado e luxuoso */
+            --bg-dark-card: #0A1710; 
+            /* Inputs visíveis e elegantes */
+            --bg-dark-input: #12261B; 
+            
+            /* Identidade Visual Extraída Diretamente da Logo */
+            --whatsapp-green: #00E676; /* Verde vibrante dos trevos e balão */
+            --logo-gold: linear-gradient(135deg, #FFF176 0%, #F5B000 50%, #BD7A00 100%); /* Ouro 3D do número 10 */
+            --text-white: #FFFFFF; /* Mesmo branco puro do texto 'Roda' */
+            --text-muted: #7DA38F; /* Texto secundário esverdeado elegante */
+            --border-soft: rgba(0, 230, 118, 0.12); /* Bordas com brilho sutil verde */
             --radius-premium: 20px;
             --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -27,7 +32,7 @@
 
         /* FLOATING NAVBAR */
         .navbar {
-            background: rgba(17, 26, 46, 0.75);
+            background: rgba(10, 23, 16, 0.75);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid var(--border-soft);
@@ -39,15 +44,16 @@
             width: calc(100% - 40px);
             max-width: 1160px;
             border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
         }
         .nav-container { margin: 0 auto; padding: 0.8rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
-        .logo span { background: var(--primary-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .logo i { color: #F5A623; margin-right: 6px; }
+        .logo span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .logo i { color: var(--whatsapp-green); margin-right: 6px; }
         .nav-menu { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
         .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 8px; }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); background: rgba(255, 255, 255, 0.03); }
-        .nav-menu a.active { color: #F5A623; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--text-white); background: rgba(0, 230, 118, 0.05); }
+        .nav-menu a.active { color: var(--whatsapp-green); }
         .logout-link { color: #EF4444 !important; }
 
         .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
@@ -55,27 +61,30 @@
         .page-header h1 { font-size: 2rem; font-weight: 800; margin-bottom: 0.4rem; }
         .page-header p { color: var(--text-muted); }
 
-        .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.5rem; max-width: 540px; margin: 0 auto; text-align: center; }
-        .card-icon { font-size: 2.5rem; color: #F5A623; margin-bottom: 1.2rem; }
+        .premium-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); border-radius: var(--radius-premium); padding: 2.5rem; max-width: 540px; margin: 0 auto; text-align: center; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); }
+        .premium-card:hover { border-color: var(--whatsapp-green); box-shadow: 0 0 20px rgba(0, 230, 118, 0.15); }
+        .card-icon { font-size: 2.5rem; color: #F5B000; margin-bottom: 1.2rem; }
         
         .instruction-text { font-size: 0.95rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 1.8rem; }
         
-        .btn-reset-password { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); }
+        .btn-reset-password { width: 100%; background: var(--logo-gold); color: #000; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition-smooth); box-shadow: 0 4px 12px rgba(245, 176, 0, 0.2); }
         .btn-reset-password:hover { opacity: 0.9; }
 
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
+        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 999999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: var(--transition-smooth); box-shadow: 0 15px 40px rgba(0,0,0,0.6); border: 1px solid var(--border-soft); }
         .toast-wrapper.active { top: 30px; opacity: 1; }
-        .toast-success { background: #111A2E; border-left: 4px solid var(--neon-green); color: white; }
-        .toast-error { background: #111A2E; border-left: 4px solid #EF4444; color: white; }
+        .toast-success { background: #0A1710; border-left: 4px solid var(--whatsapp-green); color: white; }
+        .toast-error { background: #0A1710; border-left: 4px solid #EF4444; color: white; }
 
         @media (max-width: 768px) {
-            body { padding-top: 150px; }
-            .navbar { top: 10px; width: calc(100% - 20px); }
-            .nav-container { flex-direction: column; gap: 0.8rem; padding: 1rem; }
-            .nav-menu { gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+            body { padding-top: 160px; }
+            .navbar { top: 10px; width: calc(100% - 20px); border-radius: 12px; }
+            .nav-container { flex-direction: column; gap: 0.6rem; padding: 0.8rem; text-align: center; }
+            .nav-menu { gap: 0.3rem; flex-wrap: wrap; justify-content: center; width: 100%; }
+            .nav-menu a { font-size: 0.78rem; padding: 0.4rem 0.5rem; justify-content: center; }
             .page-header { text-align: center; }
+            .premium-card { width: calc(100% - 10px); padding: 2rem 1.2rem; }
         }
-    </style>
+</style>
 </head>
 <body>
 
