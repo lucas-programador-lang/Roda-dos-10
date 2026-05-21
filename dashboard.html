@@ -69,7 +69,7 @@
         .progress-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 8px; }
         .progress-info p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem; }
         .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.5rem; }
-        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 45%; border-radius: 50px; transition: width 0.5s ease-in-out; }
+        .progress-bar-fill { background: var(--primary-gold); height: 100%; width: 55%; border-radius: 50px; transition: width 0.5s ease-in-out; }
         .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
 
         /* GRUPO BANNER */
@@ -82,21 +82,20 @@
         /* TABELA DE PREÇOS / TIERS */
         .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; margin-bottom: 1.5rem; }
         .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin: 1.5rem 0; }
-        .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.5rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); }
+        .tier-item { background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-soft); padding: 1.5rem; border-radius: 14px; text-align: center; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; }
         .tier-item:hover { border-color: rgba(245, 166, 35, 0.3); background: rgba(255, 255, 255, 0.04); }
-        .tier-badge { background: rgba(245, 166, 35, 0.1); color: #F5A623; padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin-bottom: 0.5rem; }
+        .tier-badge { background: rgba(255, 255, 255, 0.05); color: var(--text-white); padding: 0.25rem 0.75rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; margin: 0 auto 0.5rem auto; }
         .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin: 0.5rem 0 0.25rem 0; }
         .tier-cost strong { color: var(--text-white); font-size: 1.3rem; }
         .tier-prize { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 0.5rem; }
         .tier-prize strong { color: var(--neon-green); }
         .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); font-weight: 500; }
         
-        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.6rem; border-radius: 8px; font-weight: 700; margin-top: 1rem; cursor: pointer; transition: var(--transition-smooth); }
+        .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.7rem; border-radius: 8px; font-weight: 700; margin-top: 1.2rem; cursor: pointer; transition: var(--transition-smooth); }
         .btn-buy-tier:hover { opacity: 0.9; }
 
-        /* TOAST NOTIFICATION */
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #111A2E; border-left: 4px solid var(--neon-green); padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px; z-index: 99999; width: calc(100% - 2rem); max-width: 400px; opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--border-soft); }
-        .toast-wrapper.active { top: 20px; opacity: 1; transform: translateX(-50%) translateY(0); }
+        .draw-calendar-info { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); border-top: 1px solid var(--border-soft); padding-top: 1.2rem; margin-top: 1.5rem; justify-content: center; }
+        .draw-calendar-info span i { color: #F5A623; margin-right: 4px; }
 
         /* RESPONSIVIDADE (MOBILE & DESKTOP) */
         @media (max-width: 768px) {
@@ -106,6 +105,7 @@
             .group-banner-card { flex-direction: column; align-items: flex-start; }
             .btn-join-group { width: 100%; justify-content: center; }
             .page-header { text-align: center; }
+            .draw-calendar-info { flex-direction: column; align-items: center; gap: 0.8rem; }
         }
     </style>
 </head>
@@ -126,80 +126,81 @@
     <main class="main-layout">
         <header class="page-header">
             <h1 id="welcome-user">Olá, ...</h1>
-            <p>Seja bem-vindo ao seu ambiente premium de gerenciamento.</p>
+            <p>Seja bem-vindo ao seu ambiente premium. Adquira cotas e multiplique seus rendimentos.</p>
         </header>
 
         <div class="metrics-grid">
             <div class="metric-card">
                 <div class="card-meta"><span>SALDO DISPONÍVEL</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
                 <h2 id="dash-balance">R$ 0,00</h2>
-                <div class="sub-text">Atualizado em tempo real</div>
+                <div class="sub-text">Saque mínimo de R$ 30,00</div>
             </div>
             <div class="metric-card">
                 <div class="card-meta"><span>COTAS ADQUIRIDAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
                 <h2 id="dash-tickets">0</h2>
-                <div class="sub-text">Suas participações ativas</div>
+                <div class="sub-text">Compre quantas você quiser</div>
             </div>
         </div>
 
         <div class="progress-banner-card">
             <div class="progress-info">
-                <h3><i class="fa-solid fa-spinner"></i> Meta do Sorteio Atual</h3>
-                <p>O sorteio será realizado automaticamente assim que atingirmos 100% das cotas preenchidas.</p>
+                <h3><i class="fa-solid fa-spinner"></i> Próxima Rodada Premiada</h3>
+                <p>Os sorteios oficiais ocorrem de 10 em 10 dias e são divulgados diretamente no nosso grupo VIP.</p>
             </div>
             <div class="progress-bar-bg">
                 <div class="progress-bar-fill" id="progress-fill"></div>
             </div>
             <div class="progress-text-status">
-                <span>PROGRESSO GLOBAL</span>
-                <span id="progress-percent">45%</span>
+                <span>PROGRESSO ATUAL</span>
+                <span id="progress-percent">55%</span>
             </div>
         </div>
 
         <div class="group-banner-card">
             <div class="banner-info">
-                <h3>Grupo de Resultados VIP</h3>
-                <p>Entre no grupo oficial para acompanhar as rodadas e premiações ao vivo.</p>
+                <h3>Grupo VIP de Resultados</h3>
+                <p>Acompanhe a apuração, os sorteios divulgados e as tabelas de ganhadores diretamente na comunidade.</p>
             </div>
-            <a href="https://wa.me/55639759981028" target="_blank" class="btn-join-group">
-                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo
+            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
+                <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
             </a>
         </div>
 
         <div class="price-tables-card">
-            <div class="banner-badge"><i class="fa-solid fa-star"></i> Planos Disponíveis</div>
-            <h3 style="margin-bottom: 1.5rem; font-size: 1.4rem;">Adquirir Novas Cotas</h3>
+            <div class="tier-badge" style="background: rgba(245, 166, 35, 0.1); color: #F5A623;"><i class="fa-solid fa-star"></i> Cotas Ativas</div>
+            <h3 style="margin-top: 0.5rem; margin-bottom: 1.5rem; font-size: 1.4rem;">Escolha seu Plano de Investimento</h3>
             
             <div class="investment-options-grid">
                 <div class="tier-item">
-                    <div class="tier-badge">Bronze</div>
-                    <div class="tier-cost">Por apenas <strong>R$ 10</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 100</strong></div>
-                    <p class="tier-rule-info">Sorteio rápido de 10 pessoas</p>
-                    <button class="btn-buy-tier" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                    <div class="tier-badge">Plano Essencial</div>
+                    <div class="tier-cost">Invista <strong>R$ 3,50</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 25,00 no PIX</strong></div>
+                    <p class="tier-rule-info">Compre quantas quiser</p>
+                    <button class="btn-buy-tier" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
                 </div>
-                <div class="tier-item" style="border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.02);">
-                    <div class="tier-badge" style="background: rgba(16, 185, 129, 0.2); color: var(--neon-green);">Silver</div>
-                    <div class="tier-cost">Por apenas <strong>R$ 20</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 200</strong></div>
-                    <p class="tier-rule-info">Multiplicador de 10x garantido</p>
-                    <button class="btn-buy-tier" style="background: var(--neon-green);" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                <div class="tier-item" style="border-color: rgba(16, 185, 129, 0.2); background: rgba(16, 185, 129, 0.01);">
+                    <div class="tier-badge" style="background: rgba(16, 185, 129, 0.15); color: var(--neon-green);">Plano Avançado</div>
+                    <div class="tier-cost">Invista <strong>R$ 5,50</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 50,00 no PIX</strong></div>
+                    <p class="tier-rule-info">Retorno altamente escalável</p>
+                    <button class="btn-buy-tier" style="background: var(--primary-gold);" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
                 </div>
                 <div class="tier-item">
-                    <div class="tier-badge">Gold VIP</div>
-                    <div class="tier-cost">Por apenas <strong>R$ 50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 500</strong></div>
-                    <p class="tier-rule-info">Acesso à mesa exclusiva alta</p>
-                    <button class="btn-buy-tier" onclick="alert('Sistema de pagamento integrado automaticamente!')">Comprar</button>
+                    <div class="tier-badge">Plano Master VIP</div>
+                    <div class="tier-cost">Invista <strong>R$ 10,00</strong></div>
+                    <div class="tier-prize">Concorra a <strong>R$ 100,00 no PIX</strong></div>
+                    <p class="tier-rule-info">A maior premiação ativa</p>
+                    <button class="btn-buy-tier" onclick="alert('Redirecionando para o gateway seguro de pagamento...')">Adquirir Cota</button>
                 </div>
+            </div>
+
+            <div class="draw-calendar-info">
+                <span><i class="fa-solid fa-calendar-days"></i> Ciclo de Sorteios: Cada 10 dias</span>
+                <span><i class="fa-solid fa-bolt"></i> Frequência Global: Mensal recorrente</span>
+                <span><i class="fa-solid fa-layer-group"></i> Sorteio Semanal Adicional</span>
             </div>
         </div>
     </main>
-
-    <div class="toast-wrapper" id="toastBox">
-        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
-        <span id="toastMessage">Sucesso!</span>
-    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
