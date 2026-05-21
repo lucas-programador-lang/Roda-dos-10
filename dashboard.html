@@ -59,14 +59,18 @@
 
         /* METRICS GRID */
         .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .metric-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; transition: var(--transition-smooth); }
+        .metric-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2rem; border-radius: 16px; transition: var(--transition-smooth); display: flex; flex-direction: column; justify-content: space-between; }
         .metric-card:hover { border-color: rgba(245, 166, 35, 0.2); transform: translateY(-2px); }
         .card-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; }
         .card-meta i { font-size: 1.2rem; }
         .icon-wallet { color: #F5A623; }
         .icon-ticket { color: var(--neon-green); }
         .metric-card h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.25rem; }
-        .sub-text { font-size: 0.8rem; color: var(--text-muted); }
+        .sub-text { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.8rem; }
+        
+        /* Botão de Saque Interno */
+        .btn-dash-withdraw { background: rgba(245, 166, 35, 0.1); border: 1px solid rgba(245, 166, 35, 0.2); color: #FFE57F; padding: 0.5rem; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; width: 100%; transition: var(--transition-smooth); text-align: center; }
+        .btn-dash-withdraw:hover { background: var(--primary-gold); color: #000; border-color: transparent; }
 
         /* PROGRESS BANNER */
         .progress-banner-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 1.5rem 2rem; border-radius: 16px; margin-bottom: 1.5rem; }
@@ -100,12 +104,13 @@
         .btn-buy-tier { width: 100%; background: var(--primary-gold); color: #000; border: none; padding: 0.8rem; border-radius: 10px; font-weight: 700; margin-top: 1.2rem; cursor: pointer; transition: var(--transition-smooth); }
         .btn-buy-tier:hover { opacity: 0.9; }
 
-        /* MODAL PREMIUM FIX & INPUTS */
+        /* MODAIS */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(4, 7, 13, 0.85); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-card { background: #111A2E; border: 1px solid var(--border-soft); border-radius: 20px; width: calc(100% - 32px); max-width: 440px; padding: 2rem; text-align: center; transform: scale(0.9); transition: var(--transition-smooth); box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
         .modal-overlay.active .modal-card { transform: scale(1); }
         .modal-icon { font-size: 2.5rem; color: #F5A623; margin-bottom: 0.8rem; }
+        .modal-icon.error-icon { color: #EF4444; }
         .modal-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.5rem; }
         .modal-card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem; line-height: 1.5; }
         .modal-actions { display: flex; flex-direction: column; gap: 10px; }
@@ -154,14 +159,19 @@
 
         <div class="metrics-grid">
             <div class="metric-card">
-                <div class="card-meta"><span>SALDO RENDIMENTOS</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
-                <h2 id="dash-balance">R$ 0,00</h2>
-                <div class="sub-text">Saque mínimo de R$ 25,00</div>
+                <div>
+                    <div class="card-meta"><span>SALDO RENDIMENTOS</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
+                    <h2 id="dash-balance">R$ 0,00</h2>
+                    <div class="sub-text">Saque mínimo de R$ 25,00</div>
+                </div>
+                <button class="btn-dash-withdraw" id="btn-trigger-withdraw">Sacar Rendimentos</button>
             </div>
             <div class="metric-card">
-                <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
-                <h2 id="dash-tickets">0</h2>
-                <div class="sub-text">Mais compras aumentam sua chance</div>
+                <div>
+                    <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
+                    <h2 id="dash-tickets">0</h2>
+                    <div class="sub-text">Mais compras aumentam sua chance</div>
+                </div>
             </div>
         </div>
 
@@ -254,6 +264,17 @@
         </div>
     </div>
 
+    <div class="modal-overlay" id="withdrawErrorModal">
+        <div class="modal-card">
+            <div class="modal-icon error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <h3>Mínimo Não Atingido</h3>
+            <p>Você precisa acumular um limite mínimo de <strong>R$ 25,00</strong> em rendimentos para processar um resgate manual para sua chave PIX.</p>
+            <div class="modal-actions">
+                <button class="btn-modal-confirm" id="btn-close-error-modal" style="background: #EF4444; color: #fff;">Entendido</button>
+            </div>
+        </div>
+    </div>
+
     <div class="toast-wrapper" id="toastNotification">
         <i id="toastIcon" class="fa-solid fa-circle-notch fa-spin"></i>
         <span id="toastMsg">Carregando gateway de faturamento...</span>
@@ -264,7 +285,6 @@
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // CONFIGURAÇÃO DO SEU BANCO DE DADOS
         const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
             authDomain: "roda-dos-10.firebaseapp.com",
@@ -279,22 +299,21 @@
         const db = getDatabase(app);
         const auth = getAuth(app);
 
-        // ESTADO INTERNO DO MODAL
         let pricePerUnit = 0;
         let currentTicketName = "";
         let currentQuantity = 1;
+        let globalUserBalance = 0; // Armazena o saldo atual do Firebase globalmente
 
-        // INICIALIZAÇÃO DE SESSÃO DO USUÁRIO
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
                 const userRef = ref(db, `users/${user.uid}`);
                 
-                // Monitoramento em tempo real do banco Firebase
                 onValue(userRef, (snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.val();
-                        document.getElementById("dash-balance").innerText = `R$ ${parseFloat(data.balance || 0).toFixed(2).replace('.', ',')}`;
+                        globalUserBalance = parseFloat(data.balance || 0);
+                        document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
                         document.getElementById("dash-tickets").innerText = data.tickets || 0;
                     }
                 });
@@ -303,7 +322,21 @@
             }
         });
 
-        // REGRAS DE MANIPULAÇÃO DO MODAL DE COMPRAS
+        // LÓGICA DE VERIFICAÇÃO DE SAQUE
+        function handleWithdrawTrigger() {
+            if (globalUserBalance < 25) {
+                // Abre o modal de erro caso o saldo seja insuficiente
+                document.getElementById("withdrawErrorModal").classList.add("active");
+            } else {
+                // Avisa com o Toast e redireciona para a carteira
+                fireToast("Redirecionando para a sua carteira...");
+                setTimeout(() => {
+                    window.location.href = "carteira.html";
+                }, 1000);
+            }
+        }
+
+        // FUNÇÕES DO MODAL DE COMPRAS
         function openPurchaseModal(planName, price) {
             currentTicketName = planName;
             pricePerUnit = price;
@@ -333,7 +366,6 @@
             document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>. Seu nome entrará múltiplas vezes nas apurações!`;
         }
 
-        // CONFIRMAÇÃO DE ENVIO PARA O SUPORTE (WHATSAPP)
         function confirmPurchase() {
             const clientName = document.getElementById("client-name").value.trim();
 
@@ -343,8 +375,6 @@
             }
 
             const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
-            
-            // Layout da mensagem contendo as regras de negócio alinhadas
             const textMessage = 
                 `🎯 *RODA DOS 10 - NOVO PEDIDO DE COTAS* 🎯\n\n` +
                 `👤 *Nome do Participante:* ${clientName}\n` +
@@ -361,7 +391,6 @@
             }, 1200);
         }
 
-        // GERENCIADOR DE ALERTA TOAST PREMIUM
         function fireToast(message, isError = false) {
             const toast = document.getElementById("toastNotification");
             const icon = document.getElementById("toastIcon");
@@ -383,7 +412,12 @@
             setTimeout(() => { toast.classList.remove("active"); }, 3500);
         }
 
-        // ATRIBUIÇÃO DOS EVENTOS COM SECURITY LISTENERS (PREVINE CONFLITOS DE ESCOPO COM MODULE)
+        // EVENT LISTENERS SEGUROS
+        document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
+        document.getElementById("btn-close-error-modal").addEventListener("click", () => {
+            document.getElementById("withdrawErrorModal").classList.remove("active");
+        });
+
         document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
         document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
         document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
@@ -399,10 +433,11 @@
             signOut(auth).then(() => { window.location.href = "login.html"; });
         });
 
-        // Fechar modal clicando fora do card
         window.addEventListener("click", (e) => {
-            const modal = document.getElementById("purchaseModal");
-            if (e.target === modal) closePurchaseModal();
+            if (e.target === document.getElementById("purchaseModal")) closePurchaseModal();
+            if (e.target === document.getElementById("withdrawErrorModal")) {
+                document.getElementById("withdrawErrorModal").classList.remove("active");
+            }
         });
     </script>
 </body>
