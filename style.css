@@ -1,9 +1,9 @@
 /* CONFIGURAÇÕES GERAIS / PALETA PREMIUM */
 :root {
-    --bg-dark-base: #090D16;
-    --bg-dark-card: #121A2E;
-    --bg-dark-input: #1C2642;
-    --primary-gold: linear-gradient(135deg, #FFE47E 0%, #F5A623 100%);
+    --bg-dark-base: #070B13;
+    --bg-dark-card: #111A2E;
+    --bg-dark-input: #1A2540;
+    --primary-gold: linear-gradient(135deg, #FFE57F 0%, #F5A623 100%);
     --neon-green: #10B981;
     --text-white: #FFFFFF;
     --text-muted: #94A3B8;
@@ -28,7 +28,7 @@ body {
 
 /* HEADER / NAVIGATION */
 header {
-    background: rgba(18, 26, 46, 0.85);
+    background: rgba(17, 26, 46, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border-soft);
     position: sticky;
@@ -267,7 +267,7 @@ header {
 }
 
 .rule-box {
-    background: rgba(18, 26, 46, 0.4);
+    background: rgba(17, 26, 46, 0.4);
     border: 1px solid var(--border-soft);
     padding: 2rem;
     border-radius: var(--radius-premium);
@@ -302,7 +302,7 @@ header {
 }
 
 .group-banner-card {
-    background: linear-gradient(90deg, #1E293B 0%, #121A2E 100%);
+    background: linear-gradient(90deg, #1E293B 0%, #111A2E 100%);
     border: 1px solid var(--border-soft);
     padding: 1.5rem 2rem;
     border-radius: 16px;
