@@ -28,7 +28,7 @@
         <span class="hero-badge"><i class="fa-solid fa-star"></i> Sorteios por Meta de Compras</span>
         <h1>Gire sua sorte na <br><span>Roda dos 10 no Pix</span></h1>
         <p>Participe comprando quantas cotas quiser! Os sorteios são liberados imediatamente assim que atingirem o limite de 20 compras. Quanto mais você compra, mais rápido o sorteio acontece!</p>
-        
+         
         <div class="features-badges">
             <div class="f-badge"><i class="fa-solid fa-lock-open"></i> Liberado com 20 Compras</div>
             <div class="f-badge"><i class="fa-solid fa-bolt"></i> Saque a qualquer momento</div>
@@ -105,4 +105,37 @@
     <div class="modal-backdrop" id="modalCompra">
         <div class="modal-card">
             <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
-            <div class="modal-
+            <div class="modal-header">
+                <h2 id="m-ticket-name">Cota Prata</h2>
+                <p id="m-ticket-prize">Concorra a R$ 50,00 no Pix</p>
+            </div>
+            <div class="modal-body">
+                <div class="input-block">
+                    <label for="client-name">Seu Nome Completo (Usado no Sorteio)</label>
+                    <input type="text" id="client-name" placeholder="Ex: José Lucas">
+                </div>
+                <div class="input-block">
+                    <label>Quantidade de Cotas (Acelera a meta de liberação)</label>
+                    <div class="quantity-control">
+                        <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
+                        <span id="qty-display">1</span>
+                        <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                    </div>
+                </div>
+                <div class="total-row">
+                    <span>Total a Pagar:</span>
+                    <span id="total-display">R$ 5,50</span>
+                </div>
+                <button class="btn-submit-order" onclick="sendOrder()"><i class="fa-solid fa-paper-plane"></i> Enviar Pedido via WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
