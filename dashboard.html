@@ -25,10 +25,26 @@
     </header>
 
     <main class="dashboard-container">
+        <div class="progress-banner-card">
+            <div class="progress-info">
+                <h3><i class="fa-solid fa-spinner fa-spin"></i> Progresso do Próximo Sorteio</h3>
+                <p>O sorteio é liberado assim que atingir o limite de <strong>20 compras</strong> acumuladas.</p>
+            </div>
+            <div class="progress-bar-wrapper">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="meta-progress-fill" style="width: 35%;"></div>
+                </div>
+                <div class="progress-text-status">
+                    <span id="meta-text-count">7 / 20 Compras</span>
+                    <span>Meta: 20</span>
+                </div>
+            </div>
+        </div>
+
         <div class="group-banner-card">
             <div class="banner-info">
                 <h3>Grupo Exclusivo Roda dos 10</h3>
-                <p>Os sorteios ocorrem de 10 em 10 dias e os resultados são divulgados dentro do grupo.</p>
+                <p>Os resultados são divulgados dentro do grupo assim que a meta de 20 compras é atingida.</p>
             </div>
             <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
                 <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
@@ -48,11 +64,11 @@
 
             <div class="metric-card">
                 <div class="card-meta">
-                    <span>Minhas Cotas</span>
+                    <span>Minhas Cotas Ativas</span>
                     <i class="fa-solid fa-ticket-simple icon-ticket"></i>
                 </div>
                 <h2 id="dash-tickets">0</h2>
-                <p class="sub-text">Atualizado após envio ao suporte</p>
+                <p class="sub-text">Seu nome repetirá essa quantidade de vezes no sorteio</p>
             </div>
         </section>
 
