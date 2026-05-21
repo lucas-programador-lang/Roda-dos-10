@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login — Roda dos 10</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Link para o seu CSS unificado -->
     <link rel="stylesheet" href="style.css">
     <style>
         /* Estilos específicos para centralizar a caixa de autenticação na tela */
@@ -102,10 +99,9 @@
 <body>
 
     <div class="auth-wrapper">
-        <div class="auth-container">
+        <div class="auth-container premium-glass">
             
             <div class="auth-header">
-                <!-- Logo atualizada para o padrão da marca Roda dos 10 -->
                 <div class="logo">
                     <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
                 </div>
@@ -148,18 +144,101 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
+    <div class="toast-wrapper" id="toastBox">
+        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
+        <span id="toastMessage">Sucesso!</span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, setPersistence, browserLocalPersistence, browserSessionPersistence } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Substitua pelas credenciais oficiais do seu console do Firebase
+              const firebaseConfig = {
+              apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+              authDomain: "roda-dos-10.firebaseapp.com",
+              databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+              projectId: "roda-dos-10",
+              storageBucket: "roda-dos-10.firebasestorage.app",
+              messagingSenderId: "1072183237747",
+              appId: "1:1072183237747:web:3a41a635187df2db809e06"
+            };
+
+        // Inicializa o Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Sistema central de Toast Feedback
+        function showToast(message, isError = false) {
+            const toast = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+            
+            msgSpan.innerText = message;
+            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+            icon.style.color = isError ? "#EF4444" : "#10B981";
+            
+            toast.classList.add("active");
+            setTimeout(() => toast.classList.remove("active"), 3500);
+        }
+
+        // Lógica de Autenticação / Login
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const email = document.getElementById('login-email').value;
+            const email = document.getElementById('login-email').value.trim();
             const password = document.getElementById('login-password').value;
+            const rememberMe = document.getElementById('remember-me').checked;
 
-            // Log de verificação técnica mantido para sua futura integração com banco de dados
-            console.log('Tentativa de Login:', { email, password });
-            
-            // Redirecionamento automático ativo para a Dashboard do cliente
-            window.location.href = 'dashboard.html';
+            try {
+                // Define se a sessão dura para sempre (local) ou fecha com a aba (session)
+                const persistenceType = rememberMe ? browserLocalPersistence : browserSessionPersistence;
+                await setPersistence(auth, persistenceType);
+
+                // Executa login oficial
+                await signInWithEmailAndPassword(auth, email, password);
+                
+                showToast("Login realizado! Redirecionando...");
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1200);
+
+            } catch (error) {
+                console.error("Erro no login:", error.code);
+                // Tratamentos customizados premium para o usuário
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    showToast("E-mail ou senha inválidos.", true);
+                } else if (error.code === 'auth/invalid-email') {
+                    showToast("Formato de e-mail incorreto.", true);
+                } else if (error.code === 'auth/too-many-requests') {
+                    showToast("Muitas tentativas bloqueadas. Tente mais tarde.", true);
+                } else {
+                    showToast("Erro ao conectar com o servidor.", true);
+                }
+            }
+        });
+
+        // Lógica de recuperação de senha ("Esqueceu a senha?")
+        document.getElementById('btn-forgot-password').addEventListener('click', async function(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value.trim();
+
+            if (!email) {
+                showToast("Digite seu e-mail no campo acima primeiro.", true);
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                showToast("E-mail de recuperação enviado! Verifique sua caixa de entrada.");
+            } catch (error) {
+                if (error.code === 'auth/invalid-email') {
+                    showToast("Formato de e-mail inválido.", true);
+                } else {
+                    showToast("Erro ao enviar recuperação de senha.", true);
+                }
+            }
         });
     </script>
 </body>
