@@ -427,220 +427,207 @@
         <span id="toastMsg">Carregando gateway de faturamento...</span>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    // IMPORTANTE: Adicionamos 'get', 'update' e 'increment' aqui para poder manipular o saldo
+    import { getDatabase, ref, onValue, set, get, update, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-            authDomain: "roda-dos-10.firebaseapp.com",
-            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10",
-            storageBucket: "roda-dos-10.firebasestorage.app",
-            messagingSenderId: "1072183237747",
-            appId: "1:1072183237747:web:3a41a635187df2db809e06"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+        authDomain: "roda-dos-10.firebaseapp.com",
+        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+        projectId: "roda-dos-10",
+        storageBucket: "roda-dos-10.firebasestorage.app",
+        messagingSenderId: "1072183237747",
+        appId: "1:1072183237747:web:3a41a635187df2db809e06"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const auth = getAuth(app);
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
 
-        let pricePerUnit = 0;
-        let currentTicketName = "";
-        let currentQuantity = 1;
-        let globalUserBalance = 0; // Armazena o saldo atual do Firebase globalmente
+    let pricePerUnit = 0;
+    let currentTicketName = "";
+    let currentQuantity = 1;
+    let globalUserBalance = 0;
 
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
-                const userRef = ref(db, `users/${user.uid}`);
-                
-                onValue(userRef, (snapshot) => {
-                    if (snapshot.exists()) {
-                        const data = snapshot.val();
-                        globalUserBalance = parseFloat(data.balance || 0);
-                        document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
-                        document.getElementById("dash-tickets").innerText = data.tickets || 0;
-                    }
-                });
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-
-        // LÓGICA DE VERIFICAÇÃO DE SAQUE
-        // Substitua sua função antiga por esta:
-        function handleWithdrawTrigger() {
-            if (globalUserBalance < 25) {
-                document.getElementById("withdrawErrorModal").classList.add("active");
-            } else {
-                document.getElementById("withdrawModal").classList.add("active");
-            }
-        }
-
-        // Adicione estes novos eventos antes do fechamento do script:
-        document.getElementById("btn-cancel-withdraw").addEventListener("click", () => {
-            document.getElementById("withdrawModal").classList.remove("active");
-        });
-
-       document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
-    const name = document.getElementById("withdraw-name").value.trim();
-    const pixType = document.getElementById("withdraw-pix-type").value;
-    const pix = document.getElementById("withdraw-pix").value.trim();
-    const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value); // O valor que ele digitou
-    const user = auth.currentUser;
-
-    // 1. VALIDAÇÕES
-    if (!name || !pix || isNaN(withdrawAmount)) {
-        fireToast("Preencha todos os campos corretamente.", true);
-        return;
-    }
-    if (withdrawAmount < 25) {
-        fireToast("O valor mínimo de saque é R$ 25,00.", true);
-        return;
-    }
-    if (withdrawAmount > globalUserBalance) {
-        fireToast("Valor maior que seu saldo disponível.", true);
-        return;
-    }
-
-    // 2. CÁLCULO DO NOVO SALDO (Saldo total - valor do saque)
-    const newBalance = globalUserBalance - withdrawAmount;
-
-    // 3. MENSAGEM DO WHATSAPP
-    const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
-                `👤 Nome: ${name}\n` +
-                `🔑 Tipo da Chave: ${pixType}\n` +
-                `🔢 Chave PIX: ${pix}\n` +
-                `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
-                `Enviado via Painel Roda dos 10.`;
-
-    window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
-
-    // 4. ATUALIZAÇÃO NO FIREBASE
-    if (user) {
-        const userBalanceRef = ref(db, `users/${user.uid}/balance`);
-        set(userBalanceRef, newBalance)
-            .then(() => {
-                fireToast("Saque solicitado! Saldo atualizado.");
-            })
-            .catch((error) => {
-                console.error("Erro ao atualizar saldo:", error);
-                fireToast("Erro ao processar saque.", true);
-            });
-    }
-
-    document.getElementById("withdrawModal").classList.remove("active");
-});
-
-        // FUNÇÕES DO MODAL DE COMPRAS
-        function openPurchaseModal(planName, price) {
-            currentTicketName = planName;
-            pricePerUnit = price;
-            currentQuantity = 1;
-
-            document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
-            document.getElementById("client-name").value = "";
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
+            const userRef = ref(db, `users/${user.uid}`);
             
-            recalculateTotal();
-            document.getElementById("purchaseModal").classList.add("active");
+            onValue(userRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    globalUserBalance = parseFloat(data.balance || 0);
+                    document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
+                    document.getElementById("dash-tickets").innerText = data.tickets || 0;
+                }
+            });
+        } else {
+            window.location.href = "login.html";
+        }
+    });
+
+    // LÓGICA DE VERIFICAÇÃO DE SAQUE
+    function handleWithdrawTrigger() {
+        if (globalUserBalance < 25) {
+            document.getElementById("withdrawErrorModal").classList.add("active");
+        } else {
+            document.getElementById("withdrawModal").classList.add("active");
+        }
+    }
+
+    document.getElementById("btn-cancel-withdraw").addEventListener("click", () => {
+        document.getElementById("withdrawModal").classList.remove("active");
+    });
+
+    document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
+        const name = document.getElementById("withdraw-name").value.trim();
+        const pixType = document.getElementById("withdraw-pix-type").value;
+        const pix = document.getElementById("withdraw-pix").value.trim();
+        const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value);
+        const user = auth.currentUser;
+
+        if (!name || !pix || isNaN(withdrawAmount)) {
+            fireToast("Preencha todos os campos corretamente.", true);
+            return;
+        }
+        if (withdrawAmount < 25) {
+            fireToast("O valor mínimo de saque é R$ 25,00.", true);
+            return;
+        }
+        if (withdrawAmount > globalUserBalance) {
+            fireToast("Valor maior que seu saldo disponível.", true);
+            return;
         }
 
-        function closePurchaseModal() {
-            document.getElementById("purchaseModal").classList.remove("active");
+        const newBalance = globalUserBalance - withdrawAmount;
+        const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
+                    `👤 Nome: ${name}\n` +
+                    `🔑 Tipo da Chave: ${pixType}\n` +
+                    `🔢 Chave PIX: ${pix}\n` +
+                    `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
+                    `Enviado via Painel Roda dos 10.`;
+
+        window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
+
+        if (user) {
+            const userBalanceRef = ref(db, `users/${user.uid}/balance`);
+            set(userBalanceRef, newBalance)
+                .then(() => {
+                    fireToast("Saque solicitado! Saldo atualizado.");
+                })
+                .catch((error) => {
+                    console.error("Erro ao atualizar saldo:", error);
+                    fireToast("Erro ao processar saque.", true);
+                });
         }
 
-        function changeQuantity(factor) {
-            currentQuantity += factor;
-            if (currentQuantity < 1) currentQuantity = 1;
-            recalculateTotal();
+        document.getElementById("withdrawModal").classList.remove("active");
+    });
+
+    function openPurchaseModal(planName, price) {
+        currentTicketName = planName;
+        pricePerUnit = price;
+        currentQuantity = 1;
+        document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
+        document.getElementById("client-name").value = "";
+        recalculateTotal();
+        document.getElementById("purchaseModal").classList.add("active");
+    }
+
+    function closePurchaseModal() {
+        document.getElementById("purchaseModal").classList.remove("active");
+    }
+
+    function changeQuantity(factor) {
+        currentQuantity += factor;
+        if (currentQuantity < 1) currentQuantity = 1;
+        recalculateTotal();
+    }
+
+    function recalculateTotal() {
+        const finalPrice = pricePerUnit * currentQuantity;
+        document.getElementById("qty-display").innerText = currentQuantity;
+        document.getElementById("total-display").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
+        document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
+    }
+
+    // --- CORREÇÃO AQUI: LÓGICA DE COMISSÃO ---
+    async function confirmPurchase() {
+        const clientName = document.getElementById("client-name").value.trim();
+        if (!clientName) {
+            fireToast("Por favor, preencha seu nome completo.", true);
+            return;
         }
 
-        function recalculateTotal() {
-            const finalPrice = pricePerUnit * currentQuantity;
-            document.getElementById("qty-display").innerText = currentQuantity;
-            document.getElementById("total-display").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
-            document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>. Seu nome entrará múltiplas vezes nas apurações!`;
-        }
+        const totalValue = pricePerUnit * currentQuantity;
+        const user = auth.currentUser;
 
-        function confirmPurchase() {
-            const clientName = document.getElementById("client-name").value.trim();
+        // 1. Busca quem indicou o usuário atual
+        if (user) {
+            const userSnap = await get(ref(db, `users/${user.uid}`));
+            if (userSnap.exists()) {
+                const userData = userSnap.val();
+                const indicadorUid = userData.referredBy; // Pega o UID do afiliado
 
-            if (!clientName) {
-                fireToast("Por favor, preencha seu nome completo para o sorteio.", true);
-                return;
+                // 2. Se houver indicador e não for "NENHUM", soma a comissão
+                if (indicadorUid && indicadorUid !== "NENHUM") {
+                    const comissao = totalValue * 0.20; // 20%
+                    
+                    // Atualiza o saldo do indicador e também o total de vendas dele
+                    update(ref(db, `users/${indicadorUid}`), {
+                        balance: increment(comissao),
+                        valor: increment(totalValue)
+                    });
+                }
             }
-
-            const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
-            const textMessage = 
-                `🎯 *RODA DOS 10 - NOVO PEDIDO DE COTAS* 🎯\n\n` +
-                `👤 *Nome do Participante:* ${clientName}\n` +
-                `🎫 *Plano Escolhido:* ${currentTicketName}\n` +
-                `🔢 *Quantidade Adquirida:* ${currentQuantity} Cota(s)\n` +
-                `💰 *Valor Total do Pedido:* R$ ${finalValueStr}\n\n` +
-                `🍀 *Regra de Inserção:* O nome deste usuário será inserido *${currentQuantity} vezes* na lista de sorteio oficial assim que o plano atingir o fechamento de 20 compras totais!`;
-
-            closePurchaseModal();
-            fireToast("Cota gerada! Redirecionando para o suporte...");
-
-            setTimeout(() => {
-                window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
-            }, 1200);
         }
 
-        function fireToast(message, isError = false) {
-            const toast = document.getElementById("toastNotification");
-            const icon = document.getElementById("toastIcon");
-            const msg = document.getElementById("toastMsg");
+        const finalValueStr = totalValue.toFixed(2).replace(".", ",");
+        const textMessage = `🎯 *RODA DOS 10 - NOVO PEDIDO* 🎯\n\n` +
+                            `👤 *Participante:* ${clientName}\n` +
+                            `🎫 *Plano:* ${currentTicketName}\n` +
+                            `💰 *Valor:* R$ ${finalValueStr}`;
 
-            msg.innerText = message;
+        closePurchaseModal();
+        fireToast("Cota gerada! Redirecionando...");
+        setTimeout(() => {
+            window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
+        }, 1200);
+    }
+    // ------------------------------------------
 
-            if (isError) {
-                toast.style.borderLeftColor = "#EF4444";
-                icon.className = "fa-solid fa-circle-xmark";
-                icon.style.color = "#EF4444";
-            } else {
-                toast.style.borderLeftColor = "var(--neon-green)";
-                icon.className = "fa-solid fa-circle-check";
-                icon.style.color = "var(--neon-green)";
-            }
+    function fireToast(message, isError = false) {
+        const toast = document.getElementById("toastNotification");
+        const icon = document.getElementById("toastIcon");
+        const msg = document.getElementById("toastMsg");
+        msg.innerText = message;
+        toast.style.borderLeftColor = isError ? "#EF4444" : "var(--neon-green)";
+        icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+        toast.classList.add("active");
+        setTimeout(() => { toast.classList.remove("active"); }, 3500);
+    }
 
-            toast.classList.add("active");
-            setTimeout(() => { toast.classList.remove("active"); }, 3500);
+    document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
+    document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
+    document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
+    document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
+    document.getElementById("btn-modal-confirm").addEventListener("click", confirmPurchase);
+    document.getElementById("btn-modal-cancel").addEventListener("click", closePurchaseModal);
+    document.getElementById("btn-logout").addEventListener("click", (e) => {
+        e.preventDefault();
+        signOut(auth).then(() => { window.location.href = "login.html"; });
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === document.getElementById("purchaseModal")) closePurchaseModal();
+        if (e.target === document.getElementById("withdrawModal")) {
+            document.getElementById("withdrawModal").classList.remove("active");
         }
-
-        // EVENT LISTENERS SEGUROS
-        document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
-        document.getElementById("btn-close-error-modal").addEventListener("click", () => {
-            document.getElementById("withdrawErrorModal").classList.remove("active");
-        });
-
-        document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
-        document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
-        document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
-        
-        document.getElementById("btn-qty-minus").addEventListener("click", () => changeQuantity(-1));
-        document.getElementById("btn-qty-plus").addEventListener("click", () => changeQuantity(1));
-        
-        document.getElementById("btn-modal-confirm").addEventListener("click", confirmPurchase);
-        document.getElementById("btn-modal-cancel").addEventListener("click", closePurchaseModal);
-
-        document.getElementById("btn-logout").addEventListener("click", (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => { window.location.href = "login.html"; });
-        });
-
-        window.addEventListener("click", (e) => {
-            if (e.target === document.getElementById("purchaseModal")) closePurchaseModal();
-            if (e.target === document.getElementById("withdrawErrorModal")) {
-                document.getElementById("withdrawErrorModal").classList.remove("active");
-            }
-            // ADICIONE ESTA LINHA ABAIXO PARA O NOVO MODAL:
-            if (e.target === document.getElementById("withdrawModal")) {
-                document.getElementById("withdrawModal").classList.remove("active");
-            }
-        });
-    </script>
+    });
+</script>
 </body>
 </html>
