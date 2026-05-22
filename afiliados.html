@@ -248,6 +248,7 @@
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
+            // O apelido agora é buscado corretamente.
             const apelido = userData?.username || user.uid; 
 
             document.getElementById("referral-link").value = window.location.origin + '/r?id=' + apelido;
@@ -260,10 +261,10 @@
             tabela.innerHTML = "";
 
             if (snapshot.exists()) {
-                // Correção: Iterar sobre o snapshot.val() se necessário ou usar o childSnapshot.val() diretamente
                 snapshot.forEach((childSnapshot) => {
                     const dados = childSnapshot.val();
                     const nomeIndicado = dados.fullName || 'Sem nome';
+                    // Certifique-se de que o campo 'valor' existe no registro do indicado no banco
                     const valorCompra = dados.valor || 0; 
                     const comissao = (parseFloat(valorCompra) * 0.20).toFixed(2);
                     
