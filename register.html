@@ -155,7 +155,7 @@
         <span id="toastMessage">Sucesso!</span>
     </div>
 
-    <script type="module">
+   <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
@@ -256,7 +256,7 @@
                         referredBy: uidIndicador, 
                         createdAt: new Date().toISOString()
                     });
-                                    
+                                        
                 console.log("Dados enviados com sucesso para: users/" + user.uid);
 
                 showToast("Conta criada! Redirecionando para o painel...");
