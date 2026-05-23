@@ -244,6 +244,29 @@
             .metric-card h2 { font-size: 2.2rem; }
             .modal-card { padding: 2rem 1.2rem; width: calc(100% - 20px); border-radius: 20px; }
         }
+
+        #pix-display-area {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        #pix-qr-image {
+            max-width: 200px;
+            width: 100%;
+            height: auto;
+            border: 4px solid #fff;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        #purchase-form-area {
+            width: 100%;
+        }
 </style>
 </head>
 <body>
@@ -341,8 +364,10 @@
         </div>
     </main>
 
-    <div class="modal-overlay" id="purchaseModal">
-        <div class="modal-card">
+    <<div class="modal-overlay" id="purchaseModal">
+    <div class="modal-card">
+        
+        <div id="purchase-form-area">
             <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
             <h3 id="modalPlanTitle">Confirmar Pedido</h3>
             <p id="modalPlanDesc">Aguardando carregamento do plano...</p>
@@ -353,9 +378,9 @@
             </div>
 
             <div style="margin-bottom: 1.2rem; text-align: left;">
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
-            <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-        </div>
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
+                <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            </div>
 
             <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
@@ -376,28 +401,14 @@
                 <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
             </div>
         </div>
-    </div>
 
-    <div class="modal-overlay" id="withdrawErrorModal">
-        <div class="modal-card">
-            <div class="modal-icon error-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <h3>Mínimo Não Atingido</h3>
-            <p>Você precisa acumular um limite mínimo de <strong>R$ 25,00</strong> em rendimentos para processar um resgate manual para sua chave PIX.</p>
-            <div class="modal-actions">
-                <button class="btn-modal-confirm" id="btn-close-error-modal" style="background: #EF4444; color: #fff;">Entendido</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="pix-display-area" style="display: none; text-align: center; padding: 20px 0;">
-            <h3 style="color: var(--neon-green); margin-bottom: 15px;">QR Code Gerado!</h3>
-            <img id="pix-qr-image" style="max-width: 200px; width: 100%; height: auto; border: 4px solid #fff; border-radius: 8px; margin-bottom: 20px;" />
-            <button onclick="location.reload()" style="width: 100%; padding: 12px; background: #444; color: white; border: none; border-radius: 8px; cursor: pointer;">Fechar e Recarregar</button>
+        <div id="pix-display-area">
+            <h3 style="color: var(--text-neon); margin-bottom: 15px;">QR Code Gerado!</h3>
+            <img id="pix-qr-image" />
+            <button onclick="location.reload()" class="btn-modal-cancel" style="width: 100%;">Fechar e Recarregar</button>
         </div>
 
-    </div>
-</div>
-
+    </div> </div>
 
 
     <div class="modal-overlay" id="withdrawModal">
@@ -575,6 +586,9 @@
     }
 
 async function confirmPurchase() {
+    document.getElementById("purchase-form-area").style.display = "block";
+    document.getElementById("pix-display-area").style.display = "none";
+   
     const clientName = document.getElementById("client-name")?.value.trim();
     const clientDoc = document.getElementById("client-document")?.value.trim();
 
