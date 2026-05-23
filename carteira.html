@@ -5,12 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Carteira - Roda dos 10</title>
     <style>
-        body { background: #0f172a; color: white; font-family: sans-serif; padding: 20px; }
-        .container { max-width: 800px; margin: auto; }
-        .card { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; }
-        h1 { color: #22d3ee; }
-        .ticket-info { font-size: 1.2rem; font-weight: bold; }
-    </style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: rgba(30, 41, 59, 0.7);
+        --neon: #22d3ee;
+        --text: #f8fafc;
+    }
+    body { 
+        background: radial-gradient(circle at top right, #1e293b, #0f172a); 
+        color: var(--text); 
+        font-family: 'Segoe UI', sans-serif; 
+        margin: 0; padding: 20px; min-height: 100vh;
+    }
+    .container { max-width: 600px; margin: auto; }
+    h1 { color: var(--neon); text-align: center; font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; }
+    
+    /* Cartão Premium */
+    .card { 
+        background: var(--card-bg); 
+        backdrop-filter: blur(10px);
+        padding: 20px; 
+        border-radius: 16px; 
+        margin-bottom: 20px; 
+        border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: transform 0.3s ease;
+    }
+    .card:hover { transform: translateY(-5px); border-color: var(--neon); }
+    
+    .info p { margin: 0; }
+    .plano-nome { font-weight: bold; font-size: 1.2rem; color: var(--neon); }
+    .status-tag { 
+        background: rgba(34, 211, 238, 0.1); 
+        color: var(--neon); 
+        padding: 5px 12px; 
+        border-radius: 20px; 
+        font-size: 0.8rem; 
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+</style>
 </head>
 <body>
     <div class="container">
@@ -54,17 +90,19 @@
                         temAprovado = true;
                         list.innerHTML += `
                             <div class="card">
-                                <p><strong>Plano:</strong> ${compra.nomePlano}</p>
-                                <p class="ticket-info">Cotas: ${compra.quantidade}</p>
-                                <small>Data: ${compra.data}</small>
-                                <div style="color: #22d3ee; margin-top: 10px;">✔ Confirmado</div>
+                                <div class="info">
+                                    <div class="plano-nome">${compra.nomePlano}</div>
+                                    <p>Cotas: ${compra.quantidade}</p>
+                                    <small>Data: ${compra.data}</small>
+                                </div>
+                                <div class="status-tag">✔ Confirmado</div>
                             </div>
                         `;
                     }
                 });
 
                 if (!temAprovado) {
-                    list.innerHTML = "<p>Você ainda não possui compras aprovadas.</p>";
+                    list.innerHTML = "<p style='text-align: center;'>Você ainda não possui compras aprovadas.</p>";
                 }
             });
         } else {
