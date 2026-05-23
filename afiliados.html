@@ -173,26 +173,36 @@
             .page-header { text-align: center; }
             .premium-card { width: calc(100% - 10px); padding: 2rem 1.2rem; }
         }
-
-       /* --- ESTILO LOGO PREMIUM --- */
+/* --- ESTILO LOGO PREMIUM --- */
 .logo {
     display: flex;
     align-items: center;
     text-decoration: none;
+    padding: 4px; /* Pequeno espaçamento interno para o hover não 'cortar' */
+    border-radius: 12px;
     transition: var(--transition-smooth);
-    padding: 5px;
 }
 
 .logo img {
-    max-height: 45px; /* Mantém a navbar proporcional */
+    max-height: 45px;
     width: auto;
-    filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.3));
-    transition: var(--transition-smooth);
+    /* Adicionamos uma opacidade sutil inicial para transição mais elegante */
+    opacity: 0.9;
+    filter: drop-shadow(0 4px 10px rgba(0, 230, 118, 0.3));
+    /* Aumentamos a suavidade do transform */
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backface-visibility: hidden; /* Evita tremidos na animação */
 }
 
-.logo img:hover {
-    filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.6));
-    transform: scale(1.05);
+.logo:hover img {
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
+    transform: scale(1.08) rotate(-1deg); /* Leve rotação dá um ar mais orgânico/premium */
+}
+
+/* Efeito de "brilho interno" no container da logo ao passar o mouse */
+.logo:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 </style>
 </head>
