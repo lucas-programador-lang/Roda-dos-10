@@ -4,56 +4,97 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minha Carteira - Roda dos 10</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-    :root {
-        --bg: #0f172a;
-        --card-bg: rgba(30, 41, 59, 0.7);
-        --neon: #22d3ee;
-        --text: #f8fafc;
-    }
-    body { 
-        background: radial-gradient(circle at top right, #1e293b, #0f172a); 
-        color: var(--text); 
-        font-family: 'Segoe UI', sans-serif; 
-        margin: 0; padding: 20px; min-height: 100vh;
-    }
-    .container { max-width: 600px; margin: auto; }
-    h1 { color: var(--neon); text-align: center; font-weight: 800; letter-spacing: -1px; margin-bottom: 30px; }
-    
-    /* Cartão Premium */
-    .card { 
-        background: var(--card-bg); 
-        backdrop-filter: blur(10px);
-        padding: 20px; 
-        border-radius: 16px; 
-        margin-bottom: 20px; 
-        border: 1px solid rgba(255,255,255,0.1);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        transition: transform 0.3s ease;
-    }
-    .card:hover { transform: translateY(-5px); border-color: var(--neon); }
-    
-    .info p { margin: 0; }
-    .plano-nome { font-weight: bold; font-size: 1.2rem; color: var(--neon); }
-    .status-tag { 
-        background: rgba(34, 211, 238, 0.1); 
-        color: var(--neon); 
-        padding: 5px 12px; 
-        border-radius: 20px; 
-        font-size: 0.8rem; 
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-</style>
+        :root {
+            --bg-dark-base: #0B0F17; 
+            --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
+                          linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
+            --bg-dark-card: rgba(20, 29, 43, 0.75); 
+            --whatsapp-green: #00E676;
+            --text-neon: #02FF8A;
+            --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
+            --text-white: #FFFFFF; 
+            --text-muted: #64748B;
+            --border-soft: rgba(255, 255, 255, 0.04);
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        body { 
+            background-color: var(--bg-dark-base); 
+            background-image: var(--bg-texture);
+            background-size: auto, 30px 30px, 30px 30px;
+            color: var(--text-white); 
+            min-height: 100vh;
+            padding-top: 110px;
+        }
+
+        .navbar {
+            background: rgba(15, 23, 36, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-soft);
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            width: calc(100% - 40px);
+            max-width: 1160px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .nav-container { margin: 0 auto; padding: 0.7rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; }
+        .logo span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-menu { display: flex; align-items: center; gap: 1.2rem; list-style: none; }
+        .nav-menu a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 10px; }
+        .nav-menu a.active { color: var(--text-neon); background: rgba(0, 230, 118, 0.06); }
+
+        .main-layout { max-width: 800px; margin: 0 auto; padding: 0 1rem; }
+        h1 { color: var(--text-white); margin-bottom: 2rem; text-align: center; }
+        
+        .card { 
+            background: var(--bg-dark-card); 
+            backdrop-filter: blur(12px);
+            padding: 20px; 
+            border-radius: 20px; 
+            margin-bottom: 20px; 
+            border: 1px solid var(--border-soft);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .plano-nome { font-weight: 800; font-size: 1.2rem; color: var(--text-neon); }
+        .status-tag { 
+            background: rgba(0, 230, 118, 0.1); 
+            color: var(--whatsapp-green); 
+            padding: 6px 14px; 
+            border-radius: 10px; 
+            font-size: 0.8rem; 
+            font-weight: 700;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></a>
+            <ul class="nav-menu">
+                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
+                <li><a href="carteira.html" class="active"><i class="fa-solid fa-wallet"></i> Carteira</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-layout">
         <h1>Minha Carteira</h1>
-        <div id="wallet-list">
-            </div>
+        <div id="wallet-list"></div>
     </div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
@@ -69,7 +110,6 @@
         appId: "1:1072183237747:web:3a41a635187df2db809e06"
     };
 
-    // Inicialize apenas uma vez
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const auth = getAuth(app);
@@ -80,20 +120,18 @@
             onValue(comprasRef, (snapshot) => {
                 const list = document.getElementById("wallet-list");
                 list.innerHTML = "";
-                
                 let temAprovado = false;
                 
                 snapshot.forEach((child) => {
                     const compra = child.val();
-                    
                     if (compra.status === 'aprovado') {
                         temAprovado = true;
                         list.innerHTML += `
                             <div class="card">
-                                <div class="info">
+                                <div>
                                     <div class="plano-nome">${compra.nomePlano}</div>
-                                    <p>Cotas: ${compra.quantidade}</p>
-                                    <small>Data: ${compra.data}</small>
+                                    <div style="font-size: 0.9rem; color: var(--text-muted);">${compra.quantidade}x Cotas</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted);">${compra.data}</div>
                                 </div>
                                 <div class="status-tag">✔ Confirmado</div>
                             </div>
@@ -102,11 +140,9 @@
                 });
 
                 if (!temAprovado) {
-                    list.innerHTML = "<p style='text-align: center;'>Você ainda não possui compras aprovadas.</p>";
+                    list.innerHTML = "<p style='text-align: center; color: var(--text-muted);'>Nenhuma cota ativa no momento.</p>";
                 }
             });
-        } else {
-            window.location.href = "login.html"; // Redireciona se não estiver logado
         }
     });
 </script>
