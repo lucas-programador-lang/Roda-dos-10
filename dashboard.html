@@ -352,6 +352,11 @@
                 <input type="text" id="client-name" placeholder="Digite seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
             </div>
 
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
+            <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+        </div>
+
             <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
                 <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
                 <div style="display: flex; align-items: center; gap: 12px;">
@@ -576,6 +581,18 @@
 
     const user = auth.currentUser;
 
+  async function confirmPurchase() {
+    const clientName = document.getElementById("client-name").value.trim();
+    const clientDoc = document.getElementById("client-document").value.trim(); // Captura o CPF
+
+    if (!clientName || !clientDoc) {
+        fireToast("Preencha seu Nome e CPF.", true);
+        return;
+    }
+
+    const totalValue = pricePerUnit * currentQuantity;
+    const user = auth.currentUser;
+
     try {
         fireToast("Gerando QR Code Vizzion Pay...");
         
@@ -587,38 +604,25 @@
                 nome: clientName,
                 uid: user.uid,
                 plano: currentTicketName,
-                qtde: currentQuantity
+                qtde: currentQuantity,
+                documento: clientDoc // Envia o CPF
             })
         });
 
         const data = await response.json();
 
-        // Verificamos agora o campo 'pix.code' ou 'pix.image' conforme o seu log
         if (data.pix && data.pix.image) {
-            alert("Pagamento PIX gerado! O QR Code será aberto em uma nova janela.");
-            
-            // Abre a imagem do QR Code
             window.open(data.pix.image, '_blank');
-            
-            // Opcional: Copia o código para o usuário pagar mais fácil
-            try {
-                await navigator.clipboard.writeText(data.pix.code);
-                fireToast("Código PIX copiado para a área de transferência!");
-            } catch (err) {
-                console.warn("Não foi possível copiar automaticamente.");
-            }
-            
             closePurchaseModal();
         } else {
-            // Se o JSON não tiver o QR, lançamos o erro para o catch pegar
-            throw new Error(data.message || "Erro ao gerar pix");
+            // Mostra o erro real que vem da API (ex: "Documento inválido")
+            throw new Error(data.message || data.details?.issue || "Erro ao gerar PIX");
         }
     } catch (error) {
         console.error("Erro na compra:", error);
         fireToast("Erro: " + error.message, true);
     }
 }
-
         function fireToast(message, isError = false) {
             const toast = document.getElementById("toastNotification");
             const icon = document.getElementById("toastIcon");
