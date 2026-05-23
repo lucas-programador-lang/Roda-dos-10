@@ -18,8 +18,7 @@
         <div id="wallet-list">
             </div>
     </div>
-
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
     import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -34,8 +33,10 @@
         appId: "1:1072183237747:web:3a41a635187df2db809e06"
     };
 
-    const auth = getAuth(initializeApp(firebaseConfig));
-    const db = getDatabase(initializeApp(firebaseConfig));
+    // Inicialize apenas uma vez
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const auth = getAuth(app);
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -44,22 +45,30 @@
                 const list = document.getElementById("wallet-list");
                 list.innerHTML = "";
                 
+                let temAprovado = false;
+                
                 snapshot.forEach((child) => {
                     const compra = child.val();
                     
-                    // FILTRO DE SEGURANÇA: Só exibe se o status for aprovado
                     if (compra.status === 'aprovado') {
+                        temAprovado = true;
                         list.innerHTML += `
                             <div class="card">
-                                <p>Plano: ${compra.nomePlano}</p>
+                                <p><strong>Plano:</strong> ${compra.nomePlano}</p>
                                 <p class="ticket-info">Cotas: ${compra.quantidade}</p>
                                 <small>Data: ${compra.data}</small>
-                                <span style="color: var(--neon-green)">✔ Confirmado</span>
+                                <div style="color: #22d3ee; margin-top: 10px;">✔ Confirmado</div>
                             </div>
                         `;
                     }
                 });
+
+                if (!temAprovado) {
+                    list.innerHTML = "<p>Você ainda não possui compras aprovadas.</p>";
+                }
             });
+        } else {
+            window.location.href = "login.html"; // Redireciona se não estiver logado
         }
     });
 </script>
