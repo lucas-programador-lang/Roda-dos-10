@@ -595,10 +595,10 @@
                 } else {
                     throw new Error("Erro ao gerar pix");
                 }
-            } catch (error) {
-                fireToast("Erro ao conectar com Vizzion Pay.", true);
+                 } catch (error) {
+                console.error("Erro capturado:", error); // Verifique o console do navegador
+                fireToast("Erro: " + error.message, true);
             }
-        }
 
         function fireToast(message, isError = false) {
             const toast = document.getElementById("toastNotification");
