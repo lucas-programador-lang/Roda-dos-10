@@ -565,7 +565,7 @@
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
-   async function confirmPurchase() {
+  async function confirmPurchase() {
         const clientName = document.getElementById("client-name").value.trim();
         const clientDoc = document.getElementById("client-document").value.trim();
 
@@ -594,18 +594,27 @@
             });
 
             const data = await response.json();
-            
-            // --- LOG DE DEPURAÇÃO ---
-            console.log("Resposta do Worker:", data); 
-            // ------------------------
+            console.log("Resposta do Worker:", data);
 
-            if (data.pix && data.pix.image) {
+            // CORREÇÃO: Verificamos se existe o campo 'pix' e se ele possui 'base64' (que é a imagem)
+            if (data.pix && data.pix.base64) {
+                // Abre o QR Code em uma nova janela usando a string base64
+                const newWindow = window.open("", "_blank");
+                newWindow.document.write(`<img src="data:image/png;base64,${data.pix.base64}" style="width:100%; height:auto;">`);
+                
+                // Tenta copiar o código copia-e-cola
+                if (data.pix.code) {
+                    await navigator.clipboard.writeText(data.pix.code);
+                    fireToast("Código PIX copiado! QR Code aberto.");
+                }
+                
+                closePurchaseModal();
+            } else if (data.pix && data.pix.image) {
+                // Caso a API volte a enviar a URL da imagem
                 window.open(data.pix.image, '_blank');
                 closePurchaseModal();
             } else {
-                // Aqui veremos o erro real vindo do Worker ou da Vizzion
-                const errorMessage = data.message || data.error || "Erro desconhecido na API";
-                throw new Error(errorMessage);
+                throw new Error("Formato de resposta inesperado da API.");
             }
         } catch (error) {
             console.error("Erro na compra:", error);
