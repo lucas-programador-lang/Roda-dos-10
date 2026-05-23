@@ -427,9 +427,8 @@
         <span id="toastMsg">Carregando gateway de faturamento...</span>
     </div>
 
-   <script type="module">
+  <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        // Adicionado get, update e increment para a lógica de comissão
         import { getDatabase, ref, onValue, set, get, update, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
@@ -450,7 +449,7 @@
         let pricePerUnit = 0;
         let currentTicketName = "";
         let currentQuantity = 1;
-        let globalUserBalance = 0; // Armazena o saldo atual do Firebase globalmente
+        let globalUserBalance = 0;
 
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -462,7 +461,16 @@
                         const data = snapshot.val();
                         globalUserBalance = parseFloat(data.balance || 0);
                         document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
-                        document.getElementById("dash-tickets").innerText = data.tickets || 0;
+                        
+                        // Atualiza cotas
+                        const tickets = data.tickets || 0;
+                        document.getElementById("dash-tickets").innerText = tickets;
+                        
+                        // Atualiza barra de progresso (considerando meta de 20 cotas)
+                        const progresso = (tickets / 20) * 100;
+                        if(document.getElementById("progress-bar")) {
+                            document.getElementById("progress-bar").style.width = `${progresso}%`;
+                        }
                     }
                 });
             } else {
@@ -470,8 +478,6 @@
             }
         });
 
-        // LÓGICA DE VERIFICAÇÃO DE SAQUE
-        // Substitua sua função antiga por esta:
         function handleWithdrawTrigger() {
             if (globalUserBalance < 25) {
                 document.getElementById("withdrawErrorModal").classList.add("active");
@@ -480,62 +486,55 @@
             }
         }
 
-        // Adicione estes novos eventos antes do fechamento do script:
         document.getElementById("btn-cancel-withdraw").addEventListener("click", () => {
             document.getElementById("withdrawModal").classList.remove("active");
         });
 
        document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
-    const name = document.getElementById("withdraw-name").value.trim();
-    const pixType = document.getElementById("withdraw-pix-type").value;
-    const pix = document.getElementById("withdraw-pix").value.trim();
-    const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value); // O valor que ele digitou
-    const user = auth.currentUser;
+        const name = document.getElementById("withdraw-name").value.trim();
+        const pixType = document.getElementById("withdraw-pix-type").value;
+        const pix = document.getElementById("withdraw-pix").value.trim();
+        const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value);
+        const user = auth.currentUser;
 
-    // 1. VALIDAÇÕES
-    if (!name || !pix || isNaN(withdrawAmount)) {
-        fireToast("Preencha todos os campos corretamente.", true);
-        return;
-    }
-    if (withdrawAmount < 25) {
-        fireToast("O valor mínimo de saque é R$ 25,00.", true);
-        return;
-    }
-    if (withdrawAmount > globalUserBalance) {
-        fireToast("Valor maior que seu saldo disponível.", true);
-        return;
-    }
+        if (!name || !pix || isNaN(withdrawAmount)) {
+            fireToast("Preencha todos os campos corretamente.", true);
+            return;
+        }
+        if (withdrawAmount < 25) {
+            fireToast("O valor mínimo de saque é R$ 25,00.", true);
+            return;
+        }
+        if (withdrawAmount > globalUserBalance) {
+            fireToast("Valor maior que seu saldo disponível.", true);
+            return;
+        }
 
-    // 2. CÁLCULO DO NOVO SALDO (Saldo total - valor do saque)
-    const newBalance = globalUserBalance - withdrawAmount;
+        const newBalance = globalUserBalance - withdrawAmount;
+        const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
+                    `👤 Nome: ${name}\n` +
+                    `🔑 Tipo da Chave: ${pixType}\n` +
+                    `🔢 Chave PIX: ${pix}\n` +
+                    `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
+                    `Enviado via Painel Roda dos 10.`;
 
-    // 3. MENSAGEM DO WHATSAPP
-    const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
-                `👤 Nome: ${name}\n` +
-                `🔑 Tipo da Chave: ${pixType}\n` +
-                `🔢 Chave PIX: ${pix}\n` +
-                `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
-                `Enviado via Painel Roda dos 10.`;
+        window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
 
-    window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
+        if (user) {
+            const userBalanceRef = ref(db, `users/${user.uid}/balance`);
+            set(userBalanceRef, newBalance)
+                .then(() => {
+                    fireToast("Saque solicitado! Saldo atualizado.");
+                })
+                .catch((error) => {
+                    console.error("Erro ao atualizar saldo:", error);
+                    fireToast("Erro ao processar saque.", true);
+                });
+        }
 
-    // 4. ATUALIZAÇÃO NO FIREBASE
-    if (user) {
-        const userBalanceRef = ref(db, `users/${user.uid}/balance`);
-        set(userBalanceRef, newBalance)
-            .then(() => {
-                fireToast("Saque solicitado! Saldo atualizado.");
-            })
-            .catch((error) => {
-                console.error("Erro ao atualizar saldo:", error);
-                fireToast("Erro ao processar saque.", true);
-            });
-    }
+        document.getElementById("withdrawModal").classList.remove("active");
+    });
 
-    document.getElementById("withdrawModal").classList.remove("active");
-});
-
-        // FUNÇÕES DO MODAL DE COMPRAS
         function openPurchaseModal(planName, price) {
             currentTicketName = planName;
             pricePerUnit = price;
@@ -576,8 +575,12 @@
             const totalValue = pricePerUnit * currentQuantity;
             const user = auth.currentUser;
 
-            // Lógica de comissão adicionada
             if (user) {
+                // Atualiza cotas e comissão
+                update(ref(db, `users/${user.uid}`), {
+                    tickets: increment(currentQuantity)
+                });
+
                 const userSnapshot = await get(ref(db, `users/${user.uid}`));
                 if (userSnapshot.exists()) {
                     const userData = userSnapshot.val();
@@ -631,7 +634,6 @@
             setTimeout(() => { toast.classList.remove("active"); }, 3500);
         }
 
-        // EVENT LISTENERS SEGUROS
         document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
         document.getElementById("btn-close-error-modal").addEventListener("click", () => {
             document.getElementById("withdrawErrorModal").classList.remove("active");
