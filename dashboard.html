@@ -610,7 +610,9 @@ async function confirmPurchase() {
                 uid: user.uid,
                 plano: currentTicketName,
                 qtde: currentQuantity,
-                documento: clientDoc.replace(/\D/g, '') // Remove qualquer caractere especial do CPF
+                documento: clientDoc.replace(/\D/g, ''),
+                email: "cliente@email.com",
+                phone: "(00) 00000-0000"// Remove qualquer caractere especial do CPF
             })
         });
         
