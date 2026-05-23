@@ -614,6 +614,7 @@ async function confirmPurchase() {
         });
 
         const data = await response.json();
+        console.log("Resposta bruta do servidor:", data);
 
         if (data.pix && (data.pix.base64 || data.pix.image)) {
             // CORREÇÃO: Registra a compra para aparecer na carteira.html
