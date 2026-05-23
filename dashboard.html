@@ -427,7 +427,7 @@
         <span id="toastMsg">Carregando gateway de faturamento...</span>
     </div>
 
-  <script type="module">
+<script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, onValue, set, get, update, increment } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
@@ -462,11 +462,9 @@
                         globalUserBalance = parseFloat(data.balance || 0);
                         document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
                         
-                        // Atualiza cotas
                         const tickets = data.tickets || 0;
                         document.getElementById("dash-tickets").innerText = tickets;
                         
-                        // Atualiza barra de progresso (considerando meta de 20 cotas)
                         const progresso = (tickets / 20) * 100;
                         if(document.getElementById("progress-bar")) {
                             document.getElementById("progress-bar").style.width = `${progresso}%`;
@@ -490,59 +488,57 @@
             document.getElementById("withdrawModal").classList.remove("active");
         });
 
-       document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
-        const name = document.getElementById("withdraw-name").value.trim();
-        const pixType = document.getElementById("withdraw-pix-type").value;
-        const pix = document.getElementById("withdraw-pix").value.trim();
-        const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value);
-        const user = auth.currentUser;
+        document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
+            const name = document.getElementById("withdraw-name").value.trim();
+            const pixType = document.getElementById("withdraw-pix-type").value;
+            const pix = document.getElementById("withdraw-pix").value.trim();
+            const withdrawAmount = parseFloat(document.getElementById("withdraw-amount").value);
+            const user = auth.currentUser;
 
-        if (!name || !pix || isNaN(withdrawAmount)) {
-            fireToast("Preencha todos os campos corretamente.", true);
-            return;
-        }
-        if (withdrawAmount < 25) {
-            fireToast("O valor mínimo de saque é R$ 25,00.", true);
-            return;
-        }
-        if (withdrawAmount > globalUserBalance) {
-            fireToast("Valor maior que seu saldo disponível.", true);
-            return;
-        }
+            if (!name || !pix || isNaN(withdrawAmount)) {
+                fireToast("Preencha todos os campos corretamente.", true);
+                return;
+            }
+            if (withdrawAmount < 25) {
+                fireToast("O valor mínimo de saque é R$ 25,00.", true);
+                return;
+            }
+            if (withdrawAmount > globalUserBalance) {
+                fireToast("Valor maior que seu saldo disponível.", true);
+                return;
+            }
 
-        const newBalance = globalUserBalance - withdrawAmount;
-        const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
-                    `👤 Nome: ${name}\n` +
-                    `🔑 Tipo da Chave: ${pixType}\n` +
-                    `🔢 Chave PIX: ${pix}\n` +
-                    `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
-                    `Enviado via Painel Roda dos 10.`;
+            const newBalance = globalUserBalance - withdrawAmount;
+            const msg = `💰 *SOLICITAÇÃO DE SAQUE*\n\n` +
+                        `👤 Nome: ${name}\n` +
+                        `🔑 Tipo da Chave: ${pixType}\n` +
+                        `🔢 Chave PIX: ${pix}\n` +
+                        `💵 Valor Solicitado: R$ ${withdrawAmount.toFixed(2).replace('.', ',')}\n\n` +
+                        `Enviado via Painel Roda dos 10.`;
 
-        window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/639759981028?text=${encodeURIComponent(msg)}`, '_blank');
 
-        if (user) {
-            const userBalanceRef = ref(db, `users/${user.uid}/balance`);
-            set(userBalanceRef, newBalance)
-                .then(() => {
-                    fireToast("Saque solicitado! Saldo atualizado.");
-                })
-                .catch((error) => {
-                    console.error("Erro ao atualizar saldo:", error);
-                    fireToast("Erro ao processar saque.", true);
-                });
-        }
+            if (user) {
+                const userBalanceRef = ref(db, `users/${user.uid}/balance`);
+                set(userBalanceRef, newBalance)
+                    .then(() => {
+                        fireToast("Saque solicitado! Saldo atualizado.");
+                    })
+                    .catch((error) => {
+                        console.error("Erro ao atualizar saldo:", error);
+                        fireToast("Erro ao processar saque.", true);
+                    });
+            }
 
-        document.getElementById("withdrawModal").classList.remove("active");
-    });
+            document.getElementById("withdrawModal").classList.remove("active");
+        });
 
         function openPurchaseModal(planName, price) {
             currentTicketName = planName;
             pricePerUnit = price;
             currentQuantity = 1;
-
             document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
             document.getElementById("client-name").value = "";
-            
             recalculateTotal();
             document.getElementById("purchaseModal").classList.add("active");
         }
@@ -561,107 +557,71 @@
             const finalPrice = pricePerUnit * currentQuantity;
             document.getElementById("qty-display").innerText = currentQuantity;
             document.getElementById("total-display").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
-            document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>. Seu nome entrará múltiplas vezes nas apurações!`;
+            document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
         }
 
         async function confirmPurchase() {
             const clientName = document.getElementById("client-name").value.trim();
-
             if (!clientName) {
-                fireToast("Por favor, preencha seu nome completo para o sorteio.", true);
+                fireToast("Por favor, preencha seu nome completo.", true);
                 return;
             }
 
             const totalValue = pricePerUnit * currentQuantity;
             const user = auth.currentUser;
 
-            if (user) {
-                // Atualiza cotas e comissão
-                update(ref(db, `users/${user.uid}`), {
-                    tickets: increment(currentQuantity)
+            try {
+                fireToast("Gerando QR Code Vizzion Pay...");
+                
+                const response = await fetch('https://SEU-WORKER.workers.dev/criar-pix', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        valor: totalValue,
+                        nome: clientName,
+                        uid: user.uid,
+                        plano: currentTicketName,
+                        qtde: currentQuantity
+                    })
                 });
 
-                const userSnapshot = await get(ref(db, `users/${user.uid}`));
-                if (userSnapshot.exists()) {
-                    const userData = userSnapshot.val();
-                    const indicadorUid = userData.referredBy;
+                const data = await response.json();
 
-                    if (indicadorUid && indicadorUid !== "NENHUM") {
-                        const comissao = totalValue * 0.20;
-                        update(ref(db, `users/${indicadorUid}`), {
-                            balance: increment(comissao),
-                            valor: increment(totalValue)
-                        });
-                    }
+                if (data.qrcode) {
+                    // Exibe o modal de pagamento com o QR Code retornado
+                    alert("Pagamento PIX gerado! Escaneie o QR Code ou use o copia e cola.");
+                    window.open(data.qrcode, '_blank');
+                    closePurchaseModal();
+                } else {
+                    throw new Error("Erro ao gerar pix");
                 }
+            } catch (error) {
+                fireToast("Erro ao conectar com Vizzion Pay.", true);
             }
-
-            const finalValueStr = totalValue.toFixed(2).replace(".", ",");
-            const textMessage = 
-                `🎯 *RODA DOS 10 - NOVO PEDIDO DE COTAS* 🎯\n\n` +
-                `👤 *Nome do Participante:* ${clientName}\n` +
-                `🎫 *Plano Escolhido:* ${currentTicketName}\n` +
-                `🔢 *Quantidade Adquirida:* ${currentQuantity} Cota(s)\n` +
-                `💰 *Valor Total do Pedido:* R$ ${finalValueStr}\n\n` +
-                `🍀 *Regra de Inserção:* O nome deste usuário será inserido *${currentQuantity} vezes* na lista de sorteio oficial assim que o plano atingir o fechamento de 20 compras totais!`;
-
-            closePurchaseModal();
-            fireToast("Cota gerada! Redirecionando para o suporte...");
-
-            setTimeout(() => {
-                window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
-            }, 1200);
         }
 
         function fireToast(message, isError = false) {
             const toast = document.getElementById("toastNotification");
             const icon = document.getElementById("toastIcon");
             const msg = document.getElementById("toastMsg");
-
             msg.innerText = message;
-
-            if (isError) {
-                toast.style.borderLeftColor = "#EF4444";
-                icon.className = "fa-solid fa-circle-xmark";
-                icon.style.color = "#EF4444";
-            } else {
-                toast.style.borderLeftColor = "var(--neon-green)";
-                icon.className = "fa-solid fa-circle-check";
-                icon.style.color = "var(--neon-green)";
-            }
-
+            toast.style.borderLeftColor = isError ? "#EF4444" : "var(--neon-green)";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
             toast.classList.add("active");
             setTimeout(() => { toast.classList.remove("active"); }, 3500);
         }
 
         document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
-        document.getElementById("btn-close-error-modal").addEventListener("click", () => {
-            document.getElementById("withdrawErrorModal").classList.remove("active");
-        });
-
         document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
         document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
         document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
-        
         document.getElementById("btn-qty-minus").addEventListener("click", () => changeQuantity(-1));
         document.getElementById("btn-qty-plus").addEventListener("click", () => changeQuantity(1));
-        
         document.getElementById("btn-modal-confirm").addEventListener("click", confirmPurchase);
         document.getElementById("btn-modal-cancel").addEventListener("click", closePurchaseModal);
-
         document.getElementById("btn-logout").addEventListener("click", (e) => {
             e.preventDefault();
             signOut(auth).then(() => { window.location.href = "login.html"; });
-        });
-
-        window.addEventListener("click", (e) => {
-            if (e.target === document.getElementById("purchaseModal")) closePurchaseModal();
-            if (e.target === document.getElementById("withdrawErrorModal")) {
-                document.getElementById("withdrawErrorModal").classList.remove("active");
-            }
-            if (e.target === document.getElementById("withdrawModal")) {
-                document.getElementById("withdrawModal").classList.remove("active");
-            }
         });
     </script>
 </body>
