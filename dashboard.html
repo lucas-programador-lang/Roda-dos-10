@@ -246,27 +246,24 @@
         }
 
         #pix-display-area {
-            display: none; 
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            margin-top: 1rem;
-        }
-
-        #pix-qr-image {
-            max-width: 200px;
-            width: 100%;
-            height: auto;
-            border: 4px solid #fff;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        #purchase-form-area {
-            width: 100%;
-        }
+        display: none; 
+        flex-direction: column;
+        align-items: center;      /* Centraliza horizontalmente */
+        justify-content: center;  /* Centraliza verticalmente */
+        width: 100%;
+        text-align: center;       /* Segurança extra para textos */
+        margin-top: 1rem;
+    }
+    
+    #pix-qr-image {
+        max-width: 200px;
+        width: 100%;
+        height: auto;
+        border: 4px solid #fff;
+        border-radius: 12px;
+        margin: 0 auto 20px auto; /* O "0 auto" centraliza a imagem */
+        display: block;
+    }
 </style>
 </head>
 <body>
