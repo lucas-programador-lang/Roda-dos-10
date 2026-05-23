@@ -600,6 +600,7 @@ async function confirmPurchase() {
     try {
         fireToast("Gerando QR Code...");
         
+       // Substitua o trecho original do fetch no confirmPurchase por este:
         const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -609,12 +610,17 @@ async function confirmPurchase() {
                 uid: user.uid,
                 plano: currentTicketName,
                 qtde: currentQuantity,
-                documento: clientDoc
+                documento: clientDoc.replace(/\D/g, '') // Remove qualquer caractere especial do CPF
             })
         });
-
+        
         const data = await response.json();
-        console.log("Resposta bruta do servidor:", data);
+        
+        if (!response.ok) {
+            // Aqui você verá o motivo real do erro no console
+            console.error("Detalhes do erro do gateway:", data.details);
+            throw new Error(data.details?.message || "Erro no gateway: Verifique os dados inseridos.");
+        }
 
         if (data.pix && (data.pix.base64 || data.pix.image)) {
             // CORREÇÃO: Registra a compra para aparecer na carteira.html
