@@ -20,44 +20,48 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        
-        // [INSIRA O SEU FIREBASE CONFIG AQUI]
-        const firebaseConfig = {
-            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-            authDomain: "roda-dos-10.firebaseapp.com",
-            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10",
-            storageBucket: "roda-dos-10.firebasestorage.app",
-            messagingSenderId: "1072183237747",
-            appId: "1:1072183237747:web:3a41a635187df2db809e06"
-        };
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    
+    const firebaseConfig = {
+        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+        authDomain: "roda-dos-10.firebaseapp.com",
+        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+        projectId: "roda-dos-10",
+        storageBucket: "roda-dos-10.firebasestorage.app",
+        messagingSenderId: "1072183237747",
+        appId: "1:1072183237747:web:3a41a635187df2db809e06"
+    };
 
+    const auth = getAuth(initializeApp(firebaseConfig));
+    const db = getDatabase(initializeApp(firebaseConfig));
 
-        const auth = getAuth(initializeApp(firebaseConfig));
-        const db = getDatabase(initializeApp(firebaseConfig));
-
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const comprasRef = ref(db, `users/${user.uid}/compras`);
-                onValue(comprasRef, (snapshot) => {
-                    const list = document.getElementById("wallet-list");
-                    list.innerHTML = "";
-                    snapshot.forEach((child) => {
-                        const compra = child.val();
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            const comprasRef = ref(db, `users/${user.uid}/compras`);
+            onValue(comprasRef, (snapshot) => {
+                const list = document.getElementById("wallet-list");
+                list.innerHTML = "";
+                
+                snapshot.forEach((child) => {
+                    const compra = child.val();
+                    
+                    // FILTRO DE SEGURANÇA: Só exibe se o status for aprovado
+                    if (compra.status === 'aprovado') {
                         list.innerHTML += `
                             <div class="card">
                                 <p>Plano: ${compra.nomePlano}</p>
                                 <p class="ticket-info">Cotas: ${compra.quantidade}</p>
                                 <small>Data: ${compra.data}</small>
+                                <span style="color: var(--neon-green)">✔ Confirmado</span>
                             </div>
                         `;
-                    });
+                    }
                 });
-            }
-        });
-    </script>
+            });
+        }
+    });
+</script>
 </body>
 </html>
