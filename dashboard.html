@@ -567,38 +567,57 @@
                 return;
             }
 
-            const totalValue = pricePerUnit * currentQuantity;
-            const user = auth.currentUser;
+           const totalValue = pricePerUnit * currentQuantity;
+    // Proteção: Garante que o valor enviado seja sempre positivo
+    if (totalValue <= 0) {
+        fireToast("Valor inválido.", true);
+        return;
+    }
 
+    const user = auth.currentUser;
+
+    try {
+        fireToast("Gerando QR Code Vizzion Pay...");
+        
+        const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                valor: totalValue,
+                nome: clientName,
+                uid: user.uid,
+                plano: currentTicketName,
+                qtde: currentQuantity
+            })
+        });
+
+        const data = await response.json();
+
+        // Verificamos agora o campo 'pix.code' ou 'pix.image' conforme o seu log
+        if (data.pix && data.pix.image) {
+            alert("Pagamento PIX gerado! O QR Code será aberto em uma nova janela.");
+            
+            // Abre a imagem do QR Code
+            window.open(data.pix.image, '_blank');
+            
+            // Opcional: Copia o código para o usuário pagar mais fácil
             try {
-                fireToast("Gerando QR Code Vizzion Pay...");
-                
-                const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        valor: totalValue,
-                        nome: clientName,
-                        uid: user.uid,
-                        plano: currentTicketName,
-                        qtde: currentQuantity
-                    })
-                });
-
-                const data = await response.json();
-
-                if (data.qrcode) {
-                    // Exibe o modal de pagamento com o QR Code retornado
-                    alert("Pagamento PIX gerado! Escaneie o QR Code ou use o copia e cola.");
-                    window.open(data.qrcode, '_blank');
-                    closePurchaseModal();
-                } else {
-                    throw new Error("Erro ao gerar pix");
-                }
-            } catch (error) {
-                fireToast("Erro ao conectar com Vizzion Pay.", true);
+                await navigator.clipboard.writeText(data.pix.code);
+                fireToast("Código PIX copiado para a área de transferência!");
+            } catch (err) {
+                console.warn("Não foi possível copiar automaticamente.");
             }
+            
+            closePurchaseModal();
+        } else {
+            // Se o JSON não tiver o QR, lançamos o erro para o catch pegar
+            throw new Error(data.message || "Erro ao gerar pix");
         }
+    } catch (error) {
+        console.error("Erro na compra:", error);
+        fireToast("Erro: " + error.message, true);
+    }
+}
 
         function fireToast(message, isError = false) {
             const toast = document.getElementById("toastNotification");
