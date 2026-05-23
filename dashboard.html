@@ -394,6 +394,7 @@
             <img id="pix-qr-image" style="max-width: 200px; width: 100%; height: auto; border: 4px solid #fff; border-radius: 8px; margin-bottom: 20px;" />
             <button onclick="location.reload()" style="width: 100%; padding: 12px; background: #444; color: white; border: none; border-radius: 8px; cursor: pointer;">Fechar e Recarregar</button>
         </div>
+
     </div>
 </div>
 
@@ -573,9 +574,9 @@
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
- async function confirmPurchase() {
-    const clientName = document.getElementById("client-name").value.trim();
-    const clientDoc = document.getElementById("client-document").value.trim();
+async function confirmPurchase() {
+    const clientName = document.getElementById("client-name")?.value.trim();
+    const clientDoc = document.getElementById("client-document")?.value.trim();
 
     if (!clientName || !clientDoc) {
         fireToast("Preencha seu Nome e CPF.", true);
@@ -604,22 +605,28 @@
         const data = await response.json();
 
         if (data.pix && (data.pix.base64 || data.pix.image)) {
-            // Esconde o formulário e mostra a área do QR Code
-            document.getElementById("purchase-form-area").style.display = "none";
-            
+            // Buscamos os elementos
+            const formArea = document.getElementById("purchase-form-area");
             const pixArea = document.getElementById("pix-display-area");
             const qrImg = document.getElementById("pix-qr-image");
-            
-            qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
-            pixArea.style.display = "block";
 
-            // Copia o código para o usuário
+            // SEGUNDA PROTEÇÃO: Só tenta alterar se os elementos forem encontrados
+            if (formArea) formArea.style.display = "none";
+            if (pixArea) pixArea.style.display = "block";
+            if (qrImg) {
+                qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
+            }
+
             if (data.pix.code) {
-                await navigator.clipboard.writeText(data.pix.code);
-                fireToast("Código PIX copiado!");
+                try {
+                    await navigator.clipboard.writeText(data.pix.code);
+                    fireToast("QR Code gerado e código copiado!");
+                } catch (e) {
+                    fireToast("QR Code gerado!");
+                }
             }
         } else {
-            throw new Error("Erro ao gerar a imagem do PIX.");
+            throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
         }
     } catch (error) {
         console.error("Erro na compra:", error);
