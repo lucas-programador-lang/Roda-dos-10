@@ -107,23 +107,46 @@
             body { padding-top: 150px; }
             .premium-card { width: calc(100% - 20px); }
         }
+
+
+/* Estilo da Logo */
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.logo img {
+    max-height: 45px; /* Altura ajustada para a navbar */
+    width: auto;
+    filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.4));
+    transition: var(--transition-smooth);
+}
+
+.logo img:hover {
+    filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.7));
+    transform: scale(1.05);
+}
 </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="dashboard.html" class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></a>
-            <ul class="nav-menu">
-                <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
-                <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
-                <li><a href="perfil.html" class="active"><i class="fa-solid fa-user"></i>Perfil</a></li>
-                <li><a href="carteira.html"><i class="fa-solid fa-wallet"></i> Carteira</a></li>
-                <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
-            </ul>
-        </div>
-    </nav>
-
+   <nav class="navbar">
+    <div class="nav-container">
+        <a href="dashboard.html" class="logo">
+            <img src="logo.png" alt="Roda dos 10">
+        </a>
+        
+        <ul class="nav-menu">
+            <li><a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Painel</a></li>
+            <li><a href="afiliados.html"><i class="fa-solid fa-users"></i> Afiliados</a></li>
+            <li><a href="perfil.html" class="active"><i class="fa-solid fa-user"></i> Perfil</a></li>
+            <li><a href="carteira.html"><i class="fa-solid fa-wallet"></i> Carteira</a></li>
+            <li><a href="#" id="btn-logout" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a></li>
+        </ul>
+    </div>
+</nav>
     <main class="main-layout">
         <header class="page-header">
             <h1>Segurança de Acesso</h1>
