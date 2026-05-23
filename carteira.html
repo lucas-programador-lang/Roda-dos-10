@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Carteira - Roda dos 10</title>
+    <style>
+        body { background: #0f172a; color: white; font-family: sans-serif; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        .card { background: #1e293b; padding: 20px; border-radius: 12px; margin-bottom: 15px; border: 1px solid #334155; }
+        h1 { color: #22d3ee; }
+        .ticket-info { font-size: 1.2rem; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Minha Carteira</h1>
+        <div id="wallet-list">
+            </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        
+        // [INSIRA O SEU FIREBASE CONFIG AQUI]
+
+        const auth = getAuth(initializeApp(firebaseConfig));
+        const db = getDatabase(initializeApp(firebaseConfig));
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const comprasRef = ref(db, `users/${user.uid}/compras`);
+                onValue(comprasRef, (snapshot) => {
+                    const list = document.getElementById("wallet-list");
+                    list.innerHTML = "";
+                    snapshot.forEach((child) => {
+                        const compra = child.val();
+                        list.innerHTML += `
+                            <div class="card">
+                                <p>Plano: ${compra.nomePlano}</p>
+                                <p class="ticket-info">Cotas: ${compra.quantidade}</p>
+                                <small>Data: ${compra.data}</small>
+                            </div>
+                        `;
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
