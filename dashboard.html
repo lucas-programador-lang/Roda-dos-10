@@ -389,6 +389,14 @@
         </div>
     </div>
 
+    <div id="pix-display-area" style="display: none; text-align: center; padding: 20px 0;">
+            <h3 style="color: var(--neon-green); margin-bottom: 15px;">QR Code Gerado!</h3>
+            <img id="pix-qr-image" style="max-width: 200px; width: 100%; height: auto; border: 4px solid #fff; border-radius: 8px; margin-bottom: 20px;" />
+            <button onclick="location.reload()" style="width: 100%; padding: 12px; background: #444; color: white; border: none; border-radius: 8px; cursor: pointer;">Fechar e Recarregar</button>
+        </div>
+    </div>
+</div>
+
 
 
     <div class="modal-overlay" id="withdrawModal">
@@ -565,62 +573,59 @@
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
-  async function confirmPurchase() {
-        const clientName = document.getElementById("client-name").value.trim();
-        const clientDoc = document.getElementById("client-document").value.trim();
+ async function confirmPurchase() {
+    const clientName = document.getElementById("client-name").value.trim();
+    const clientDoc = document.getElementById("client-document").value.trim();
 
-        if (!clientName || !clientDoc) {
-            fireToast("Preencha seu Nome e CPF.", true);
-            return;
-        }
-
-        const totalValue = pricePerUnit * currentQuantity;
-        const user = auth.currentUser;
-
-        try {
-            fireToast("Gerando QR Code...");
-            
-            const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    valor: totalValue,
-                    nome: clientName,
-                    uid: user.uid,
-                    plano: currentTicketName,
-                    qtde: currentQuantity,
-                    documento: clientDoc
-                })
-            });
-
-            const data = await response.json();
-            console.log("Resposta do Worker:", data);
-
-            // CORREÇÃO: Verificamos se existe o campo 'pix' e se ele possui 'base64' (que é a imagem)
-            if (data.pix && data.pix.base64) {
-                // Abre o QR Code em uma nova janela usando a string base64
-                const newWindow = window.open("", "_blank");
-                newWindow.document.write(`<img src="data:image/png;base64,${data.pix.base64}" style="width:100%; height:auto;">`);
-                
-                // Tenta copiar o código copia-e-cola
-                if (data.pix.code) {
-                    await navigator.clipboard.writeText(data.pix.code);
-                    fireToast("Código PIX copiado! QR Code aberto.");
-                }
-                
-                closePurchaseModal();
-            } else if (data.pix && data.pix.image) {
-                // Caso a API volte a enviar a URL da imagem
-                window.open(data.pix.image, '_blank');
-                closePurchaseModal();
-            } else {
-                throw new Error("Formato de resposta inesperado da API.");
-            }
-        } catch (error) {
-            console.error("Erro na compra:", error);
-            fireToast("Erro: " + error.message, true);
-        }
+    if (!clientName || !clientDoc) {
+        fireToast("Preencha seu Nome e CPF.", true);
+        return;
     }
+
+    const totalValue = pricePerUnit * currentQuantity;
+    const user = auth.currentUser;
+
+    try {
+        fireToast("Gerando QR Code...");
+        
+        const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                valor: totalValue,
+                nome: clientName,
+                uid: user.uid,
+                plano: currentTicketName,
+                qtde: currentQuantity,
+                documento: clientDoc
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.pix && (data.pix.base64 || data.pix.image)) {
+            // Esconde o formulário e mostra a área do QR Code
+            document.getElementById("purchase-form-area").style.display = "none";
+            
+            const pixArea = document.getElementById("pix-display-area");
+            const qrImg = document.getElementById("pix-qr-image");
+            
+            qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
+            pixArea.style.display = "block";
+
+            // Copia o código para o usuário
+            if (data.pix.code) {
+                await navigator.clipboard.writeText(data.pix.code);
+                fireToast("Código PIX copiado!");
+            }
+        } else {
+            throw new Error("Erro ao gerar a imagem do PIX.");
+        }
+    } catch (error) {
+        console.error("Erro na compra:", error);
+        fireToast("Erro: " + error.message, true);
+    }
+}
 
     function fireToast(message, isError = false) {
         const toast = document.getElementById("toastNotification");
