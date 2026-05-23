@@ -565,7 +565,7 @@
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
-    async function confirmPurchase() {
+   async function confirmPurchase() {
         const clientName = document.getElementById("client-name").value.trim();
         const clientDoc = document.getElementById("client-document").value.trim();
 
@@ -575,15 +575,10 @@
         }
 
         const totalValue = pricePerUnit * currentQuantity;
-        if (totalValue <= 0) {
-            fireToast("Valor inválido.", true);
-            return;
-        }
-
         const user = auth.currentUser;
 
         try {
-            fireToast("Gerando QR Code Vizzion Pay...");
+            fireToast("Gerando QR Code...");
             
             const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
                 method: 'POST',
@@ -599,12 +594,18 @@
             });
 
             const data = await response.json();
+            
+            // --- LOG DE DEPURAÇÃO ---
+            console.log("Resposta do Worker:", data); 
+            // ------------------------
 
             if (data.pix && data.pix.image) {
                 window.open(data.pix.image, '_blank');
                 closePurchaseModal();
             } else {
-                throw new Error(data.message || data.details?.issue || "Erro ao gerar PIX");
+                // Aqui veremos o erro real vindo do Worker ou da Vizzion
+                const errorMessage = data.message || data.error || "Erro desconhecido na API";
+                throw new Error(errorMessage);
             }
         } catch (error) {
             console.error("Erro na compra:", error);
