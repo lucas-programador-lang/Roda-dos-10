@@ -97,19 +97,34 @@
         .auth-footer { text-align: center; margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-muted); }
         .auth-footer a { color: var(--whatsapp-green); text-decoration: none; font-weight: 600; }
         .auth-footer a:hover { text-decoration: underline; }
-</style>
-</head>
-<body>
 
-    <div class="auth-wrapper">
-        <div class="auth-container premium-glass">
-            
+
+        /* Correção do header para a logo imagem */
+        .auth-header .logo {
+            display: flex;
+            justify-content: center; /* Garante que a imagem fique centralizada */
+            align-items: center;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+        }
+        
+        .auth-header .logo img {
+            transition: var(--transition-smooth);
+        }
+        
+        .auth-header .logo:hover img {
+            transform: scale(1.05);
+        }
+        </style>
+    </head>
+    <body>
+        
             <div class="auth-header">
-                <div class="logo">
-                    <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
-                </div>
-                <p>Entre na sua conta para gerenciar seus planos e afiliados</p>
-            </div>
+            <a href="login.html" class="logo">
+                <img src="logo.png" alt="Roda dos 10" style="max-height: 50px; width: auto; filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3));">
+            </a>
+            <p>Entre na sua conta para gerenciar seus planos e afiliados</p>
+        </div>
 
             <form id="login-form" autocomplete="off">
                 <div class="input-block">
