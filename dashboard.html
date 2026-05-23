@@ -582,79 +582,76 @@
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
-    async function confirmPurchase() {
-        document.getElementById("purchase-form-area").style.display = "block";
-        document.getElementById("pix-display-area").style.display = "none";
+async function confirmPurchase() {
+    document.getElementById("purchase-form-area").style.display = "block";
+    document.getElementById("pix-display-area").style.display = "none";
+    
+    const clientName = document.getElementById("client-name")?.value.trim();
+    const clientDoc = document.getElementById("client-document")?.value.trim();
+
+    if (!clientName || !clientDoc) {
+        fireToast("Preencha seu Nome e CPF.", true);
+        return;
+    }
+
+    const totalValue = pricePerUnit * currentQuantity;
+    const user = auth.currentUser;
+
+    try {
+        fireToast("Gerando QR Code...");
         
-        const clientName = document.getElementById("client-name")?.value.trim();
-        const clientDoc = document.getElementById("client-document")?.value.trim();
+        const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                valor: totalValue,
+                nome: clientName,
+                uid: user.uid,
+                plano: currentTicketName,
+                qtde: currentQuantity,
+                documento: clientDoc
+            })
+        });
 
-        if (!clientName || !clientDoc) {
-            fireToast("Preencha seu Nome e CPF.", true);
-            return;
-        }
+        const data = await response.json();
 
-        const totalValue = pricePerUnit * currentQuantity;
-        const user = auth.currentUser;
-
-        try {
-            fireToast("Gerando QR Code...");
-            
-            const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    valor: totalValue,
-                    nome: clientName,
-                    uid: user.uid,
-                    plano: currentTicketName,
-                    qtde: currentQuantity,
-                    documento: clientDoc
-                })
+        if (data.pix && (data.pix.base64 || data.pix.image)) {
+            // CORREÇÃO: Registra a compra para aparecer na carteira.html
+            const comprasRef = ref(db, `users/${user.uid}/compras`);
+            await push(comprasRef, {
+                nomePlano: currentTicketName,
+                quantidade: currentQuantity,
+                data: new Date().toLocaleDateString('pt-BR'),
+                valorTotal: totalValue
             });
 
-            const data = await response.json();
+            // Buscamos os elementos
+            const formArea = document.getElementById("purchase-form-area");
+            const pixArea = document.getElementById("pix-display-area");
+            const qrImg = document.getElementById("pix-qr-image");
 
-            if (data.pix && (data.pix.base64 || data.pix.image)) {
-                // Registrar no banco de dados
-                const comprasRef = ref(db, `users/${user.uid}/compras`);
-                await push(comprasRef, {
-                    nomePlano: currentTicketName,
-                    quantidade: currentQuantity,
-                    data: new Date().toLocaleDateString('pt-BR'),
-                    valor: totalValue
-                });
-
-                await update(ref(db), {
-                    [`sorteios/${currentTicketName}/totalVendido`]: increment(currentQuantity)
-                });
-
-                const formArea = document.getElementById("purchase-form-area");
-                const pixArea = document.getElementById("pix-display-area");
-                const qrImg = document.getElementById("pix-qr-image");
-
-                if (formArea) formArea.style.display = "none";
-                if (pixArea) pixArea.style.display = "block";
-                if (qrImg) {
-                    qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
-                }
-
-                if (data.pix.code) {
-                    try {
-                        await navigator.clipboard.writeText(data.pix.code);
-                        fireToast("QR Code gerado e código copiado!");
-                    } catch (e) {
-                        fireToast("QR Code gerado!");
-                    }
-                }
-            } else {
-                throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
+            if (formArea) formArea.style.display = "none";
+            if (pixArea) pixArea.style.display = "block";
+            if (qrImg) {
+                qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
             }
-        } catch (error) {
-            console.error("Erro na compra:", error);
-            fireToast("Erro: " + error.message, true);
+
+            if (data.pix.code) {
+                try {
+                    await navigator.clipboard.writeText(data.pix.code);
+                    fireToast("QR Code gerado e código copiado!");
+                } catch (e) {
+                    fireToast("QR Code gerado!");
+                }
+            }
+        } else {
+            throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
         }
+    } catch (error) {
+        console.error("Erro na compra:", error);
+        fireToast("Erro: " + error.message, true);
     }
+}
 
     function fireToast(message, isError = false) {
         const toast = document.getElementById("toastNotification");
