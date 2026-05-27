@@ -1,16 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-    <title>Redirecionando...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conectando Indicação... | Roda dos 10</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Fundo Carbon Deep Blue */
+            --bg-dark-base: #0B0F17; 
+            
+            /* Textura sutil de fundo de alta tecnologia */
+            --bg-texture: radial-gradient(circle at 50% 50%, rgba(0, 230, 118, 0.07) 0%, rgba(11, 15, 23, 0) 60%),
+                          linear-gradient(rgba(255, 255, 255, 0.002) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255, 255, 255, 0.002) 1px, transparent 1px);
+            
+            /* Glassmorphism Luxo */
+            --bg-dark-card: rgba(20, 29, 43, 0.65); 
+            
+            /* Cores de Identidade Premium */
+            --whatsapp-green: #00E676;
+            --text-neon: #02FF8A; 
+            --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
+            --text-white: #FFFFFF; 
+            --text-muted: #64748B; 
+            --border-soft: rgba(255, 255, 255, 0.04);
+            --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-dark-base); 
+            background-image: var(--bg-texture);
+            background-size: auto, 30px 30px, 30px 30px;
+            color: var(--text-white); 
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 1.5rem;
+        }
+
+        /* CARD DE CARREGAMENTO ULTRA PREMIUM */
+        .redirect-card {
+            background: var(--bg-dark-card);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border-soft);
+            border-radius: 24px;
+            padding: 3.5rem 2.5rem;
+            max-width: 440px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+            animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* SPINNER EXCLUSIVO EM GRADIENTE */
+        .loader-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .premium-spinner {
+            width: 100%;
+            height: 100%;
+            border: 3px solid rgba(255, 255, 255, 0.02);
+            border-top: 3px solid var(--text-neon);
+            border-right: 3px solid #FFB300;
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+            filter: drop-shadow(0 0 15px rgba(2, 255, 138, 0.4));
+        }
+
+        .loader-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.4rem;
+            color: var(--text-white);
+            opacity: 0.8;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* TEXTOS */
+        .redirect-card h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.3px;
+        }
+        
+        .redirect-card h1 span {
+            background: var(--logo-gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .redirect-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .redirect-card p i {
+            color: var(--text-neon);
+            font-size: 0.8rem;
+        }
+
+        /* ANIMAÇÕES */
+        @keyframes cardEntrance {
+            from { opacity: 0; transform: translateY(20px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.9); }
+            50% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.1); }
+        }
+    </style>
 </head>
 <body>
-    <p>Carregando sua indicação...</p>
+
+    <div class="redirect-card">
+        <div class="loader-container">
+            <div class="premium-spinner"></div>
+            <i class="fa-solid fa-bolt loader-icon"></i>
+        </div>
+        <h1>Roda dos <span>10</span></h1>
+        <p><i class="fa-solid fa-circle-notch fa-spin"></i> Configurando ambiente de indicação seguro...</p>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-       const firebaseConfig = {
+        const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
             authDomain: "roda-dos-10.firebaseapp.com",
             databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
@@ -20,39 +166,38 @@
             appId: "1:1072183237747:web:3a41a635187df2db809e06"
         };
 
-
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-       async function processarRedirecionamento() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const apelido = urlParams.get('id');
+        async function processarRedirecionamento() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apelido = urlParams.get('id');
 
-    if (apelido) {
-        try {
-            // Busca no 'referral_map' quem é o dono desse apelido
-            const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
-            
-            if (snapshot.exists()) {
-                const uidIndicador = snapshot.val().uid;
-                // Mantém o localStorage como garantia reserva
-                localStorage.setItem("indicadoPor", uidIndicador);
-                console.log("Indicador gravado:", uidIndicador);
+            if (apelido) {
+                try {
+                    // Busca no 'referral_map' quem é o dono desse apelido
+                    const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
+                    
+                    if (snapshot.exists()) {
+                        const uidIndicador = snapshot.val().uid;
+                        // Mantém o localStorage como garantia reserva
+                        localStorage.setItem("indicadoPor", uidIndicador);
+                        console.log("Indicador gravado:", uidIndicador);
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar afiliado:", error);
+                }
+                
+                // Segue para a tela de registro injetando o ID original na URL
+                window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
+            } else {
+                // Se não houver parâmetro de indicação, envia limpo para o registro
+                window.location.href = 'register.html';
             }
-        } catch (error) {
-            console.error("Erro ao buscar afiliado:", error);
         }
-        
-        // CORREÇÃO: Envia o usuário para o cadastro levando o ID junto na URL!
-        window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
-    } else {
-        // Se não tiver ID nenhum, vai puro para o cadastro
-        window.location.href = 'register.html';
-    }
-}
 
-// Executa a função automaticamente
-processarRedirecionamento();
+        // Adiciona um micro delay de 500ms opcional apenas para a transição fluida do loader ser vista pelo usuário
+        setTimeout(processarRedirecionamento, 500);
     </script>
 </body>
 </html>
