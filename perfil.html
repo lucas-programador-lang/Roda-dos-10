@@ -324,25 +324,36 @@
         </a>
     </div>
 </aside>
-    <<main class="main-layout">
-        <header class="page-header">
-            <h1>Segurança de Acesso</h1>
-            <p>Gerencie as credenciais da sua conta privada de forma automatizada.</p>
-        </header>
+    <main class="main-layout">
+    <header class="page-header">
+        <h1>Segurança e Afiliação</h1>
+        <p>Gerencie suas credenciais e configure seu perfil de parceiro.</p>
+    </header>
 
-       <div class="premium-card" style="margin-bottom: 2rem;">
-    <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
-    <h3>Meu Apelido de Afiliado</h3>
-    <p class="instruction-text" id="username-instruction" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Crie um apelido curto e exclusivo para deixar seus links de indicação profissionais.</p>
-    
-    <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
-        <div class="input-group-icon">
-            <i class="fa-solid fa-at"></i>
-            <input type="text" id="perf-username" placeholder="Carregando apelido..." required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white; font-weight: 600;">
-        </div>
-        <button id="btn-save-username" class="btn-reset-password">Definir Novo Apelido</button>
+    <div class="premium-card" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 2rem;">
+        <div class="card-icon" style="color: var(--whatsapp-green);"><i class="fa-solid fa-circle-nodes"></i></div>
+        <h3>Ative seu Link de Afiliado</h3>
+        <p style="margin: 0.5rem 0 1.5rem 0; color: var(--text-muted);">
+            Para liberar seus ganhos e comissões, você precisa definir um apelido exclusivo. 
+            Ele será a base do seu link personalizado de indicação.
+        </p>
     </div>
-</div>
+
+    <div class="premium-card" style="margin-bottom: 2rem;">
+        <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
+        <h3>Meu Apelido de Afiliado</h3>
+        <p class="instruction-text" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
+            Seu link será: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">roda10.com/ref/<span id="preview-nickname">seu-apelido</span></code>
+        </p>
+    
+        <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="input-group-icon">
+                <i class="fa-solid fa-at"></i>
+                <input type="text" id="perf-username" placeholder="Digite seu apelido aqui..." required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white; font-weight: 600;">
+            </div>
+            <button id="btn-save-username" class="btn-primary">Salvar e Gerar Link</button>
+        </div>
+    </div>
 
         <div class="premium-card">
             <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
