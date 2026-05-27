@@ -548,8 +548,17 @@
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
-            // GARANTIA: Define o apelido corretamente
-            const apelido = userData?.username ? userData.username.trim().toLowerCase() : user.uid; 
+            // 🔍 AJUSTE CRUCIAL DE COMPATIBILIDADE:
+            // Se não houver username definido, pegamos a primeira parte do e-mail ou o nome em minúsculo
+            // para bater com o padrão gerado no register.html
+            let apelido = "";
+            if (userData?.username) {
+                apelido = userData.username.trim().toLowerCase();
+            } else if (userData?.fullName) {
+                apelido = userData.fullName.split(' ')[0].toLowerCase();
+            } else {
+                apelido = user.uid; 
+            }
 
             // Atualiza o rodapé da sidebar
             const welcomeUserEl = document.getElementById("welcome-user");
@@ -562,6 +571,8 @@
             if (refLinkInput) {
                 refLinkInput.value = window.location.origin + '/r.html?id=' + apelido;
             }
+
+            console.log("Buscando indicados que possuem 'referredBy' igual a:", apelido);
 
             // CONSULTA PÚBLICA: Foca no nó de afiliados
             const affiliatesRef = ref(db, 'affiliates');
@@ -576,7 +587,7 @@
                     const dados = childSnapshot.val();
                     const nomeIndicado = dados.fullName || dados.username || 'Indicado Sem Nome';
                     
-                    // O valor total gasto agora vem de 'totalSpent' (que o seu Worker deve alimentar)
+                    // O valor total gasto vem de 'totalSpent' (alimentado pelo Worker)
                     const totalGasto = dados.totalSpent || 0; 
                     const comissao = (totalGasto * 0.20).toFixed(2).replace('.', ',');
                     
