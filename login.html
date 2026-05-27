@@ -9,12 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <style>
+  <style>
 /* ==========================================================================
    AUTENTICAÇÃO ULTRA PREMIUM — RODA DOS 10
    ========================================================================== */
 
-/* Container de Autenticação com centralização total e efeito de profundidade */
+/* Container de Autenticação com centralização total e efeito de profundidade 3D */
 .auth-wrapper {
     min-height: 100vh;
     display: flex;
@@ -22,20 +22,43 @@
     align-items: center;
     padding: 1.5rem;
     background-color: var(--bg-dark-base);
-    /* Adiciona uma aura gradiente sutil de sofisticação ao fundo da tela */
+    
+    /* Mix de Linhas de Grade Modernas + Auras de Luz de Alta Performance */
     background-image: 
-        radial-gradient(circle at 50% 15%, rgba(245, 166, 35, 0.05) 0%, transparent 50%),
-        var(--bg-texture);
+        /* 1. Aura de luz dourada focada atrás do card central */
+        radial-gradient(circle at 50% 50%, rgba(245, 166, 35, 0.07) 0%, transparent 45%),
+        /* 2. Aura esverdeada sutil no canto inferior direito para quebrar a monotonia */
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+        /* 3. Linhas horizontais milimétricas simulando uma tela de alta tecnologia */
+        linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+        /* 4. Linhas verticais milimétricas completando o Grid Premium */
+        linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+        
+    /* Define o tamanho exato dos quadradinhos da grade de fundo */
+    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
     background-attachment: fixed;
     position: relative;
+    overflow: hidden;
+}
+
+/* Detalhe estético extra: Círculo de luz flutuante abstrato no canto superior */
+.auth-wrapper::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.03) 0%, transparent 70%);
+    top: -200px;
+    left: -100px;
+    pointer-events: none;
 }
 
 /* Container Principal com efeito Glassmorphism avançado */
 .auth-container {
-    background: linear-gradient(145deg, #121C32 0%, #0C1322 100%);
+    background: linear-gradient(145deg, rgba(18, 28, 50, 0.9) 0%, rgba(12, 19, 34, 0.95) 100%);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 24px;
     width: 100%;
     max-width: 430px;
@@ -43,17 +66,18 @@
     position: relative;
     box-shadow: 
         0 4px 6px -1px rgba(0, 0, 0, 0.2),
-        0 25px 50px -12px rgba(0, 0, 0, 0.6),
-        inset 0 1px 1px rgba(255, 255, 255, 0.07);
+        0 25px 60px -12px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
     transition: var(--transition-smooth);
+    z-index: 2;
 }
 
-/* Linha de brilho metálico premium no topo do card (Desktop) */
+/* Linha de brilho metálico premium no topo do card */
 .auth-container::before {
     content: "";
     position: absolute;
     top: 0; left: 10%; right: 10%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.3), transparent);
+    background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
 }
 
 /* Cabeçalho do Card */
@@ -111,9 +135,9 @@
     color: rgba(148, 163, 184, 0.4);
 }
 
-/* Efeito de foco neon profissional e troca de cor do ícone */
+/* Efeito de foco neon e troca de cor do ícone */
 .input-group-icon input:focus {
-    border-color: #F5A623; /* Borda acende em Ouro ao focar */
+    border-color: #F5A623;
     background: #0D1421;
     outline: none;
     box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.12);
