@@ -556,6 +556,23 @@
         e.preventDefault();
         signOut(auth).then(() => { window.location.href = "login.html"; });
     });
+
+    // --- LÓGICA DE PREVIEW EM TEMPO REAL ---
+const inputNick = document.getElementById("perf-username");
+const previewNick = document.getElementById("preview-nickname");
+
+if (inputNick) {
+    inputNick.addEventListener("input", function() {
+        // Formata o que o usuário digita para o padrão de URL
+        let valor = this.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+        this.value = valor; // Atualiza o input mantendo o formato
+        
+        // Atualiza o preview no texto que colocamos no HTML
+        if (previewNick) {
+            previewNick.textContent = valor || "seu-apelido";
+        }
+    });
+}
 </script>
 </body>
 </html>
