@@ -484,6 +484,7 @@
             }
                 
             // 4. Salva a árvore de dados no Realtime Database no padrão luxo
+           // 4. Salva a árvore de dados no Realtime Database no padrão luxo
             await set(ref(db, `users/${user.uid}`), {
                 fullName: name,
                 email: user.email,
@@ -492,7 +493,15 @@
                 referredBy: padrinhoParaSalvar, 
                 createdAt: new Date().toISOString()
             });
-                                            
+
+            // 🚀 NOVA PARTE: Salva no nó público de afiliados para aparecer na tabela afiliados.html
+            await set(ref(db, `affiliates/${user.uid}`), {
+                fullName: name,
+                username: name.split(' ')[0].toLowerCase() + Math.floor(100 + Math.random() * 900), // Cria um apelido padrão seguro se precisar
+                referredBy: padrinhoParaSalvar, // Vincula o indicado ao apelido do padrinho
+                totalSpent: 0
+            });
+                                                            
             console.log("Registro concluído com sucesso para o UID:", user.uid);
 
             showToast("Conta criada com sucesso! Preparando ambiente...");
