@@ -444,10 +444,19 @@
         setTimeout(() => toast.classList.remove("active"), 3000);
     });
 
-    document.getElementById("btn-logout").addEventListener("click", (e) => {
-        e.preventDefault();
-        signOut(auth).then(() => { window.location.href = "login.html"; });
-    });
+    // Proteção para o Botão Sair (Logout)
+    const btnLogout = document.getElementById("btn-logout");
+    if (btnLogout) {
+        btnLogout.addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch((error) => {
+                console.error("Erro ao sair:", error);
+            });
+        });
+    }
+});
 </script>
 </body>
 </html>
