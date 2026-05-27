@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roda dos 10 — Sorteios Oficiais no Pix</title>
+    <title>Roda dos 10 — Sorteios de Elite</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -14,178 +12,75 @@
 
     <header>
         <div class="nav-container">
-            <div class="logo">
-                <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
-            </div>
+            <div class="logo"><i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span></div>
             <nav class="nav-menu">
                 <a href="index.html" class="active">Início</a>
-                <!-- Redirecionamento configurado para a tela de login para proteger a dashboard -->
-                <a href="login.html" class="btn-dashboard-nav"><i class="fa-solid fa-chart-pie"></i> Área do Cliente</a>
+                <a href="login.html" class="btn-dashboard-nav"><i class="fa-solid fa-user-circle"></i> Acessar Conta</a>
             </nav>
         </div>
     </header>
 
     <section class="hero-container">
-        <span class="hero-badge"><i class="fa-solid fa-star"></i> Sorteios por Meta de Compras</span>
+        <span class="hero-badge"><i class="fa-solid fa-crown"></i> Sistema de Sorteios Auditável</span>
         <h1>Gire sua sorte na <br><span>Roda dos 10 no Pix</span></h1>
-        <p>Participe comprando quantas cotas quiser! Os sorteios são liberados imediatamente assim que atingirem o limite de 20 compras. Quanto mais você compra, mais rápido o sorteio acontece!</p>
-         
+        <p>Participe de sorteios dinâmicos com metas transparentes. Comprou, participou, ganhou! Seu nome na lista garante sua chance real.</p>
+        
         <div class="features-badges">
-            <div class="f-badge"><i class="fa-solid fa-lock-open"></i> Liberado com 20 Compras</div>
-            <div class="f-badge"><i class="fa-solid fa-bolt"></i> Saque a qualquer momento</div>
-            <div class="f-badge"><i class="fa-solid fa-hand-holding-dollar"></i> Saque Mínimo R$ 30,00</div>
+            <div class="f-badge"><i class="fa-solid fa-shield-halved"></i> 100% Seguro</div>
+            <div class="f-badge"><i class="fa-solid fa-bolt"></i> Saque Instantâneo</div>
+            <div class="f-badge"><i class="fa-solid fa-users"></i> +500 Ganhadores</div>
         </div>
     </section>
 
     <main class="grid-sorteios">
         <div class="sorteio-card">
-            <div class="card-badge">Meta: 20 Compras</div>
+            <div class="card-badge">Bronze</div>
             <div class="card-title">Concorra a R$ 25,00</div>
-            <div class="card-price"><span>Investimento de</span> R$ 3,50</div>
+            <div class="card-price"><span>Investimento</span> R$ 3,50</div>
             <ul class="card-benefits">
-                <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais cotas = Nome repetido)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-check"></i> Meta: 20 cotas</li>
+                <li><i class="fa-solid fa-check"></i> Sorteio Expresso</li>
             </ul>
-            <button class="btn-primary" onclick="openModal('Cota Bronze', 3.50, 25.00)">
-                <i class="fa-solid fa-ticket"></i> Comprar Cota
-            </button>
+            <button class="btn-primary" onclick="openModal('Cota Bronze', 3.50, 25.00)">Participar Agora</button>
         </div>
 
         <div class="sorteio-card featured">
             <div class="card-badge">Mais Popular</div>
             <div class="card-title">Concorra a R$ 50,00</div>
-            <div class="card-price"><span>Investimento de</span> R$ 5,50</div>
+            <div class="card-price"><span>Investimento</span> R$ 5,50</div>
             <ul class="card-benefits">
-                <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais chances)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-check"></i> Meta: 20 cotas</li>
+                <li><i class="fa-solid fa-check"></i> 2x Mais chances</li>
             </ul>
-            <button class="btn-primary" onclick="openModal('Cota Prata', 5.50, 50.00)">
-                <i class="fa-solid fa-bolt"></i> Comprar Cota
-            </button>
+            <button class="btn-primary" onclick="openModal('Cota Prata', 5.50, 50.00)">Participar Agora</button>
         </div>
 
         <div class="sorteio-card">
-            <div class="card-badge">Meta: 20 Compras</div>
+            <div class="card-badge">Ouro</div>
             <div class="card-title">Concorra a R$ 100,00</div>
-            <div class="card-price"><span>Investimento de</span> R$ 10,00</div>
+            <div class="card-price"><span>Investimento</span> R$ 10,00</div>
             <ul class="card-benefits">
-                <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais chances)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-check"></i> Meta: 20 cotas</li>
+                <li><i class="fa-solid fa-check"></i> Prioridade Máxima</li>
             </ul>
-            <button class="btn-primary" onclick="openModal('Cota Ouro', 10.00, 100.00)">
-                <i class="fa-solid fa-ticket"></i> Comprar Cota
-            </button>
+            <button class="btn-primary" onclick="openModal('Cota Ouro', 10.00, 100.00)">Participar Agora</button>
         </div>
     </main>
-
-    <!-- SEÇÃO PREMIUM DE REGRAS E SISTEMA DE AFILIADOS -->
-    <section class="rules-section">
-        <div class="rules-container">
-            
-            <!-- CARD 1: COMO FUNCIONAM OS SORTEIOS -->
-            <div class="rule-card">
-                <div class="card-glow-effect"></div>
-                <div class="rule-card-header">
-                    <div class="icon-wrapper circle-gold">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                    </div>
-                    <div class="header-titles">
-                        <span>Entenda o Modelo</span>
-                        <h3>Como funcionam os Sorteios?</h3>
-                    </div>
-                </div>
-                
-                <p class="rule-intro">Nosso modelo é baseado em metas de compras 100% transparentes e auditáveis pela comunidade.</p>
-                
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-lock-open"></i></div>
-                        <div class="item-text">
-                            <h4>Regra de Liberação</h4>
-                            <p>O sorteio é disparado imediatamente assim que a rodada atinge o limite exato de <strong>20 compras</strong> de cotas.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div class="item-text">
-                            <h4>Compre Mais Vezes</h4>
-                            <p>Sem limites! Comprar 2 cotas conta como 2 progressos na meta geral e seu nome entra em duplicado na lista.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-arrow-down-a-z"></i></div>
-                        <div class="item-text">
-                            <h4>Sorteio por Lista de Nomes</h4>
-                            <p>A apuração roda diretamente sobre os nomes da rodada. Quem compra mais, repete o nome e multiplica as chances.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- CARD 2: SAQUES & INDICAÇÕES -->
-            <div class="rule-card featured-border">
-                <div class="card-glow-effect accent-glow"></div>
-                <div class="rule-card-header">
-                    <div class="icon-wrapper circle-green">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </div>
-                    <div class="header-titles">
-                        <span>Programa de Parcerias</span>
-                        <h3>Saques & Indicações</h3>
-                    </div>
-                </div>
-                
-                <p class="rule-intro">Monetize sua rede de contatos utilizando nossa estrutura de afiliados integrada de ponta.</p>
-                
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="item-icon comissao-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <div class="item-text">
-                            <h4>Indicação Direta de 20%</h4>
-                            <p>Fature uma comissão robusta de <strong>20% de saldo líquido</strong> sobre o valor de cada cota adquirida por seus indicados.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                        <div class="item-text">
-                            <h4>Saque Manual Simplificado</h4>
-                            <p>Retirada mínima de <strong>R$ 30,00</strong>. Solicite pelo seu painel exclusivo e envie o comprovante ao suporte para envio imediato.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-action-footer">
-                    <a href="login.html" class="btn-secondary-action">
-                        <i class="fa-solid fa-share-nodes"></i> Ativar meu Link de Afiliado
-                    </a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <a href="https://wa.me/639759981028" target="_blank" class="float-suporte"><i class="fa-brands fa-whatsapp"></i></a>
 
     <div class="modal-backdrop" id="modalCompra">
         <div class="modal-card">
             <button class="modal-close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-header">
-                <h2 id="m-ticket-name">Cota Prata</h2>
-                <p id="m-ticket-prize">Concorra a R$ 50,00 no Pix</p>
+                <h2 id="m-ticket-name">Cota</h2>
+                <p id="m-ticket-prize">Concorra ao prêmio no Pix</p>
             </div>
             <div class="modal-body">
                 <div class="input-block">
-                    <label for="client-name">Seu Nome Completo (Usado no Sorteio)</label>
+                    <label>Seu Nome Completo</label>
                     <input type="text" id="client-name" placeholder="Ex: José Lucas">
                 </div>
                 <div class="input-block">
-                    <label>Quantidade de Cotas (Acelera a meta de liberação)</label>
+                    <label>Quantidade de Cotas</label>
                     <div class="quantity-control">
                         <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
                         <span id="qty-display">1</span>
@@ -194,17 +89,14 @@
                 </div>
                 <div class="total-row">
                     <span>Total a Pagar:</span>
-                    <span id="total-display">R$ 5,50</span>
+                    <span id="total-display">R$ 0,00</span>
                 </div>
-                <button class="btn-submit-order" onclick="sendOrder()"><i class="fa-solid fa-paper-plane"></i> Enviar Pedido via WhatsApp</button>
+                <button class="btn-submit-order" onclick="sendOrder()">Enviar Pedido no WhatsApp</button>
             </div>
         </div>
     </div>
 
-    <div class="toast-wrapper" id="toastBox">
-        <i class="fa-solid fa-circle-check" id="toastIcon"></i>
-        <span id="toastMessage">Sucesso!</span>
-    </div>
+    <a href="https://wa.me/639759981028" target="_blank" class="float-suporte"><i class="fa-brands fa-whatsapp"></i></a>
 
     <script src="script.js"></script>
 </body>
