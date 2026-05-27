@@ -10,306 +10,172 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
     :root {
-        /* Fundo Carbon Deep Blue - Profundidade e Elegância Máxima */
-        --bg-dark-base: #0B0F17; 
-        
-        /* Textura de fundo sutil para ambiente profissional multimilionário */
-        --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
-                      linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
-        
-        /* Cards com Glassmorphism de Alto Padrão */
-        --bg-dark-card: rgba(20, 29, 43, 0.75); 
-        --bg-dark-input: #172233;
-        
-        /* Identidade de Cores Limpas e Alinhadas */
-        --whatsapp-green: #00E676;
-        --text-neon: #02FF8A; 
-        --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
-        --text-white: #FFFFFF; 
-        --text-muted: #64748B; 
-        --text-secondary-green: #94A3B8;
-        --border-soft: rgba(255, 255, 255, 0.04);
-        --border-neon-soft: rgba(0, 230, 118, 0.15);
-        --radius-premium: 20px;
-        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
+    /* Fundo Carbon Deep Blue - Profundidade e Elegância Máxima */
+    --bg-dark-base: #0B0F17; 
     
-    body { 
-        background-color: var(--bg-dark-base); 
-        background-image: var(--bg-texture);
-        background-size: auto, 30px 30px, 30px 30px;
-        color: var(--text-white); 
-        overflow-x: hidden;
-        display: flex; /* Garante a sidebar e o conteúdo principal lado a lado */
-        min-height: 100vh;
-    }
-
-    /* ==========================================================================
-       ESTRUTURA DA NOVA SIDEBAR LATERAL FIXA
-       ========================================================================== */
-    .sidebar {
-        width: 260px;
-        height: 100vh;
-        background: rgba(15, 23, 36, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-right: 1px solid var(--border-soft);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        padding: 2rem 1.2rem;
-        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
-    }
-
-   /* Container do Logotipo Superior - Versão Premium Otimizada */
-    .sidebar-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 2.5rem 1rem;
-        border-bottom: 1px solid var(--border-soft);
-    }
-
-    .logo { 
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 15px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        transition: var(--transition-smooth);
-    }
-
-    .logo img {
-        max-height: 65px; /* Tamanho imponente e equilibrado */
-        width: auto;
-        filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
-        transition: var(--transition-smooth);
-    }
-
-    .logo:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: var(--border-neon-soft);
-        transform: translateY(-2px);
-    }
-
-    .logo:hover img {
-        filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
-        transform: scale(1.05);
-    }
-
-    /* Lista de Menus da Sidebar */
-    .sidebar-menu {
-        list-style: none;
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        flex: 1; /* Empurra o botão Sair para o final do container */
-    }
-
-    .menu-item {
-        color: var(--text-secondary-green);
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: var(--transition-smooth);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 0.8rem 1.2rem;
-        border-radius: 12px;
-        border: 1px solid transparent;
-    }
-    .menu-item i {
-        font-size: 1.1rem;
-        width: 20px;
-        text-align: center;
-    }
-    .menu-item:hover {
-        color: var(--text-white);
-        background: rgba(255, 255, 255, 0.03);
-    }
-    .menu-item.active {
-        color: var(--text-neon);
-        background: rgba(0, 230, 118, 0.06);
-        border: 1px solid rgba(0, 230, 118, 0.1);
-    }
-
-    /* Rodapé da Sidebar */
-    .sidebar-footer {
-        border-top: 1px solid var(--border-soft);
-        padding-top: 1.5rem;
-    }
-    .logout-link { color: #F87171 !important; }
-    .logout-link:hover { background: rgba(248, 113, 113, 0.08) !important; }
-
-    /* ==========================================================================
-       CONTAINER PRINCIPAL DO CONTEÚDO (Ajustado ao lado da Sidebar)
-       ========================================================================== */
-    .main-layout { 
-        flex: 1;
-        margin-left: 260px; /* Alinha o conteúdo à direita da barra fixa */
-        max-width: 1200px; 
-        padding: 2.5rem 2rem; 
-        box-sizing: border-box;
-    }
+    /* Textura de fundo sutil para ambiente profissional multimilionário */
+    --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
+                  linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
     
-    .page-header { text-align: center; margin-bottom: 2.5rem; }
-    .page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
-    .page-header h1 span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+    /* Cards com Glassmorphism de Alto Padrão */
+    --bg-dark-card: rgba(20, 29, 43, 0.75); 
+    --bg-dark-input: #172233;
+    
+    /* Identidade de Cores Limpas e Alinhadas */
+    --whatsapp-green: #00E676;
+    --text-neon: #02FF8A; 
+    --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
+    --text-white: #FFFFFF; 
+    --text-muted: #64748B; 
+    --text-secondary-green: #94A3B8;
+    --border-soft: rgba(255, 255, 255, 0.04);
+    --border-neon-soft: rgba(0, 230, 118, 0.15);
+    --radius-premium: 20px;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-    /* CARD PREMIUM DE PERFIL */
-    .premium-card { 
-        background: var(--bg-dark-card); 
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--border-soft); 
-        border-radius: var(--radius-premium); 
-        padding: 3rem 2.5rem; 
-        max-width: 500px; 
-        margin: 0 auto; 
-        text-align: center; 
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
-        transition: var(--transition-smooth);
-    }
-    .premium-card:hover {
-        border-color: var(--border-neon-soft);
-        box-shadow: 0 25px 50px rgba(0, 230, 118, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.02);
-        transform: translateY(-4px);
-    }
-    .card-icon { 
-        font-size: 3rem; 
-        color: #FFB300; 
-        margin-bottom: 1.5rem; 
-        filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.25)); 
-    }
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
 
-    .instruction-text { 
-        font-size: 0.95rem; 
-        color: var(--text-muted); 
-        line-height: 1.6; 
-        margin-bottom: 2.2rem; 
-    }
+body { 
+    background-color: var(--bg-dark-base); 
+    background-image: var(--bg-texture);
+    background-size: auto, 30px 30px, 30px 30px;
+    color: var(--text-white); 
+    overflow-x: hidden;
+    display: flex; 
+    min-height: 100vh;
+}
 
-    /* BOTÃO DE REDEFINIÇÃO */
-    .btn-reset-password { 
-        width: 100%; 
-        background: var(--logo-gold); 
-        color: #000; 
-        border: none; 
-        padding: 0.95rem; 
-        border-radius: 12px; 
-        font-weight: 800; 
-        font-size: 0.95rem;
-        cursor: pointer; 
-        transition: var(--transition-smooth); 
-        box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
-    }
-    .btn-reset-password:hover { 
-        transform: translateY(-2px); 
-        box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
-    }
+/* ==========================================================================
+   ESTRUTURA DA NOVA SIDEBAR LATERAL FIXA
+   ========================================================================== */
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: rgba(15, 23, 36, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-right: 1px solid var(--border-soft);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem 1.2rem;
+    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
+}
 
-    /* TOAST LUXO CONFIGURADO */
-    .toast-wrapper { 
-        position: fixed; 
-        top: -100px; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        padding: 1.2rem 2rem; 
-        border-radius: 14px; 
-        z-index: 999999; 
-        width: calc(100% - 40px); 
-        max-width: 420px; 
-        opacity: 0; 
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-left: 5px solid; 
-    }
-    .toast-wrapper.active { 
-        top: 30px; 
-        opacity: 1; 
-        transform: translateX(-50%) translateY(0);
-    }
-    .toast-success { background: #0E1420; border-left-color: var(--whatsapp-green); }
-    .toast-error { background: #0E1420; border-left-color: #EF4444; }
-    .toast-wrapper span { font-weight: 700; font-size: 0.95rem; color: var(--text-white); }
+.sidebar-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem 1rem;
+    border-bottom: 1px solid var(--border-soft);
+}
 
-    /* ==========================================================================
-       RESPONSIVIDADE INTELIGENTE
-       ========================================================================== */
-    @media (max-width: 992px) {
-        body { flex-direction: column; }
-        
-        /* Sidebar assume o formato de navbar compacta no mobile */
-        .sidebar {
-            width: 100%;
-            height: auto;
-            position: relative;
-            padding: 1rem;
-            border-right: none;
-            border-bottom: 1px solid var(--border-soft);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-        .sidebar-header { padding-bottom: 1rem; }
-        .sidebar-menu { 
-            flex-direction: row; 
-            margin-top: 1rem; 
-            justify-content: center; 
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-        .menu-item { padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; }
-        .sidebar-footer { display: none; }
-        
-        .main-layout { margin-left: 0; padding: 1.5rem 1rem; }
-    }
-
-    @media (max-width: 768px) {
-        .page-header { text-align: center; margin-bottom: 1.8rem; }
-        .page-header h1 { font-size: 1.8rem; }
-        .premium-card { padding: 2.2rem 1.5rem; width: calc(100% - 20px); border-radius: 20px; }
-    }
-
-    /* Garante que o botão tenha a mesma suavidade do card */
-.btn-reset-password {
-    width: 100%;
-    background: var(--logo-gold);
-    color: #000;
-    border: none;
-    padding: 1rem; /* Aumentamos um pouco para dar mais presença */
-    border-radius: 12px;
-    font-weight: 800;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: var(--transition-smooth);
-    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
+.logo { 
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 15px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: var(--transition-smooth);
 }
 
-.btn-reset-password:hover {
+.logo img {
+    max-height: 65px; 
+    width: auto;
+    filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
+    transition: var(--transition-smooth);
+}
+
+.logo:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: var(--border-neon-soft);
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4);
-    filter: brightness(1.1); /* Efeito de brilho ao passar o mouse */
 }
 
-    .affiliate-activation-banner {
+.logo:hover img {
+    filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
+    transform: scale(1.05);
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1; 
+}
+
+.menu-item {
+    color: var(--text-secondary-green);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    border: 1px solid transparent;
+}
+
+.menu-item i {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.menu-item:hover {
+    color: var(--text-white);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.menu-item.active {
+    color: var(--text-neon);
+    background: rgba(0, 230, 118, 0.06);
+    border: 1px solid rgba(0, 230, 118, 0.1);
+}
+
+.sidebar-footer {
+    border-top: 1px solid var(--border-soft);
+    padding-top: 1.5rem;
+}
+
+.logout-link { color: #F87171 !important; }
+.logout-link:hover { background: rgba(248, 113, 113, 0.08) !important; }
+
+/* ==========================================================================
+   CONTAINER PRINCIPAL DO CONTEÚDO
+   ========================================================================== */
+.main-layout { 
+    flex: 1;
+    margin-left: 260px; 
+    max-width: 1200px; 
+    padding: 2.5rem 2rem; 
+    box-sizing: border-box;
+}
+
+.page-header { text-align: center; margin-bottom: 2.5rem; }
+.page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
+.page-header h1 span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+/* BANNER DE ATIVAÇÃO DE AFILIADO */
+.affiliate-activation-banner {
     background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%);
     border: 1px solid rgba(16, 185, 129, 0.2);
     border-radius: var(--radius-premium);
@@ -317,6 +183,12 @@
     margin-bottom: 2rem;
     text-align: center;
     transition: var(--transition-smooth);
+}
+
+.affiliate-activation-banner:hover {
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.03);
+    transform: translateY(-2px);
 }
 
 .affiliate-activation-banner h3 {
@@ -328,6 +200,135 @@
     margin: 0.5rem 0 0 0;
     color: var(--text-muted);
     font-size: 0.95rem;
+}
+
+/* CARD PREMIUM DE PERFIL */
+.premium-card { 
+    background: var(--bg-dark-card); 
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border-soft); 
+    border-radius: var(--radius-premium); 
+    padding: 3rem 2.5rem; 
+    max-width: 500px; 
+    margin: 0 auto; 
+    text-align: center; 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
+    transition: var(--transition-smooth);
+}
+
+.premium-card:hover {
+    border-color: var(--border-neon-soft);
+    box-shadow: 0 25px 50px rgba(0, 230, 118, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+    transform: translateY(-4px);
+}
+
+.card-icon { 
+    font-size: 3rem; 
+    color: #FFB300; 
+    margin-bottom: 1.5rem; 
+    filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.25)); 
+}
+
+.instruction-text { 
+    font-size: 0.95rem; 
+    color: var(--text-muted); 
+    line-height: 1.6; 
+    margin-bottom: 2.2rem; 
+}
+
+/* BOTÃO DE REDEFINIÇÃO UNIFICADO */
+.btn-reset-password { 
+    width: 100%; 
+    background: var(--logo-gold); 
+    color: #000; 
+    border: none; 
+    padding: 1rem; 
+    border-radius: 12px; 
+    font-weight: 800; 
+    font-size: 1rem;
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-reset-password:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
+    filter: brightness(1.1);
+}
+
+/* TOAST LUXO CONFIGURADO */
+.toast-wrapper { 
+    position: fixed; 
+    top: -100px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    padding: 1.2rem 2rem; 
+    border-radius: 14px; 
+    z-index: 999999; 
+    width: calc(100% - 40px); 
+    max-width: 420px; 
+    opacity: 0; 
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 5px solid transparent; 
+    will-change: transform, opacity, top;
+}
+
+.toast-wrapper.active { 
+    top: 30px; 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast-success { background: #0E1420; border-left-color: var(--whatsapp-green); }
+.toast-error { background: #0E1420; border-left-color: #EF4444; }
+.toast-wrapper span { font-weight: 700; font-size: 0.95rem; color: var(--text-white); }
+
+/* ==========================================================================
+   RESPONSIVIDADE INTELIGENTE
+   ========================================================================== */
+@media (max-width: 992px) {
+    body { flex-direction: column; }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border-soft);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar-header { padding-bottom: 1rem; }
+    
+    .sidebar-menu { 
+        flex-direction: row; 
+        margin-top: 1rem; 
+        justify-content: center; 
+        flex-wrap: wrap;
+        gap: 0.4rem;
+    }
+    
+    .menu-item { padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; }
+    .sidebar-footer { display: none; }
+    
+    .main-layout { margin-left: 0; padding: 1.5rem 1rem; }
+}
+
+@media (max-width: 768px) {
+    .page-header { text-align: center; margin-bottom: 1.8rem; }
+    .page-header h1 { font-size: 1.8rem; }
+    .premium-card { padding: 2.2rem 1.5rem; width: calc(100% - 20px); border-radius: 20px; }
 }
  
 </style>
@@ -342,6 +343,8 @@
     </div>
     
     <ul class="sidebar-menu">
+        <li class="menu-category-title">Principal</li>
+        
         <li>
             <a href="dashboard.html" class="menu-item">
                 <i class="fa-solid fa-chart-pie"></i> 
@@ -354,20 +357,34 @@
                 <span>Afiliados</span>
             </a>
         </li>
+        
+        <li class="menu-category-title">Conta</li>
+        
         <li>
             <a href="perfil.html" class="menu-item active">
                 <i class="fa-solid fa-user"></i> 
                 <span>Perfil</span>
             </a>
         </li>
-        
     </ul>
 
     <div class="sidebar-footer">
-        <a href="#" id="btn-logout" class="menu-item logout-link">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> 
-            <span>Sair</span>
-        </a>
+        <div class="user-meta-box">
+            <div class="user-meta-avatar">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div class="user-meta-info">
+                <span id="welcome-user">Usuário</span>
+                <span class="user-meta-status">
+                    <span class="pulse-indicator"></span>
+                    Online
+                </span>
+            </div>
+        </div>
+        
+        <button id="btn-logout" class="logout-trigger-btn" title="Sair da Conta">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
     </div>
 </aside>
    <main class="main-layout">
