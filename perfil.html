@@ -509,8 +509,8 @@
         }
     });
 
-    // LÓGICA ADICIONADA: Validação e Gravação do Apelido no Perfil e no Mapa Global
-   document.getElementById("btn-save-username").addEventListener("click", async () => {
+    // LÓGICA DE VALIDAÇÃO E GRAVAÇÃO DO APELIDO
+    document.getElementById("btn-save-username").addEventListener("click", async () => {
         const user = auth.currentUser;
         if (!user) return;
 
@@ -548,7 +548,6 @@
                 banner.style.transform = "translateY(-20px)";
                 setTimeout(() => { banner.style.display = 'none'; }, 500);
             }
-            // --------------------------------
 
             // TRAVA DE SEGURANÇA PÓS-SALVAMENTO
             inputUsername.readOnly = true;
@@ -562,6 +561,8 @@
         } catch (error) {
             showFeedback("Erro ao registrar apelido.", false);
         }
+    }); // <--- CORREÇÃO: Esta linha fechando o EventListener estava faltando!
+
     // Lógica para Alterar Senha (Campos Obrigatórios)
     document.getElementById("btn-update-password").addEventListener("click", async () => {
         const currentPass = document.getElementById("current-password").value;
@@ -588,12 +589,10 @@
         const credential = EmailAuthProvider.credential(user.email, currentPass);
 
         try {
-            // Reautentica para permitir a troca
             await reauthenticateWithCredential(user, credential);
-            // Atualiza para a nova senha
             await updatePassword(user, newPass);
             showFeedback("Senha alterada com sucesso!");
-            // Limpa os campos
+            
             document.getElementById("current-password").value = "";
             document.getElementById("new-password").value = "";
             document.getElementById("confirm-password").value = "";
@@ -617,21 +616,19 @@
     });
 
     // --- LÓGICA DE PREVIEW EM TEMPO REAL ---
-const inputNick = document.getElementById("perf-username");
-const previewNick = document.getElementById("preview-nickname");
+    const inputNick = document.getElementById("perf-username");
+    const previewNick = document.getElementById("preview-nickname");
 
-if (inputNick) {
-    inputNick.addEventListener("input", function() {
-        // Formata o que o usuário digita para o padrão de URL
-        let valor = this.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
-        this.value = valor; // Atualiza o input mantendo o formato
-        
-        // Atualiza o preview no texto que colocamos no HTML
-        if (previewNick) {
-            previewNick.textContent = valor || "seu-apelido";
-        }
-    });
-}
+    if (inputNick) {
+        inputNick.addEventListener("input", function() {
+            let valor = this.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+            this.value = valor;
+            
+            if (previewNick) {
+                previewNick.textContent = valor || "seu-apelido";
+            }
+        });
+    }
 </script>
 </body>
 </html>
