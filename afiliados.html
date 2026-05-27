@@ -66,45 +66,44 @@
         padding: 2rem 1.2rem;
         box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
     }
-
-    /* Topo da Sidebar (Logo) */
+/* Container do Logotipo Superior - Versão Premium Otimizada */
     .sidebar-header {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-bottom: 2rem;
+        padding: 2.5rem 1rem;
         border-bottom: 1px solid var(--border-soft);
     }
 
     .logo { 
-        font-size: 1.3rem; 
-        font-weight: 800; 
-        color: var(--text-white); 
-        text-decoration: none; 
-        letter-spacing: -0.5px; 
+        text-decoration: none;
         display: flex;
         align-items: center;
-        padding: 6px 12px;
-        border-radius: 12px;
+        justify-content: center;
+        padding: 15px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
         transition: var(--transition-smooth);
     }
-    .logo span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .logo i { color: var(--whatsapp-green); margin-right: 6px; filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.4)); }
 
     .logo img {
-        max-height: 45px;
+        max-height: 65px; /* Tamanho imponente e equilibrado */
         width: auto;
-        opacity: 0.9;
-        filter: drop-shadow(0 4px 10px rgba(0, 230, 118, 0.3));
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        backface-visibility: hidden;
+        filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
+        transition: var(--transition-smooth);
     }
+
+    .logo:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--border-neon-soft);
+        transform: translateY(-2px);
+    }
+
     .logo:hover img {
-        opacity: 1;
         filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
-        transform: scale(1.06) rotate(-1deg);
+        transform: scale(1.05);
     }
-    .logo:hover { background: rgba(255, 255, 255, 0.02); }
 
     /* Lista de Menus */
     .sidebar-menu {
