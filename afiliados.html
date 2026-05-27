@@ -390,18 +390,19 @@
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
-            // Define o identificador usado no link (/r?id=apelido)
-            const apelido = userData?.username || user.uid; 
+            // GARANTIA PREMIUM: Força o apelido para letras minúsculas se ele existir, ou usa o UID como fallback seguro
+            const apelido = userData?.username ? userData.username.trim().toLowerCase() : user.uid; 
 
-            document.getElementById("referral-link").value = window.location.origin + '/r?id=' + apelido;
+            // Define o link idêntico ao esperado pelo r.html
+            document.getElementById("referral-link").value = window.location.origin + '/r.html?id=' + apelido;
 
             const usersRef = ref(db, 'users');
             
-            // CORREÇÃO LOGICA: Se o link usa o 'apelido' (username), filtramos os indicados cujo campo 'referredBy' seja o apelido do padrinho
+            // Filtra os indicados cujo campo 'referredBy' combine perfeitamente com o apelido/UID do padrinho
             const q = query(usersRef, orderByChild('referredBy'), equalTo(apelido));
             
             const snapshot = await get(q);
-            const tabela = document.getElementById("lista-afiliados"); // CORRIGIDO: Mesmo ID do HTML
+            const tabela = document.getElementById("lista-afiliados");
             tabela.innerHTML = "";
 
             if (snapshot.exists()) {
