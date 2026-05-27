@@ -308,6 +308,27 @@
     box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4);
     filter: brightness(1.1); /* Efeito de brilho ao passar o mouse */
 }
+
+        .affiliate-activation-banner {
+    background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-radius: var(--radius-premium);
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.affiliate-activation-banner h3 {
+    margin-top: 1rem;
+    color: var(--text-white);
+}
+
+.affiliate-activation-banner p {
+    margin: 0.5rem 0 0 0;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
  
 </style>
 </head>
@@ -355,14 +376,16 @@
         <p>Gerencie suas credenciais e configure seu perfil de parceiro.</p>
     </header>
 
-    <div class="premium-card" style="background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%); border: 1px solid rgba(16, 185, 129, 0.2); margin-bottom: 2rem;">
-        <div class="card-icon" style="color: var(--whatsapp-green);"><i class="fa-solid fa-circle-nodes"></i></div>
-        <h3>Ative seu Link de Afiliado</h3>
-        <p style="margin: 0.5rem 0 1.5rem 0; color: var(--text-muted);">
-            Para liberar seus ganhos e comissões, você precisa definir um apelido exclusivo. 
-            Ele será a base do seu link personalizado de indicação.
-        </p>
+    <div class="premium-card affiliate-activation-banner">
+    <div class="card-icon" style="color: var(--whatsapp-green); font-size: 2.5rem;">
+        <i class="fa-solid fa-circle-nodes"></i>
     </div>
+    <h3>Ative seu Link de Afiliado</h3>
+    <p>
+        Para liberar seus ganhos e comissões, você precisa definir um apelido exclusivo. 
+        Ele será a base do seu link personalizado de indicação.
+    </p>
+</div>
 
     <div class="premium-card" style="margin-bottom: 2rem;">
         <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
@@ -516,6 +539,16 @@
 
             showFeedback("Apelido definido com sucesso!");
 
+            // --- LÓGICA DE LIMPEZA VISUAL ---
+            const banner = document.querySelector('.affiliate-activation-banner');
+            if (banner) {
+                banner.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                banner.style.opacity = "0";
+                banner.style.transform = "translateY(-20px)";
+                setTimeout(() => { banner.style.display = 'none'; }, 500);
+            }
+            // --------------------------------
+
             // TRAVA DE SEGURANÇA PÓS-SALVAMENTO
             inputUsername.readOnly = true;
             inputUsername.style.opacity = '0.6';
@@ -528,8 +561,6 @@
         } catch (error) {
             showFeedback("Erro ao registrar apelido.", false);
         }
-    });
-
     // Lógica para Alterar Senha (Campos Obrigatórios)
     document.getElementById("btn-update-password").addEventListener("click", async () => {
         const currentPass = document.getElementById("current-password").value;
