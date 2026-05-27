@@ -24,30 +24,35 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        async function processarRedirecionamento() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const apelido = urlParams.get('id');
+       async function processarRedirecionamento() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const apelido = urlParams.get('id');
 
-            if (apelido) {
-                try {
-                    // Busca no 'referral_map' quem é o dono desse apelido
-                    const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
-                    
-                    if (snapshot.exists()) {
-                        const uidIndicador = snapshot.val().uid;
-                        // Salva no navegador do visitante quem o indicou
-                        localStorage.setItem("indicadoPor", uidIndicador);
-                        console.log("Indicador gravado:", uidIndicador);
-                    }
-                } catch (error) {
-                    console.error("Erro ao buscar afiliado:", error);
-                }
+    if (apelido) {
+        try {
+            // Busca no 'referral_map' quem é o dono desse apelido
+            const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
+            
+            if (snapshot.exists()) {
+                const uidIndicador = snapshot.val().uid;
+                // Mantém o localStorage como garantia reserva
+                localStorage.setItem("indicadoPor", uidIndicador);
+                console.log("Indicador gravado:", uidIndicador);
             }
-            // Vai para o cadastro de qualquer jeito
-            window.location.href = 'register.html';
+        } catch (error) {
+            console.error("Erro ao buscar afiliado:", error);
         }
+        
+        // CORREÇÃO: Envia o usuário para o cadastro levando o ID junto na URL!
+        window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
+    } else {
+        // Se não tiver ID nenhum, vai puro para o cadastro
+        window.location.href = 'register.html';
+    }
+}
 
-        processarRedirecionamento();
+// Executa a função automaticamente
+processarRedirecionamento();
     </script>
 </body>
 </html>
