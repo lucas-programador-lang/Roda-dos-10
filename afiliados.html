@@ -560,10 +560,10 @@
             // Define o link idêntico ao esperado pelo r.html
             document.getElementById("referral-link").value = window.location.origin + '/r.html?id=' + apelido;
 
-            const usersRef = ref(db, 'users');
+            const usersRef = rconst affiliatesRef = ref(db, 'affiliates'); // Aponta para o nó públicoef(db, 'users');
             
             // Filtra os indicados cujo campo 'referredBy' combine perfeitamente com o apelido/UID do padrinho
-            const q = query(usersRef, orderByChild('referredBy'), equalTo(apelido));
+            const q = query(affiliatesRef, orderByChild('referredBy'), equalTo(apelido));
             
             const snapshot = await get(q);
             const tabela = document.getElementById("lista-afiliados");
