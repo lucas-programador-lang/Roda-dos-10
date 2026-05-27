@@ -169,35 +169,43 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        async function processarRedirecionamento() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const apelido = urlParams.get('id');
+      async function processarRedirecionamento() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const apelido = urlParams.get('id');
 
-            if (apelido) {
-                try {
-                    // Busca no 'referral_map' quem é o dono desse apelido
-                    const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
-                    
-                    if (snapshot.exists()) {
-                        const uidIndicador = snapshot.val().uid;
-                        // Mantém o localStorage como garantia reserva
-                        localStorage.setItem("indicadoPor", uidIndicador);
-                        console.log("Indicador gravado:", uidIndicador);
-                    }
-                } catch (error) {
-                    console.error("Erro ao buscar afiliado:", error);
-                }
-                
-                // Segue para a tela de registro injetando o ID original na URL
-                window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
-            } else {
-                // Se não houver parâmetro de indicação, envia limpo para o registro
-                window.location.href = 'register.html';
-            }
+    // Se NÃO tiver apelido na URL, vai direto pro registro
+    if (!apelido) {
+        window.location.href = 'register.html';
+        return;
+    }
+
+    try {
+        // Busca no 'referral_map' quem é o dono desse apelido
+        const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
+        
+        // A LÓGICA QUE VOCÊ PERGUNTOU ENTRA AQUI:
+        if (snapshot.exists()) {
+            const uidIndicador = snapshot.val().uid;
+            // Salva para segurança (backup)
+            localStorage.setItem("indicadoPor", uidIndicador);
+            console.log("Indicador encontrado e gravado:", uidIndicador);
+            
+            // Redireciona com o ID validado
+            window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
+        } else {
+            console.warn("Apelido não encontrado no banco.");
+            // Apelido inválido/inexistente, envia para o registro limpo
+            window.location.href = 'register.html';
         }
+    } catch (error) {
+        console.error("Erro ao buscar afiliado:", error);
+        // Em caso de erro no Firebase, envia limpo para não bloquear o usuário
+        window.location.href = 'register.html';
+    }
+}
 
-        // Adiciona um micro delay de 500ms opcional apenas para a transição fluida do loader ser vista pelo usuário
-        setTimeout(processarRedirecionamento, 1000);
+// O setTimeout chama a função completa com a lógica de decisão dentro
+setTimeout(processarRedirecionamento, 1000);
     </script>
 </body>
 </html>
