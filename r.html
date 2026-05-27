@@ -169,42 +169,38 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-      async function processarRedirecionamento() {
+     async function processarRedirecionamento() {
     const urlParams = new URLSearchParams(window.location.search);
     const apelido = urlParams.get('id');
 
-    // Se NÃO tiver apelido na URL, vai direto pro registro
+    // 1. Se NÃO tem apelido, vai direto pro registro (usuário comum)
     if (!apelido) {
         window.location.href = 'register.html';
         return;
     }
 
     try {
-        // Busca no 'referral_map' quem é o dono desse apelido
+        // 2. Tenta buscar o apelido no banco de dados
         const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
         
-        // A LÓGICA QUE VOCÊ PERGUNTOU ENTRA AQUI:
         if (snapshot.exists()) {
+            // 3. Apelido VÁLIDO: Grava o indicador e redireciona com o ID
             const uidIndicador = snapshot.val().uid;
-            // Salva para segurança (backup)
             localStorage.setItem("indicadoPor", uidIndicador);
-            console.log("Indicador encontrado e gravado:", uidIndicador);
-            
-            // Redireciona com o ID validado
             window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
         } else {
-            console.warn("Apelido não encontrado no banco.");
-            // Apelido inválido/inexistente, envia para o registro limpo
+            // 4. Apelido INVÁLIDO: Remove da URL e manda para o registro limpo
+            console.warn("Apelido não encontrado, redirecionando como usuário comum.");
             window.location.href = 'register.html';
         }
     } catch (error) {
-        console.error("Erro ao buscar afiliado:", error);
-        // Em caso de erro no Firebase, envia limpo para não bloquear o usuário
+        console.error("Erro no Firebase:", error);
+        // Em caso de falha de conexão, envia para o registro limpo (não bloqueia o usuário)
         window.location.href = 'register.html';
     }
 }
 
-// O setTimeout chama a função completa com a lógica de decisão dentro
+// O delay de 1000ms garante que o usuário veja a animação de carregamento antes da ação
 setTimeout(processarRedirecionamento, 1000);
     </script>
 </body>
