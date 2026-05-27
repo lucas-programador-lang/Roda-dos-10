@@ -829,18 +829,43 @@ async function confirmPurchase() {
         setTimeout(() => { toast.classList.remove("active"); }, 3500);
     }
 
-    document.getElementById("btn-trigger-withdraw").addEventListener("click", handleWithdrawTrigger);
-    document.getElementById("btn-buy-bronze").addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
-    document.getElementById("btn-buy-silver").addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
-    document.getElementById("btn-buy-gold").addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
-    document.getElementById("btn-qty-minus").addEventListener("click", () => changeQuantity(-1));
-    document.getElementById("btn-qty-plus").addEventListener("click", () => changeQuantity(1));
-    document.getElementById("btn-modal-confirm").addEventListener("click", confirmPurchase);
-    document.getElementById("btn-modal-cancel").addEventListener("click", closePurchaseModal);
-    document.getElementById("btn-logout").addEventListener("click", (e) => {
-        e.preventDefault();
-        signOut(auth).then(() => { window.location.href = "login.html"; });
-    });
+   document.addEventListener("DOMContentLoaded", () => {
+    // Agora o código espera o HTML estar pronto
+    const btnLogout = document.getElementById("btn-logout");
+    if (btnLogout) {
+        btnLogout.addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => {
+                window.location.href = "login.html";
+            }).catch(err => console.error("Erro ao sair:", err));
+        });
+    }
+
+    // Registra os outros botões com segurança
+    const btnWithdraw = document.getElementById("btn-trigger-withdraw");
+    if (btnWithdraw) btnWithdraw.addEventListener("click", handleWithdrawTrigger);
+
+    const btnBronze = document.getElementById("btn-buy-bronze");
+    if (btnBronze) btnBronze.addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
+
+    const btnSilver = document.getElementById("btn-buy-silver");
+    if (btnSilver) btnSilver.addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
+
+    const btnGold = document.getElementById("btn-buy-gold");
+    if (btnGold) btnGold.addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
+
+    const btnMinus = document.getElementById("btn-qty-minus");
+    if (btnMinus) btnMinus.addEventListener("click", () => changeQuantity(-1));
+
+    const btnPlus = document.getElementById("btn-qty-plus");
+    if (btnPlus) btnPlus.addEventListener("click", () => changeQuantity(1));
+
+    const btnConfirm = document.getElementById("btn-modal-confirm");
+    if (btnConfirm) btnConfirm.addEventListener("click", confirmPurchase);
+
+    const btnCancel = document.getElementById("btn-modal-cancel");
+    if (btnCancel) btnCancel.addEventListener("click", closePurchaseModal);
+});
 </script>
 </body>
 </html>
