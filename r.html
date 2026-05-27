@@ -153,55 +153,51 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-            authDomain: "roda-dos-10.firebaseapp.com",
-            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10",
-            storageBucket: "roda-dos-10.firebasestorage.app",
-            messagingSenderId: "1072183237747",
-            appId: "1:1072183237747:web:3a41a635187df2db809e06"
-        };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-     async function processarRedirecionamento() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const apelido = urlParams.get('id');
+        async function processarRedirecionamento() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const apelido = urlParams.get('id');
 
-    // 1. Se NÃO tem apelido, vai direto pro registro (usuário comum)
-    if (!apelido) {
-        window.location.href = 'register.html';
-        return;
-    }
+            if (apelido) {
+                try {
+                    // Busca no 'referral_map' quem é o dono desse apelido
+                    const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
+                    
+                    if (snapshot.exists()) {
+                        const uidIndicador = snapshot.val().uid;
+                        // Mantém o localStorage como garantia reserva
+                        localStorage.setItem("indicadoPor", uidIndicador);
+                        console.log("Indicador gravado:", uidIndicador);
+                    }
+                } catch (error) {
+                    console.error("Erro ao buscar afiliado:", error);
+                }
+                
+                // Segue para a tela de registro injetando o ID original na URL
+                window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
+            } else {
+                // Se não houver parâmetro de indicação, envia limpo para o registro
+                window.location.href = 'register.html';
+            }
+        }
 
-    try {
-        // 2. Tenta buscar o apelido no banco de dados
-        const snapshot = await get(ref(db, 'referral_map/' + apelido.toLowerCase()));
-        
-        if (snapshot.exists()) {
-            // 3. Apelido VÁLIDO: Grava o indicador e redireciona com o ID
-            const uidIndicador = snapshot.val().uid;
-            localStorage.setItem("indicadoPor", uidIndicador);
-            window.location.href = 'register.html?id=' + encodeURIComponent(apelido);
-        } else {
-            // 4. Apelido INVÁLIDO: Remove da URL e manda para o registro limpo
-            console.warn("Apelido não encontrado, redirecionando como usuário comum.");
-            window.location.href = 'register.html';
-        }
-    } catch (error) {
-        console.error("Erro no Firebase:", error);
-        // Em caso de falha de conexão, envia para o registro limpo (não bloqueia o usuário)
-        window.location.href = 'register.html';
-    }
-}
-
-// O delay de 1000ms garante que o usuário veja a animação de carregamento antes da ação
-setTimeout(processarRedirecionamento, 1000);
-    </script>
+        // Adiciona um micro delay de 500ms opcional apenas para a transição fluida do loader ser vista pelo usuário
+        setTimeout(processarRedirecionamento, 1000);
+    </script>
 </body>
 </html>
