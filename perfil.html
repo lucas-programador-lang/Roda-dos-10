@@ -324,51 +324,68 @@
         </a>
     </div>
 </aside>
-    <main class="main-layout">
+    <<main class="main-layout">
         <header class="page-header">
             <h1>Segurança de Acesso</h1>
             <p>Gerencie as credenciais da sua conta privada de forma automatizada.</p>
         </header>
 
-        <<div class="premium-card">
-    <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
-    <h3>Alterar Minha Senha</h3>
-    
-    <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
-        <div class="input-group-icon">
-            <i class="fa-solid fa-unlock-keyhole"></i>
-            <input type="password" id="current-password" placeholder="Senha Atual" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+        <div class="premium-card" style="margin-bottom: 2rem;">
+            <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
+            <h3>Meu Apelido de Afiliado</h3>
+            <p class="instruction-text" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">Crie um apelido curto e exclusivo para deixar seus links de indicação profissionais.</p>
+            
+            <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-at"></i>
+                    <input type="text" id="perf-username" placeholder="Carregando apelido..." required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white; font-weight: 600;">
+                </div>
+                <button id="btn-save-username" class="btn-reset-password">Definir Novo Apelido</button>
+            </div>
         </div>
-        <div class="input-group-icon">
-            <i class="fa-solid fa-lock"></i>
-            <input type="password" id="new-password" placeholder="Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
-        </div>
-        <div class="input-group-icon">
-            <i class="fa-solid fa-check-double"></i>
-            <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
-        </div>
-        <button id="btn-update-password" class="btn-reset-password">Atualizar Senha</button>
-    </div>
 
-    <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
-    
-    <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu a senha atual? Use o botão abaixo:</p>
-    <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
-        <i class="fa-regular fa-envelope"></i> Redefinir pelo E-mail
-    </button>
-</div>
+        <div class="premium-card">
+            <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
+            <h3>Alterar Minha Senha</h3>
+            
+            <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <input type="password" id="current-password" placeholder="Senha Atual" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="new-password" placeholder="Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-check-double"></i>
+                    <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <button id="btn-update-password" class="btn-reset-password">Atualizar Senha</button>
+            </div>
+
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
+            
+            <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu a senha atual? Use o botão abaixo:</p>
+            <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
+                <i class="fa-regular fa-envelope"></i> Redefinir pelo E-mail
+            </button>
+        </div>
     </main>
 
     <div class="toast-wrapper" id="toastBox">
         <i id="toastIcon" class="fa-solid"></i>
         <span id="toastMessage">Status</span>
     </div>
+
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { 
         getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
         updatePassword, EmailAuthProvider, reauthenticateWithCredential 
     } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    // IMPORTAÇÕES ADICIONADAS: Inclusão das ferramentas de Database mantendo as originais
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
@@ -382,6 +399,7 @@
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getDatabase(app); // Instanciado o Banco de Dados de forma limpa
     let userEmail = "";
 
     function showFeedback(message, isSuccess = true) {
@@ -397,11 +415,85 @@
         setTimeout(() => toast.classList.remove("active"), 4000);
     }
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
         if (user) {
             userEmail = user.email;
+            
+            // LOGICA ADICIONADA: Busca e exibe o apelido atual se o usuário já tiver um
+            try {
+                const userSnapshot = await get(ref(db, `users/${user.uid}`));
+                if (userSnapshot.exists() && userSnapshot.val().username) {
+                    document.getElementById("perf-username").value = userSnapshot.val().username;
+                } else {
+                    document.getElementById("perf-username").placeholder = "Escolha seu apelido exclusivo";
+                }
+            } catch (err) {
+                console.error("Erro ao puxar apelido inicial:", err);
+            }
+            
         } else {
             window.location.href = "login.html";
+        }
+    });
+
+    // LÓGICA ADICIONADA: Validação e Gravação do Apelido no Perfil e no Mapa Global
+    document.getElementById("btn-save-username").addEventListener("click", async () => {
+        const user = auth.currentUser;
+        if (!user) {
+            showFeedback("Usuário não localizado no sistema.", false);
+            return;
+        }
+
+        const novoApelido = document.getElementById("perf-username").value.trim().toLowerCase();
+        
+        // Regras básicas de validação do apelido premium
+        if (!novoApelido) {
+            showFeedback("Por favor, digite um apelido válido.", false);
+            return;
+        }
+
+        if (novoApelido.length < 3) {
+            showFeedback("O apelido deve ter no mínimo 3 caracteres.", false);
+            return;
+        }
+
+        if (novoApelido.includes(" ") || !/^[a-z0-9_-]+$/.test(novoApelido)) {
+            showFeedback("Use apenas letras sem acento, números, hífen ou underline.", false);
+            return;
+        }
+
+        try {
+            // 1. Checa se o apelido desejado já pertence a outro UID no referral_map
+            const mapaSnapshot = await get(ref(db, `referral_map/${novoApelido}`));
+            
+            if (mapaSnapshot.exists() && mapaSnapshot.val().uid !== user.uid) {
+                showFeedback("Este apelido já está em uso por outro afiliado.", false);
+                return;
+            }
+
+            // 2. Busca os dados atuais para não apagar outros nós caso usem set puro
+            const userSnapshot = await get(ref(db, `users/${user.uid}`));
+            const dadosAtuais = userSnapshot.exists() ? userSnapshot.val() : {};
+            
+            // Guarda o apelido antigo para fazer a limpeza caso o usuário decida trocar de apelido futuramente
+            const apelidoAntigo = dadosAtuais.username;
+
+            // 3. Atualiza ou injeta a propriedade username no perfil do usuário
+            dadosAtuais.username = novoApelido;
+            await set(ref(db, `users/${user.uid}`), dadosAtuais);
+
+            // 4. Cria o direcionador na raiz global para o r.html achar instantaneamente
+            await set(ref(db, `referral_map/${novoApelido}`), { uid: user.uid });
+
+            // 5. Se mudou de apelido, apaga a referência antiga do mapa para liberar o nome antigo
+            if (apelidoAntigo && apelidoAntigo !== novoApelido) {
+                await set(ref(db, `referral_map/${apelidoAntigo}`), null);
+            }
+
+            showFeedback("Apelido atualizado! Seu link agora é premium.");
+        } catch (error) {
+            console.error("Erro ao salvar apelido:", error);
+            showFeedback("Erro ao registrar o apelido. Tente novamente.", false);
         }
     });
 
