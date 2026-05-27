@@ -8,425 +8,425 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root {
-        /* Fundo Carbon Deep Blue - Mistura luxuosa de grafite escuro com nuance premium */
-        --bg-dark-base: #0B0F17; 
+    <style>
+        :root {
+            /* Fundo Carbon Deep Blue - Mistura luxuosa de grafite escuro com nuance premium */
+            --bg-dark-base: #0B0F17; 
+            
+            /* Textura sutil de fundo para dar profundidade de plataforma SaaS multimilionária */
+            --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
+                          linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                          linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
+            
+            /* Cards Estilo Espelho de Vidro Escuro (Glassmorphism de Alto Padrão) */
+            --bg-dark-card: rgba(20, 29, 43, 0.75); 
+            --bg-dark-input: #172233; 
+            
+            /* Cores de Identidade Limpas e Não Poluídas */
+            --whatsapp-green: #00E676; /* Verde puro e nítido da logo */
+            --text-neon: #02FF8A; /* Verde neon de alta legibilidade para realces */
+            --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); /* Ouro lapidado premium */
+            --text-white: #FFFFFF; 
+            --text-muted: #64748B; /* Cinza slate limpo que reduz a fadiga visual */
+            --text-secondary-green: #94A3B8; 
+            --border-soft: rgba(255, 255, 255, 0.04); /* Bordas quase invisíveis e elegantes */
+            --border-neon-soft: rgba(0, 230, 118, 0.15); /* Brilho de borda sutil */
+            --radius-premium: 20px;
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        /* Textura sutil de fundo para dar profundidade de plataforma SaaS multimilionária */
-        --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
-                      linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
-                      linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
-        
-        /* Cards Estilo Espelho de Vidro Escuro (Glassmorphism de Alto Padrão) */
-        --bg-dark-card: rgba(20, 29, 43, 0.75); 
-        --bg-dark-input: #172233; 
-        
-        /* Cores de Identidade Limpas e Não Poluídas */
-        --whatsapp-green: #00E676; /* Verde puro e nítido da logo */
-        --text-neon: #02FF8A; /* Verde neon de alta legibilidade para realces */
-        --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); /* Ouro lapidado premium */
-        --text-white: #FFFFFF; 
-        --text-muted: #64748B; /* Cinza slate limpo que reduz a fadiga visual */
-        --text-secondary-green: #94A3B8; 
-        --border-soft: rgba(255, 255, 255, 0.04); /* Bordas quase invisíveis e elegantes */
-        --border-neon-soft: rgba(0, 230, 118, 0.15); /* Brilho de borda sutil */
-        --radius-premium: 20px;
-        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+        body { 
+            background-color: var(--bg-dark-base); 
+            background-image: var(--bg-texture);
+            background-size: auto, 30px 30px, 30px 30px;
+            color: var(--text-white); 
+            overflow-x: hidden; 
+            display: flex; /* Alinha a sidebar e o conteúdo principal lado a lado */
+            min-height: 100vh;
+        }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-    
-    body { 
-        background-color: var(--bg-dark-base); 
-        background-image: var(--bg-texture);
-        background-size: auto, 30px 30px, 30px 30px;
-        color: var(--text-white); 
-        overflow-x: hidden; 
-        display: flex; /* Alinha a sidebar e o conteúdo principal lado a lado */
-        min-height: 100vh;
-    }
-
-    /* ==========================================================================
-       ESTRUTURA DA SIDEBAR LATERAL FIXA ULTRA PREMIUM
-       ========================================================================== */
-    .sidebar {
-        width: 260px;
-        height: 100vh;
-        background: rgba(11, 15, 23, 0.75); /* Casamento perfeito com o background base */
-        backdrop-filter: blur(24px) saturate(120%);
-        -webkit-backdrop-filter: blur(24px) saturate(120%);
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        display: flex;
-        flex-direction: column;
-        padding: 1.5rem 1rem; /* Margens internas equilibradas e finas */
-        box-shadow: 15px 0 50px rgba(0, 0, 0, 0.4);
-    }
-
-    /* Container do Logotipo Superior - Versão Premium Otimizada */
-    .sidebar-header {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1.5rem 0.5rem 2rem 0.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-    }
-
-    .logo { 
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 12px 24px;
-        border-radius: 16px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        transition: var(--transition-smooth);
-    }
-
-    .logo img {
-        max-height: 55px; /* Proporção fina e elegante */
-        width: auto;
-        filter: drop-shadow(0 4px 12px rgba(0, 230, 118, 0.15));
-        transition: var(--transition-smooth);
-    }
-
-    .logo:hover {
-        background: rgba(255, 255, 255, 0.04);
-        border-color: rgba(0, 230, 118, 0.25);
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 230, 118, 0.05);
-    }
-
-    .logo:hover img {
-        filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.4));
-    }
-
-    /* Títulos Organizadores de Categoria de Menu */
-    .menu-category-title {
-        font-size: 0.65rem;
-        font-weight: 800;
-        color: var(--text-muted);
-        letter-spacing: 0.08em;
-        padding-left: 1rem;
-        margin: 1.5rem 0 0.4rem 0;
-        list-style: none;
-    }
-    .sidebar-menu li:first-child.menu-category-title {
-        margin-top: 0; /* Remove a margem do primeiro título do topo */
-    }
-
-    /* Lista de Menus */
-    .sidebar-menu {
-        list-style: none;
-        margin-top: 2rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem; /* Menus levemente mais juntos para visual de app nativo */
-        flex: 1; /* Empurra o rodapé para a parte inferior da tela */
-    }
-
-    .menu-item {
-        color: var(--text-secondary-green);
-        text-decoration: none;
-        font-weight: 500;
-        font-size: 0.88rem;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        padding: 0.75rem 1rem;
-        border-radius: 12px;
-        border: 1px solid transparent;
-        position: relative;
-    }
-    
-    .menu-item i {
-        font-size: 1.05rem;
-        width: 20px;
-        text-align: center;
-        opacity: 0.7;
-        transition: transform 0.2s var(--transition-smooth);
-    }
-    
-    .menu-item:hover {
-        color: var(--text-white);
-        background: rgba(255, 255, 255, 0.02);
-    }
-    
-    .menu-item:hover i {
-        opacity: 1;
-        transform: translateX(2px);
-    }
-    
-    /* Estado Ativo Sofisticado */
-    .menu-item.active {
-        color: var(--text-white);
-        background: linear-gradient(90deg, rgba(0, 230, 118, 0.08) 0%, rgba(0, 230, 118, 0.01) 100%);
-        border: 1px solid rgba(0, 230, 118, 0.15);
-        font-weight: 600;
-    }
-    
-    .menu-item.active i {
-        color: var(--text-neon);
-        opacity: 1;
-        filter: drop-shadow(0 0 8px rgba(2, 255, 138, 0.4));
-    }
-
-    /* Indicador Físico Lateral do Item Ativo */
-    .menu-item.active::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 25%;
-        height: 50%;
-        width: 3px;
-        background: var(--text-neon);
-        border-radius: 0 4px 4px 0;
-        box-shadow: 0 0 10px var(--text-neon);
-    }
-
-    /* Rodapé da Sidebar - Bloco Multi-informação */
-    .sidebar-footer {
-        border-top: 1px solid rgba(255, 255, 255, 0.04);
-        padding-top: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-    }
-
-    .user-meta-box {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        overflow: hidden;
-    }
-
-    .user-meta-avatar {
-        width: 34px;
-        height: 34px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-secondary-green);
-        flex-shrink: 0;
-    }
-
-    .user-meta-info {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    #welcome-user {
-        color: var(--text-white);
-        font-size: 0.82rem;
-        font-weight: 600;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
-
-    .user-meta-status {
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        margin-top: 1px;
-    }
-
-    /* Indicador Pulsante Real-Time */
-    .pulse-indicator {
-        width: 6px;
-        height: 6px;
-        background-color: var(--text-neon);
-        border-radius: 50%;
-        display: inline-block;
-        box-shadow: 0 0 8px var(--text-neon);
-        animation: pulseGlow 2s infinite ease-in-out;
-    }
-
-    @keyframes pulseGlow {
-        0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
-        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 10px var(--text-neon); }
-        100% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
-    }
-
-    /* Botão Sair Isolado Moderno */
-    .logout-trigger-btn {
-        background: transparent;
-        border: none;
-        color: #F87171;
-        padding: 0.6rem;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: all 0.2s ease;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .logout-trigger-btn:hover {
-        background: rgba(248, 113, 113, 0.08);
-        color: #ef4444;
-    }
-
-    /* ==========================================================================
-       LAYOUT PRINCIPAL DE CONTEÚDO (Ajustado ao lado da Sidebar)
-       ========================================================================== */
-    .main-layout { 
-        flex: 1;
-        margin-left: 260px; /* Garante que o conteúdo comece após a sidebar */
-        max-width: 1200px; 
-        padding: 2.5rem 2rem; 
-        box-sizing: border-box;
-    }
-
-    .page-header { margin-bottom: 2.5rem; }
-    .page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
-    .page-header p { color: var(--text-muted); font-size: 0.95rem; }
-
-    /* PREMIUM CARD - INDICAÇÃO */
-    .premium-card { 
-        background: var(--bg-dark-card); 
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--border-soft); 
-        border-radius: var(--radius-premium); 
-        padding: 2.5rem; 
-        max-width: 600px; 
-        margin: 0 auto; 
-        text-align: center; 
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.02);
-    }
-    .card-icon { 
-        font-size: 2.8rem; 
-        color: #FFB300; 
-        margin-bottom: 1.2rem; 
-        filter: drop-shadow(0 0 12px rgba(255, 179, 0, 0.25));
-    }
-    
-    .commission-badge { 
-        background: rgba(0, 230, 118, 0.08); 
-        color: var(--text-neon); 
-        padding: 0.5rem 1.2rem; 
-        border-radius: 50px; 
-        font-weight: 700; 
-        font-size: 0.85rem; 
-        display: inline-flex; 
-        align-items: center; 
-        gap: 8px; 
-        margin-bottom: 1.5rem; 
-        border: 1px solid rgba(0, 230, 118, 0.2); 
-    }
-
-    .referral-container { display: flex; gap: 12px; margin-top: 1.8rem; }
-    .referral-input { 
-        flex-grow: 1; 
-        padding: 0.9rem 1.2rem; 
-        background: var(--bg-dark-input); 
-        border: 1px solid var(--border-soft); 
-        border-radius: 12px; 
-        color: white; 
-        font-size: 0.95rem; 
-        outline: none; 
-        transition: var(--transition-smooth);
-    }
-    .referral-input:focus { border-color: var(--border-neon-soft); box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1); }
-    
-    .btn-copy { 
-        background: var(--logo-gold); 
-        color: #000; 
-        border: none; 
-        padding: 0 1.8rem; 
-        border-radius: 12px; 
-        font-weight: 800; 
-        cursor: pointer; 
-        transition: var(--transition-smooth); 
-        box-shadow: 0 6px 20px rgba(255, 179, 0, 0.25); 
-    }
-    .btn-copy:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 179, 0, 0.35); }
-
-    /* TOAST SYSTEM */
-    .toast-wrapper { 
-        position: fixed; 
-        top: -100px; 
-        left: 50%; 
-        transform: translateX(-50%); 
-        background: #0E1420; 
-        border-left: 5px solid var(--whatsapp-green); 
-        padding: 1.2rem 2rem; 
-        border-radius: 14px; 
-        display: flex; 
-        align-items: center; 
-        gap: 14px; 
-        z-index: 999999; 
-        width: calc(100% - 2rem); 
-        max-width: 420px; 
-        opacity: 0; 
-        transition: var(--transition-smooth); 
-        box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
-        border: 1px solid rgba(255, 255, 255, 0.05); 
-    }
-    .toast-wrapper.active { top: 30px; opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* ==========================================================================
-       RESPONSIVIDADE INTELIGENTE
-       ========================================================================== */
-    @media (max-width: 992px) {
-        body { flex-direction: column; }
-        
+        /* ==========================================================================
+           ESTRUTURA DA SIDEBAR LATERAL FIXA ULTRA PREMIUM
+           ========================================================================== */
         .sidebar {
-            width: 100%;
-            height: auto;
+            width: 260px;
+            height: 100vh;
+            background: rgba(11, 15, 23, 0.75); /* Casamento perfeito com o background base */
+            backdrop-filter: blur(24px) saturate(120%);
+            -webkit-backdrop-filter: blur(24px) saturate(120%);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem; /* Margens internas equilibradas e finas */
+            box-shadow: 15px 0 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Container do Logotipo Superior - Versão Premium Otimizada */
+        .sidebar-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem 0.5rem 2rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .logo { 
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: var(--transition-smooth);
+        }
+
+        .logo img {
+            max-height: 55px; /* Proporção fina e elegante */
+            width: auto;
+            filter: drop-shadow(0 4px 12px rgba(0, 230, 118, 0.15));
+            transition: var(--transition-smooth);
+        }
+
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(0, 230, 118, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 230, 118, 0.05);
+        }
+
+        .logo:hover img {
+            filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.4));
+        }
+
+        /* Títulos Organizadores de Categoria de Menu */
+        .menu-category-title {
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            padding-left: 1rem;
+            margin: 1.5rem 0 0.4rem 0;
+            list-style: none;
+        }
+        .sidebar-menu li:first-child.menu-category-title {
+            margin-top: 0; /* Remove a margem do primeiro título do topo */
+        }
+
+        /* Lista de Menus */
+        .sidebar-menu {
+            list-style: none;
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem; /* Menus levemente mais juntos para visual de app nativo */
+            flex: 1; /* Empurra o rodapé para a parte inferior da tela */
+        }
+
+        .menu-item {
+            color: var(--text-secondary-green);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.88rem;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid transparent;
             position: relative;
-            padding: 1rem;
-            border-right: none;
-            border-bottom: 1px solid var(--border-soft);
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
-            flex-direction: row;
+        }
+        
+        .menu-item i {
+            font-size: 1.05rem;
+            width: 20px;
+            text-align: center;
+            opacity: 0.7;
+            transition: transform 0.2s var(--transition-smooth);
+        }
+        
+        .menu-item:hover {
+            color: var(--text-white);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .menu-item:hover i {
+            opacity: 1;
+            transform: translateX(2px);
+        }
+        
+        /* Estado Ativo Sofisticado */
+        .menu-item.active {
+            color: var(--text-white);
+            background: linear-gradient(90deg, rgba(0, 230, 118, 0.08) 0%, rgba(0, 230, 118, 0.01) 100%);
+            border: 1px solid rgba(0, 230, 118, 0.15);
+            font-weight: 600;
+        }
+        
+        .menu-item.active i {
+            color: var(--text-neon);
+            opacity: 1;
+            filter: drop-shadow(0 0 8px rgba(2, 255, 138, 0.4));
+        }
+
+        /* Indicador Físico Lateral do Item Ativo */
+        .menu-item.active::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 25%;
+            height: 50%;
+            width: 3px;
+            background: var(--text-neon);
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 0 10px var(--text-neon);
+        }
+
+        /* Rodapé da Sidebar - Bloco Multi-informação */
+        .sidebar-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 1.2rem;
+            display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 10px;
         }
-        
-        .sidebar-header { padding: 0; border-bottom: none; }
-        .logo { padding: 8px 16px; border-radius: 12px; }
-        .logo img { max-height: 40px; }
-        
-        .sidebar-menu { 
-            flex-direction: row; 
-            margin-top: 0; 
-            justify-content: center; 
-            flex-wrap: nowrap;
-            gap: 0.25rem;
-            flex: none;
-        }
-        
-        /* Oculta os títulos de categoria e o marcador físico no mobile */
-        .menu-category-title { display: none !important; }
-        .menu-item { padding: 0.6rem 0.8rem; font-size: 0.8rem; border-radius: 10px; }
-        .menu-item.active::after { display: none; }
-        
-        .sidebar-footer { display: none; } 
-        .main-layout { margin-left: 0; padding: 2rem 1rem; }
-    }
 
-    @media (max-width: 768px) {
-        .referral-container { flex-direction: column; gap: 10px; }
-        .btn-copy { padding: 1rem; width: 100%; }
-        .page-header { text-align: center; }
-        .premium-card { width: calc(100% - 10px); padding: 2rem 1.2rem; }
-    }
-</style>
+        .user-meta-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            overflow: hidden;
+        }
+
+        .user-meta-avatar {
+            width: 34px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary-green);
+            flex-shrink: 0;
+        }
+
+        .user-meta-info {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #welcome-user {
+            color: var(--text-white);
+            font-size: 0.82rem;
+            font-weight: 600;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        .user-meta-status {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 1px;
+        }
+
+        /* Indicador Pulsante Real-Time */
+        .pulse-indicator {
+            width: 6px;
+            height: 6px;
+            background-color: var(--text-neon);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--text-neon);
+            animation: pulseGlow 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
+            50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 10px var(--text-neon); }
+            100% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
+        }
+
+        /* Botão Sair Isolado Moderno */
+        .logout-trigger-btn {
+            background: transparent;
+            border: none;
+            color: #F87171;
+            padding: 0.6rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logout-trigger-btn:hover {
+            background: rgba(248, 113, 113, 0.08);
+            color: #ef4444;
+        }
+
+        /* ==========================================================================
+           LAYOUT PRINCIPAL DE CONTEÚDO (Ajustado ao lado da Sidebar)
+           ========================================================================== */
+        .main-layout { 
+            flex: 1;
+            margin-left: 260px; /* Garante que o conteúdo comece após a sidebar */
+            max-width: 1200px; 
+            padding: 2.5rem 2rem; 
+            box-sizing: border-box;
+        }
+
+        .page-header { margin-bottom: 2.5rem; }
+        .page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
+        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* PREMIUM CARD - INDICAÇÃO */
+        .premium-card { 
+            background: var(--bg-dark-card); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-soft); 
+            border-radius: var(--radius-premium); 
+            padding: 2.5rem; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            text-align: center; 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+        .card-icon { 
+            font-size: 2.8rem; 
+            color: #FFB300; 
+            margin-bottom: 1.2rem; 
+            filter: drop-shadow(0 0 12px rgba(255, 179, 0, 0.25));
+        }
+        
+        .commission-badge { 
+            background: rgba(0, 230, 118, 0.08); 
+            color: var(--text-neon); 
+            padding: 0.5rem 1.2rem; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 0.85rem; 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 8px; 
+            margin-bottom: 1.5rem; 
+            border: 1px solid rgba(0, 230, 118, 0.2); 
+        }
+
+        .referral-container { display: flex; gap: 12px; margin-top: 1.8rem; }
+        .referral-input { 
+            flex-grow: 1; 
+            padding: 0.9rem 1.2rem; 
+            background: var(--bg-dark-input); 
+            border: 1px solid var(--border-soft); 
+            border-radius: 12px; 
+            color: white; 
+            font-size: 0.95rem; 
+            outline: none; 
+            transition: var(--transition-smooth);
+        }
+        .referral-input:focus { border-color: var(--border-neon-soft); box-shadow: 0 0 0 3px rgba(0, 230, 118, 0.1); }
+        
+        .btn-copy { 
+            background: var(--logo-gold); 
+            color: #000; 
+            border: none; 
+            padding: 0 1.8rem; 
+            border-radius: 12px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            transition: var(--transition-smooth); 
+            box-shadow: 0 6px 20px rgba(255, 179, 0, 0.25); 
+        }
+        .btn-copy:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 179, 0, 0.35); }
+
+        /* TOAST SYSTEM */
+        .toast-wrapper { 
+            position: fixed; 
+            top: -100px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #0E1420; 
+            border-left: 5px solid var(--whatsapp-green); 
+            padding: 1.2rem 2rem; 
+            border-radius: 14px; 
+            display: flex; 
+            align-items: center; 
+            gap: 14px; 
+            z-index: 999999; 
+            width: calc(100% - 2rem); 
+            max-width: 420px; 
+            opacity: 0; 
+            transition: var(--transition-smooth); 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+        .toast-wrapper.active { top: 30px; opacity: 1; transform: translateX(-50%) translateY(0); }
+
+        /* ==========================================================================
+           RESPONSIVIDADE INTELIGENTE
+           ========================================================================== */
+        @media (max-width: 992px) {
+            body { flex-direction: column; }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                padding: 1rem;
+                border-right: none;
+                border-bottom: 1px solid var(--border-soft);
+                box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+            
+            .sidebar-header { padding: 0; border-bottom: none; }
+            .logo { padding: 8px 16px; border-radius: 12px; }
+            .logo img { max-height: 40px; }
+            
+            .sidebar-menu { 
+                flex-direction: row; 
+                margin-top: 0; 
+                justify-content: center; 
+                flex-wrap: nowrap;
+                gap: 0.25rem;
+                flex: none;
+            }
+            
+            /* Oculta os títulos de categoria e o marcador físico no mobile */
+            .menu-category-title { display: none !important; }
+            .menu-item { padding: 0.6rem 0.8rem; font-size: 0.8rem; border-radius: 10px; }
+            .menu-item.active::after { display: none; }
+            
+            .sidebar-footer { display: none; } 
+            .main-layout { margin-left: 0; padding: 2rem 1rem; }
+        }
+
+        @media (max-width: 768px) {
+            .referral-container { flex-direction: column; gap: 10px; }
+            .btn-copy { padding: 1rem; width: 100%; }
+            .page-header { text-align: center; }
+            .premium-card { width: calc(100% - 10px); padding: 2rem 1.2rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -483,7 +483,7 @@
     </div>
 </aside>
 
-    <main class="main-layout">
+<main class="main-layout">
     <header class="page-header">
         <h1>Indicação Premium</h1>
         <p>Garanta comissões imediatas recomendando nossa plataforma para novos compradores.</p>
@@ -494,7 +494,7 @@
         <div class="card-icon"><i class="fa-solid fa-share-nodes"></i></div>
         <h3>Seu Link Exclusivo</h3>
         <div class="referral-container">
-            <input type="text" id="referral-link" class="referral-input" readonly>
+            <input type="text" id="referral-link" class="referral-input" readonly value="Carregando link...">
             <button id="btn-copy-link" class="btn-copy">Copiar</button>
         </div>
     </div>
@@ -510,100 +510,108 @@
             </thead>
             <tbody id="lista-afiliados">
                 <tr>
-                    <td colspan="2" style="padding: 15px; text-align: center; color: var(--text-muted);">Buscando indicados...</td>
+                    <td colspan="2" style="padding: 15px; text-align: center; color: var(--text-muted);">
+                        <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;"></i> Buscando indicados...
+                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
 </main>
 
-    <div class="toast-wrapper" id="toastBox">
-        <i class="fa-solid fa-circle-check"></i>
-        <span>Link de indicação copiado!</span>
-    </div>
+<div class="toast-wrapper" id="toastBox">
+    <i class="fa-solid fa-circle-check"></i>
+    <span>Link de indicação copiado!</span>
+</div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-        authDomain: "roda-dos-10.firebaseapp.com",
-        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-        projectId: "roda-dos-10",
-        storageBucket: "roda-dos-10.firebasestorage.app",
-        messagingSenderId: "1072183237747",
-        appId: "1:1072183237747:web:3a41a635187df2db809e06"
-    };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+        authDomain: "roda-dos-10.firebaseapp.com",
+        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+        projectId: "roda-dos-10",
+        storageBucket: "roda-dos-10.firebasestorage.app",
+        messagingSenderId: "1072183237747",
+        appId: "1:1072183237747:web:3a41a635187df2db809e06"
+    };
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            const userSnapshot = await get(ref(db, `users/${user.uid}`));
-            const userData = userSnapshot.val();
-            
-            // GARANTIA PREMIUM: Força o apelido para letras minúsculas se ele existir, ou usa o UID como fallback seguro
-            const apelido = userData?.username ? userData.username.trim().toLowerCase() : user.uid; 
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            const userSnapshot = await get(ref(db, `users/${user.uid}`));
+            const userData = userSnapshot.val();
+            
+            // GARANTIA PREMIUM: Força o apelido para letras minúsculas se ele existir, ou usa o UID como fallback seguro
+            const apelido = userData?.username ? userData.username.trim().toLowerCase() : user.uid; 
 
-            // Define o link idêntico ao esperado pelo r.html
-            document.getElementById("referral-link").value = window.location.origin + '/r.html?id=' + apelido;
+            // Atualiza o bloco do rodapé da sidebar com o nome do usuário logado
+            const welcomeUserEl = document.getElementById("welcome-user");
+            if (welcomeUserEl) {
+                welcomeUserEl.textContent = userData?.fullName || userData?.username || "Membro Premium";
+            }
 
-            const usersRef = ref(db, 'users');
-            
-            // Filtra os indicados cujo campo 'referredBy' combine perfeitamente com o apelido/UID do padrinho
-            const q = query(usersRef, orderByChild('referredBy'), equalTo(apelido));
-            
-            const snapshot = await get(q);
-            const tabela = document.getElementById("lista-afiliados");
-            tabela.innerHTML = "";
+            // Define o link idêntico ao esperado pelo r.html
+            document.getElementById("referral-link").value = window.location.origin + '/r.html?id=' + apelido;
 
-            if (snapshot.exists()) {
-                snapshot.forEach((childSnapshot) => {
-                    const dados = childSnapshot.val();
-                    const nomeIndicado = dados.fullName || dados.username || 'Indicado Sem Nome';
-                    
-                    // Validação para evitar falhas caso a pessoa cadastrou mas não comprou ainda
-                    const valorCompra = dados.balance || dados.valor || 0; 
-                    const comissao = (parseFloat(valorCompra) * 0.20).toFixed(2).replace('.', ',');
-                    
-                    tabela.innerHTML += `
-                        <tr style="border-bottom: 1px solid var(--border-soft);">
-                            <td style="padding: 12px 10px; color: var(--text-white); font-weight: 500;">${nomeIndicado}</td>
-                            <td style="padding: 12px 10px; color: var(--text-neon); font-weight: 700;">R$ ${comissao}</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                tabela.innerHTML = `
-                    <tr>
-                        <td colspan="2" style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
-                            Nenhum indicado cadastrado por este link até o momento.
-                        </td>
-                    </tr>
-                `;
-            }
-        } else {
-            window.location.href = "login.html";
-        }
-    });
+            const usersRef = ref(db, 'users');
+            
+            // Filtra os indicados cujo campo 'referredBy' combine perfeitamente com o apelido/UID do padrinho
+            const q = query(usersRef, orderByChild('referredBy'), equalTo(apelido));
+            
+            const snapshot = await get(q);
+            const tabela = document.getElementById("lista-afiliados");
+            tabela.innerHTML = "";
 
-    document.getElementById("btn-copy-link").addEventListener("click", () => {
-        const linkInput = document.getElementById("referral-link");
-        linkInput.select();
-        navigator.clipboard.writeText(linkInput.value);
-        const toast = document.getElementById("toastBox");
-        toast.classList.add("active");
-        setTimeout(() => toast.classList.remove("active"), 3000);
-    });
+            if (snapshot.exists()) {
+                snapshot.forEach((childSnapshot) => {
+                    const dados = childSnapshot.val();
+                    const nomeIndicado = dados.fullName || dados.username || 'Indicado Sem Nome';
+                    
+                    // Validação para evitar falhas caso a pessoa cadastrou mas não comprou ainda
+                    const valorCompra = dados.balance || dados.valor || 0; 
+                    const comissao = (parseFloat(valorCompra) * 0.20).toFixed(2).replace('.', ',');
+                    
+                    tabela.innerHTML += `
+                        <tr style="border-bottom: 1px solid var(--border-soft);">
+                            <td style="padding: 12px 10px; color: var(--text-white); font-weight: 500;">${nomeIndicado}</td>
+                            <td style="padding: 12px 10px; color: var(--text-neon); font-weight: 700;">R$ ${comissao}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                tabela.innerHTML = `
+                    <tr>
+                        <td colspan="2" style="padding: 20px; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                            Nenhum indicado cadastrado por este link até o momento.
+                        </td>
+                    </tr>
+                `;
+            }
+        } else {
+            window.location.href = "login.html";
+        }
+    });
 
-    document.getElementById("btn-logout").addEventListener("click", (e) => {
-        e.preventDefault();
-        signOut(auth).then(() => { window.location.href = "login.html"; });
-    });
+    document.getElementById("btn-copy-link").addEventListener("click", () => {
+        const linkInput = document.getElementById("referral-link");
+        linkInput.select();
+        navigator.clipboard.writeText(linkInput.value);
+        const toast = document.getElementById("toastBox");
+        toast.classList.add("active");
+        setTimeout(() => toast.classList.remove("active"), 3000);
+    });
+
+    document.getElementById("btn-logout").addEventListener("click", (e) => {
+        e.preventDefault();
+        signOut(auth).then(() => { window.location.href = "login.html"; });
+    });
 </script>
 </body>
 </html>
