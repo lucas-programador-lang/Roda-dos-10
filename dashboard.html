@@ -512,7 +512,7 @@ body {
     let currentQuantity = 1;
     let globalUserBalance = 0;
 
-    onAuthStateChanged(auth, (user) => {
+   onAuthStateChanged(auth, (user) => {
         if (user) {
             document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
             const userRef = ref(db, `users/${user.uid}`);
@@ -523,12 +523,30 @@ body {
                     globalUserBalance = parseFloat(data.balance || 0);
                     document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
                     
+                    // Atualiza a quantidade de cotas numéricas
                     const tickets = data.tickets || 0;
                     document.getElementById("dash-tickets").innerText = tickets;
                     
+                    // --- ATUALIZAÇÃO DINÂMICA DA FRASE DE STATUS ---
+                    const elementoTexto = document.getElementById("cotas-status-text");
+                    if (elementoTexto) {
+                        if (tickets > 0) {
+                            elementoTexto.innerHTML = `Sua chance aumentou! Continue acumulando.`;
+                            elementoTexto.style.color = 'var(--text-neon)'; // Verde neon de alta legibilidade
+                        } else {
+                            elementoTexto.innerText = "Mais compras aumentam sua chance";
+                            elementoTexto.style.color = 'var(--text-muted)'; // Cinza slate padrão
+                        }
+                    }
+                    // -----------------------------------------------
+                    
+                    // Atualiza a barra de progresso visual baseada em metas
                     const progresso = (tickets / 20) * 100;
-                    if(document.getElementById("progress-bar")) {
-                        document.getElementById("progress-bar").style.width = `${progresso}%`;
+                    
+                    // Verifica se seu HTML usa o ID "progress-bar" ou o padrão premium de fill
+                    const barraProgresso = document.getElementById("progress-bar") || document.querySelector(".progress-bar-fill");
+                    if (barraProgresso) {
+                        barraProgresso.style.width = `${Math.min(progresso, 100)}%`; // Limita em 100% no visual
                     }
                 }
             });
@@ -536,7 +554,6 @@ body {
             window.location.href = "login.html";
         }
     });
-
     function handleWithdrawTrigger() {
         if (globalUserBalance < 25) {
             document.getElementById("withdrawErrorModal").classList.add("active");
