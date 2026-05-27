@@ -779,45 +779,69 @@ async function confirmPurchase() {
             throw new Error(data.details?.message || "Erro no gateway: Verifique os dados inseridos.");
         }
 
-        if (data.pix && (data.pix.base64 || data.pix.image)) {
-            // CORREÇÃO: Registra a compra para aparecer na carteira.html
-            const comprasRef = ref(db, `users/${user.uid}/compras`);
-            await push(comprasRef, {
-                nomePlano: currentTicketName,
-                quantidade: currentQuantity,
-                data: new Date().toLocaleDateString('pt-BR'),
-                valorTotal: totalValue,
-                status: 'pendente'
-            });
+       if (data.pix && (data.pix.base64 || data.pix.image)) {
+    // 1. Criamos a referência da lista de compras do usuário
+    const comprasRef = ref(db, `users/${user.uid}/compras`);
+    
+    // 2. Geramos um novo ID único (nó), mas sem salvar os dados ainda
+    const novaCompraNode = push(comprasRef);
+    
+    // 3. Salvamos os dados da cota usando a nova referência gerada
+    await set(novaCompraNode, {
+        nomePlano: currentTicketName,
+        quantidade: currentQuantity,
+        data: new Date().toLocaleDateString('pt-BR'),
+        valorTotal: totalValue,
+        status: 'pendente'
+    });
 
-            // Buscamos os elementos
-            const formArea = document.getElementById("purchase-form-area");
-            const pixArea = document.getElementById("pix-display-area");
-            const qrImg = document.getElementById("pix-qr-image");
-
-            if (formArea) formArea.style.display = "none";
-            if (pixArea) pixArea.style.display = "block";
-            if (qrImg) {
-                qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
-            }
-
-            if (data.pix.code) {
+    // ========================================================
+    // ESCUTA EM TEMPO REAL: Fica olhando o status deste PIX específico
+    // ========================================================
+    onValue(novaCompraNode, (snapshot) => {
+        if (snapshot.exists()) {
+            const statusAtual = snapshot.val().status;
+            
+            // Quando o seu webhook do Worker alterar para 'aprovado' ou 'pago'
+            if (statusAtual === 'aprovado' || statusAtual === 'pago') {
+                fireToast(`Pagamento Confirmado! +${currentQuantity} cotas adicionadas.`);
+                
+                // Toca o efeito sonoro premium de recebimento
                 try {
-                    await navigator.clipboard.writeText(data.pix.code);
-                    fireToast("QR Code gerado e código copiado!");
-                } catch (e) {
-                    fireToast("QR Code gerado!");
-                }
+                    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav');
+                    audio.volume = 0.4;
+                    audio.play();
+                } catch(e) { console.log("Áudio retido pelo navegador"); }
+                
+                // Fecha o modal de compra automaticamente após 1.5 segundos
+                setTimeout(() => { closePurchaseModal(); }, 1500);
             }
-        } else {
-            throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
         }
-    } catch (error) {
-        console.error("Erro na compra:", error);
-        fireToast("Erro: " + error.message, true);
-    }
-}
+    });
+    // ========================================================
 
+    // Buscamos os elementos (Seu código original continua igual daqui para baixo)
+    const formArea = document.getElementById("purchase-form-area");
+    const pixArea = document.getElementById("pix-display-area");
+    const qrImg = document.getElementById("pix-qr-image");
+
+    if (formArea) formArea.style.display = "none";
+    if (pixArea) pixArea.style.display = "block";
+    if (qrImg) {
+        qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
+    }
+
+    if (data.pix.code) {
+        try {
+            await navigator.clipboard.writeText(data.pix.code);
+            fireToast("QR Code gerado e código copiado!");
+        } catch (e) {
+            fireToast("QR Code gerado!");
+        }
+    }
+} else {
+    throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
+}
     function fireToast(message, isError = false) {
         const toast = document.getElementById("toastNotification");
         const icon = document.getElementById("toastIcon");
