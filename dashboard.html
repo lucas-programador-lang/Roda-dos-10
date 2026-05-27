@@ -9,292 +9,773 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            /* Fundo Carbon Deep Blue - Mistura luxuosa de grafite escuro com nuance premium */
-            --bg-dark-base: #0B0F17; 
-            
-            /* Textura sutil de fundo para dar profundidade de plataforma SaaS multimilionária */
-            --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
-                          linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
-            
-            /* Cards Estilo Espelho de Vidro Escuro (Glassmorphism de Alto Padrão) */
-            --bg-dark-card: rgba(20, 29, 43, 0.75); 
-            --bg-dark-input: #172233; 
-            
-            /* Cores de Identidade Limpas e Não Poluídas */
-            --whatsapp-green: #00E676; /* Verde puro e nítido da logo */
-            --text-neon: #02FF8A; /* Verde neon de alta legibilidade para realces */
-            --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); /* Ouro lapidado premium */
-            --text-white: #FFFFFF; 
-            --text-muted: #64748B; /* Cinza slate limpo que reduz a fadiga visual */
-            --text-secondary-green: #94A3B8; 
-            --border-soft: rgba(255, 255, 255, 0.04); /* Bordas quase invisíveis e elegantes */
-            --border-neon-soft: rgba(0, 230, 118, 0.15); /* Brilho de borda sutil */
-            --radius-premium: 20px;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { 
-            background-color: var(--bg-dark-base); 
-            background-image: var(--bg-texture);
-            background-size: auto, 30px 30px, 30px 30px;
-            color: var(--text-white); 
-            overflow-x: hidden; 
-            padding-top: 110px; 
-            padding-bottom: 60px; 
-        }
-
-        /* FLOATING NAVBAR - EFEITO CRISTAL INTEGRADO */
-        .navbar {
-            background: rgba(15, 23, 36, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-soft);
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 9999;
-            width: calc(100% - 40px);
-            max-width: 1160px;
-            border-radius: 18px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
-        .nav-container { margin: 0 auto; padding: 0.7rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.3rem; font-weight: 800; color: var(--text-white); text-decoration: none; letter-spacing: -0.5px; }
-        .logo span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .logo i { color: var(--whatsapp-green); margin-right: 6px; filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.4)); }
-        .nav-menu { display: flex; align-items: center; gap: 1.2rem; list-style: none; }
-        .nav-menu a { color: var(--text-secondary-green); text-decoration: none; font-weight: 600; font-size: 0.88rem; transition: var(--transition-smooth); display: flex; align-items: center; gap: 8px; padding: 0.5rem 0.8rem; border-radius: 10px; }
-        .nav-menu a:hover { color: var(--text-white); background: rgba(255, 255, 255, 0.03); }
-        .nav-menu a.active { color: var(--text-neon); background: rgba(0, 230, 118, 0.06); border: 1px solid rgba(0, 230, 118, 0.1); }
-        .logout-link { color: #F87171 !important; }
-        .logout-link:hover { background: rgba(248, 113, 113, 0.08) !important; }
-
-        /* LAYOUT PRINCIPAL */
-        .main-layout { max-width: 1200px; margin: 0 auto; padding: 0 1rem; }
-        .page-header { margin-bottom: 2.5rem; }
-        .page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
-        .page-header h1 span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .page-header p { color: var(--text-muted); font-size: 0.95rem; }
-
-        /* METRICS GRID - ELEMENTOS SEPARADOS E LIMPOS */
-        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .metric-card { 
-            background: var(--bg-dark-card); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--border-soft); 
-            padding: 2.2rem; 
-            border-radius: 20px; 
-            transition: var(--transition-smooth); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .metric-card:hover { 
-            border-color: var(--border-neon-soft); 
-            box-shadow: 0 15px 35px rgba(0, 230, 118, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.02); 
-            transform: translateY(-4px); 
-        }
-        .card-meta { display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.8px; margin-bottom: 0.6rem; text-transform: uppercase; }
-        .card-meta i { font-size: 1.3rem; }
-        .icon-wallet { color: #FFB300; filter: drop-shadow(0 0 10px rgba(255, 179, 0, 0.3)); }
-        .icon-ticket { color: var(--whatsapp-green); filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3)); }
-        .metric-card h2 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.2rem; tracking: -1px; }
-        .sub-text { font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem; }
-        
-        /* Botão de Saque Interno - Premium Glass */
-        .btn-dash-withdraw { 
-            background: rgba(0, 230, 118, 0.06); 
-            border: 1px solid rgba(0, 230, 118, 0.2); 
-            color: var(--text-neon); 
-            padding: 0.7rem; 
-            border-radius: 10px; 
-            font-size: 0.85rem; 
-            font-weight: 700; 
-            cursor: pointer; 
-            width: 100%; 
-            transition: var(--transition-smooth); 
-            text-align: center; 
-        }
-        .btn-dash-withdraw:hover { 
-            background: var(--logo-gold); 
-            color: #000; 
-            border-color: transparent; 
-            font-weight: 800; 
-            box-shadow: 0 6px 20px rgba(255, 179, 0, 0.4); 
-        }
-
-        /* PROGRESS BANNER */
-        .progress-banner-card { 
-            background: var(--bg-dark-card); 
-            border: 1px solid var(--border-soft); 
-            padding: 1.8rem 2.2rem; 
-            border-radius: 20px; 
-            margin-bottom: 1.5rem; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .progress-info h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.4rem; display: flex; align-items: center; gap: 8px; }
-        .progress-info h3 i { color: #FFB300; }
-        .progress-info p { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 1.2rem; line-height: 1.5; }
-        .progress-bar-bg { background: var(--bg-dark-input); width: 100%; height: 10px; border-radius: 50px; overflow: hidden; margin-bottom: 0.6rem; pading: 1px; }
-        .progress-bar-fill { 
-            background: var(--logo-gold); 
-            height: 100%; 
-            width: 55%; 
-            border-radius: 50px; 
-            transition: var(--transition-smooth); 
-            box-shadow: 0 0 10px rgba(255, 179, 0, 0.3);
-        }
-        .progress-text-status { display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; }
-        .progress-text-status span:last-child { color: var(--text-neon); }
-
-        /* GRUPO BANNER */
-        .group-banner-card { 
-            background: linear-gradient(135deg, rgba(20, 29, 43, 0.9) 0%, rgba(13, 38, 26, 0.4) 100%); 
-            border: 1px solid rgba(0, 230, 118, 0.1); 
-            padding: 1.8rem 2.2rem; 
-            border-radius: 20px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            gap: 1.5rem; 
-            margin-bottom: 2.5rem; 
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .banner-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.3rem; }
-        .banner-info p { font-size: 0.92rem; color: var(--text-muted); }
-        .btn-join-group { background: #25D366; color: #FFF; text-decoration: none; padding: 0.85rem 1.8rem; border-radius: 12px; font-weight: 700; display: flex; align-items: center; gap: 10px; transition: var(--transition-smooth); box-shadow: 0 6px 20px rgba(37, 211, 102, 0.25); }
-        .btn-join-group:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35); }
-
-        /* PLANOS DE INVESTIMENTO */
-        .price-tables-card { background: var(--bg-dark-card); border: 1px solid var(--border-soft); padding: 2.2rem; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); }
-        .investment-options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin: 1.8rem 0; }
-        
-        .tier-item { 
-            background: rgba(255, 255, 255, 0.01); 
-            border: 1px solid rgba(255, 255, 255, 0.02); 
-            padding: 2rem 1.5rem; 
-            border-radius: 16px; 
-            text-align: center; 
-            transition: var(--transition-smooth); 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: space-between; 
-        }
-        .tier-item:hover { 
-            border-color: rgba(255, 255, 255, 0.06); 
-            background: rgba(255, 255, 255, 0.02); 
-            transform: translateY(-5px); 
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-        
-        .tier-badge { background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.03); color: var(--text-white); padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.75rem; font-weight: 700; display: inline-flex; align-items: center; gap: 5px; margin: 0 auto 1rem auto; letter-spacing: 0.3px; }
-        .tier-cost { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 0.6rem; }
-        .tier-cost strong { color: var(--text-white); font-size: 1.7rem; font-weight: 800; }
-        .tier-prize { font-size: 1rem; color: var(--text-muted); margin-bottom: 1rem; }
-        .tier-prize strong { color: var(--text-neon); font-size: 1.1rem; }
-        
-        .quota-progress { background: rgba(0, 230, 118, 0.04); border: 1px dashed rgba(0, 230, 118, 0.2); padding: 0.6rem; border-radius: 10px; font-size: 0.78rem; color: var(--text-neon); font-weight: 700; margin-bottom: 0.4rem; }
-        .tier-rule-info { font-size: 0.75rem; color: var(--text-muted); line-height: 1.4; padding: 0 5px; }
-        
-        .btn-buy-tier { width: 100%; background: var(--logo-gold); color: #000; border: none; padding: 0.85rem; border-radius: 12px; font-weight: 800; margin-top: 1.5rem; cursor: pointer; transition: var(--transition-smooth); box-shadow: 0 4px 15px rgba(255, 179, 0, 0.15); font-size: 0.9rem; }
-        .btn-buy-tier:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 179, 0, 0.35); }
-
-        /* MODAIS SOBERANOS */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 8, 13, 0.85); backdrop-filter: blur(12px); display: flex; justify-content: center; align-items: center; z-index: 99999; opacity: 0; pointer-events: none; transition: var(--transition-smooth); }
-        .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-card { background: #0E1420; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 24px; width: calc(100% - 32px); max-width: 440px; padding: 2.2rem; text-align: center; transform: scale(0.92); transition: var(--transition-smooth); box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
-        .modal-overlay.active .modal-card { transform: scale(1); }
-        .modal-icon { font-size: 2.8rem; color: #FFB300; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.2)); }
-        .modal-icon.error-icon { color: #EF4444; filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.2)); }
-        .modal-card h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.6rem; tracking: -0.5px; }
-        .modal-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; }
-        .modal-actions { display: flex; flex-direction: column; gap: 12px; }
-        
-        .btn-modal-confirm { background: var(--logo-gold); color: #000; border: none; padding: 0.95rem; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.95rem; box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2); transition: var(--transition-smooth); }
-        .btn-modal-confirm:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255, 179, 0, 0.35); }
-        .btn-modal-cancel { background: transparent; border: 1px solid var(--border-soft); color: var(--text-muted); padding: 0.95rem; border-radius: 12px; font-weight: 600; cursor: pointer; transition: var(--transition-smooth); }
-        .btn-modal-cancel:hover { color: white; background: rgba(255, 255, 255, 0.02); border-color: rgba(255, 255, 255, 0.15); }
-
-        /* TOAST SYSTEM LUXO */
-        .toast-wrapper { position: fixed; top: -100px; left: 50%; transform: translateX(-50%); background: #0E1420; border: 1px solid rgba(255, 255, 255, 0.05); border-left: 5px solid var(--whatsapp-green); padding: 1.2rem 2rem; border-radius: 14px; display: flex; align-items: center; gap: 14px; z-index: 999999; width: calc(100% - 40px); max-width: 420px; opacity: 0; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .toast-wrapper.active { top: 30px; opacity: 1; transform: translateX(-50%) translateY(0); }
-        .toast-wrapper i { font-size: 1.4rem; color: var(--whatsapp-green); }
-        .toast-wrapper span { font-weight: 700; font-size: 0.95rem; color: var(--text-white); }
-
-        /* RESPONSIVIDADE EM DISPOSITIVOS MÓVEIS */
-        @media (max-width: 768px) {
-            body { padding-top: 165px; }
-            .navbar { top: 10px; width: calc(100% - 20px); border-radius: 14px; }
-            .nav-container { flex-direction: column; gap: 0.6rem; padding: 0.8rem; text-align: center; }
-            .nav-menu { gap: 0.3rem; flex-wrap: wrap; justify-content: center; width: 100%; }
-            .nav-menu a { font-size: 0.78rem; padding: 0.4rem 0.6rem; justify-content: center; border-radius: 8px; }
-            .metrics-grid, .investment-options-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-            .group-banner-card { flex-direction: column; align-items: center; text-align: center; padding: 1.5rem 1.2rem; }
-            .btn-join-group { width: 100%; justify-content: center; }
-            .page-header { text-align: center; margin-bottom: 1.8rem; }
-            .page-header h1 { font-size: 1.8rem; }
-            .metric-card { padding: 1.8rem; }
-            .metric-card h2 { font-size: 2.2rem; }
-            .modal-card { padding: 2rem 1.2rem; width: calc(100% - 20px); border-radius: 20px; }
-        }
-
-        #pix-display-area {
-        display: none; 
-        flex-direction: column;
-        align-items: center;      /* Centraliza horizontalmente */
-        justify-content: center;  /* Centraliza verticalmente */
-        width: 100%;
-        text-align: center;       /* Segurança extra para textos */
-        margin-top: 1rem;
-    }
+    <style>
+/* ==========================================================================
+   CONFIGURAÇÕES GLOBAIS E VARIÁVEIS ULTRA PREMIUM
+   ========================================================================== */
+:root {
+    /* Fundo Carbon Deep Blue - Mistura luxuosa de grafite escuro com nuance premium */
+    --bg-dark-base: #0B0F17; 
     
-    #pix-qr-image {
-        max-width: 200px;
-        width: 100%;
-        height: auto;
-        border: 4px solid #fff;
-        border-radius: 12px;
-        margin: 0 auto 20px auto; /* O "0 auto" centraliza a imagem */
-        display: block;
-    }
+    /* Textura sutil de fundo para dar profundidade de plataforma SaaS multimilionária */
+    --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
+                  linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
+    
+    /* Cards Estilo Espelho de Vidro Escuro (Glassmorphism de Alto Padrão) */
+    --bg-dark-card: rgba(20, 29, 43, 0.75); 
+    --bg-dark-input: #172233; 
+    
+    /* Cores de Identidade Limpas e Não Poluídas */
+    --whatsapp-green: #00E676; /* Verde puro e nítido da logo */
+    --text-neon: #02FF8A; /* Verde neon de alta legibilidade para realces */
+    --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); /* Ouro lapidado premium */
+    --text-white: #FFFFFF; 
+    --text-muted: #64748B; /* Cinza slate limpo que reduz a fadiga visual */
+    --text-secondary-green: #94A3B8; 
+    --border-soft: rgba(255, 255, 255, 0.04); /* Bordas quase invisíveis e elegantes */
+    --border-neon-soft: rgba(0, 230, 118, 0.15); /* Brilho de borda sutil */
+    --radius-premium: 20px;
+    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
 
-     /* --- ESTILO LOGO PREMIUM --- */
-.logo {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding: 4px; /* Pequeno espaçamento interno para o hover não 'cortar' */
-    border-radius: 12px;
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+}
+
+body { 
+    background-color: var(--bg-dark-base); 
+    background-image: var(--bg-texture);
+    background-size: auto, 30px 30px, 30px 30px;
+    background-attachment: fixed;
+    color: var(--text-white); 
+    overflow-x: hidden; 
+    padding-top: 130px; 
+    padding-bottom: 60px; 
+}
+
+/* ==========================================================================
+   FLOATING NAVBAR - EFEITO CRISTAL INTEGRADO
+   ========================================================================== */
+.navbar {
+    background: rgba(15, 23, 36, 0.7);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--border-soft);
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: calc(100% - 40px);
+    max-width: 1160px;
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.07);
     transition: var(--transition-smooth);
+}
+
+.nav-container { 
+    margin: 0 auto; 
+    padding: 0.7rem 1.5rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+/* Estilo União Logo Premium */
+.logo { 
+    display: flex; 
+    align-items: center; 
+    text-decoration: none; 
+    padding: 6px 12px; 
+    border-radius: 12px; 
+    font-size: 1.3rem; 
+    font-weight: 800; 
+    color: var(--text-white); 
+    letter-spacing: -0.5px;
+    transition: var(--transition-smooth);
+}
+
+.logo span { 
+    background: var(--logo-gold); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+.logo i { 
+    color: var(--whatsapp-green); 
+    margin-right: 6px; 
+    filter: drop-shadow(0 0 8px rgba(0, 230, 118, 0.4)); 
 }
 
 .logo img {
     max-height: 45px;
     width: auto;
-    /* Adicionamos uma opacidade sutil inicial para transição mais elegante */
     opacity: 0.9;
     filter: drop-shadow(0 4px 10px rgba(0, 230, 118, 0.3));
-    /* Aumentamos a suavidade do transform */
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    backface-visibility: hidden; /* Evita tremidos na animação */
+    backface-visibility: hidden;
+}
+
+.logo:hover {
+    background: rgba(255, 255, 255, 0.03);
 }
 
 .logo:hover img {
     opacity: 1;
     filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
-    transform: scale(1.08) rotate(-1deg); /* Leve rotação dá um ar mais orgânico/premium */
+    transform: scale(1.08) rotate(-1deg);
 }
 
-/* Efeito de "brilho interno" no container da logo ao passar o mouse */
-.logo:hover {
-    background: rgba(255, 255, 255, 0.03);
+.nav-menu { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.8rem; 
+    list-style: none; 
+}
+
+.nav-menu a { 
+    color: var(--text-secondary-green); 
+    text-decoration: none; 
+    font-weight: 600; 
+    font-size: 0.88rem; 
+    transition: var(--transition-smooth); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    padding: 0.6rem 1rem; 
+    border-radius: 12px; 
+}
+
+.nav-menu a:hover { 
+    color: var(--text-white); 
+    background: rgba(255, 255, 255, 0.04); 
+}
+
+.nav-menu a.active { 
+    color: var(--text-neon); 
+    background: rgba(0, 230, 118, 0.06); 
+    border: 1px solid rgba(0, 230, 118, 0.15); 
+}
+
+.logout-link { 
+    color: #F87171 !important; 
+}
+
+.logout-link:hover { 
+    background: rgba(248, 113, 113, 0.08) !important; 
+}
+
+/* ==========================================================================
+   LAYOUT PRINCIPAL E CABEÇALHO
+   ========================================================================== */
+.main-layout { 
+    max-width: 1160px; 
+    margin: 0 auto; 
+    padding: 0 1.5rem; 
+}
+
+.page-header { 
+    margin-bottom: 2.5rem; 
+}
+
+.page-header h1 { 
+    font-size: 2.4rem; 
+    font-weight: 800; 
+    margin-bottom: 0.4rem; 
+    letter-spacing: -0.8px; 
+}
+
+.page-header h1 span { 
+    background: var(--logo-gold); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+}
+
+.page-header p { 
+    color: var(--text-muted); 
+    font-size: 0.98rem; 
+}
+
+/* ==========================================================================
+   METRICS GRID - CARDS DE INDICADORES
+   ========================================================================== */
+.metrics-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 1.5rem; 
+    margin-bottom: 2rem; 
+}
+
+.metric-card { 
+    background: var(--bg-dark-card); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-soft); 
+    padding: 2.2rem; 
+    border-radius: var(--radius-premium); 
+    transition: var(--transition-smooth); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.03);
+}
+
+.metric-card:hover { 
+    border-color: var(--border-neon-soft); 
+    box-shadow: 0 20px 40px rgba(0, 230, 118, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.05); 
+    transform: translateY(-5px); 
+}
+
+.card-meta { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    color: var(--text-muted); 
+    font-size: 0.78rem; 
+    font-weight: 800; 
+    letter-spacing: 1px; 
+    margin-bottom: 0.8rem; 
+    text-transform: uppercase; 
+}
+
+.card-meta i { 
+    font-size: 1.4rem; 
+}
+
+.icon-wallet { 
+    color: #FFB300; 
+    filter: drop-shadow(0 0 10px rgba(255, 179, 0, 0.3)); 
+}
+
+.icon-ticket { 
+    color: var(--whatsapp-green); 
+    filter: drop-shadow(0 0 10px rgba(0, 230, 118, 0.3)); 
+}
+
+.metric-card h2 { 
+    font-size: 2.6rem; 
+    font-weight: 800; 
+    margin-bottom: 0.3rem; 
+    letter-spacing: -1px; 
+}
+
+.sub-text { 
+    font-size: 0.85rem; 
+    color: var(--text-muted); 
+    margin-bottom: 1.2rem; 
+}
+
+/* Botão de Saque Interno - Premium Glass */
+.btn-dash-withdraw { 
+    background: rgba(0, 230, 118, 0.07); 
+    border: 1px solid rgba(0, 230, 118, 0.25); 
+    color: var(--text-neon); 
+    padding: 0.8rem; 
+    border-radius: 12px; 
+    font-size: 0.88rem; 
+    font-weight: 700; 
+    cursor: pointer; 
+    width: 100%; 
+    transition: var(--transition-smooth); 
+    text-align: center; 
+}
+
+.btn-dash-withdraw:hover { 
+    background: var(--logo-gold); 
+    color: #05080E; 
+    border-color: transparent; 
+    font-weight: 800; 
+    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
+}
+
+/* ==========================================================================
+   PROGRESS BANNER - CARD DE EVOLUÇÃO
+   ========================================================================== */
+.progress-banner-card { 
+    background: var(--bg-dark-card); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-soft); 
+    padding: 2rem 2.2rem; 
+    border-radius: var(--radius-premium); 
+    margin-bottom: 1.5rem; 
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+}
+
+.progress-info h3 { 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    margin-bottom: 0.5rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+.progress-info h3 i { 
+    color: #FFB300; 
+}
+
+.progress-info p { 
+    font-size: 0.95rem; 
+    color: var(--text-muted); 
+    margin-bottom: 1.4rem; 
+    line-height: 1.6; 
+}
+
+.progress-bar-bg { 
+    background: var(--bg-dark-input); 
+    width: 100%; 
+    height: 12px; 
+    border-radius: 50px; 
+    overflow: hidden; 
+    margin-bottom: 0.7rem; 
+    padding: 2px;
+}
+
+.progress-bar-fill { 
+    background: var(--logo-gold); 
+    height: 100%; 
+    width: 55%; 
+    border-radius: 50px; 
+    transition: var(--transition-smooth); 
+    box-shadow: 0 0 12px rgba(255, 179, 0, 0.4);
+}
+
+.progress-text-status { 
+    display: flex; 
+    justify-content: space-between; 
+    font-size: 0.82rem; 
+    font-weight: 700; 
+    color: var(--text-muted); 
+    letter-spacing: 0.5px; 
+}
+
+.progress-text-status span:last-child { 
+    color: var(--text-neon); 
+}
+
+/* ==========================================================================
+   GRUPO BANNER - BOTÃO WHATSAPP INTERATIVO
+   ========================================================================== */
+.group-banner-card { 
+    background: linear-gradient(135deg, rgba(20, 29, 43, 0.9) 0%, rgba(13, 38, 26, 0.4) 100%); 
+    border: 1px solid rgba(0, 230, 118, 0.15); 
+    padding: 2rem 2.2rem; 
+    border-radius: var(--radius-premium); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 1.5rem; 
+    margin-bottom: 2.5rem; 
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
+}
+
+.banner-info h3 { 
+    font-size: 1.25rem; 
+    font-weight: 700; 
+    margin-bottom: 0.4rem; 
+}
+
+.banner-info p { 
+    font-size: 0.95rem; 
+    color: var(--text-muted); 
+}
+
+.btn-join-group { 
+    background: #25D366; 
+    color: #FFF; 
+    text-decoration: none; 
+    padding: 0.95rem 2rem; 
+    border-radius: 14px; 
+    font-weight: 700; 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    transition: var(--transition-smooth); 
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3); 
+}
+
+.btn-join-group:hover { 
+    transform: translateY(-3px); 
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.45); 
+}
+
+/* ==========================================================================
+   PLANOS DE INVESTIMENTO - VITRINE DE ENTRADAS
+   ========================================================================== */
+.price-tables-card { 
+    background: var(--bg-dark-card); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-soft); 
+    padding: 2.5rem 2.2rem; 
+    border-radius: var(--radius-premium); 
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); 
+}
+
+.investment-options-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+    gap: 1.5rem; 
+    margin: 2rem 0 1rem 0; 
+}
+
+.tier-item { 
+    background: rgba(255, 255, 255, 0.01); 
+    border: 1px solid rgba(255, 255, 255, 0.03); 
+    padding: 2.2rem 1.6rem; 
+    border-radius: 18px; 
+    text-align: center; 
+    transition: var(--transition-smooth); 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-between; 
+}
+
+.tier-item:hover { 
+    border-color: rgba(245, 166, 35, 0.25); 
+    background: rgba(255, 255, 255, 0.03); 
+    transform: translateY(-6px); 
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.tier-badge { 
+    background: rgba(255, 255, 255, 0.04); 
+    border: 1px solid rgba(255, 255, 255, 0.05); 
+    color: var(--text-white); 
+    padding: 0.4rem 1rem; 
+    border-radius: 50px; 
+    font-size: 0.78rem; 
+    font-weight: 700; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px; 
+    margin: 0 auto 1.2rem auto; 
+    letter-spacing: 0.5px; 
+}
+
+.tier-cost { 
+    font-size: 1.1rem; 
+    color: var(--text-muted); 
+    margin-bottom: 0.6rem; 
+}
+
+.tier-cost strong { 
+    color: var(--text-white); 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+}
+
+.tier-prize { 
+    font-size: 1rem; 
+    color: var(--text-muted); 
+    margin-bottom: 1.2rem; 
+}
+
+.tier-prize strong { 
+    color: var(--text-neon); 
+    font-size: 1.15rem; 
+}
+
+.quota-progress { 
+    background: rgba(0, 230, 118, 0.04); 
+    border: 1px dashed rgba(0, 230, 118, 0.25); 
+    padding: 0.7rem; 
+    border-radius: 12px; 
+    font-size: 0.8rem; 
+    color: var(--text-neon); 
+    font-weight: 700; 
+    margin-bottom: 0.6rem; 
+}
+
+.tier-rule-info { 
+    font-size: 0.78rem; 
+    color: var(--text-muted); 
+    line-height: 1.5; 
+    padding: 0 4px; 
+}
+
+.btn-buy-tier { 
+    width: 100%; 
+    background: var(--logo-gold); 
+    color: #05080E; 
+    border: none; 
+    padding: 0.95rem; 
+    border-radius: 14px; 
+    font-weight: 800; 
+    margin-top: 1.5rem; 
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2); 
+    font-size: 0.92rem; 
+}
+
+.btn-buy-tier:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
+}
+
+/* ==========================================================================
+   MODAIS SOBERANOS - DIÁLOGOS EM ALTA DEFINIÇÃO
+   ========================================================================== */
+.modal-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(5, 8, 13, 0.85); 
+    backdrop-filter: blur(16px); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 99999; 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: var(--transition-smooth); 
+}
+
+.modal-overlay.active { 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+.modal-card { 
+    background: #0E1420; 
+    border: 1px solid rgba(255, 255, 255, 0.06); 
+    border-radius: 24px; 
+    width: calc(100% - 32px); 
+    max-width: 440px; 
+    padding: 2.5rem; 
+    text-align: center; 
+    transform: scale(0.92); 
+    transition: var(--transition-smooth); 
+    box-shadow: 0 30px 70px rgba(0,0,0,0.7); 
+}
+
+.modal-overlay.active .modal-card { 
+    transform: scale(1); 
+}
+
+.modal-icon { 
+    font-size: 3rem; 
+    color: #FFB300; 
+    margin-bottom: 1.2rem; 
+    filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.25)); 
+}
+
+.modal-icon.error-icon { 
+    color: #EF4444; 
+    filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.25)); 
+}
+
+.modal-card h3 { 
+    font-size: 1.6rem; 
+    font-weight: 800; 
+    margin-bottom: 0.6rem; 
+    letter-spacing: -0.5px; 
+}
+
+.modal-card p { 
+    color: var(--text-muted); 
+    font-size: 0.98rem; 
+    margin-bottom: 1.8rem; 
+    line-height: 1.6; 
+}
+
+.modal-actions { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px; 
+}
+
+.btn-modal-confirm { 
+    background: var(--logo-gold); 
+    color: #000; 
+    border: none; 
+    padding: 1rem; 
+    border-radius: 14px; 
+    font-weight: 800; 
+    cursor: pointer; 
+    font-size: 0.98rem; 
+    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2); 
+    transition: var(--transition-smooth); 
+}
+
+.btn-modal-confirm:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 22px rgba(255, 179, 0, 0.4); 
+}
+
+.btn-modal-cancel { 
+    background: transparent; 
+    border: 1px solid var(--border-soft); 
+    color: var(--text-muted); 
+    padding: 1rem; 
+    border-radius: 14px; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: var(--transition-smooth); 
+}
+
+.btn-modal-cancel:hover { 
+    color: white; 
+    background: rgba(255, 255, 255, 0.03); 
+    border-color: rgba(255, 255, 255, 0.2); 
+}
+
+/* ==========================================================================
+   TOAST SYSTEM LUXO - RETORNO IMEDIATO DO SERVIDOR
+   ========================================================================== */
+.toast-wrapper { 
+    position: fixed; 
+    top: -100px; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: #0E1420; 
+    border: 1px solid rgba(255, 255, 255, 0.06); 
+    border-left: 5px solid var(--whatsapp-green); 
+    padding: 1.2rem 2.2rem; 
+    border-radius: 16px; 
+    display: flex; 
+    align-items: center; 
+    gap: 14px; 
+    z-index: 999999; 
+    width: calc(100% - 40px); 
+    max-width: 420px; 
+    opacity: 0; 
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
+    box-shadow: 0 25px 50px rgba(0,0,0,0.6); 
+}
+
+.toast-wrapper.active { 
+    top: 30px; 
+    opacity: 1; 
+    transform: translateX(-50%) translateY(0); 
+}
+
+.toast-wrapper i { 
+    font-size: 1.5rem; 
+    color: var(--whatsapp-green); 
+}
+
+.toast-wrapper span { 
+    font-weight: 700; 
+    font-size: 0.98rem; 
+    color: var(--text-white); 
+}
+
+/* ==========================================================================
+   ÁREA DO PIX INTERATIVA DINÂMICA
+   ========================================================================== */
+#pix-display-area {
+    display: none; 
+    flex-direction: column;
+    align-items: center;      
+    justify-content: center;  
+    width: 100%;
+    text-align: center;       
+    margin-top: 1.5rem;
+}
+
+#pix-qr-image {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border: 4px solid #fff;
+    border-radius: 16px;
+    margin: 0 auto 20px auto; 
+    display: block;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* ==========================================================================
+   SUPORTE DE RESPONSIVIDADE EM DISPOSITIVOS MÓVEIS
+   ========================================================================== */
+@media (max-width: 768px) {
+    body { 
+        padding-top: 185px; 
+    }
+    
+    .navbar { 
+        top: 12px; 
+        width: calc(100% - 24px); 
+        border-radius: 16px; 
+    }
+    
+    .nav-container { 
+        flex-direction: column; 
+        gap: 0.8rem; 
+        padding: 0.9rem; 
+        text-align: center; 
+    }
+    
+    .logo {
+        padding: 4px 8px;
+    }
+    
+    .logo img {
+        max-height: 40px;
+    }
+    
+    .nav-menu { 
+        gap: 0.4rem; 
+        flex-wrap: wrap; 
+        justify-content: center; 
+        width: 100%; 
+    }
+    
+    .nav-menu a { 
+        font-size: 0.8rem; 
+        padding: 0.5rem 0.7rem; 
+        justify-content: center; 
+        border-radius: 10px; 
+    }
+    
+    .metrics-grid, .investment-options-grid { 
+        grid-template-columns: 1fr; 
+        gap: 1.2rem; 
+    }
+    
+    .group-banner-card { 
+        flex-direction: column; 
+        align-items: center; 
+        text-align: center; 
+        padding: 1.8rem 1.4rem; 
+    }
+    
+    .btn-join-group { 
+        width: 100%; 
+        justify-content: center; 
+    }
+    
+    .page-header { 
+        text-align: center; 
+        margin-bottom: 2rem; 
+    }
+    
+    .page-header h1 { 
+        font-size: 2rem; 
+    }
+    
+    .metric-card { 
+        padding: 1.8rem; 
+    }
+    
+    .metric-card h2 { 
+        font-size: 2.3rem; 
+    }
+    
+    .modal-card { 
+        padding: 2.2rem 1.5rem; 
+        width: calc(100% - 24px); 
+        border-radius: 20px; 
+    }
 }
 </style>
 </head>
