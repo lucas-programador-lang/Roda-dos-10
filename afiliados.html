@@ -548,21 +548,23 @@
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
-            // GARANTIA PREMIUM: Força o apelido para letras minúsculas se ele existir, ou usa o UID como fallback seguro
+            // GARANTIA: Define o apelido corretamente
             const apelido = userData?.username ? userData.username.trim().toLowerCase() : user.uid; 
 
-            // Atualiza o bloco do rodapé da sidebar com o nome do usuário logado
+            // Atualiza o rodapé da sidebar
             const welcomeUserEl = document.getElementById("welcome-user");
             if (welcomeUserEl) {
                 welcomeUserEl.textContent = userData?.fullName || userData?.username || "Membro Premium";
             }
 
-            // Define o link idêntico ao esperado pelo r.html
-            document.getElementById("referral-link").value = window.location.origin + '/r.html?id=' + apelido;
+            // Define o link de convite
+            const refLinkInput = document.getElementById("referral-link");
+            if (refLinkInput) {
+                refLinkInput.value = window.location.origin + '/r.html?id=' + apelido;
+            }
 
-            const usersRef = rconst affiliatesRef = ref(db, 'affiliates'); // Aponta para o nó públicoef(db, 'users');
-            
-            // Filtra os indicados cujo campo 'referredBy' combine perfeitamente com o apelido/UID do padrinho
+            // CONSULTA PÚBLICA: Foca no nó de afiliados
+            const affiliatesRef = ref(db, 'affiliates');
             const q = query(affiliatesRef, orderByChild('referredBy'), equalTo(apelido));
             
             const snapshot = await get(q);
@@ -574,9 +576,9 @@
                     const dados = childSnapshot.val();
                     const nomeIndicado = dados.fullName || dados.username || 'Indicado Sem Nome';
                     
-                    // Validação para evitar falhas caso a pessoa cadastrou mas não comprou ainda
-                    const valorCompra = dados.balance || dados.valor || 0; 
-                    const comissao = (parseFloat(valorCompra) * 0.20).toFixed(2).replace('.', ',');
+                    // O valor total gasto agora vem de 'totalSpent' (que o seu Worker deve alimentar)
+                    const totalGasto = dados.totalSpent || 0; 
+                    const comissao = (totalGasto * 0.20).toFixed(2).replace('.', ',');
                     
                     tabela.innerHTML += `
                         <tr style="border-bottom: 1px solid var(--border-soft);">
@@ -599,16 +601,17 @@
         }
     });
 
-    document.getElementById("btn-copy-link").addEventListener("click", () => {
+    // Eventos de Botões
+    document.getElementById("btn-copy-link")?.addEventListener("click", () => {
         const linkInput = document.getElementById("referral-link");
-        linkInput.select();
-        navigator.clipboard.writeText(linkInput.value);
-        const toast = document.getElementById("toastBox");
-        toast.classList.add("active");
-        setTimeout(() => toast.classList.remove("active"), 3000);
+        if (linkInput) {
+            linkInput.select();
+            navigator.clipboard.writeText(linkInput.value);
+            // Adicione seu feedback visual aqui (toast)
+        }
     });
 
-    document.getElementById("btn-logout").addEventListener("click", (e) => {
+    document.getElementById("btn-logout")?.addEventListener("click", (e) => {
         e.preventDefault();
         signOut(auth).then(() => { window.location.href = "login.html"; });
     });
