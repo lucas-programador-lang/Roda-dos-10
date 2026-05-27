@@ -838,10 +838,15 @@ async function confirmPurchase() {
         } catch (e) {
             fireToast("QR Code gerado!");
         }
+  }
+            } else {
+                throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
+            }
+        } catch (error) {
+            console.error("Erro na compra:", error);
+            fireToast("Erro: " + error.message, true);
+        }
     }
-} else {
-    throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
-}
     function fireToast(message, isError = false) {
         const toast = document.getElementById("toastNotification");
         const icon = document.getElementById("toastIcon");
