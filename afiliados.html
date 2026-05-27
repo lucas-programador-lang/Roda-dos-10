@@ -8,29 +8,29 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-   <style>
+  <style>
     :root {
         /* Fundo Carbon Deep Blue - Mistura luxuosa de grafite escuro com nuance premium */
         --bg-dark-base: #0B0F17; 
         
-        /* Textura sutil de fundo */
+        /* Textura sutil de fundo para dar profundidade de plataforma SaaS multimilionária */
         --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
                       linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
                       linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
         
-        /* Cards Estilo Espelho de Vidro Escuro */
+        /* Cards Estilo Espelho de Vidro Escuro (Glassmorphism de Alto Padrão) */
         --bg-dark-card: rgba(20, 29, 43, 0.75); 
         --bg-dark-input: #172233; 
         
-        /* Cores de Identidade Limpas */
-        --whatsapp-green: #00E676; 
-        --text-neon: #02FF8A; 
-        --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); 
+        /* Cores de Identidade Limpas e Não Poluídas */
+        --whatsapp-green: #00E676; /* Verde puro e nítido da logo */
+        --text-neon: #02FF8A; /* Verde neon de alta legibilidade para realces */
+        --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%); /* Ouro lapidado premium */
         --text-white: #FFFFFF; 
-        --text-muted: #64748B; 
+        --text-muted: #64748B; /* Cinza slate limpo que reduz a fadiga visual */
         --text-secondary-green: #94A3B8; 
-        --border-soft: rgba(255, 255, 255, 0.04);
-        --border-neon-soft: rgba(0, 230, 118, 0.15);
+        --border-soft: rgba(255, 255, 255, 0.04); /* Bordas quase invisíveis e elegantes */
+        --border-neon-soft: rgba(0, 230, 118, 0.15); /* Brilho de borda sutil */
         --radius-premium: 20px;
         --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
@@ -48,31 +48,32 @@
     }
 
     /* ==========================================================================
-       ESTRUTURA DA NOVA SIDEBAR LATERAL FIXA
+       ESTRUTURA DA SIDEBAR LATERAL FIXA ULTRA PREMIUM
        ========================================================================== */
     .sidebar {
         width: 260px;
         height: 100vh;
-        background: rgba(15, 23, 36, 0.7);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-right: 1px solid var(--border-soft);
+        background: rgba(11, 15, 23, 0.75); /* Casamento perfeito com o background base */
+        backdrop-filter: blur(24px) saturate(120%);
+        -webkit-backdrop-filter: blur(24px) saturate(120%);
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
         position: fixed;
         top: 0;
         left: 0;
         z-index: 9999;
         display: flex;
         flex-direction: column;
-        padding: 2rem 1.2rem;
-        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
+        padding: 1.5rem 1rem; /* Margens internas equilibradas e finas */
+        box-shadow: 15px 0 50px rgba(0, 0, 0, 0.4);
     }
-/* Container do Logotipo Superior - Versão Premium Otimizada */
+
+    /* Container do Logotipo Superior - Versão Premium Otimizada */
     .sidebar-header {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 2.5rem 1rem;
-        border-bottom: 1px solid var(--border-soft);
+        padding: 1.5rem 0.5rem 2rem 0.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
     }
 
     .logo { 
@@ -80,29 +81,43 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 15px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 12px 24px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.04);
         transition: var(--transition-smooth);
     }
 
     .logo img {
-        max-height: 65px; /* Tamanho imponente e equilibrado */
+        max-height: 55px; /* Proporção fina e elegante */
         width: auto;
-        filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
+        filter: drop-shadow(0 4px 12px rgba(0, 230, 118, 0.15));
         transition: var(--transition-smooth);
     }
 
     .logo:hover {
-        background: rgba(255, 255, 255, 0.06);
-        border-color: var(--border-neon-soft);
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(0, 230, 118, 0.25);
         transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(0, 230, 118, 0.05);
     }
 
     .logo:hover img {
-        filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
-        transform: scale(1.05);
+        filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.4));
+    }
+
+    /* Títulos Organizadores de Categoria de Menu */
+    .menu-category-title {
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        padding-left: 1rem;
+        margin: 1.5rem 0 0.4rem 0;
+        list-style: none;
+    }
+    .sidebar-menu li:first-child.menu-category-title {
+        margin-top: 0; /* Remove a margem do primeiro título do topo */
     }
 
     /* Lista de Menus */
@@ -111,45 +126,159 @@
         margin-top: 2rem;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.35rem; /* Menus levemente mais juntos para visual de app nativo */
         flex: 1; /* Empurra o rodapé para a parte inferior da tela */
     }
 
     .menu-item {
         color: var(--text-secondary-green);
         text-decoration: none;
-        font-weight: 600;
-        font-size: 0.9rem;
-        transition: var(--transition-smooth);
+        font-weight: 500;
+        font-size: 0.88rem;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 0.8rem 1.2rem;
+        gap: 14px;
+        padding: 0.75rem 1rem;
         border-radius: 12px;
         border: 1px solid transparent;
+        position: relative;
     }
+    
     .menu-item i {
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         width: 20px;
         text-align: center;
+        opacity: 0.7;
+        transition: transform 0.2s var(--transition-smooth);
     }
+    
     .menu-item:hover {
         color: var(--text-white);
-        background: rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.02);
     }
+    
+    .menu-item:hover i {
+        opacity: 1;
+        transform: translateX(2px);
+    }
+    
+    /* Estado Ativo Sofisticado */
     .menu-item.active {
+        color: var(--text-white);
+        background: linear-gradient(90deg, rgba(0, 230, 118, 0.08) 0%, rgba(0, 230, 118, 0.01) 100%);
+        border: 1px solid rgba(0, 230, 118, 0.15);
+        font-weight: 600;
+    }
+    
+    .menu-item.active i {
         color: var(--text-neon);
-        background: rgba(0, 230, 118, 0.06);
-        border: 1px solid rgba(0, 230, 118, 0.1);
+        opacity: 1;
+        filter: drop-shadow(0 0 8px rgba(2, 255, 138, 0.4));
     }
 
-    /* Rodapé da Sidebar */
-    .sidebar-footer {
-        border-top: 1px solid var(--border-soft);
-        padding-top: 1.5rem;
+    /* Indicador Físico Lateral do Item Ativo */
+    .menu-item.active::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 25%;
+        height: 50%;
+        width: 3px;
+        background: var(--text-neon);
+        border-radius: 0 4px 4px 0;
+        box-shadow: 0 0 10px var(--text-neon);
     }
-    .logout-link { color: #F87171 !important; }
-    .logout-link:hover { background: rgba(248, 113, 113, 0.08) !important; }
+
+    /* Rodapé da Sidebar - Bloco Multi-informação */
+    .sidebar-footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        padding-top: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .user-meta-box {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        overflow: hidden;
+    }
+
+    .user-meta-avatar {
+        width: 34px;
+        height: 34px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary-green);
+        flex-shrink: 0;
+    }
+
+    .user-meta-info {
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    #welcome-user {
+        color: var(--text-white);
+        font-size: 0.82rem;
+        font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .user-meta-status {
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-top: 1px;
+    }
+
+    /* Indicador Pulsante Real-Time */
+    .pulse-indicator {
+        width: 6px;
+        height: 6px;
+        background-color: var(--text-neon);
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 8px var(--text-neon);
+        animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseGlow {
+        0% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
+        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 10px var(--text-neon); }
+        100% { transform: scale(0.9); opacity: 0.6; box-shadow: 0 0 4px var(--text-neon); }
+    }
+
+    /* Botão Sair Isolado Moderno */
+    .logout-trigger-btn {
+        background: transparent;
+        border: none;
+        color: #F87171;
+        padding: 0.6rem;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .logout-trigger-btn:hover {
+        background: rgba(248, 113, 113, 0.08);
+        color: #ef4444;
+    }
 
     /* ==========================================================================
        LAYOUT PRINCIPAL DE CONTEÚDO (Ajustado ao lado da Sidebar)
@@ -256,7 +385,6 @@
     @media (max-width: 992px) {
         body { flex-direction: column; }
         
-        /* A sidebar vira uma barra superior prática em tablets e celulares */
         .sidebar {
             width: 100%;
             height: auto;
@@ -264,20 +392,32 @@
             padding: 1rem;
             border-right: none;
             border-bottom: 1px solid var(--border-soft);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.3);
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
         }
-        .sidebar-header { padding-bottom: 1rem; }
+        
+        .sidebar-header { padding: 0; border-bottom: none; }
+        .logo { padding: 8px 16px; border-radius: 12px; }
+        .logo img { max-height: 40px; }
+        
         .sidebar-menu { 
             flex-direction: row; 
-            margin-top: 1rem; 
+            margin-top: 0; 
             justify-content: center; 
-            flex-wrap: wrap;
-            gap: 0.4rem;
+            flex-wrap: nowrap;
+            gap: 0.25rem;
+            flex: none;
         }
-        .menu-item { padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; }
-        .sidebar-footer { display: none; } /* Remove redundância do botão sair no menu responsivo */
         
-        .main-layout { margin-left: 0; padding: 1.5rem 1rem; }
+        /* Oculta os títulos de categoria e o marcador físico no mobile */
+        .menu-category-title { display: none !important; }
+        .menu-item { padding: 0.6rem 0.8rem; font-size: 0.8rem; border-radius: 10px; }
+        .menu-item.active::after { display: none; }
+        
+        .sidebar-footer { display: none; } 
+        .main-layout { margin-left: 0; padding: 2rem 1rem; }
     }
 
     @media (max-width: 768px) {
@@ -290,20 +430,25 @@
 </head>
 <body>
 
-  <aside class="sidebar">
+ <aside class="sidebar premium-glass">
     <div class="sidebar-header">
         <a href="dashboard.html" class="logo">
-            <img src="logo.png" alt="Logo Roda dos 10">
+            <img src="logo.png" alt="Roda dos 10">
         </a>
     </div>
     
     <ul class="sidebar-menu">
+        <li class="menu-category-title">PRINCIPAL</li>
+        
         <li>
             <a href="dashboard.html" class="menu-item">
                 <i class="fa-solid fa-chart-pie"></i> 
                 <span>Painel</span>
             </a>
         </li>
+       
+        <li class="menu-category-title">OPERAÇÕES</li>
+
         <li>
             <a href="afiliados.html" class="menu-item active">
                 <i class="fa-solid fa-users"></i> 
@@ -319,10 +464,22 @@
     </ul>
 
     <div class="sidebar-footer">
-        <a href="#" id="btn-logout" class="menu-item logout-link">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> 
-            <span>Sair</span>
-        </a>
+        <div class="user-meta-box">
+            <div class="user-meta-avatar">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <div class="user-meta-info">
+                <span id="welcome-user">Carregando...</span>
+                <span class="user-meta-status">
+                    <span class="pulse-indicator"></span>
+                    Online
+                </span>
+            </div>
+        </div>
+        
+        <button id="btn-logout" class="logout-trigger-btn" title="Sair do painel">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
     </div>
 </aside>
 
