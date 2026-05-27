@@ -284,6 +284,30 @@
         padding: 1rem;
     }
 }
+
+/* --- Ajuste Premium para Logo no Cadastro --- */
+.logo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.logo-img {
+    max-height: 70px; 
+    width: auto;
+    filter: drop-shadow(0 4px 15px rgba(245, 166, 35, 0.3));
+    transition: var(--transition-smooth);
+}
+
+.logo-img:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 0 25px rgba(245, 166, 35, 0.5));
+}
+
+/* Isso remove o estilo antigo do texto que você tinha antes */
+.auth-header .logo {
+    display: none; 
+}
 </style>
 </head>
 <body>
@@ -291,13 +315,12 @@
     <div class="auth-wrapper">
         <div class="auth-container premium-glass">
             
-            <div class="auth-header">
-                <div class="logo">
-                    <i class="fa-solid fa-circle-dot"></i> Roda dos <span>10</span>
+                <div class="auth-header">
+                <div class="logo-wrapper">
+                    <img src="logo.png" alt="Roda dos 10" class="logo-img">
                 </div>
                 <p>Crie sua conta para acompanhar suas cotas e comissões</p>
             </div>
-
             <form id="register-form" autocomplete="off">
                 <div class="input-block">
                     <label for="reg-name">Nome Completo</label>
