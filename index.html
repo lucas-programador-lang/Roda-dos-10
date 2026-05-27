@@ -39,14 +39,12 @@
             overflow-x: hidden;
             padding-bottom: 60px;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
         }
 
         /* ==========================================================================
-           HEADER / NAVBAR (UNIFICADA E PREMIUM)
+           HEADER / NAVBAR
            ========================================================================== */
-        header, .navbar {
+        header {
             background: rgba(17, 26, 46, 0.85);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -87,7 +85,6 @@
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            list-style: none;
         }
 
         .nav-menu a {
@@ -96,24 +93,10 @@
             font-weight: 600;
             font-size: 0.95rem;
             transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
         .nav-menu a:hover, .nav-menu a.active {
-            color: var(--text-white);
-        }
-
-        .nav-menu a.active {
             color: #F5A623;
-        }
-
-        .logout-link {
-            color: #EF4444 !important;
-        }
-        .logout-link:hover {
-            opacity: 0.8;
         }
 
         .btn-dashboard-nav {
@@ -121,90 +104,13 @@
             padding: 0.5rem 1rem;
             border-radius: 50px;
             border: 1px solid var(--border-soft);
-        }
-
-        /* ==========================================================================
-           ESTRUTURA DE LAYOUT PARA O NOVO PAINEL (DASHBOARD, AFILIADOS, PERFIL)
-           ========================================================================== */
-        .main-layout {
-            max-width: 1200px;
-            margin: 2.5rem auto;
-            padding: 0 1rem;
-        }
-
-        .page-header {
-            margin-bottom: 2.5rem;
-        }
-
-        .page-header h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
-        }
-
-        .page-header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        /* GRID DOS NOVOS CARDS DO ECOSSISTEMA */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .premium-card {
-            background: var(--bg-dark-card);
-            border: 1px solid var(--border-soft);
-            border-radius: var(--radius-premium);
-            padding: 2.2rem 2rem;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-smooth);
-        }
-
-        .premium-card:hover {
-            border-color: rgba(245, 166, 35, 0.2);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-        }
-
-        .premium-card h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .premium-card h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: var(--text-white);
-            margin-bottom: 0.5rem;
-        }
-
-        .card-icon {
-            font-size: 1.8rem;
-            color: #F5A623;
-            margin-bottom: 1rem;
-        }
-
-        .card-detail {
-            font-size: 0.8rem;
-            color: var(--neon-green);
-            font-weight: 600;
-        }
-
-        .text-center {
-            text-align: center;
+            gap: 8px;
         }
 
         /* ==========================================================================
-           HERO SECTION & LANDING PAGE ELEMENTS
+           HERO CONTAINER & VISUAL DEMOSTRATIVO
            ========================================================================== */
         .hero-container {
             max-width: 800px;
@@ -247,6 +153,39 @@
             margin-bottom: 2rem;
         }
 
+        /* BARRA DE PROGRESSO SIMULADA NA HOME (DEMO) */
+        .demo-progress-card {
+            background: var(--bg-dark-card);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius-premium);
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .demo-progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .progress-bar-bg {
+            background: rgba(255,255,255,0.05);
+            height: 12px;
+            border-radius: 50px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            background: var(--primary-gold);
+            height: 100%;
+            width: 45%; /* Valor estático demonstrativo para a Landing Page */
+            border-radius: 50px;
+            transition: var(--transition-smooth);
+        }
+
         .features-badges {
             display: flex;
             justify-content: center;
@@ -270,7 +209,9 @@
             color: #F5A623;
         }
 
-        /* CARDS DE SORTEIO GRID */
+        /* ==========================================================================
+           GRID DE SORTEIOS
+           ========================================================================== */
         .grid-sorteios {
             max-width: 1200px;
             margin: 0 auto 4rem auto;
@@ -358,7 +299,6 @@
             color: var(--neon-green);
         }
 
-        /* BOTÕES GERAIS */
         .btn-primary {
             width: 100%;
             background: var(--primary-gold);
@@ -374,8 +314,6 @@
             align-items: center;
             gap: 8px;
             transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
         }
 
         .btn-primary:hover {
@@ -390,12 +328,9 @@
             max-width: 1200px;
             margin: 0 auto 3rem auto;
             padding: 0 1rem;
-            display: flex;
-            justify-content: center;
         }
 
         .rules-container {
-            width: 100%;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1.5rem;
@@ -416,25 +351,6 @@
         .rule-card:hover {
             transform: translateY(-4px);
             border-color: rgba(245, 166, 35, 0.3);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
-
-        .rule-card.featured-border {
-            border-color: rgba(245, 166, 35, 0.2);
-        }
-
-        .rule-card.featured-border:hover {
-            border-color: #F5A623;
-        }
-
-        .card-glow-effect {
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            width: 180px;
-            height: 180px;
-            background: radial-gradient(circle, rgba(245,166,35,0.06) 0%, rgba(0,0,0,0) 70%);
-            pointer-events: none;
         }
 
         .rule-card-header {
@@ -452,32 +368,21 @@
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
-            flex-shrink: 0;
         }
 
-        .circle-gold {
-            background: rgba(245, 166, 35, 0.1);
-            color: #F5A623;
-        }
-
-        .circle-green {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--neon-green);
-        }
+        .circle-gold { background: rgba(245, 166, 35, 0.1); color: #F5A623; }
+        .circle-green { background: rgba(16, 185, 129, 0.1); color: var(--neon-green); }
 
         .header-titles span {
             display: block;
             font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
             color: var(--text-muted);
             font-weight: 700;
-            margin-bottom: 2px;
         }
 
         .header-titles h3 {
             font-size: 1.3rem;
-            color: var(--text-white);
             font-weight: 700;
         }
 
@@ -498,13 +403,11 @@
         .feature-item {
             display: flex;
             gap: 1.2rem;
-            align-items: flex-start;
         }
 
         .item-icon {
             font-size: 1rem;
             color: #F5A623;
-            margin-top: 2px;
             background: rgba(255,255,255,0.03);
             width: 32px;
             height: 32px;
@@ -518,7 +421,6 @@
 
         .item-text h4 {
             font-size: 0.95rem;
-            color: var(--text-white);
             font-weight: 600;
             margin-bottom: 0.3rem;
         }
@@ -529,117 +431,14 @@
             line-height: 1.5;
         }
 
-        .card-action-footer {
-            margin-top: 1.5rem;
-        }
+        .card-action-footer { margin-top: 2rem; }
+        .btn-secondary-action { color: #F5A623; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
 
-        .btn-secondary-action {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: #F5A623;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            transition: var(--transition-smooth);
-        }
-
-        .btn-secondary-action:hover {
-            opacity: 0.8;
-        }
-
-        /* FORMULÁRIOS E INPUTS */
-        .input-block { margin-bottom: 1.2rem; text-align: left; }
-        .input-block label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; font-weight: 500; }
-        
-        .input-block input {
-            width: 100%;
-            background: var(--bg-dark-input);
-            border: 1px solid var(--border-soft);
-            padding: 0.9rem;
-            border-radius: 10px;
-            color: #FFF;
-            outline: none;
-            transition: var(--transition-smooth);
-        }
-        
-        .input-block input:focus {
-            border-color: #F5A623;
-            background: #1e2a4a;
-            box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.1);
-        }
-
-        /* CONTROLES DE QUANTIDADE DO MODAL */
-        .quantity-control {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .qty-btn {
-            background: var(--bg-dark-input);
-            border: 1px solid var(--border-soft);
-            color: var(--text-white);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: var(--transition-smooth);
-        }
-        
-        .qty-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        #qty-display {
-            font-weight: 800;
-            font-size: 1.2rem;
-            min-width: 30px;
-            text-align: center;
-        }
-
-        .total-row {
-            margin: 20px 0;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 700;
-            border: 1px solid var(--border-soft);
-        }
-
-        .btn-submit-order {
-            width: 100%;
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            padding: 1rem;
-            border-radius: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition-smooth);
-        }
-
-        .btn-submit-order:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
-        }
-
-        /* ==========================================================================
-           FLOATING & MODAL & TOAST SYSTEM
-           ========================================================================== */
+        /* MODAL E UTILS DE INTERFACE DEMO */
         .modal-backdrop {
             display: none;
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(7, 11, 19, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
@@ -649,163 +448,61 @@
             padding: 20px;
         }
 
-        .modal-backdrop.active {
-            display: flex;
-        }
+        .modal-backdrop.active { display: flex; }
 
         .modal-card {
-            width: 100%;
-            max-width: 450px;
+            width: 100%; max-width: 450px;
             background: #111A2E;
             border: 1px solid var(--border-soft);
             border-radius: var(--radius-premium);
             padding: 2.2rem 2rem;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        @keyframes modalSlideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .modal-header h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.3rem; }
+        .modal-header p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .modal-close-btn { position: absolute; top: 1.2rem; right: 1.2rem; background: none; border: none; color: var(--text-muted); font-size: 1.2rem; cursor: pointer; }
 
-        .modal-header h2 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 0.3rem;
-        }
+        .input-block { margin-bottom: 1.2rem; }
+        .input-block label { display: block; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem; }
+        .input-block input { width: 100%; background: var(--bg-dark-input); border: 1px solid var(--border-soft); padding: 0.9rem; border-radius: 10px; color: #FFF; outline: none; }
 
-        .modal-header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-        }
+        .quantity-control { display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+        .qty-btn { background: var(--bg-dark-input); border: 1px solid var(--border-soft); color: #FFF; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; font-weight: 700; }
+        #qty-display { font-weight: 800; font-size: 1.2rem; }
 
-        .modal-close-btn {
-            position: absolute;
-            top: 1.2rem; right: 1.2rem;
-            background: none; border: none;
-            color: var(--text-muted);
-            font-size: 1.2rem; cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-        
-        .modal-close-btn:hover {
-            color: var(--text-white);
-        }
+        .total-row { margin: 20px 0; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 10px; display: flex; justify-content: space-between; font-weight: 700; }
+        .btn-submit-order { width: 100%; background: var(--neon-green); color: #000; border: none; padding: 1rem; border-radius: 12px; font-weight: 800; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; }
 
-        /* Toast Notification System */
         .toast-wrapper {
-            position: fixed;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #111A2E;
-            border-left: 4px solid var(--neon-green);
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 99999;
-            width: calc(100% - 2rem);
-            max-width: 400px;
-            opacity: 0;
+            position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
+            background: #111A2E; border-left: 4px solid var(--neon-green);
+            padding: 1rem 1.5rem; border-radius: 10px; display: flex; align-items: center; gap: 12px;
+            z-index: 99999; width: calc(100% - 2rem); max-width: 400px; opacity: 0;
             transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             border: 1px solid var(--border-soft);
         }
+        .toast-wrapper.active { top: 20px; opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        .toast-wrapper.active { 
-            top: 20px; 
-            opacity: 1; 
-            transform: translateX(-50%) translateY(0); 
-        }
-
-        .toast-wrapper span {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-white);
-        }
-
-        /* Botão Flutuante WhatsApp */
         .float-suporte {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25D366;
-            color: #fff;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: var(--transition-smooth);
-            z-index: 1000;
-        }
-
-        .float-suporte:hover {
-            transform: scale(1.1) rotate(10deg);
-            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
-        }
-
-        /* Bordas brilhantes nos cards */
-        .premium-card::before, .sorteio-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: var(--radius-premium);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(245, 166, 35, 0.2), transparent 40%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            position: fixed; bottom: 30px; right: 30px; background: #25D366; color: #fff;
+            width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; z-index: 1000;
         }
 
         /* ==========================================================================
-           RESPONSIVIDADE COMPLETA (MEDIA QUERIES)
+           RESPONSIVIDADE COMPLETA
            ========================================================================== */
         @media (max-width: 992px) {
-            .rules-container {
-                grid-template-columns: 1fr;
-            }
+            .rules-container { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-            .nav-menu {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .page-header {
-                text-align: center;
-            }
+            .nav-container { flex-direction: column; gap: 1rem; text-align: center; }
+            .hero-container h1 { font-size: 2rem; }
         }
 
         @media (min-width: 768px) {
             .hero-container h1 { font-size: 3.4rem; }
-            .grid-sorteios { padding: 0; }
-        }
-
-        @media (min-width: 1200px) {
-            .grid-sorteios {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 2.5rem;
-            }
         }
     </style>
 </head>
@@ -818,35 +515,44 @@
             </div>
             <nav class="nav-menu">
                 <a href="index.html" class="active">Início</a>
-                <a href="login.html" class="btn-dashboard-nav"><i class="fa-solid fa-chart-pie"></i> Área do Cliente</a>
+                <a href="dashboard.html" class="btn-dashboard-nav"><i class="fa-solid fa-chart-pie"></i> Ir para o Painel</a>
             </nav>
         </div>
     </header>
 
     <section class="hero-container">
-        <span class="hero-badge"><i class="fa-solid fa-star"></i> Sorteios por Meta de Compras</span>
+        <span class="hero-badge"><i class="fa-solid fa-star"></i> Demonstração da Página Inicial</span>
         <h1>Gire sua sorte na <br><span>Roda dos 10 no Pix</span></h1>
-        <p>Participe comprando quantas cotas quiser! Os sorteios são liberados imediatamente assim que atingirem o limite de 20 compras. Quanto mais você compra, mais rápido o sorteio acontece!</p>
+        <p>Esta é a tela de apresentação do sistema. Para acompanhar seu saldo de comissões, gerenciar afiliados e solicitar saques reais, acesse o painel completo.</p>
          
+        <div class="demo-progress-card">
+            <div class="demo-progress-header">
+                <span>Progresso de Cotas da Rodada (Demonstração)</span>
+                <span>9 / 20 Compras</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill"></div>
+            </div>
+        </div>
+
         <div class="features-badges">
-            <div class="f-badge"><i class="fa-solid fa-lock-open"></i> Liberado com 20 Compras</div>
-            <div class="f-badge"><i class="fa-solid fa-bolt"></i> Saque a qualquer momento</div>
-            <div class="f-badge"><i class="fa-solid fa-hand-holding-dollar"></i> Saque Mínimo R$ 30,00</div>
+            <div class="f-badge"><i class="fa-solid fa-lock-open"></i> Sorteio com 20 Compras</div>
+            <div class="f-badge"><i class="fa-solid fa-bolt"></i> Painel Operacional na Dashboard</div>
+            <div class="f-badge"><i class="fa-solid fa-hand-holding-dollar"></i> Saque Mínimo R$ 25,00</div>
         </div>
     </section>
 
     <main class="grid-sorteios">
         <div class="sorteio-card">
-            <div class="card-badge">Meta: 20 Compras</div>
+            <div class="card-badge">Meta: 20</div>
             <div class="card-title">Concorra a R$ 25,00</div>
             <div class="card-price"><span>Investimento de</span> R$ 3,50</div>
             <ul class="card-benefits">
                 <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais cotas = Nome repetido)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-circle-check"></i> Envio direto para o Suporte</li>
             </ul>
-            <button class="btn-primary" onclick="openPurchaseModal('Cota Bronze', '3,50', '25,00')">
-                <i class="fa-solid fa-ticket"></i> Comprar Cota
+            <button class="btn-primary" onclick="openDemoModal('Cota Bronze', '3,50')">
+                <i class="fa-solid fa-ticket"></i> Testar Compra
             </button>
         </div>
 
@@ -855,331 +561,159 @@
             <div class="card-title">Concorra a R$ 50,00</div>
             <div class="card-price"><span>Investimento de</span> R$ 5,50</div>
             <ul class="card-benefits">
-                <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais chances)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-circle-check"></i> Multiplique chances por nome</li>
+                <li><i class="fa-solid fa-circle-check"></i> Operação 100% Manual</li>
             </ul>
-            <button class="btn-primary" onclick="openPurchaseModal('Cota Prata', '5,50', '50,00')">
-                <i class="fa-solid fa-bolt"></i> Comprar Cota
+            <button class="btn-primary" onclick="openDemoModal('Cota Prata', '5,50')">
+                <i class="fa-solid fa-bolt"></i> Testar Compra
             </button>
         </div>
 
         <div class="sorteio-card">
-            <div class="card-badge">Meta: 20 Compras</div>
+            <div class="card-badge">Meta: 20</div>
             <div class="card-title">Concorra a R$ 100,00</div>
             <div class="card-price"><span>Investimento de</span> R$ 10,00</div>
             <ul class="card-benefits">
-                <li><i class="fa-solid fa-circle-check"></i> Compre quantas vezes quiser</li>
-                <li><i class="fa-solid fa-circle-check"></i> Sorteio por Nome (Mais chances)</li>
-                <li><i class="fa-solid fa-circle-check"></i> Liberado após 20 cotas vendidas</li>
+                <li><i class="fa-solid fa-circle-check"></i> Máximo retorno no Pix</li>
+                <li><i class="fa-solid fa-circle-check"></i> Validação via WhatsApp</li>
             </ul>
-            <button class="btn-primary" onclick="openPurchaseModal('Cota Ouro', '10,00', '100,00')">
-                <i class="fa-solid fa-ticket"></i> Comprar Cota
+            <button class="btn-primary" onclick="openDemoModal('Cota Ouro', '10,00')">
+                <i class="fa-solid fa-ticket"></i> Testar Compra
             </button>
         </div>
     </main>
 
     <section class="rules-section">
         <div class="rules-container">
-            
             <div class="rule-card">
-                <div class="card-glow-effect"></div>
                 <div class="rule-card-header">
-                    <div class="icon-wrapper circle-gold">
-                        <i class="fa-solid fa-circle-nodes"></i>
-                    </div>
+                    <div class="icon-wrapper circle-gold"><i class="fa-solid fa-circle-nodes"></i></div>
                     <div class="header-titles">
-                        <span>Entenda o Modelo</span>
-                        <h3>Como funcionam os Sorteios?</h3>
+                        <span>Vitrine</span>
+                        <h3>Como Funciona?</h3>
                     </div>
                 </div>
-                
-                <p class="rule-intro">Nosso modelo é baseado em metas de compras 100% transparentes e auditáveis pela comunidade.</p>
-                
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-lock-open"></i></div>
-                        <div class="item-text">
-                            <h4>Regra de Liberação</h4>
-                            <p>O sorteio é disparado imediatamente assim que a rodada atinge o limite exato de <strong>20 compras</strong> de cotas.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <div class="item-text">
-                            <h4>Compre Mais Vezes</h4>
-                            <p>Sem limites! Comprar 2 cotas conta como 2 progressos na meta geral e seu nome entra em duplicado na lista.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-arrow-down-a-z"></i></div>
-                        <div class="item-text">
-                            <h4>Sorteio por Lista de Nomes</h4>
-                            <p>A apuração roda diretamente sobre os nomes da rodada. Quem compra mais, repete o nome e multiplica as chances.</p>
-                        </div>
-                    </div>
-                </div>
+                <p class="rule-intro">Os planos acima simulam a geração de pedidos de cota. Para ver as atualizações em tempo real das suas métricas, use o painel administrativo.</p>
             </div>
 
-            <div class="rule-card featured-border">
-                <div class="card-glow-effect accent-glow"></div>
+            <div class="rule-card">
                 <div class="rule-card-header">
-                    <div class="icon-wrapper circle-green">
-                        <i class="fa-solid fa-hand-holding-dollar"></i>
-                    </div>
+                    <div class="icon-wrapper circle-green"><i class="fa-solid fa-hand-holding-dollar"></i></div>
                     <div class="header-titles">
-                        <span>Programa de Parcerias</span>
-                        <h3>Saques & Indicações</h3>
+                        <span>Afiliados</span>
+                        <h3>Saques e Comissões</h3>
                     </div>
                 </div>
-                
-                <p class="rule-intro">Monetize sua rede de contatos utilizando nossa estrutura de afiliados integrada de ponta.</p>
-                
-                <div class="features-list">
-                    <div class="feature-item">
-                        <div class="item-icon comissao-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <div class="item-text">
-                            <h4>Indicação Direta de 20%</h4>
-                            <p>Fature uma comissão robusta de <strong>20% de saldo líquido</strong> sobre o valor de cada cota adquirida por seus indicados.</p>
-                        </div>
-                    </div>
-                    
-                    <div class="feature-item">
-                        <div class="item-icon"><i class="fa-solid fa-money-bill-transfer"></i></div>
-                        <div class="item-text">
-                            <h4>Saque Manual Simplificado</h4>
-                            <p>Retirada mínima de <strong>R$ 30,00</strong>. Solicite pelo seu painel exclusivo e envie o comprovante ao suporte para envio imediato.</p>
-                        </div>
-                    </div>
-                </div>
-
+                <p class="rule-intro">Indique amigos e ganhe comissões direto na sua carteira interna. O controle e histórico financeiro ficam salvos com segurança na sua Dashboard.</p>
                 <div class="card-action-footer">
-                    <a href="login.html" class="btn-secondary-action">
-                        <i class="fa-solid fa-share-nodes"></i> Ativar meu Link de Afiliado
-                    </a>
+                    <a href="dashboard.html" class="btn-secondary-action">Acessar Minha Dashboard <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
             </div>
-
         </div>
     </section>
 
     <a href="https://wa.me/639759981028" target="_blank" class="float-suporte"><i class="fa-brands fa-whatsapp"></i></a>
 
-    <div class="modal-backdrop" id="purchaseModal">
+    <div class="modal-backdrop" id="demoModal">
         <div class="modal-card">
-            <button class="modal-close-btn" onclick="closePurchaseModal()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="modal-close-btn" onclick="closeDemoModal()"><i class="fa-solid fa-xmark"></i></button>
             <div class="modal-header">
-                <h2 id="modalPlanTitle">Adquirir Cota</h2>
-                <p id="modalPlanDesc">Carregando detalhes do plano...</p>
+                <h2 id="demoTitle">Adquirir Cota</h2>
+                <p id="demoDesc">Modo de demonstração da interface inicial.</p>
             </div>
             <div class="modal-body">
                 <div class="input-block">
-                    <label for="client-name">Seu Nome Completo (Usado no Sorteio)</label>
-                    <input type="text" id="client-name" placeholder="Ex: José Lucas">
+                    <label>Seu Nome Completo</label>
+                    <input type="text" id="demo-name" placeholder="Ex: José Lucas">
                 </div>
                 <div class="input-block">
-                    <label>Quantidade de Cotas (Acelera a meta de liberação)</label>
+                    <label>Quantidade de Cotas</label>
                     <div class="quantity-control">
-                        <button class="qty-btn" onclick="changeQuantity(-1)">-</button>
-                        <span id="qty-display">1</span>
-                        <button class="qty-btn" onclick="changeQuantity(1)">+</button>
+                        <button class="qty-btn" onclick="changeDemoQty(-1)">-</button>
+                        <span id="demo-qty">1</span>
+                        <button class="qty-btn" onclick="changeDemoQty(1)">+</button>
                     </div>
                 </div>
                 <div class="total-row">
-                    <span>Total a Pagar:</span>
-                    <span id="total-display">R$ 0,00</span>
+                    <span>Total Estimado:</span>
+                    <span id="demo-total">R$ 0,00</span>
                 </div>
-                <button class="btn-submit-order" onclick="confirmPurchase()"><i class="fa-solid fa-paper-plane"></i> Enviar Pedido via WhatsApp</button>
+                <button class="btn-submit-order" onclick="triggerDemoPurchase()"><i class="fa-solid fa-paper-plane"></i> Simular Envio no WhatsApp</button>
             </div>
         </div>
     </div>
 
-    <div class="toast-wrapper" id="toastNotification">
+    <div class="toast-wrapper" id="demoToast">
         <i class="fa-solid fa-circle-check" id="toastIcon"></i>
         <span id="toastMsg">Sucesso!</span>
     </div>
 
     <script>
-        // ==========================================
-        // CONTROLE DE ESTADOS DO APP (RODA DOS 10)
-        // ==========================================
-        let pricePerUnit = 0;
-        let prizeValue = 0;
-        let currentTicketName = "";
-        let currentQuantity = 1;
+        // Lógica simplificada da página inicial para demonstração
+        let demoPrice = 0;
+        let demoQty = 1;
+        let demoPlanName = "";
 
-        // ==========================================
-        // SISTEMA DE MEMÓRIA LOCAL (LOCALSTORAGE)
-        // ==========================================
-        function getLocalData() {
-            let data = localStorage.getItem("roda_dos_10_data");
-            if (!data) {
-                data = { balance: 0.00, purchasedTicketsCount: 0, globalPoolCount: 6 };
-                localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
-                return data;
-            }
-            let parsed = JSON.parse(data);
-            if (parsed.globalPoolCount === undefined) parsed.globalPoolCount = 6;
-            return parsed;
+        function openDemoModal(name, price) {
+            demoPlanName = name;
+            demoPrice = parseFloat(price.replace(",", "."));
+            demoQty = 1;
+            
+            document.getElementById("demoTitle").innerText = `Adquirir ${name} (Demo)`;
+            document.getElementById("demo-name").value = "";
+            
+            recalcDemo();
+            document.getElementById("demoModal").classList.add("active");
         }
 
-        function saveLocalData(data) {
-            localStorage.setItem("roda_dos_10_data", JSON.stringify(data));
-            updateDashboardMetrics();
+        function closeDemoModal() {
+            document.getElementById("demoModal").classList.remove("active");
         }
 
-        // ==========================================
-        // ATUALIZA INTERFACE DO DASHBOARD E PROGRESSO
-        // ==========================================
-        function updateDashboardMetrics() {
-            const balanceEl = document.getElementById("dash-balance");
-            const ticketsEl = document.getElementById("dash-tickets");
-            const progressFill = document.getElementById("meta-progress-fill");
-            const progressText = document.getElementById("meta-text-count");
-            
-            const data = getLocalData();
-
-            if (balanceEl) balanceEl.innerText = `R$ ${data.balance.toFixed(2).replace(".", ",")}`;
-            if (ticketsEl) ticketsEl.innerText = data.purchasedTicketsCount;
-
-            let currentPool = data.globalPoolCount;
-            if (currentPool > 20) currentPool = 20;
-            
-            const percentage = (currentPool / 20) * 100;
-            
-            if (progressFill) progressFill.style.width = `${percentage}%`;
-            if (progressText) progressText.innerText = `${currentPool} / 20 Compras`;
+        function changeDemoQty(factor) {
+            demoQty += factor;
+            if (demoQty < 1) demoQty = 1;
+            recalcDemo();
         }
 
-        // ==========================================
-        // FUNÇÕES DO MODAL PREMIUM DE COMPRA
-        // ==========================================
-        function openPurchaseModal(name, price, prize) {
-            currentTicketName = name;
-            pricePerUnit = parseFloat(price.toString().replace(",", "."));
-            prizeValue = parseFloat(prize.toString().replace(",", "."));
-            currentQuantity = 1;
-
-            const nameEl = document.getElementById("modalPlanTitle");
-            const clientNameInput = document.getElementById("client-name");
-
-            if (nameEl) nameEl.innerText = `Adquirir ${name}`;
-            if (clientNameInput) clientNameInput.value = "";
-
-            recalculateTotal();
-            
-            const modal = document.getElementById("purchaseModal");
-            if (modal) modal.classList.add("active");
+        function recalcDemo() {
+            document.getElementById("demo-qty").innerText = demoQty;
+            const finalPrice = demoPrice * demoQty;
+            document.getElementById("demo-total").innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
+            document.getElementById("demoDesc").innerHTML = `Demonstração de compra de <strong>${demoQty} cota(s)</strong> do plano <strong>${demoPlanName}</strong>.`;
         }
 
-        function closePurchaseModal() {
-            const modal = document.getElementById("purchaseModal");
-            if (modal) modal.classList.remove("active");
-        }
-
-        function changeQuantity(factor) {
-            currentQuantity += factor;
-            if (currentQuantity < 1) currentQuantity = 1;
-            recalculateTotal();
-        }
-
-        function recalculateTotal() {
-            const qtyDisplay = document.getElementById("qty-display");
-            const totalDisplay = document.getElementById("total-display");
-            const descEl = document.getElementById("modalPlanDesc");
-            
-            if (qtyDisplay) qtyDisplay.innerText = currentQuantity;
-            
-            const finalPrice = pricePerUnit * currentQuantity;
-            if (totalDisplay) totalDisplay.innerText = `R$ ${finalPrice.toFixed(2).replace(".", ",")}`;
-            
-            if (descEl) {
-                descEl.innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> para o plano <strong>${currentTicketName}</strong>.<br>` + 
-                                   `Seu nome será inserido <strong>${currentQuantity} vezes</strong> no sorteio assim que a meta de 20 compras da rodada for atingida!`;
-            }
-        }
-
-        // ==========================================
-        // ENVIO DE PEDIDO VIA WHATSAPP (COMPRA)
-        // ==========================================
-        function confirmPurchase() {
-            const clientNameInput = document.getElementById("client-name");
-            const clientName = clientNameInput ? clientNameInput.value.trim() : "";
-
-            if (!clientName) {
-                fireToast("Por favor, preencha seu nome completo para o sorteio.", true);
+        function triggerDemoPurchase() {
+            const name = document.getElementById("demo-name").value.trim();
+            if(!name) {
+                fireDemoToast("Digite seu nome para validação de teste.", true);
                 return;
             }
-
-            const finalValueStr = (pricePerUnit * currentQuantity).toFixed(2).replace(".", ",");
             
-            const textMessage = 
-                `🎯 *RODA DOS 10 - NOVO PEDIDO DE COTAS* 🎯\n\n` +
-                `👤 *Nome do Participante:* ${clientName}\n` +
-                `🎫 *Plano Escolhido:* ${currentTicketName}\n` +
-                `🔢 *Quantidade Adquirida:* ${currentQuantity} Cota(s)\n` +
-                `📈 *Impacto na Rodada:* Conta como +${currentQuantity} compras na meta total!\n` +
-                `💰 *Valor Total do Pedido:* R$ ${finalValueStr}\n\n` +
-                `🍀 *Regra do Sorteio:* O nome desse usuário será repetido *${currentQuantity} vezes* nas urnas assim que o plano bater o limite de 20 compras! Aguardando liberação.`;
-
-            let data = getLocalData();
-            data.purchasedTicketsCount += currentQuantity;
-            data.globalPoolCount += currentQuantity;
-            saveLocalData(data);
-
-            fireToast("Cota gerada! Abrindo chat do suporte...");
-            
+            fireDemoToast("Simulação concluída! Indo para o WhatsApp de suporte...");
             setTimeout(() => {
-                window.open(`https://wa.me/639759981028?text=${encodeURIComponent(textMessage)}`, '_blank');
-                closePurchaseModal();
+                const text = encodeURIComponent(`🎯 *RODA DOS 10 - NOVO PEDIDO DEMO*\n👤 Nome: ${name}\n🎫 Plano: ${demoPlanName}\n🔢 Qtd: ${demoQty}`);
+                window.open(`https://wa.me/639759981028?text=${text}`, '_blank');
+                closeDemoModal();
             }, 1200);
         }
 
-        // ==========================================
-        // CONTROLE DO TOAST PREMIUM DESIGN
-        // ==========================================
-        function fireToast(message, isError = false) {
-            const toast = document.getElementById("toastNotification");
+        function fireDemoToast(msg, isError = false) {
+            const toast = document.getElementById("demoToast");
             const icon = document.getElementById("toastIcon");
             const msgEl = document.getElementById("toastMsg");
-
-            if (!toast || !msgEl) return;
-
-            msgEl.innerText = message;
-
-            if (isError) {
-                toast.style.borderLeftColor = "#EF4444";
-                if (icon) {
-                    icon.className = "fa-solid fa-circle-xmark";
-                    icon.style.color = "#EF4444";
-                }
-            } else {
-                toast.style.borderLeftColor = "var(--neon-green)";
-                if (icon) {
-                    icon.className = "fa-solid fa-circle-check";
-                    icon.style.color = "var(--neon-green)";
-                }
-            }
-
+            
+            msgEl.innerText = msg;
+            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+            icon.style.color = isError ? "#EF4444" : "#10B981";
+            
             toast.classList.add("active");
-            setTimeout(() => {
-                toast.classList.remove("active");
-            }, 4000);
+            setTimeout(() => toast.classList.remove("active"), 3500);
         }
 
-        // Fecha o modal ao clicar na overlay escura
-        window.addEventListener("click", function(event) {
-            const backdrop = document.getElementById("purchaseModal");
-            if (backdrop && event.target === backdrop) {
-                closePurchaseModal();
-            }
-        });
-
-        // Inicialização na montagem da viewport
-        document.addEventListener("DOMContentLoaded", () => {
-            updateDashboardMetrics();
+        window.addEventListener("click", (e) => {
+            if(e.target === document.getElementById("demoModal")) closeDemoModal();
         });
     </script>
 </body>
