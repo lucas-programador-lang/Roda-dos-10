@@ -323,12 +323,12 @@
                     </div>
                 </div>
 
-                <div class="input-block">
-                    <label for="reg-ref">Código de Indicação (Opcional)</label>
-                    <div class="input-group-icon">
-                        <i class="fa-solid fa-user-plus"></i>
-                        <input type="text" id="reg-ref" placeholder="Ex: REF12345">
-                    </div>
+               <div class="input-block">
+                <label for="reg-ref">Código de Indicação (Opcional)</label>
+                 <div class="input-group-icon">
+                 <i class="fa-solid fa-user-plus"></i>
+                  <input type="text" id="reg-ref" placeholder="Ex: lucas" autocomplete="off">
+                </div>
                 </div>
 
                 <label class="terms-label">
@@ -378,28 +378,36 @@
         const msgSpan = document.getElementById("toastMessage");
         
         msgSpan.innerText = message;
-        toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+        toast.style.borderLeftColor = isError ? "#EF4444" : "#00E676";
         icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
-        icon.style.color = isError ? "#EF4444" : "#10B981";
+        icon.style.color = isError ? "#EF4444" : "#00E676";
         
         toast.classList.add("active");
         setTimeout(() => toast.classList.remove("active"), 3500);
     }
 
-    // CORREÇÃO SOLIDIFICADA: Aguarda a renderização completa e captura o '?id=' vindo da rota /r
+    // CAPTURA PREMIUM: Monitora a URL e injeta o username amigável no input de indicação
     window.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             const urlParams = new URLSearchParams(window.location.search);
+            // Captura o 'id' vindo da rota /r de forma prioritária
             const refCode = urlParams.get('id') || urlParams.get('ref');
             
             console.log("URL de cadastro detectada:", window.location.search);
-            console.log("Código de indicação capturado:", refCode);
             
             if (refCode) {
                 const refInput = document.getElementById('reg-ref');
                 if (refInput) {
-                    refInput.value = refCode.trim();
-                    console.log("Input preenchido com sucesso:", refInput.value);
+                    // Limpa espaços e força letras minúsculas (padrão do referral_map)
+                    const usernameLimpo = refCode.trim().toLowerCase();
+                    refInput.value = usernameLimpo;
+                    
+                    // Premium Touch: Trava o input para evitar edições acidentais
+                    refInput.readOnly = true;
+                    refInput.style.opacity = '0.65';
+                    refInput.style.cursor = 'not-allowed';
+                    
+                    console.log("Input de indicação configurado com o username:", usernameLimpo);
                 } else {
                     console.error("Erro: O input com ID 'reg-ref' não foi localizado na tela.");
                 }
@@ -413,7 +421,7 @@
         const name = document.getElementById('reg-name').value.trim();
         const email = document.getElementById('reg-email').value.trim();
         const password = document.getElementById('reg-password').value;
-        const referralInput = document.getElementById('reg-ref').value.trim();
+        const referralInput = document.getElementById('reg-ref').value.trim().toLowerCase();
         const termsChecked = document.getElementById('reg-terms').checked;
 
         if (!termsChecked) {
@@ -426,32 +434,33 @@
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
 
-            // 2. Atualiza o perfil interno do Auth
+            // 2. Atualiza o nome público no Auth
             await updateProfile(user, { displayName: name });
 
-            // 3. Configuração e validação do indicador
+            // 3. Validação robusta do Username de Indicação
             let padrinhoParaSalvar = "NENHUM";
                 
             if (referralInput) {
-                console.log("Validando o código recebido no submit:", referralInput);
+                console.log("Validando o username no submit:", referralInput);
                 try {
-                    // Verifica se o apelido existe mapeado no banco
-                    const snap = await get(ref(db, 'referral_map/' + referralInput.toLowerCase()));
+                    // Consulta o nó referral_map para checar a existência real do apelido
+                    const snap = await get(ref(db, 'referral_map/' + referralInput));
                     
                     if (snap.exists()) {
                         padrinhoParaSalvar = referralInput;
-                        console.log("SUCESSO: Padrinho validado! Código salvo:", padrinhoParaSalvar);
+                        console.log("SUCESSO: Username validado no mapa! Dono UID:", snap.val().uid);
                     } else {
+                        // Caso tenha digitado manualmente algo inexistente, salvamos como fallback
                         padrinhoParaSalvar = referralInput;
-                        console.log("AVISO: Código inserido manualmente/direto, salvando texto original.");
+                        console.log("AVISO: Username não mapeado, salvando texto puro digitado.");
                     }
                 } catch (err) {
-                    console.error("Erro ao acessar validação de indicação:", err);
-                    padrinhoParaSalvar = referralInput; // Fallback seguro para não travar o cadastro
+                    console.error("Erro ao validar indicação no banco:", err);
+                    padrinhoParaSalvar = referralInput; // Fallback para não travar a experiência do usuário
                 }
             }
                 
-            // 4. Salva os dados estruturados no Realtime Database
+            // 4. Salva a árvore de dados no Realtime Database no padrão luxo
             await set(ref(db, `users/${user.uid}`), {
                 fullName: name,
                 email: user.email,
@@ -460,25 +469,25 @@
                 referredBy: padrinhoParaSalvar, 
                 createdAt: new Date().toISOString()
             });
-                                    
-            console.log("Dados enviados com sucesso para: users/" + user.uid);
+                                            
+            console.log("Registro concluído com sucesso para o UID:", user.uid);
 
-            showToast("Conta criada! Redirecionando para o painel...");
+            showToast("Conta criada com sucesso! Preparando ambiente...");
             setTimeout(() => {
                 window.location.href = 'dashboard.html';
             }, 1500);
 
         } catch (error) {
-            console.error("Erro no registro:", error.code);
+            console.error("Erro no processo de registro:", error.code);
             
             if (error.code === 'auth/email-already-in-use') {
-                showToast("Este e-mail já está em uso por outra conta.", true);
+                showToast("Este e-mail já está associado a outra conta.", true);
             } else if (error.code === 'auth/weak-password') {
-                showToast("A senha precisa ter pelo menos 6 dígitos.", true);
+                showToast("A senha deve conter no mínimo 6 caracteres.", true);
             } else if (error.code === 'auth/invalid-email') {
-                showToast("Formato de e-mail inválido.", true);
+                showToast("Por favor, insira um e-mail válido.", true);
             } else {
-                showToast("Ocorreu um erro ao processar o cadastro.", true);
+                showToast("Ocorreu um erro inesperado ao criar o perfil.", true);
             }
         }
     });
