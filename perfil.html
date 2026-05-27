@@ -391,7 +391,7 @@
         <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
         <h3>Meu Apelido de Afiliado</h3>
         <p class="instruction-text" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-            Seu link será: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">roda10.com/ref/<span id="preview-nickname">seu-apelido</span></code>
+            Seu link será: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">https://roda-dos-10.pages.dev/r.html?id=<span id="preview-nickname">seu-apelido</span></code>
         </p>
         
         <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
@@ -439,8 +439,7 @@
     <i id="toastIcon" class="fa-solid"></i>
     <span id="toastMessage">Status</span>
 </div>
-
-    <script type="module">
+<script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { 
         getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
@@ -485,14 +484,17 @@
                 const inputUsername = document.getElementById("perf-username");
                 const btnSave = document.getElementById("btn-save-username");
                 const instructionText = document.getElementById("username-instruction");
+                const previewNick = document.getElementById("preview-nickname");
 
                 // TRAVA DE SEGURANÇA: Verifica se já existe apelido
                 if (userSnapshot.exists() && userSnapshot.val().username) {
-                    inputUsername.value = userSnapshot.val().username;
+                    const apelidoSalvo = userSnapshot.val().username;
+                    inputUsername.value = apelidoSalvo;
                     inputUsername.readOnly = true; // Bloqueia digitação
                     inputUsername.style.opacity = '0.6';
                     inputUsername.style.cursor = 'not-allowed';
                     
+                    if (previewNick) previewNick.textContent = apelidoSalvo;
                     if (instructionText) instructionText.innerText = "Seu apelido exclusivo de afiliado já está definido e não pode ser alterado.";
                     
                     btnSave.innerText = "Apelido Já Definido";
@@ -561,7 +563,7 @@
         } catch (error) {
             showFeedback("Erro ao registrar apelido.", false);
         }
-    }); // <--- CORREÇÃO: Esta linha fechando o EventListener estava faltando!
+    });
 
     // Lógica para Alterar Senha (Campos Obrigatórios)
     document.getElementById("btn-update-password").addEventListener("click", async () => {
