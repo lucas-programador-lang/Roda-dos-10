@@ -603,3 +603,53 @@ header, .navbar {
     .hero-container h1 { font-size: 3.4rem; }
     .grid-sorteios { padding: 0; }
 }
+
+/* Tipografia otimizada */
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* Efeito de Glow (Borda de luz) nos cards */
+.premium-card::before, .sorteio-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    border-radius: var(--radius-premium);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(245, 166, 35, 0.2), transparent 40%);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Melhoria no hover dos botões */
+.btn-primary {
+    position: relative;
+    overflow: hidden;
+    background: var(--primary-gold);
+    transition: all 0.5s ease;
+}
+
+.btn-primary:hover {
+    box-shadow: 0 0 20px rgba(245, 166, 35, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Ajuste de grid para desktop largo */
+@media (min-width: 1200px) {
+    .grid-sorteios {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+}
+
+/* Foco mais elegante nos inputs */
+.input-block input:focus {
+    border-color: #F5A623;
+    background: #1e2a4a;
+    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.1);
+}
