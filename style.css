@@ -653,3 +653,64 @@ body {
     background: #1e2a4a;
     box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.1);
 }
+
+/* --- REFINAMENTO DE ELEMENTOS FLUTUANTES (MODAL E SUPORTE) --- */
+
+/* Modal Premium */
+.modal-backdrop {
+    background: rgba(7, 11, 19, 0.85);
+    backdrop-filter: blur(10px);
+}
+
+.modal-card {
+    background: #111A2E;
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-premium);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+/* Botão Flutuante WhatsApp */
+.float-suporte {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #25D366;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+    transition: var(--transition-smooth);
+    z-index: 1000;
+}
+
+.float-suporte:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+}
+
+/* Ajustes finos nos controles de quantidade */
+.qty-btn {
+    background: var(--bg-dark-input);
+    border: 1px solid var(--border-soft);
+    color: var(--text-white);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-submit-order {
+    width: 100%;
+    background: var(--neon-green);
+    color: #000;
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    font-weight: 800;
+    margin-top: 1rem;
+    cursor: pointer;
+}
