@@ -8,646 +8,786 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
     :root {
-    /* Fundo Carbon Deep Blue - Profundidade e Elegância Máxima */
-    --bg-dark-base: #0B0F17; 
-    
-    /* Textura de fundo sutil para ambiente profissional multimilionário */
-    --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
-                  linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
-    
-    /* Cards com Glassmorphism de Alto Padrão */
-    --bg-dark-card: rgba(20, 29, 43, 0.75); 
-    --bg-dark-input: #172233;
-    
-    /* Identidade de Cores Limpas e Alinhadas */
-    --whatsapp-green: #00E676;
-    --text-neon: #02FF8A; 
-    --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
-    --text-white: #FFFFFF; 
-    --text-muted: #64748B; 
-    --text-secondary-green: #94A3B8;
-    --border-soft: rgba(255, 255, 255, 0.04);
-    --border-neon-soft: rgba(0, 230, 118, 0.15);
-    --radius-premium: 20px;
-    --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
+        /* Fundo Carbon Deep Blue - Profundidade e Elegância Máxima */
+        --bg-dark-base: #0B0F17; 
+        
+        /* Textura de fundo sutil para ambiente profissional multimilionário */
+        --bg-texture: radial-gradient(circle at 50% 0%, rgba(0, 230, 118, 0.05) 0%, rgba(11, 15, 23, 0) 70%),
+                      linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
+        
+        /* Cards com Glassmorphism de Alto Padrão */
+        --bg-dark-card: rgba(20, 29, 43, 0.75); 
+        --bg-dark-input: #172233;
+        
+        /* Identidade de Cores Limpas e Alinhadas */
+        --whatsapp-green: #00E676;
+        --text-neon: #02FF8A; 
+        --logo-gold: linear-gradient(135deg, #FFF59D 0%, #FFB300 60%, #E65100 100%);
+        --text-white: #FFFFFF; 
+        --text-muted: #64748B; 
+        --text-secondary-green: #94A3B8;
+        --border-soft: rgba(255, 255, 255, 0.04);
+        --border-neon-soft: rgba(0, 230, 118, 0.15);
+        --radius-premium: 20px;
+        --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-    font-family: 'Plus Jakarta Sans', sans-serif; 
-}
+    * { 
+        margin: 0; 
+        padding: 0; 
+        box-sizing: border-box; 
+        font-family: 'Plus Jakarta Sans', sans-serif; 
+    }
 
-body { 
-    background-color: var(--bg-dark-base); 
-    background-image: var(--bg-texture);
-    background-size: auto, 30px 30px, 30px 30px;
-    color: var(--text-white); 
-    overflow-x: hidden;
-    display: flex; 
-    min-height: 100vh;
-}
+    body { 
+        background-color: var(--bg-dark-base); 
+        background-image: var(--bg-texture);
+        background-size: auto, 30px 30px, 30px 30px;
+        color: var(--text-white); 
+        overflow-x: hidden;
+        display: flex; 
+        min-height: 100vh;
+    }
 
-/* ==========================================================================
-   ESTRUTURA DA NOVA SIDEBAR LATERAL FIXA
-   ========================================================================== */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    background: rgba(15, 23, 36, 0.7);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-right: 1px solid var(--border-soft);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    padding: 2rem 1.2rem;
-    box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2.5rem 1rem;
-    border-bottom: 1px solid var(--border-soft);
-}
-
-.logo { 
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    transition: var(--transition-smooth);
-}
-
-.logo img {
-    max-height: 65px; 
-    width: auto;
-    filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
-    transition: var(--transition-smooth);
-}
-
-.logo:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--border-neon-soft);
-    transform: translateY(-2px);
-}
-
-.logo:hover img {
-    filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
-    transform: scale(1.05);
-}
-
-.sidebar-menu {
-    list-style: none;
-    margin-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    flex: 1; 
-}
-
-.menu-item {
-    color: var(--text-secondary-green);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.9rem;
-    transition: var(--transition-smooth);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 0.8rem 1.2rem;
-    border-radius: 12px;
-    border: 1px solid transparent;
-}
-
-.menu-item i {
-    font-size: 1.1rem;
-    width: 20px;
-    text-align: center;
-}
-
-.menu-item:hover {
-    color: var(--text-white);
-    background: rgba(255, 255, 255, 0.03);
-}
-
-.menu-item.active {
-    color: var(--text-neon);
-    background: rgba(0, 230, 118, 0.06);
-    border: 1px solid rgba(0, 230, 118, 0.1);
-}
-
-.sidebar-footer {
-    border-top: 1px solid var(--border-soft);
-    padding-top: 1.5rem;
-}
-
-.logout-link { color: #F87171 !important; }
-.logout-link:hover { background: rgba(248, 113, 113, 0.08) !important; }
-
-/* ==========================================================================
-   CONTAINER PRINCIPAL DO CONTEÚDO
-   ========================================================================== */
-.main-layout { 
-    flex: 1;
-    margin-left: 260px; 
-    max-width: 1200px; 
-    padding: 2.5rem 2rem; 
-    box-sizing: border-box;
-}
-
-.page-header { text-align: center; margin-bottom: 2.5rem; }
-.page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
-.page-header h1 span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-.page-header p { color: var(--text-muted); font-size: 0.95rem; }
-
-/* BANNER DE ATIVAÇÃO DE AFILIADO */
-.affiliate-activation-banner {
-    background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%);
-    border: 1px solid rgba(16, 185, 129, 0.2);
-    border-radius: var(--radius-premium);
-    padding: 2.5rem;
-    margin-bottom: 2rem;
-    text-align: center;
-    transition: var(--transition-smooth);
-}
-
-.affiliate-activation-banner:hover {
-    border-color: rgba(16, 185, 129, 0.4);
-    box-shadow: 0 15px 35px rgba(16, 185, 129, 0.03);
-    transform: translateY(-2px);
-}
-
-.affiliate-activation-banner h3 {
-    margin-top: 1rem;
-    color: var(--text-white);
-}
-
-.affiliate-activation-banner p {
-    margin: 0.5rem 0 0 0;
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-
-/* CARD PREMIUM DE PERFIL */
-.premium-card { 
-    background: var(--bg-dark-card); 
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--border-soft); 
-    border-radius: var(--radius-premium); 
-    padding: 3rem 2.5rem; 
-    max-width: 500px; 
-    margin: 0 auto; 
-    text-align: center; 
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
-    transition: var(--transition-smooth);
-}
-
-.premium-card:hover {
-    border-color: var(--border-neon-soft);
-    box-shadow: 0 25px 50px rgba(0, 230, 118, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.02);
-    transform: translateY(-4px);
-}
-
-.card-icon { 
-    font-size: 3rem; 
-    color: #FFB300; 
-    margin-bottom: 1.5rem; 
-    filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.25)); 
-}
-
-.instruction-text { 
-    font-size: 0.95rem; 
-    color: var(--text-muted); 
-    line-height: 1.6; 
-    margin-bottom: 2.2rem; 
-}
-
-/* BOTÃO DE REDEFINIÇÃO UNIFICADO */
-.btn-reset-password { 
-    width: 100%; 
-    background: var(--logo-gold); 
-    color: #000; 
-    border: none; 
-    padding: 1rem; 
-    border-radius: 12px; 
-    font-weight: 800; 
-    font-size: 1rem;
-    cursor: pointer; 
-    transition: var(--transition-smooth); 
-    box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn-reset-password:hover { 
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
-    filter: brightness(1.1);
-}
-
-/* TOAST LUXO CONFIGURADO */
-.toast-wrapper { 
-    position: fixed; 
-    top: -100px; 
-    left: 50%; 
-    transform: translateX(-50%); 
-    padding: 1.2rem 2rem; 
-    border-radius: 14px; 
-    z-index: 999999; 
-    width: calc(100% - 40px); 
-    max-width: 420px; 
-    opacity: 0; 
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-left: 5px solid transparent; 
-    will-change: transform, opacity, top;
-}
-
-.toast-wrapper.active { 
-    top: 30px; 
-    opacity: 1; 
-    transform: translateX(-50%) translateY(0);
-}
-
-.toast-success { background: #0E1420; border-left-color: var(--whatsapp-green); }
-.toast-error { background: #0E1420; border-left-color: #EF4444; }
-.toast-wrapper span { font-weight: 700; font-size: 0.95rem; color: var(--text-white); }
-
-/* ==========================================================================
-   RESPONSIVIDADE INTELIGENTE
-   ========================================================================== */
-@media (max-width: 992px) {
-    body { flex-direction: column; }
-    
+    /* ==========================================================================
+       ESTRUTURA DA SIDEBAR LATERAL FIXA OTIMIZADA
+       ========================================================================== */
     .sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-        padding: 1rem;
-        border-right: none;
-        border-bottom: 1px solid var(--border-soft);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        width: 260px;
+        height: 100vh;
+        background: rgba(15, 23, 36, 0.7);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-right: 1px solid var(--border-soft);
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        padding: 2rem 1.2rem;
+        box-shadow: 10px 0 40px rgba(0, 0, 0, 0.3);
     }
-    
-    .sidebar-header { padding-bottom: 1rem; }
-    
-    .sidebar-menu { 
-        flex-direction: row; 
-        margin-top: 1rem; 
-        justify-content: center; 
-        flex-wrap: wrap;
-        gap: 0.4rem;
-    }
-    
-    .menu-item { padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; }
-    .sidebar-footer { display: none; }
-    
-    .main-layout { margin-left: 0; padding: 1.5rem 1rem; }
-}
 
-@media (max-width: 768px) {
-    .page-header { text-align: center; margin-bottom: 1.8rem; }
-    .page-header h1 { font-size: 1.8rem; }
-    .premium-card { padding: 2.2rem 1.5rem; width: calc(100% - 20px); border-radius: 20px; }
-}
- 
-</style>
+    .sidebar-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 2.5rem 1rem;
+        border-bottom: 1px solid var(--border-soft);
+    }
+
+    .logo { 
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        transition: var(--transition-smooth);
+    }
+
+    .logo img {
+        max-height: 65px; 
+        width: auto;
+        filter: drop-shadow(0 4px 15px rgba(0, 230, 118, 0.25));
+        transition: var(--transition-smooth);
+    }
+
+    .logo:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: var(--border-neon-soft);
+        transform: translateY(-2px);
+    }
+
+    .logo:hover img {
+        filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.5));
+        transform: scale(1.05);
+    }
+
+    .sidebar-menu {
+        list-style: none;
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        flex: 1; 
+    }
+
+    .menu-category-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        font-weight: 700;
+        padding: 1.5rem 1.2rem 0.5rem 1.2rem;
+    }
+
+    .menu-item {
+        color: var(--text-secondary-green);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: var(--transition-smooth);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        border: 1px solid transparent;
+    }
+
+    .menu-item i {
+        font-size: 1.1rem;
+        width: 20px;
+        text-align: center;
+    }
+
+    .menu-item:hover {
+        color: var(--text-white);
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .menu-item.active {
+        color: var(--text-neon);
+        background: rgba(0, 230, 118, 0.06);
+        border: 1px solid rgba(0, 230, 118, 0.1);
+    }
+
+    /* Rodapé da Barra Lateral */
+    .sidebar-footer {
+        border-top: 1px solid var(--border-soft);
+        padding-top: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .user-meta-box {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .user-meta-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--text-secondary-green);
+    }
+
+    .user-meta-info {
+        display: flex;
+        flex-direction: column;
+        max-width: 130px;
+    }
+
+    #welcome-user {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--text-white);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .user-meta-status {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 2px;
+    }
+
+    .pulse-indicator {
+        width: 6px;
+        height: 6px;
+        background: var(--whatsapp-green);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--whatsapp-green);
+        animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+        0% { transform: scale(0.9); opacity: 0.6; }
+        50% { transform: scale(1.1); opacity: 1; box-shadow: 0 0 14px var(--whatsapp-green); }
+        100% { transform: scale(0.9); opacity: 0.6; }
+    }
+
+    .logout-trigger-btn {
+        background: rgba(248, 113, 113, 0.05);
+        border: 1px solid rgba(248, 113, 113, 0.1);
+        color: #F87171;
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition-smooth);
+    }
+
+    .logout-trigger-btn:hover {
+        background: rgba(248, 113, 113, 0.15);
+        color: #ff8888;
+        border-color: rgba(248, 113, 113, 0.3);
+        transform: scale(1.03);
+    }
+
+    /* ==========================================================================
+       CONTAINER PRINCIPAL DO CONTEÚDO
+       ========================================================================== */
+    .main-layout { 
+        flex: 1;
+        margin-left: 260px; 
+        max-width: 1200px; 
+        padding: 2.5rem 2rem; 
+        box-sizing: border-box;
+    }
+
+    .page-header { text-align: center; margin-bottom: 2.5rem; }
+    .page-header h1 { font-size: 2.2rem; font-weight: 800; margin-bottom: 0.4rem; letter-spacing: -0.5px; }
+    .page-header h1 span { background: var(--logo-gold); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .page-header p { color: var(--text-muted); font-size: 0.95rem; }
+
+    /* BANNER DE ATIVAÇÃO DE AFILIADO */
+    .affiliate-activation-banner {
+        background: linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(12, 19, 34, 0.95) 100%);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: var(--radius-premium);
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        transition: var(--transition-smooth);
+    }
+
+    .affiliate-activation-banner:hover {
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 15px 35px rgba(16, 185, 129, 0.03);
+        transform: translateY(-2px);
+    }
+
+    .affiliate-activation-banner h3 {
+        margin-top: 1rem;
+        color: var(--text-white);
+    }
+
+    .affiliate-activation-banner p {
+        margin: 0.5rem 0 0 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+
+    /* CARD PREMIUM DE PERFIL */
+    .premium-card { 
+        background: var(--bg-dark-card); 
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--border-soft); 
+        border-radius: var(--radius-premium); 
+        padding: 3rem 2.5rem; 
+        max-width: 500px; 
+        margin: 0 auto; 
+        text-align: center; 
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4); 
+        transition: var(--transition-smooth);
+    }
+
+    .premium-card:hover {
+        border-color: var(--border-neon-soft);
+        box-shadow: 0 25px 50px rgba(0, 230, 118, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        transform: translateY(-4px);
+    }
+
+    .card-icon { 
+        font-size: 3rem; 
+        color: #FFB300; 
+        margin-bottom: 1.5rem; 
+        filter: drop-shadow(0 0 15px rgba(255, 179, 0, 0.25)); 
+    }
+
+    .instruction-text { 
+        font-size: 0.95rem; 
+        color: var(--text-muted); 
+        line-height: 1.6; 
+        margin-bottom: 2.2rem; 
+    }
+
+    /* GRUPOS DE INPUTS COM ÍCONE */
+    .input-group-icon {
+        position: relative;
+        width: 100%;
+    }
+
+    .input-group-icon i {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.1rem;
+        transition: var(--transition-smooth);
+    }
+
+    .input-group-icon input:focus ~ i {
+        color: var(--text-neon);
+    }
+
+    /* BOTÃO DE REDEFINIÇÃO UNIFICADO */
+    .btn-reset-password { 
+        width: 100%; 
+        background: var(--logo-gold); 
+        color: #000; 
+        border: none; 
+        padding: 1rem; 
+        border-radius: 12px; 
+        font-weight: 800; 
+        font-size: 1rem;
+        cursor: pointer; 
+        transition: var(--transition-smooth); 
+        box-shadow: 0 4px 15px rgba(255, 179, 0, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-reset-password:hover { 
+        transform: translateY(-2px); 
+        box-shadow: 0 8px 25px rgba(255, 179, 0, 0.4); 
+        filter: brightness(1.1);
+    }
+
+    /* TOAST LUXO CONFIGURADO */
+    .toast-wrapper { 
+        position: fixed; 
+        top: -100px; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        padding: 1.2rem 2rem; 
+        border-radius: 14px; 
+        z-index: 999999; 
+        width: calc(100% - 40px); 
+        max-width: 420px; 
+        opacity: 0; 
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s; 
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-left: 5px solid transparent; 
+        will-change: transform, opacity, top;
+    }
+
+    .toast-wrapper.active { 
+        top: 30px; 
+        opacity: 1; 
+        transform: translateX(-50%) translateY(0);
+    }
+
+    .toast-success { background: #0E1420; border-left-color: var(--whatsapp-green); }
+    .toast-error { background: #0E1420; border-left-color: #EF4444; }
+    .toast-wrapper span { font-weight: 700; font-size: 0.95rem; color: var(--text-white); }
+
+    /* ==========================================================================
+       RESPONSIVIDADE INTELIGENTE
+       ========================================================================== */
+    @media (max-width: 992px) {
+        body { flex-direction: column; }
+        
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+            padding: 1rem;
+            border-right: none;
+            border-bottom: 1px solid var(--border-soft);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar-header { padding-bottom: 1rem; }
+        
+        .sidebar-menu { 
+            flex-direction: row; 
+            margin-top: 1rem; 
+            justify-content: center; 
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .menu-category-title { display: none; }
+        
+        .menu-item { padding: 0.5rem 0.8rem; font-size: 0.8rem; border-radius: 8px; }
+        .sidebar-footer { display: none; }
+        
+        .main-layout { margin-left: 0; padding: 1.5rem 1rem; }
+    }
+
+    @media (max-width: 768px) {
+        .page-header { text-align: center; margin-bottom: 1.8rem; }
+        .page-header h1 { font-size: 1.8rem; }
+        .premium-card { padding: 2.2rem 1.5rem; width: calc(100% - 20px); border-radius: 20px; }
+    }
+    </style>
 </head>
 <body>
 
-  <aside class="sidebar">
-    <div class="sidebar-header">
-        <a href="dashboard.html" class="logo">
-            <img src="logo.png" alt="Roda dos 10">
-        </a>
-    </div>
-    
-    <ul class="sidebar-menu">
-        <li class="menu-category-title">Principal</li>
-        
-        <li>
-            <a href="dashboard.html" class="menu-item">
-                <i class="fa-solid fa-chart-pie"></i> 
-                <span>Painel</span>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="dashboard.html" class="logo">
+                <img src="logo.png" alt="Roda dos 10">
             </a>
-        </li>
-        <li>
-            <a href="afiliados.html" class="menu-item">
-                <i class="fa-solid fa-users"></i> 
-                <span>Afiliados</span>
-            </a>
-        </li>
-        
-        <li class="menu-category-title">Conta</li>
-        
-        <li>
-            <a href="perfil.html" class="menu-item active">
-                <i class="fa-solid fa-user"></i> 
-                <span>Perfil</span>
-            </a>
-        </li>
-    </ul>
-
-    <div class="sidebar-footer">
-        <div class="user-meta-box">
-            <div class="user-meta-avatar">
-                <i class="fa-solid fa-user-shield"></i>
-            </div>
-            <div class="user-meta-info">
-                <span id="welcome-user">Usuário</span>
-                <span class="user-meta-status">
-                    <span class="pulse-indicator"></span>
-                    Online
-                </span>
-            </div>
         </div>
         
-        <button id="btn-logout" class="logout-trigger-btn" title="Sair da Conta">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </button>
-    </div>
-</aside>
-   <main class="main-layout">
-    <header class="page-header">
-        <h1>Segurança e Afiliação</h1>
-        <p>Gerencie suas credenciais e configure seu perfil de parceiro.</p>
-    </header>
+        <ul class="sidebar-menu">
+            <li class="menu-category-title">Principal</li>
+            <li>
+                <a href="dashboard.html" class="menu-item">
+                    <i class="fa-solid fa-chart-pie"></i> 
+                    <span>Painel</span>
+                </a>
+            </li>
+            <li>
+                <a href="afiliados.html" class="menu-item">
+                    <i class="fa-solid fa-users"></i> 
+                    <span>Afiliados</span>
+                </a>
+            </li>
+            
+            <li class="menu-category-title">Conta</li>
+            <li>
+                <a href="perfil.html" class="menu-item active">
+                    <i class="fa-solid fa-user"></i> 
+                    <span>Perfil</span>
+                </a>
+            </li>
+        </ul>
 
-    <div class="premium-card affiliate-activation-banner">
-        <div class="card-icon" style="color: var(--whatsapp-green); font-size: 2.5rem;">
-            <i class="fa-solid fa-circle-nodes"></i>
-        </div>
-        <h3>Ative seu Link de Afiliado</h3>
-        <p>
-            Para liberar seus ganhos e comissões, você precisa definir um apelido exclusivo. 
-            Ele será a base do seu link personalizado de indicação.
-        </p>
-    </div>
-
-    <div class="premium-card" style="margin-bottom: 2rem;">
-        <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
-        <h3>Meu Apelido de Afiliado</h3>
-        <p class="instruction-text" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
-            Seu link será: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">https://roda-dos-10.pages.dev/r.html?id=<span id="preview-nickname">seu-apelido</span></code>
-        </p>
-        
-        <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
-            <div class="input-group-icon">
-                <i class="fa-solid fa-at"></i>
-                <input type="text" id="perf-username" placeholder="Digite seu apelido aqui..." required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white; font-weight: 600;">
+        <div class="sidebar-footer">
+            <div class="user-meta-box">
+                <div class="user-meta-avatar">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div class="user-meta-info">
+                    <span id="welcome-user">Carregando...</span>
+                    <span class="user-meta-status">
+                        <span class="pulse-indicator"></span>
+                        Online
+                    </span>
+                </div>
             </div>
             
-            <button id="btn-save-username" class="btn-reset-password" style="margin-top: 0.5rem;">
-                <i class="fa-solid fa-check"></i> Salvar e Gerar Link
+            <button id="btn-logout" class="logout-trigger-btn" title="Sair da Conta">
+                <i class="fa-solid fa-arrow-right-from-bracket"></i>
             </button>
         </div>
-    </div>
-        
-    <div class="premium-card">
-        <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
-        <h3>Alterar Minha Senha</h3>
-        
-        <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
-            <div class="input-group-icon">
-                <i class="fa-solid fa-unlock-keyhole"></i>
-                <input type="password" id="current-password" placeholder="Senha Atual" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+    </aside>
+
+    <main class="main-layout">
+        <header class="page-header">
+            <h1>Segurança e Afiliação</h1>
+            <p>Gerencie suas credenciais e configure seu perfil de parceiro.</p>
+        </header>
+
+        <div class="premium-card affiliate-activation-banner">
+            <div class="card-icon" style="color: var(--whatsapp-green); font-size: 2.5rem;">
+                <i class="fa-solid fa-circle-nodes"></i>
             </div>
-            <div class="input-group-icon">
-                <i class="fa-solid fa-lock"></i>
-                <input type="password" id="new-password" placeholder="Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
-            </div>
-            <div class="input-group-icon">
-                <i class="fa-solid fa-check-double"></i>
-                <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
-            </div>
-            <button id="btn-update-password" class="btn-reset-password">Atualizar Senha</button>
+            <h3>Ative seu Link de Afiliado</h3>
+            <p>
+                Para liberar seus ganhos e comissões, você precisa definir um apelido exclusivo. 
+                Ele será a base do seu link personalizado de indicação.
+            </p>
         </div>
 
-        <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
-        
-        <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu a senha atual? Use o botão abaixo:</p>
-        <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
-            <i class="fa-regular fa-envelope"></i> Redefinir pelo E-mail
-        </button>
-    </div>
-</main>
-
-<div class="toast-wrapper" id="toastBox">
-    <i id="toastIcon" class="fa-solid"></i>
-    <span id="toastMessage">Status</span>
-</div>
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { 
-        getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
-        updatePassword, EmailAuthProvider, reauthenticateWithCredential 
-    } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
-
-    const firebaseConfig = {
-        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-        authDomain: "roda-dos-10.firebaseapp.com",
-        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-        projectId: "roda-dos-10",
-        storageBucket: "roda-dos-10.firebasestorage.app",
-        messagingSenderId: "1072183237747",
-        appId: "1:1072183237747:web:3a41a635187df2db809e06"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getDatabase(app);
-    let userEmail = "";
-
-    function showFeedback(message, isSuccess = true) {
-        const toast = document.getElementById("toastBox");
-        const icon = document.getElementById("toastIcon");
-        const msgSpan = document.getElementById("toastMessage");
-
-        toast.className = `toast-wrapper active ${isSuccess ? 'toast-success' : 'toast-error'}`;
-        icon.className = isSuccess ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
-        icon.style.color = isSuccess ? "#10B981" : "#EF4444";
-        msgSpan.innerText = message;
-
-        setTimeout(() => toast.classList.remove("active"), 4000);
-    }
-
-    onAuthStateChanged(auth, async (user) => {
-        if (user) {
-            userEmail = user.email;
+        <div class="premium-card" style="margin-bottom: 2rem;">
+            <div class="card-icon"><i class="fa-solid fa-signature"></i></div>
+            <h3>Meu Apelido de Afiliado</h3>
             
-            try {
-                const userSnapshot = await get(ref(db, `users/${user.uid}`));
-                const inputUsername = document.getElementById("perf-username");
-                const btnSave = document.getElementById("btn-save-username");
-                const instructionText = document.getElementById("username-instruction");
-                const previewNick = document.getElementById("preview-nickname");
+            <p id="username-instruction" class="instruction-text" style="margin-top: 0.5rem; margin-bottom: 1.5rem;">
+                Seu link será: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">https://roda-dos-10.pages.dev/r.html?id=<span id="preview-nickname">seu-apelido</span></code>
+            </p>
+            
+            <div id="username-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-at"></i>
+                    <input type="text" id="perf-username" placeholder="Digite seu apelido aqui..." required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white; font-weight: 600;">
+                </div>
+                
+                <button id="btn-save-username" class="btn-reset-password" style="margin-top: 0.5rem;">
+                    <i class="fa-solid fa-check"></i> Salvar e Gerar Link
+                </button>
+            </div>
+        </div>
+            
+        <div class="premium-card">
+            <div class="card-icon"><i class="fa-solid fa-lock"></i></div>
+            <h3>Alterar Minha Senha</h3>
+            
+            <div id="password-form" style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem;">
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-unlock-keyhole"></i>
+                    <input type="password" id="current-password" placeholder="Senha Atual" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="new-password" placeholder="Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <div class="input-group-icon">
+                    <i class="fa-solid fa-check-double"></i>
+                    <input type="password" id="confirm-password" placeholder="Confirmar Nova Senha" required style="width: 100%; background: #0E1420; border: 1px solid var(--border-soft); padding: 1rem 1rem 1rem 3rem; border-radius: 12px; color: white;">
+                </div>
+                <button id="btn-update-password" class="btn-reset-password">Atualizar Senha</button>
+            </div>
 
-                // TRAVA DE SEGURANÇA: Verifica se já existe apelido
-                if (userSnapshot.exists() && userSnapshot.val().username) {
-                    const apelidoSalvo = userSnapshot.val().username;
-                    inputUsername.value = apelidoSalvo;
-                    inputUsername.readOnly = true; // Bloqueia digitação
-                    inputUsername.style.opacity = '0.6';
-                    inputUsername.style.cursor = 'not-allowed';
-                    
-                    if (previewNick) previewNick.textContent = apelidoSalvo;
-                    if (instructionText) instructionText.innerText = "Seu apelido exclusivo de afiliado já está definido e não pode ser alterado.";
-                    
-                    btnSave.innerText = "Apelido Já Definido";
-                    btnSave.disabled = true;
-                    btnSave.style.opacity = '0.4';
-                } else {
-                    inputUsername.placeholder = "Escolha seu apelido exclusivo";
+            <hr style="margin: 2rem 0; border: 0; border-top: 1px solid var(--border-soft);">
+            
+            <p class="instruction-text" style="margin-bottom: 1rem;">Esqueceu a senha atual? Use o botão abaixo:</p>
+            <button id="btn-send-reset" class="btn-reset-password" style="background: rgba(255,255,255,0.05); color: var(--text-white);">
+                <i class="fa-regular fa-envelope"></i> Redefinir pelo E-mail
+            </button>
+        </div>
+    </main>
+
+    <div class="toast-wrapper" id="toastBox">
+        <i id="toastIcon" class="fa-solid"></i>
+        <span id="toastMessage">Status</span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { 
+            getAuth, onAuthStateChanged, sendPasswordResetEmail, signOut, 
+            updatePassword, EmailAuthProvider, reauthenticateWithCredential 
+        } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+            authDomain: "roda-dos-10.firebaseapp.com",
+            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+            projectId: "roda-dos-10",
+            storageBucket: "roda-dos-10.firebasestorage.app",
+            messagingSenderId: "1072183237747",
+            appId: "1:1072183237747:web:3a41a635187df2db809e06"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        let userEmail = "";
+
+        function showFeedback(message, isSuccess = true) {
+            const toast = document.getElementById("toastBox");
+            const icon = document.getElementById("toastIcon");
+            const msgSpan = document.getElementById("toastMessage");
+
+            toast.className = `toast-wrapper active ${isSuccess ? 'toast-success' : 'toast-error'}`;
+            icon.className = isSuccess ? "fa-solid fa-circle-check" : "fa-solid fa-circle-xmark";
+            icon.style.color = isSuccess ? "#10B981" : "#EF4444";
+            msgSpan.innerText = message;
+
+            setTimeout(() => toast.classList.remove("active"), 4000);
+        }
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                userEmail = user.email;
+                
+                // Exibe provisoriamente parte do e-mail no rodapé até carregar o apelido
+                const welcomeUser = document.getElementById("welcome-user");
+                if (welcomeUser) welcomeUser.textContent = user.email.split('@')[0];
+                
+                try {
+                    const userSnapshot = await get(ref(db, `users/${user.uid}`));
+                    const inputUsername = document.getElementById("perf-username");
+                    const btnSave = document.getElementById("btn-save-username");
+                    const instructionText = document.getElementById("username-instruction");
+                    const previewNick = document.getElementById("preview-nickname");
+
+                    // TRAVA DE SEGURANÇA: Se o usuário já tiver apelido salvo
+                    if (userSnapshot.exists() && userSnapshot.val().username) {
+                        const apelidoSalvo = userSnapshot.val().username;
+                        inputUsername.value = apelidoSalvo;
+                        inputUsername.readOnly = true; 
+                        inputUsername.style.opacity = '0.6';
+                        inputUsername.style.cursor = 'not-allowed';
+                        
+                        if (welcomeUser) welcomeUser.textContent = apelidoSalvo;
+                        if (previewNick) previewNick.textContent = apelidoSalvo;
+                        
+                        if (instructionText) {
+                            instructionText.innerHTML = `Seu link exclusivo é: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">https://roda-dos-10.pages.dev/r.html?id=${apelidoSalvo}</code><br><span style="display:block; margin-top:8px; font-size:0.85rem; color:var(--text-muted);">Apelidos de parceiros são permanentes e não podem ser modificados.</span>`;
+                        }
+                        
+                        // Oculta o banner promocional se já estiver ativo
+                        const banner = document.querySelector('.affiliate-activation-banner');
+                        if (banner) banner.style.display = 'none';
+                        
+                        btnSave.innerText = "Apelido Já Definido";
+                        btnSave.disabled = true;
+                        btnSave.style.opacity = '0.4';
+                    } else {
+                        inputUsername.placeholder = "Escolha seu apelido exclusivo";
+                    }
+                } catch (err) {
+                    console.error("Erro ao puxar apelido inicial:", err);
                 }
-            } catch (err) {
-                console.error("Erro ao puxar apelido inicial:", err);
+            } else {
+                window.location.href = "login.html";
             }
-        } else {
-            window.location.href = "login.html";
-        }
-    });
+        });
 
-    // LÓGICA DE VALIDAÇÃO E GRAVAÇÃO DO APELIDO
-    document.getElementById("btn-save-username").addEventListener("click", async () => {
-        const user = auth.currentUser;
-        if (!user) return;
+        // GRAVAÇÃO DO APELIDO (MÉTODO UNIDIRECIONAL)
+        document.getElementById("btn-save-username").addEventListener("click", async () => {
+            const user = auth.currentUser;
+            if (!user) return;
 
-        const inputUsername = document.getElementById("perf-username");
-        const btnSave = document.getElementById("btn-save-username");
-        const instructionText = document.getElementById("username-instruction");
-        const novoApelido = inputUsername.value.trim().toLowerCase();
-        
-        if (!novoApelido || novoApelido.length < 3 || !/^[a-z0-9_-]+$/.test(novoApelido)) {
-            showFeedback("Apelido inválido. Use letras, números, hífen ou underline.", false);
-            return;
-        }
-
-        try {
-            const mapaSnapshot = await get(ref(db, `referral_map/${novoApelido}`));
-            if (mapaSnapshot.exists() && mapaSnapshot.val().uid !== user.uid) {
-                showFeedback("Este apelido já está em uso.", false);
+            const inputUsername = document.getElementById("perf-username");
+            const btnSave = document.getElementById("btn-save-username");
+            const instructionText = document.getElementById("username-instruction");
+            const welcomeUser = document.getElementById("welcome-user");
+            const novoApelido = inputUsername.value.trim().toLowerCase();
+            
+            if (!novoApelido || novoApelido.length < 3 || !/^[a-z0-9_-]+$/.test(novoApelido)) {
+                showFeedback("Apelido inválido. Use letras, números, hífen ou underline (mín. 3 caracteres).", false);
                 return;
             }
 
-            const userSnapshot = await get(ref(db, `users/${user.uid}`));
-            const dadosAtuais = userSnapshot.exists() ? userSnapshot.val() : {};
-            
-            dadosAtuais.username = novoApelido;
-            await set(ref(db, `users/${user.uid}`), dadosAtuais);
-            await set(ref(db, `referral_map/${novoApelido}`), { uid: user.uid });
+            try {
+                // Checagem de disponibilidade global na árvore de links mapeados
+                const mapaSnapshot = await get(ref(db, `referral_map/${novoApelido}`));
+                if (mapaSnapshot.exists() && mapaSnapshot.val().uid !== user.uid) {
+                    showFeedback("Este apelido já está sendo utilizado por outro parceiro.", false);
+                    return;
+                }
 
-            showFeedback("Apelido definido com sucesso!");
+                const userSnapshot = await get(ref(db, `users/${user.uid}`));
+                const dadosAtuais = userSnapshot.exists() ? userSnapshot.val() : {};
+                
+                dadosAtuais.username = novoApelido;
+                await set(ref(db, `users/${user.uid}`), dadosAtuais);
+                await set(ref(db, `referral_map/${novoApelido}`), { uid: user.uid });
 
-            // --- LÓGICA DE LIMPEZA VISUAL ---
-            const banner = document.querySelector('.affiliate-activation-banner');
-            if (banner) {
-                banner.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-                banner.style.opacity = "0";
-                banner.style.transform = "translateY(-20px)";
-                setTimeout(() => { banner.style.display = 'none'; }, 500);
-            }
+                showFeedback("Apelido de afiliado definido com sucesso!");
+                if (welcomeUser) welcomeUser.textContent = novoApelido;
 
-            // TRAVA DE SEGURANÇA PÓS-SALVAMENTO
-            inputUsername.readOnly = true;
-            inputUsername.style.opacity = '0.6';
-            inputUsername.style.cursor = 'not-allowed';
-            if (instructionText) instructionText.innerText = "Seu apelido exclusivo de afiliado já está definido e não pode ser alterado.";
-            btnSave.innerText = "Apelido Já Definido";
-            btnSave.disabled = true;
-            btnSave.style.opacity = '0.4';
+                // Animação de saída limpa do banner promocional superior
+                const banner = document.querySelector('.affiliate-activation-banner');
+                if (banner) {
+                    banner.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+                    banner.style.opacity = "0";
+                    banner.style.transform = "translateY(-20px)";
+                    setTimeout(() => { banner.style.display = 'none'; }, 500);
+                }
 
-        } catch (error) {
-            showFeedback("Erro ao registrar apelido.", false);
-        }
-    });
+                // Trancamento estático do painel de input
+                inputUsername.readOnly = true;
+                inputUsername.style.opacity = '0.6';
+                inputUsername.style.cursor = 'not-allowed';
+                
+                if (instructionText) {
+                    instructionText.innerHTML = `Seu link exclusivo é: <code style="color: var(--whatsapp-green); background: rgba(0,0,0,0.3); padding: 2px 8px; border-radius: 4px;">https://roda-dos-10.pages.dev/r.html?id=${novoApelido}</code><br><span style="display:block; margin-top:8px; font-size:0.85rem; color:var(--text-muted);">Apelidos de parceiros são permanentes e não podem ser modificados.</span>`;
+                }
+                
+                btnSave.innerText = "Apelido Já Definido";
+                btnSave.disabled = true;
+                btnSave.style.opacity = '0.4';
 
-    // Lógica para Alterar Senha (Campos Obrigatórios)
-    document.getElementById("btn-update-password").addEventListener("click", async () => {
-        const currentPass = document.getElementById("current-password").value;
-        const newPass = document.getElementById("new-password").value;
-        const confirmPass = document.getElementById("confirm-password").value;
-
-        if (!currentPass || !newPass || !confirmPass) {
-            showFeedback("Preencha todos os campos obrigatórios.", false);
-            return;
-        }
-
-        if (newPass !== confirmPass) {
-            showFeedback("As novas senhas não coincidem!", false);
-            return;
-        }
-
-        const user = auth.currentUser;
-        
-        if (!user) {
-            showFeedback("Usuário não autenticado.", false);
-            return;
-        }
-
-        const credential = EmailAuthProvider.credential(user.email, currentPass);
-
-        try {
-            await reauthenticateWithCredential(user, credential);
-            await updatePassword(user, newPass);
-            showFeedback("Senha alterada com sucesso!");
-            
-            document.getElementById("current-password").value = "";
-            document.getElementById("new-password").value = "";
-            document.getElementById("confirm-password").value = "";
-        } catch (error) {
-            showFeedback("Erro: Verifique se sua senha atual está correta.", false);
-        }
-    });
-
-    // Lógica para envio de e-mail (Recuperação)
-    document.getElementById("btn-send-reset").addEventListener("click", () => {
-        if (!userEmail) return;
-        sendPasswordResetEmail(auth, userEmail)
-            .then(() => showFeedback(`Instruções enviadas para: ${userEmail}`))
-            .catch((error) => showFeedback(`Falha ao disparar e-mail: ${error.message}`, false));
-    });
-
-    // Logout
-    document.getElementById("btn-logout").addEventListener("click", (e) => {
-        e.preventDefault();
-        signOut(auth).then(() => { window.location.href = "login.html"; });
-    });
-
-    // --- LÓGICA DE PREVIEW EM TEMPO REAL ---
-    const inputNick = document.getElementById("perf-username");
-    const previewNick = document.getElementById("preview-nickname");
-
-    if (inputNick) {
-        inputNick.addEventListener("input", function() {
-            let valor = this.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
-            this.value = valor;
-            
-            if (previewNick) {
-                previewNick.textContent = valor || "seu-apelido";
+            } catch (error) {
+                showFeedback("Erro operacional ao salvar apelido no banco.", false);
             }
         });
-    }
-</script>
+
+        // REAUTENTICAÇÃO E ATUALIZAÇÃO DE SENHA
+        document.getElementById("btn-update-password").addEventListener("click", async () => {
+            const currentPass = document.getElementById("current-password").value;
+            const newPass = document.getElementById("new-password").value;
+            const confirmPass = document.getElementById("confirm-password").value;
+
+            if (!currentPass || !newPass || !confirmPass) {
+                showFeedback("Por favor, preencha todos os campos de senha.", false);
+                return;
+            }
+
+            if (newPass.length < 6) {
+                showFeedback("A nova senha precisa conter no mínimo 6 caracteres.", false);
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                showFeedback("A confirmação não coincide com a nova senha inserida.", false);
+                return;
+            }
+
+            const user = auth.currentUser;
+            if (!user) {
+                showFeedback("Sessão expirada. Faça login novamente.", false);
+                return;
+            }
+
+            const credential = EmailAuthProvider.credential(user.email, currentPass);
+
+            try {
+                await reauthenticateWithCredential(user, credential);
+                await updatePassword(user, newPass);
+                showFeedback("Sua senha foi atualizada com sucesso!");
+                
+                document.getElementById("current-password").value = "";
+                document.getElementById("new-password").value = "";
+                document.getElementById("confirm-password").value = "";
+            } catch (error) {
+                showFeedback("Senha atual incorreta ou credenciais inválidas.", false);
+            }
+        });
+
+        // DISPARO DE E-MAIL PARA VOLUMES DE ESQUECIMENTO
+        document.getElementById("btn-send-reset").addEventListener("click", () => {
+            if (!userEmail) {
+                showFeedback("Erro ao identificar e-mail associado.", false);
+                return;
+            }
+            sendPasswordResetEmail(auth, userEmail)
+                .then(() => showFeedback(`Link de redefinição enviado para: ${userEmail}`))
+                .catch((error) => showFeedback(`Erro ao disparar e-mail: ${error.message}`, false));
+        });
+
+        // LOGOUT COMPATÍVEL COM BOTÃO REFORMULADO
+        document.getElementById("btn-logout").addEventListener("click", (e) => {
+            e.preventDefault();
+            signOut(auth).then(() => { window.location.href = "login.html"; });
+        });
+
+        // MÁSCARA EM TEMPO REAL (SANITIZAÇÃO INPUT)
+        const inputNick = document.getElementById("perf-username");
+        const previewNick = document.getElementById("preview-nickname");
+
+        if (inputNick) {
+            inputNick.addEventListener("input", function() {
+                // Impede espaços e caracteres especiais em tempo real
+                let valor = this.value.toLowerCase().replace(/[^a-z0-9_-]/g, "");
+                this.value = valor;
+                
+                if (previewNick) {
+                    previewNick.textContent = valor || "seu-apelido";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
