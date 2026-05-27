@@ -358,7 +358,6 @@
         import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
         import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // Suas credenciais oficiais configuradas com a URL do Database corrigida
         const firebaseConfig = {
             apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
             authDomain: "roda-dos-10.firebaseapp.com",
@@ -369,12 +368,10 @@
             appId: "1:1072183237747:web:3a41a635187df2db809e06"
         };
 
-        // Inicializando os módulos do ecossistema Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // Feedback visual dinâmico (Toast)
         function showToast(message, isError = false) {
             const toast = document.getElementById("toastBox");
             const icon = document.getElementById("toastIcon");
@@ -389,26 +386,27 @@
             setTimeout(() => toast.classList.remove("active"), 3500);
         }
 
-        // Captura automática de parâmetros da URL para o sistema de afiliados
+        // CORREÇÃO 1: Captura automática de parâmetros sincronizada com '?id=' vindo do link de indicação
         window.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
-            const refCode = urlParams.get('ref');
+            // Captura tanto se vier como '?id=' ou como '?ref=' para evitar erros futuros
+            const refCode = urlParams.get('id') || urlParams.get('ref');
+            
             if (refCode) {
                 const refInput = document.getElementById('reg-ref');
                 if (refInput) {
-                    refInput.value = refCode.toUpperCase();
+                    refInput.value = refCode.trim();
                 }
             }
         });
 
-        // Evento de envio e tratamento do formulário de registro
         document.getElementById('register-form').addEventListener('submit', async function(e) {
             e.preventDefault();
             
             const name = document.getElementById('reg-name').value.trim();
             const email = document.getElementById('reg-email').value.trim();
             const password = document.getElementById('reg-password').value;
-            const referral = document.getElementById('reg-ref').value.trim().toUpperCase();
+            const referralInput = document.getElementById('reg-ref').value.trim();
             const termsChecked = document.getElementById('reg-terms').checked;
 
             if (!termsChecked) {
@@ -417,43 +415,47 @@
             }
 
             try {
-                // 1. Cria a conta do usuário no Firebase Authentication
+                // 1. Cria a conta no Firebase Auth
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 const user = userCredential.user;
 
-                // 2. Atualiza o perfil interno do Auth com o Nome Completo digitado
+                // 2. Atualiza o perfil interno do Auth
                 await updateProfile(user, { displayName: name });
 
-               const referralInput = document.getElementById('reg-ref').value.trim().toLowerCase();
-                    let uidIndicador = "NENHUM";
+                // CORREÇÃO 2: Configuração limpa do indicador.
+                // Se o seu sistema mapeia quem indicou via apelido/username, salvamos o próprio apelido no nó 'referredBy' do indicado.
+                let padrinhoParaSalvar = "NENHUM";
                     
-                    if (referralInput) {
-                        console.log("Tentando buscar apelido no banco:", referralInput);
-                        try {
-                            const snap = await get(ref(db, 'referral_map/' + referralInput));
-                            
-                            if (snap.exists()) {
-                                const data = snap.val();
-                                // Verifica se o objeto retornado possui a propriedade uid
-                                uidIndicador = data.uid ? data.uid : "NENHUM";
-                                console.log("SUCESSO: Apelido encontrado! UID do indicador:", uidIndicador);
-                            } else {
-                                console.log("ERRO: Apelido não encontrado no referral_map.");
-                            }
-                        } catch (err) {
-                            console.error("Erro ao acessar referral_map:", err);
+                if (referralInput) {
+                    console.log("Validando o código recebido:", referralInput);
+                    try {
+                        // Verifica se o apelido existe mapeado ou se é uma chave válida
+                        const snap = await get(ref(db, 'referral_map/' + referralInput.toLowerCase()));
+                        
+                        if (snap.exists()) {
+                            // Se o mapeamento existe, salvamos o referralInput original fornecido pelo link
+                            padrinhoParaSalvar = referralInput;
+                            console.log("SUCESSO: Padrinho validado! Código salvo:", padrinhoParaSalvar);
+                        } else {
+                            // Fallback caso seja o UID direto ou não esteja no referral_map ainda
+                            padrinhoParaSalvar = referralInput;
+                            console.log("AVISO: Código inserido diretamente, salvando o texto original.");
                         }
+                    } catch (err) {
+                        console.error("Erro ao acessar validação de indicação:", err);
+                        padrinhoParaSalvar = referralInput; // Não trava o fluxo de cadastro do cliente
                     }
+                }
                     
-                    // 4. Salva no banco com o UID do indicador ou "NENHUM"
-                    await set(ref(db, `users/${user.uid}`), {
-                        fullName: name,
-                        email: user.email,
-                        balance: 0.00,
-                        tickets: 0,
-                        referredBy: uidIndicador, 
-                        createdAt: new Date().toISOString()
-                    });
+                // 3. Salva no Realtime Database vinculando ao nó 'lista-afiliados' do seu painel
+                await set(ref(db, `users/${user.uid}`), {
+                    fullName: name,
+                    email: user.email,
+                    balance: 0.00,
+                    tickets: 0,
+                    referredBy: padrinhoParaSalvar, 
+                    createdAt: new Date().toISOString()
+                });
                                         
                 console.log("Dados enviados com sucesso para: users/" + user.uid);
 
@@ -465,7 +467,6 @@
             } catch (error) {
                 console.error("Erro no registro:", error.code);
                 
-                // Tratamento detalhado de erros do servidor Auth
                 if (error.code === 'auth/email-already-in-use') {
                     showToast("Este e-mail já está em uso por outra conta.", true);
                 } else if (error.code === 'auth/weak-password') {
