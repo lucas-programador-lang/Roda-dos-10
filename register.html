@@ -10,82 +10,280 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Container de Autenticação */
-        .auth-wrapper {
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-            background-color: var(--bg-dark-base);
-            background-image: var(--bg-texture);
-        }
+/* ==========================================================================
+   CADASTRO ULTRA PREMIUM — RODA DOS 10
+   ========================================================================== */
 
-        .auth-container {
-            background: var(--bg-dark-card);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-soft);
-            border-radius: var(--radius-premium);
-            width: 100%;
-            max-width: 460px;
-            padding: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
-        }
+/* Container de Autenticação com centralização total e efeito de profundidade 3D */
+.auth-wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    background-color: var(--bg-dark-base);
+    
+    /* Mix de Linhas de Grade Modernas + Auras de Luz de Alta Performance */
+    background-image: 
+        /* 1. Aura de luz dourada focada atrás do card central */
+        radial-gradient(circle at 50% 50%, rgba(245, 166, 35, 0.07) 0%, transparent 45%),
+        /* 2. Aura esverdeada sutil no canto inferior direito para quebrar a monotonia */
+        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+        /* 3. Linhas horizontais milimétricas simulando uma tela de alta tecnologia */
+        linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+        /* 4. Linhas verticais milimétricas completando o Grid Premium */
+        linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+        
+    /* Define o tamanho exato dos quadradinhos da grade de fundo */
+    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    background-attachment: fixed;
+    position: relative;
+    overflow: hidden;
+}
 
-        .auth-header { text-align: center; margin-bottom: 2rem; }
-        .auth-header .logo { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem; display: block; }
-        .auth-header p { color: var(--text-muted); font-size: 0.9rem; }
+/* Detalhe estético extra: Círculo de luz flutuante abstrato no canto superior */
+.auth-wrapper::before {
+    content: "";
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(245, 166, 35, 0.03) 0%, transparent 70%);
+    top: -200px;
+    left: -100px;
+    pointer-events: none;
+}
 
-        /* Inputs com Ícones */
-        .input-group-icon { position: relative; margin-bottom: 1.2rem; }
-        .input-group-icon i {
-            position: absolute;
-            left: 1.2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-            transition: var(--transition-smooth);
-        }
-        .input-group-icon input {
-            width: 100%;
-            background: #0E1420;
-            border: 1px solid var(--border-soft);
-            padding: 1rem 1rem 1rem 3rem;
-            border-radius: 12px;
-            color: white;
-            font-size: 0.95rem;
-            transition: var(--transition-smooth);
-        }
-        .input-group-icon input:focus {
-            border-color: var(--whatsapp-green);
-            background: #131B2A;
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.1);
-        }
-        .input-group-icon input:focus + i { color: var(--whatsapp-green); }
+/* Container Principal com efeito Glassmorphism avançado (Ligeiramente mais largo para o Cadastro) */
+.auth-container {
+    background: linear-gradient(145deg, rgba(18, 28, 50, 0.9) 0%, rgba(12, 19, 34, 0.95) 100%);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 460px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.2),
+        0 25px 60px -12px rgba(0, 0, 0, 0.7),
+        inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    transition: var(--transition-smooth);
+    z-index: 2;
+}
 
-        /* Termos e Condições */
-        .terms-label {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1.8rem;
-            line-height: 1.5;
-            cursor: pointer;
-        }
-        .terms-label input {
-            accent-color: var(--whatsapp-green);
-            margin-top: 3px;
-            cursor: pointer;
-        }
-        .terms-label a { color: var(--whatsapp-green); text-decoration: none; font-weight: 600; }
+/* Linha de brilho metálico premium no topo do card */
+.auth-container::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 10%; right: 10%; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
+}
 
-        /* Rodapé de autenticação */
-        .auth-footer { text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted); }
-        .auth-footer a { color: var(--whatsapp-green); text-decoration: none; font-weight: 600; }
-        .auth-footer a:hover { text-decoration: underline; }
+/* Cabeçalho do Card */
+.auth-header { 
+    text-align: center; 
+    margin-bottom: 2.2rem; 
+}
+
+.auth-header .logo { 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    margin-bottom: 0.6rem; 
+    display: block; 
+    letter-spacing: -0.5px;
+}
+
+.auth-header p { 
+    color: var(--text-muted); 
+    font-size: 0.92rem; 
+    line-height: 1.5;
+}
+
+/* Estilização de Inputs Avançada com Ícones */
+.input-group-icon { 
+    position: relative; 
+    margin-bottom: 1.3rem; 
+}
+
+.input-group-icon i {
+    position: absolute;
+    left: 1.2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+}
+
+.input-group-icon input {
+    width: 100%;
+    background: #090E17;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.1rem 1rem 1.1rem 3.2rem;
+    border-radius: 14px;
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.2px;
+    transition: var(--transition-smooth);
+}
+
+/* Placeholder sutil */
+.input-group-icon input::placeholder {
+    color: rgba(148, 163, 184, 0.4);
+}
+
+/* Efeito de foco neon profissional herdando as configurações globais de foco */
+.input-group-icon input:focus {
+    border-color: var(--whatsapp-green);
+    background: #0D1421;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(0, 230, 118, 0.12);
+}
+
+.input-group-icon input:focus + i { 
+    color: var(--whatsapp-green); 
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Seção de Termos e Condições Customizada */
+.terms-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    cursor: pointer;
+    user-select: none;
+    transition: var(--transition-smooth);
+}
+
+.terms-label:hover {
+    color: var(--text-white);
+}
+
+.terms-label input {
+    accent-color: var(--whatsapp-green);
+    margin-top: 4px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.terms-label a { 
+    color: var(--whatsapp-green); 
+    text-decoration: none; 
+    font-weight: 700;
+    transition: var(--transition-smooth);
+}
+
+.terms-label a:hover {
+    color: #FFF;
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+
+/* Reaproveitamento do Botão de Cadastro Estilo Ouro Líquido do Login */
+.btn-login {
+    width: 100%;
+    background: linear-gradient(135deg, #FFE57F 0%, #F5A623 50%, #D48C11 100%);
+    background-size: 200% auto;
+    border: none;
+    padding: 1.1rem;
+    border-radius: 14px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: #05080E;
+    margin-bottom: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.2);
+    transition: var(--transition-smooth);
+}
+
+.btn-login:hover { 
+    background-position: right center;
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(245, 166, 35, 0.4); 
+}
+
+.btn-login:active {
+    transform: translateY(-0.5px);
+}
+
+/* Rodapé do Card */
+.auth-footer { 
+    text-align: center; 
+    margin-top: 1.8rem; 
+    font-size: 0.88rem; 
+    color: var(--text-muted); 
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 1.5rem;
+}
+
+.auth-footer a { 
+    color: var(--whatsapp-green); 
+    text-decoration: none; 
+    font-weight: 700; 
+    transition: var(--transition-smooth);
+}
+
+.auth-footer a:hover { 
+    color: #FFF;
+    text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+}
+
+/* ==========================================================================
+   OTIMIZAÇÃO RESPONSIVA E COMPORTAMENTO DESKTOP
+   ========================================================================== */
+
+/* Dispositivos Grandes (Monitores e Telas de Alta Resolução) */
+@media (min-width: 1024px) {
+    .auth-container {
+        padding: 3.5rem 3rem;
+        max-width: 480px; /* Um pouco mais largo para acomodar melhor os formulários de cadastro */
+    }
+    .auth-container:hover {
+        border-color: rgba(245, 166, 35, 0.2);
+        box-shadow: 
+            0 30px 60px -10px rgba(0, 0, 0, 0.8),
+            0 0 50px -5px rgba(245, 166, 35, 0.05);
+    }
+}
+
+/* Dispositivos Mobile (Smartphones) */
+@media (max-width: 480px) {
+    .auth-wrapper {
+        padding: 1rem;
+    }
+    .auth-container {
+        padding: 2.2rem 1.6rem;
+        border-radius: 20px;
+    }
+    .auth-header .logo {
+        font-size: 1.6rem;
+    }
+    .terms-label {
+        font-size: 0.82rem;
+        margin-bottom: 1.5rem;
+    }
+    .terms-label input {
+        width: 16px;
+        height: 16px;
+        margin-top: 2px;
+    }
+    .btn-login {
+        padding: 1rem;
+    }
+}
 </style>
 </head>
 <body>
