@@ -353,131 +353,135 @@
         <span id="toastMessage">Sucesso!</span>
     </div>
 
-   <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
-            authDomain: "roda-dos-10.firebaseapp.com",
-            databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
-            projectId: "roda-dos-10",
-            storageBucket: "roda-dos-10.firebasestorage.app",
-            messagingSenderId: "1072183237747",
-            appId: "1:1072183237747:web:3a41a635187df2db809e06"
-        };
+    const firebaseConfig = {
+        apiKey: "AIzaSyBURKDf_g7jyNGroNFtn6_-Pc6LwnqFBPg",
+        authDomain: "roda-dos-10.firebaseapp.com",
+        databaseURL: "https://roda-dos-10-default-rtdb.firebaseio.com",
+        projectId: "roda-dos-10",
+        storageBucket: "roda-dos-10.firebasestorage.app",
+        messagingSenderId: "1072183237747",
+        appId: "1:1072183237747:web:3a41a635187df2db809e06"
+    };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-        function showToast(message, isError = false) {
-            const toast = document.getElementById("toastBox");
-            const icon = document.getElementById("toastIcon");
-            const msgSpan = document.getElementById("toastMessage");
-            
-            msgSpan.innerText = message;
-            toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
-            icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
-            icon.style.color = isError ? "#EF4444" : "#10B981";
-            
-            toast.classList.add("active");
-            setTimeout(() => toast.classList.remove("active"), 3500);
-        }
+    function showToast(message, isError = false) {
+        const toast = document.getElementById("toastBox");
+        const icon = document.getElementById("toastIcon");
+        const msgSpan = document.getElementById("toastMessage");
+        
+        msgSpan.innerText = message;
+        toast.style.borderLeftColor = isError ? "#EF4444" : "#10B981";
+        icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
+        icon.style.color = isError ? "#EF4444" : "#10B981";
+        
+        toast.classList.add("active");
+        setTimeout(() => toast.classList.remove("active"), 3500);
+    }
 
-        // CORREÇÃO 1: Captura automática de parâmetros sincronizada com '?id=' vindo do link de indicação
-        window.addEventListener('DOMContentLoaded', () => {
+    // CORREÇÃO SOLIDIFICADA: Aguarda a renderização completa e captura o '?id=' vindo da rota /r
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
             const urlParams = new URLSearchParams(window.location.search);
-            // Captura tanto se vier como '?id=' ou como '?ref=' para evitar erros futuros
             const refCode = urlParams.get('id') || urlParams.get('ref');
+            
+            console.log("URL de cadastro detectada:", window.location.search);
+            console.log("Código de indicação capturado:", refCode);
             
             if (refCode) {
                 const refInput = document.getElementById('reg-ref');
                 if (refInput) {
                     refInput.value = refCode.trim();
-                }
-            }
-        });
-
-        document.getElementById('register-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const name = document.getElementById('reg-name').value.trim();
-            const email = document.getElementById('reg-email').value.trim();
-            const password = document.getElementById('reg-password').value;
-            const referralInput = document.getElementById('reg-ref').value.trim();
-            const termsChecked = document.getElementById('reg-terms').checked;
-
-            if (!termsChecked) {
-                showToast("Você precisa aceitar os Termos de Serviço.", true);
-                return;
-            }
-
-            try {
-                // 1. Cria a conta no Firebase Auth
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-
-                // 2. Atualiza o perfil interno do Auth
-                await updateProfile(user, { displayName: name });
-
-                // CORREÇÃO 2: Configuração limpa do indicador.
-                // Se o seu sistema mapeia quem indicou via apelido/username, salvamos o próprio apelido no nó 'referredBy' do indicado.
-                let padrinhoParaSalvar = "NENHUM";
-                    
-                if (referralInput) {
-                    console.log("Validando o código recebido:", referralInput);
-                    try {
-                        // Verifica se o apelido existe mapeado ou se é uma chave válida
-                        const snap = await get(ref(db, 'referral_map/' + referralInput.toLowerCase()));
-                        
-                        if (snap.exists()) {
-                            // Se o mapeamento existe, salvamos o referralInput original fornecido pelo link
-                            padrinhoParaSalvar = referralInput;
-                            console.log("SUCESSO: Padrinho validado! Código salvo:", padrinhoParaSalvar);
-                        } else {
-                            // Fallback caso seja o UID direto ou não esteja no referral_map ainda
-                            padrinhoParaSalvar = referralInput;
-                            console.log("AVISO: Código inserido diretamente, salvando o texto original.");
-                        }
-                    } catch (err) {
-                        console.error("Erro ao acessar validação de indicação:", err);
-                        padrinhoParaSalvar = referralInput; // Não trava o fluxo de cadastro do cliente
-                    }
-                }
-                    
-                // 3. Salva no Realtime Database vinculando ao nó 'lista-afiliados' do seu painel
-                await set(ref(db, `users/${user.uid}`), {
-                    fullName: name,
-                    email: user.email,
-                    balance: 0.00,
-                    tickets: 0,
-                    referredBy: padrinhoParaSalvar, 
-                    createdAt: new Date().toISOString()
-                });
-                                        
-                console.log("Dados enviados com sucesso para: users/" + user.uid);
-
-                showToast("Conta criada! Redirecionando para o painel...");
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1500);
-
-            } catch (error) {
-                console.error("Erro no registro:", error.code);
-                
-                if (error.code === 'auth/email-already-in-use') {
-                    showToast("Este e-mail já está em uso por outra conta.", true);
-                } else if (error.code === 'auth/weak-password') {
-                    showToast("A senha precisa ter pelo menos 6 dígitos.", true);
-                } else if (error.code === 'auth/invalid-email') {
-                    showToast("Formato de e-mail inválido.", true);
+                    console.log("Input preenchido com sucesso:", refInput.value);
                 } else {
-                    showToast("Ocorreu um erro ao processar o cadastro.", true);
+                    console.error("Erro: O input com ID 'reg-ref' não foi localizado na tela.");
                 }
             }
-        });
-    </script>
+        }, 100);
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('reg-name').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const referralInput = document.getElementById('reg-ref').value.trim();
+        const termsChecked = document.getElementById('reg-terms').checked;
+
+        if (!termsChecked) {
+            showToast("Você precisa aceitar os Termos de Serviço.", true);
+            return;
+        }
+
+        try {
+            // 1. Cria a conta no Firebase Auth
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+
+            // 2. Atualiza o perfil interno do Auth
+            await updateProfile(user, { displayName: name });
+
+            // 3. Configuração e validação do indicador
+            let padrinhoParaSalvar = "NENHUM";
+                
+            if (referralInput) {
+                console.log("Validando o código recebido no submit:", referralInput);
+                try {
+                    // Verifica se o apelido existe mapeado no banco
+                    const snap = await get(ref(db, 'referral_map/' + referralInput.toLowerCase()));
+                    
+                    if (snap.exists()) {
+                        padrinhoParaSalvar = referralInput;
+                        console.log("SUCESSO: Padrinho validado! Código salvo:", padrinhoParaSalvar);
+                    } else {
+                        padrinhoParaSalvar = referralInput;
+                        console.log("AVISO: Código inserido manualmente/direto, salvando texto original.");
+                    }
+                } catch (err) {
+                    console.error("Erro ao acessar validação de indicação:", err);
+                    padrinhoParaSalvar = referralInput; // Fallback seguro para não travar o cadastro
+                }
+            }
+                
+            // 4. Salva os dados estruturados no Realtime Database
+            await set(ref(db, `users/${user.uid}`), {
+                fullName: name,
+                email: user.email,
+                balance: 0.00,
+                tickets: 0,
+                referredBy: padrinhoParaSalvar, 
+                createdAt: new Date().toISOString()
+            });
+                                    
+            console.log("Dados enviados com sucesso para: users/" + user.uid);
+
+            showToast("Conta criada! Redirecionando para o painel...");
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
+
+        } catch (error) {
+            console.error("Erro no registro:", error.code);
+            
+            if (error.code === 'auth/email-already-in-use') {
+                showToast("Este e-mail já está em uso por outra conta.", true);
+            } else if (error.code === 'auth/weak-password') {
+                showToast("A senha precisa ter pelo menos 6 dígitos.", true);
+            } else if (error.code === 'auth/invalid-email') {
+                showToast("Formato de e-mail inválido.", true);
+            } else {
+                showToast("Ocorreu um erro ao processar o cadastro.", true);
+            }
+        }
+    });
+</script>
 </body>
 </html>
