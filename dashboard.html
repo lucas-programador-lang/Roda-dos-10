@@ -104,7 +104,6 @@ body {
     line-height: 1.6;
 }
 
-/* Textura de fundo sutil */
 body::before {
     content: '';
     position: fixed;
@@ -117,53 +116,44 @@ body::before {
 }
 
 /* ==========================================================================
-   KEYFRAMES — BIBLIOTECA DE ANIMAÇÕES
+   KEYFRAMES
    ========================================================================== */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(18px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes fadeInLeft {
     from { opacity: 0; transform: translateX(-18px); }
     to   { opacity: 1; transform: translateX(0); }
 }
-
 @keyframes shimmer {
     0%   { background-position: -200% center; }
     100% { background-position: 200% center; }
 }
-
 @keyframes pulseGlow {
     0%, 100% { transform: scale(0.88); opacity: 0.55; box-shadow: 0 0 5px var(--accent-primary); }
     50%       { transform: scale(1.12); opacity: 1;    box-shadow: 0 0 12px var(--accent-primary), 0 0 24px rgba(0,230,118,0.3); }
 }
-
 @keyframes borderPulse {
     0%, 100% { border-color: var(--accent-border); }
     50%       { border-color: rgba(0, 230, 118, 0.45); }
 }
-
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-
 @keyframes scaleIn {
     from { opacity: 0; transform: scale(0.88); }
     to   { opacity: 1; transform: scale(1); }
 }
-
 @keyframes toastIn {
     from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
     to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
-
 @keyframes progressShine {
     0%   { background-position: 200% center; }
     100% { background-position: -200% center; }
 }
-
 @keyframes sidebarItemIn {
     from { opacity: 0; transform: translateX(-10px); }
     to   { opacity: 1; transform: translateX(0); }
@@ -190,7 +180,6 @@ body::before {
     animation: fadeInLeft var(--duration-slow) var(--ease-out) both;
 }
 
-/* Linha decorativa no topo da sidebar */
 .sidebar::after {
     content: '';
     position: absolute;
@@ -202,7 +191,6 @@ body::before {
     opacity: 0.6;
 }
 
-/* Header do logo */
 .sidebar-header {
     display: flex;
     align-items: center;
@@ -257,7 +245,6 @@ body::before {
     transform: scale(1.02);
 }
 
-/* Menu */
 .sidebar-menu {
     list-style: none;
     display: flex;
@@ -283,7 +270,6 @@ body::before {
     text-transform: uppercase;
 }
 
-/* Animação escalonada dos itens */
 .sidebar-menu > .menu-category-title { animation: sidebarItemIn var(--duration-base) var(--ease-out) both; }
 
 .menu-item {
@@ -342,7 +328,6 @@ body::before {
     filter: drop-shadow(0 0 6px rgba(0, 230, 118, 0.5));
 }
 
-/* Indicador ativo na esquerda */
 .menu-item.active::before {
     content: '';
     position: absolute;
@@ -355,7 +340,6 @@ body::before {
     box-shadow: 2px 0 12px rgba(0, 230, 118, 0.5);
 }
 
-/* Rodapé da sidebar */
 .sidebar-footer {
     border-top: 1px solid var(--border-hairline);
     padding-top: 1rem;
@@ -399,7 +383,7 @@ body::before {
     min-width: 0;
 }
 
-#welcome-user {
+#welcome-user-sidebar {
     font-family: var(--font-display);
     color: var(--text-primary);
     font-size: 0.82rem;
@@ -518,7 +502,6 @@ body::before {
     animation: fadeInUp var(--duration-slow) var(--ease-out) both;
 }
 
-/* Brilho sutil no topo do card */
 .metric-card::before {
     content: '';
     position: absolute;
@@ -571,7 +554,6 @@ body::before {
     font-weight: 300;
 }
 
-/* Botão de saque */
 .btn-dash-withdraw {
     background: var(--accent-subtle);
     border: 1px solid var(--accent-border);
@@ -607,7 +589,6 @@ body::before {
 }
 
 .btn-dash-withdraw:hover::after { opacity: 1; }
-
 .btn-dash-withdraw span { position: relative; z-index: 1; }
 
 /* ==========================================================================
@@ -776,7 +757,6 @@ body::before {
     margin: 1.75rem 0 0.5rem;
 }
 
-/* Card de tier */
 .tier-item {
     background: var(--surface-elevated);
     border: 1px solid var(--border-hairline);
@@ -791,7 +771,6 @@ body::before {
     overflow: hidden;
 }
 
-/* Linha decorativa no topo de cada tier */
 .tier-item::before {
     content: '';
     position: absolute;
@@ -1119,19 +1098,14 @@ body::before {
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.07); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.12); }
 
-/* ==========================================================================
-   SELEÇÃO DE TEXTO
-   ========================================================================== */
 ::selection { background: var(--accent-glow); color: var(--text-primary); }
 
 /* ==========================================================================
-   RESPONSIVIDADE — TABLET (992px)
+   RESPONSIVIDADE
    ========================================================================== */
 @media (max-width: 992px) {
     :root { --sidebar-width: 100%; }
-
     body { flex-direction: column; }
-
     .sidebar {
         width: 100%;
         height: auto;
@@ -1145,19 +1119,15 @@ body::before {
         box-shadow: 0 4px 24px rgba(0,0,0,0.35);
         animation: slideDown var(--duration-base) var(--ease-out) both;
     }
-
     .sidebar::after { display: none; }
-
     .sidebar-header {
         padding: 0;
         border-bottom: none;
         margin-bottom: 0;
         flex-shrink: 0;
     }
-
     .logo { padding: 7px 14px; }
     .logo img { max-height: 38px; }
-
     .sidebar-menu {
         flex-direction: row;
         flex: 1;
@@ -1168,9 +1138,7 @@ body::before {
         overflow-x: auto;
         padding: 0;
     }
-
     .menu-category-title { display: none !important; }
-
     .menu-item {
         padding: 0.55rem 0.75rem;
         font-size: 0.8rem;
@@ -1178,11 +1146,8 @@ body::before {
         white-space: nowrap;
         flex-shrink: 0;
     }
-
     .menu-item::before { display: none; }
-
     .sidebar-footer { display: none; }
-
     .main-layout {
         margin-left: 0;
         padding: 1.75rem 1.25rem;
@@ -1190,53 +1155,30 @@ body::before {
     }
 }
 
-/* ==========================================================================
-   RESPONSIVIDADE — MOBILE (768px)
-   ========================================================================== */
 @media (max-width: 768px) {
     .metrics-grid,
     .investment-options-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-
     .group-banner-card {
         flex-direction: column;
         align-items: flex-start;
         padding: 1.4rem 1.25rem;
     }
-
-    .btn-join-group {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .page-header {
-        margin-bottom: 1.75rem;
-    }
-
+    .btn-join-group { width: 100%; justify-content: center; }
+    .page-header { margin-bottom: 1.75rem; }
     .page-header h1 { font-size: 1.7rem; }
-
     .metric-card { padding: 1.6rem 1.4rem; }
     .metric-card h2 { font-size: 2.1rem; }
-
     .price-tables-card { padding: 1.5rem 1.25rem; }
-
-    .modal-card {
-        padding: 1.75rem 1.25rem;
-        border-radius: var(--radius-lg);
-    }
-
+    .modal-card { padding: 1.75rem 1.25rem; border-radius: var(--radius-lg); }
     .sidebar-menu { margin: 0 0.4rem; }
-
     .menu-item span { display: none; }
     .menu-item { padding: 0.6rem; gap: 0; }
     .menu-item i { width: auto; font-size: 1.1rem; }
 }
 
-/* ==========================================================================
-   RESPONSIVIDADE — MOBILE PEQUENO (480px)
-   ========================================================================== */
 @media (max-width: 480px) {
     .main-layout { padding: 1.25rem 0.875rem; }
     .page-header h1 { font-size: 1.45rem; }
@@ -1259,15 +1201,7 @@ body::before {
     white-space: nowrap;
     border-width: 0;
 }
-
-/* Divisor visual */
-.divider {
-    height: 1px;
-    background: var(--border-hairline);
-    margin: 1.5rem 0;
-}
-
-/* Badge genérico */
+.divider { height: 1px; background: var(--border-hairline); margin: 1.5rem 0; }
 .badge {
     display: inline-flex;
     align-items: center;
@@ -1280,7 +1214,6 @@ body::before {
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
-
 .badge-green { background: var(--accent-subtle); color: var(--accent-primary); border: 1px solid var(--accent-border); }
 .badge-gold  { background: rgba(255,179,0,0.08); color: var(--gold-mid); border: 1px solid rgba(255,179,0,0.2); }
 .badge-gray  { background: rgba(255,255,255,0.04); color: var(--text-secondary); border: 1px solid var(--border-hairline); }
@@ -1296,16 +1229,13 @@ body::before {
     
     <ul class="sidebar-menu">
         <li class="menu-category-title">PRINCIPAL</li>
-        
         <li>
             <a href="dashboard.html" class="menu-item active">
                 <i class="fa-solid fa-chart-pie"></i> 
                 <span>Painel</span>
             </a>
         </li>
-       
         <li class="menu-category-title">OPERAÇÕES</li>
-
         <li>
             <a href="afiliados.html" class="menu-item">
                 <i class="fa-solid fa-users"></i> 
@@ -1326,22 +1256,22 @@ body::before {
                 <i class="fa-solid fa-user"></i>
             </div>
             <div class="user-meta-info">
-                <span id="welcome-user">Carregando...</span>
+                <span id="welcome-user-sidebar">Carregando...</span>
                 <span class="user-meta-status">
                     <span class="pulse-indicator"></span>
                     Online
                 </span>
             </div>
         </div>
-        
         <button id="btn-logout" class="logout-trigger-btn" title="Sair do painel">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </button>
     </div>
 </aside>
+
     <main class="main-layout">
         <header class="page-header">
-            <h1 id="welcome-user">Olá, Seja Bem Vindo o(a) ao Rodas dos 10 ...</h1>
+            <h1 id="welcome-user-header">Olá, Seja Bem Vindo(a) ao Roda dos 10 ...</h1>
             <p>Compre quantas cotas quiser. Seu nome será inserido múltiplas vezes no sorteio de metas!</p>
         </header>
 
@@ -1358,7 +1288,7 @@ body::before {
                 <div>
                     <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
                     <h2 id="dash-tickets">0</h2>
-                    <div class="sub-text">Mais compras aumentam sua chance</div>
+                    <div class="sub-text" id="cotas-status-text">Mais compras aumentam sua chance</div>
                 </div>
             </div>
         </div>
@@ -1421,87 +1351,85 @@ body::before {
     </main>
 
     <div class="modal-overlay" id="purchaseModal">
-    <div class="modal-card">
-        
-        <div id="purchase-form-area">
-            <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
-            <h3 id="modalPlanTitle">Confirmar Pedido</h3>
-            <p id="modalPlanDesc">Aguardando carregamento do plano...</p>
-            
-            <div style="margin-bottom: 1.2rem; text-align: left;">
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">NOME COMPLETO DO PARTICIPANTE:</label>
-                <input type="text" id="client-name" placeholder="Digite seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-            </div>
+        <div class="modal-card">
+            <div id="purchase-form-area">
+                <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
+                <h3 id="modalPlanTitle">Confirmar Pedido</h3>
+                <p id="modalPlanDesc">Aguardando carregamento do plano...</p>
+                
+                <div style="margin-bottom: 1.2rem; text-align: left;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">NOME COMPLETO DO PARTICIPANTE:</label>
+                    <input type="text" id="client-name" placeholder="Digite seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+                </div>
 
-            <div style="margin-bottom: 1.2rem; text-align: left;">
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
-                <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-            </div>
+                <div style="margin-bottom: 1.2rem; text-align: left;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
+                    <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+                </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
-                <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <button id="btn-qty-minus" style="background: var(--bg-dark-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">-</button>
-                    <span id="qty-display" style="font-weight: 800; font-size: 1.1rem; min-width: 20px; text-align: center;">1</span>
-                    <button id="btn-qty-plus" style="background: var(--bg-dark-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">+</button>
+                <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <button id="btn-qty-minus" style="background: var(--surface-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">-</button>
+                        <span id="qty-display" style="font-weight: 800; font-size: 1.1rem; min-width: 20px; text-align: center;">1</span>
+                        <button id="btn-qty-plus" style="background: var(--surface-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">+</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                    <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">VALOR TOTAL:</span>
+                    <span id="total-display" style="font-size: 1.3rem; font-weight: 800; color: #FFE57F;">R$ 0,00</span>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="btn-modal-confirm" id="btn-modal-confirm">Confirmar e Enviar ao Suporte</button>
+                    <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
                 </div>
             </div>
 
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">VALOR TOTAL:</span>
-                <span id="total-display" style="font-size: 1.3rem; font-weight: 800; color: #FFE57F;">R$ 0,00</span>
+            <div id="pix-display-area">
+                <h3 style="color: var(--text-accent); margin-bottom: 15px;">QR Code Gerado!</h3>
+                <img id="pix-qr-image" alt="QR Code PIX" />
+                <button onclick="location.reload()" class="btn-modal-cancel" style="width: 100%;">Fechar e Recarregar</button>
             </div>
-
-            <div class="modal-actions">
-                <button class="btn-modal-confirm" id="btn-modal-confirm">Confirmar e Enviar ao Suporte</button>
-                <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
-            </div>
-        </div>
-
-        <div id="pix-display-area">
-            <h3 style="color: var(--text-neon); margin-bottom: 15px;">QR Code Gerado!</h3>
-            <img id="pix-qr-image" />
-            <button onclick="location.reload()" class="btn-modal-cancel" style="width: 100%;">Fechar e Recarregar</button>
-        </div>
-
-    </div> </div>
-
+        </div> 
+    </div>
 
     <div class="modal-overlay" id="withdrawModal">
-    <div class="modal-card">
-        <div class="modal-icon"><i class="fa-solid fa-money-bill-transfer" style="color: #00E676;"></i></div>
-        <h3>Solicitar Saque</h3>
-        <p>Preencha os dados abaixo. Saldo disponível: <strong>R$ <span id="max-balance-text">0,00</span></strong></p>
-        
-        <div style="margin-bottom: 1.2rem; text-align: left;">
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
-            <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-        </div>
+        <div class="modal-card">
+            <div class="modal-icon"><i class="fa-solid fa-money-bill-transfer" style="color: #00E676;"></i></div>
+            <h3>Solicitar Saque</h3>
+            <p>Preencha os dados abaixo. Saldo disponível: <strong>R$ <span id="max-balance-text">0,00</span></strong></p>
+            
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
+                <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            </div>
 
-        <div style="margin-bottom: 1.2rem; text-align: left;">
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">VALOR DO SAQUE (Mín. R$ 25,00):</label>
-            <input type="number" id="withdraw-amount" placeholder="Ex: 50,00" step="0.01" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-        </div>
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">VALOR DO SAQUE (Mín. R$ 25,00):</label>
+                <input type="number" id="withdraw-amount" placeholder="Ex: 50,00" step="0.01" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            </div>
 
-        <div style="margin-bottom: 1.2rem; text-align: left;">
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
-            <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
-                <option value="CPF">CPF</option>
-                <option value="E-mail">E-mail</option>
-                <option value="Telefone">Número de Telefone</option>
-                <option value="Chave Aleatória">Chave Aleatória</option>
-            </select>
+            <div style="margin-bottom: 1.2rem; text-align: left;">
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
+                <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
+                    <option value="CPF">CPF</option>
+                    <option value="E-mail">E-mail</option>
+                    <option value="Telefone">Número de Telefone</option>
+                    <option value="Chave Aleatória">Chave Aleatória</option>
+                </select>
 
-            <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
-            <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
-        </div>
-        
-        <div class="modal-actions">
-            <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
-            <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
+                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
+                <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
+                <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="toast-wrapper" id="toastNotification">
         <i id="toastIcon" class="fa-solid fa-circle-notch fa-spin"></i>
@@ -1510,7 +1438,7 @@ body::before {
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-    import { getDatabase, ref, onValue, set, get, update, increment, push } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+    import { getDatabase, ref, onValue, set, push } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
     const firebaseConfig = {
@@ -1532,9 +1460,12 @@ body::before {
     let currentQuantity = 1;
     let globalUserBalance = 0;
 
-   onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
         if (user) {
-            document.getElementById("welcome-user").innerText = `Olá, ${user.displayName || 'Usuário'}`;
+            const userName = user.displayName || 'Usuário';
+            if(document.getElementById("welcome-user-sidebar")) document.getElementById("welcome-user-sidebar").innerText = userName;
+            if(document.getElementById("welcome-user-header")) document.getElementById("welcome-user-header").innerText = `Olá, ${userName}. Seja Bem-Vindo ao Roda dos 10`;
+            
             const userRef = ref(db, `users/${user.uid}`);
             
             onValue(userRef, (snapshot) => {
@@ -1542,31 +1473,26 @@ body::before {
                     const data = snapshot.val();
                     globalUserBalance = parseFloat(data.balance || 0);
                     document.getElementById("dash-balance").innerText = `R$ ${globalUserBalance.toFixed(2).replace('.', ',')}`;
+                    if(document.getElementById("max-balance-text")) document.getElementById("max-balance-text").innerText = globalUserBalance.toFixed(2).replace('.', ',');
                     
-                    // Atualiza a quantidade de cotas numéricas
                     const tickets = data.tickets || 0;
                     document.getElementById("dash-tickets").innerText = tickets;
                     
-                    // --- ATUALIZAÇÃO DINÂMICA DA FRASE DE STATUS ---
                     const elementoTexto = document.getElementById("cotas-status-text");
                     if (elementoTexto) {
                         if (tickets > 0) {
                             elementoTexto.innerHTML = `Sua chance aumentou! Continue acumulando.`;
-                            elementoTexto.style.color = 'var(--text-neon)'; // Verde neon de alta legibilidade
+                            elementoTexto.style.color = 'var(--text-accent)'; 
                         } else {
                             elementoTexto.innerText = "Mais compras aumentam sua chance";
-                            elementoTexto.style.color = 'var(--text-muted)'; // Cinza slate padrão
+                            elementoTexto.style.color = 'var(--text-muted)';
                         }
                     }
-                    // -----------------------------------------------
                     
-                    // Atualiza a barra de progresso visual baseada em metas
                     const progresso = (tickets / 20) * 100;
-                    
-                    // Verifica se seu HTML usa o ID "progress-bar" ou o padrão premium de fill
                     const barraProgresso = document.getElementById("progress-bar") || document.querySelector(".progress-bar-fill");
                     if (barraProgresso) {
-                        barraProgresso.style.width = `${Math.min(progresso, 100)}%`; // Limita em 100% no visual
+                        barraProgresso.style.width = `${Math.min(progresso, 100)}%`;
                     }
                 }
             });
@@ -1574,9 +1500,10 @@ body::before {
             window.location.href = "login.html";
         }
     });
+
     function handleWithdrawTrigger() {
         if (globalUserBalance < 25) {
-            document.getElementById("withdrawErrorModal").classList.add("active");
+            fireToast("Saldo insuficiente! O valor mínimo de saque é R$ 25,00.", true);
         } else {
             document.getElementById("withdrawModal").classList.add("active");
         }
@@ -1637,6 +1564,7 @@ body::before {
         currentQuantity = 1;
         document.getElementById("modalPlanTitle").innerText = `Adquirir ${planName}`;
         document.getElementById("client-name").value = "";
+        document.getElementById("client-document").value = "";
         recalculateTotal();
         document.getElementById("purchaseModal").classList.add("active");
     }
@@ -1658,108 +1586,88 @@ body::before {
         document.getElementById("modalPlanDesc").innerHTML = `Você está adquirindo <strong>${currentQuantity} cota(s)</strong> do plano <strong>${currentTicketName}</strong>.`;
     }
 
-async function confirmPurchase() {
-    document.getElementById("purchase-form-area").style.display = "block";
-    document.getElementById("pix-display-area").style.display = "none";
-    
-    const clientName = document.getElementById("client-name")?.value.trim();
-    const clientDoc = document.getElementById("client-document")?.value.trim();
+    async function confirmPurchase() {
+        const clientName = document.getElementById("client-name")?.value.trim();
+        const clientDoc = document.getElementById("client-document")?.value.trim();
 
-    if (!clientName || !clientDoc) {
-        fireToast("Preencha seu Nome e CPF.", true);
-        return;
-    }
-
-    const totalValue = pricePerUnit * currentQuantity;
-    const user = auth.currentUser;
-
-    try {
-        fireToast("Gerando QR Code...");
-        
-       // Substitua o trecho original do fetch no confirmPurchase por este:
-        const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                valor: totalValue,
-                nome: clientName,
-                uid: user.uid,
-                plano: currentTicketName,
-                qtde: currentQuantity,
-                documento: clientDoc.replace(/\D/g, ''),
-                email: "cliente@email.com",
-                phone: "(00) 00000-0000"// Remove qualquer caractere especial do CPF
-            })
-        });
-        
-        const data = await response.json();
-        
-        if (!response.ok) {
-            // Aqui você verá o motivo real do erro no console
-            console.error("Detalhes do erro do gateway:", data.details);
-            throw new Error(data.details?.message || "Erro no gateway: Verifique os dados inseridos.");
+        if (!clientName || !clientDoc) {
+            fireToast("Preencha seu Nome e CPF.", true);
+            return;
         }
 
-       if (data.pix && (data.pix.base64 || data.pix.image)) {
-    // 1. Criamos a referência da lista de compras do usuário
-    const comprasRef = ref(db, `users/${user.uid}/compras`);
-    
-    // 2. Geramos um novo ID único (nó), mas sem salvar os dados ainda
-    const novaCompraNode = push(comprasRef);
-    
-    // 3. Salvamos os dados da cota usando a nova referência gerada
-    await set(novaCompraNode, {
-        nomePlano: currentTicketName,
-        quantidade: currentQuantity,
-        data: new Date().toLocaleDateString('pt-BR'),
-        valorTotal: totalValue,
-        status: 'pendente'
-    });
+        const totalValue = pricePerUnit * currentQuantity;
+        const user = auth.currentUser;
 
-    // ========================================================
-    // ESCUTA EM TEMPO REAL: Fica olhando o status deste PIX específico
-    // ========================================================
-    onValue(novaCompraNode, (snapshot) => {
-        if (snapshot.exists()) {
-            const statusAtual = snapshot.val().status;
-            
-            // Quando o seu webhook do Worker alterar para 'aprovado' ou 'pago'
-            if (statusAtual === 'aprovado' || statusAtual === 'pago') {
-                fireToast(`Pagamento Confirmado! +${currentQuantity} cotas adicionadas.`);
-                
-                // Toca o efeito sonoro premium de recebimento
-                try {
-                    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav');
-                    audio.volume = 0.4;
-                    audio.play();
-                } catch(e) { console.log("Áudio retido pelo navegador"); }
-                
-                // Fecha o modal de compra automaticamente após 1.5 segundos
-                setTimeout(() => { closePurchaseModal(); }, 1500);
-            }
-        }
-    });
-    // ========================================================
-
-    // Buscamos os elementos (Seu código original continua igual daqui para baixo)
-    const formArea = document.getElementById("purchase-form-area");
-    const pixArea = document.getElementById("pix-display-area");
-    const qrImg = document.getElementById("pix-qr-image");
-
-    if (formArea) formArea.style.display = "none";
-    if (pixArea) pixArea.style.display = "block";
-    if (qrImg) {
-        qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
-    }
-
-    if (data.pix.code) {
         try {
-            await navigator.clipboard.writeText(data.pix.code);
-            fireToast("QR Code gerado e código copiado!");
-        } catch (e) {
-            fireToast("QR Code gerado!");
-        }
-  }
+            fireToast("Gerando QR Code...");
+            
+            const response = await fetch('https://rodados10.lucas-dev-programador.workers.dev', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    valor: totalValue,
+                    nome: clientName,
+                    uid: user.uid,
+                    plano: currentTicketName,
+                    qtde: currentQuantity,
+                    documento: clientDoc.replace(/\D/g, ''),
+                    email: "cliente@email.com",
+                    phone: "(00) 00000-0000"
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (!response.ok) {
+                console.error("Detalhes do erro do gateway:", data.details);
+                throw new Error(data.details?.message || "Erro no gateway: Verifique os dados inseridos.");
+            }
+
+            if (data.pix && (data.pix.base64 || data.pix.image)) {
+                const comprasRef = ref(db, `users/${user.uid}/compras`);
+                const novaCompraNode = push(comprasRef);
+                
+                await set(novaCompraNode, {
+                    nomePlano: currentTicketName,
+                    quantidade: currentQuantity,
+                    data: new Date().toLocaleDateString('pt-BR'),
+                    valorTotal: totalValue,
+                    status: 'pendente'
+                });
+
+                onValue(novaCompraNode, (snapshot) => {
+                    if (snapshot.exists()) {
+                        const statusAtual = snapshot.val().status;
+                        if (statusAtual === 'aprovado' || statusAtual === 'pago') {
+                            fireToast(`Pagamento Confirmado! +${currentQuantity} cotas adicionadas.`);
+                            try {
+                                const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2019/2019-84.wav');
+                                audio.volume = 0.4;
+                                audio.play();
+                            } catch(e) { console.log("Áudio retido pelo navegador"); }
+                            setTimeout(() => { closePurchaseModal(); }, 1500);
+                        }
+                    }
+                });
+
+                const formArea = document.getElementById("purchase-form-area");
+                const pixArea = document.getElementById("pix-display-area");
+                const qrImg = document.getElementById("pix-qr-image");
+
+                if (formArea) formArea.style.display = "none";
+                if (pixArea) pixArea.style.display = "flex";
+                if (qrImg) {
+                    qrImg.src = data.pix.base64 ? `data:image/png;base64,${data.pix.base64}` : data.pix.image;
+                }
+
+                if (data.pix.code) {
+                    try {
+                        await navigator.clipboard.writeText(data.pix.code);
+                        fireToast("QR Code gerado e código copiado!");
+                    } catch (e) {
+                        fireToast("QR Code gerado!");
+                    }
+                }
             } else {
                 throw new Error(data.message || "Erro ao gerar a imagem do PIX.");
             }
@@ -1768,54 +1676,53 @@ async function confirmPurchase() {
             fireToast("Erro: " + error.message, true);
         }
     }
+
     function fireToast(message, isError = false) {
         const toast = document.getElementById("toastNotification");
         const icon = document.getElementById("toastIcon");
         const msg = document.getElementById("toastMsg");
         msg.innerText = message;
-        toast.style.borderLeftColor = isError ? "#EF4444" : "var(--neon-green)";
+        toast.style.borderLeftColor = isError ? "#EF4444" : "var(--accent-primary)";
         icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
         toast.classList.add("active");
         setTimeout(() => { toast.classList.remove("active"); }, 3500);
     }
 
-   document.addEventListener("DOMContentLoaded", () => {
-    // Agora o código espera o HTML estar pronto
-    const btnLogout = document.getElementById("btn-logout");
-    if (btnLogout) {
-        btnLogout.addEventListener("click", (e) => {
-            e.preventDefault();
-            signOut(auth).then(() => {
-                window.location.href = "login.html";
-            }).catch(err => console.error("Erro ao sair:", err));
-        });
-    }
+    document.addEventListener("DOMContentLoaded", () => {
+        const btnLogout = document.getElementById("btn-logout");
+        if (btnLogout) {
+            btnLogout.addEventListener("click", (e) => {
+                e.preventDefault();
+                signOut(auth).then(() => {
+                    window.location.href = "login.html";
+                }).catch(err => console.error("Erro ao sair:", err));
+            });
+        }
 
-    // Registra os outros botões com segurança
-    const btnWithdraw = document.getElementById("btn-trigger-withdraw");
-    if (btnWithdraw) btnWithdraw.addEventListener("click", handleWithdrawTrigger);
+        const btnWithdraw = document.getElementById("btn-trigger-withdraw");
+        if (btnWithdraw) btnWithdraw.addEventListener("click", handleWithdrawTrigger);
 
-    const btnBronze = document.getElementById("btn-buy-bronze");
-    if (btnBronze) btnBronze.addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
+        const btnBronze = document.getElementById("btn-buy-bronze");
+        if (btnBronze) btnBronze.addEventListener("click", () => openPurchaseModal("Plano Bronze", 3.50));
 
-    const btnSilver = document.getElementById("btn-buy-silver");
-    if (btnSilver) btnSilver.addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
+        const btnSilver = document.getElementById("btn-buy-silver");
+        if (btnSilver) btnSilver.addEventListener("click", () => openPurchaseModal("Plano Silver", 5.50));
 
-    const btnGold = document.getElementById("btn-buy-gold");
-    if (btnGold) btnGold.addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
+        const btnGold = document.getElementById("btn-buy-gold");
+        if (btnGold) btnGold.addEventListener("click", () => openPurchaseModal("Plano Gold VIP", 10.00));
 
-    const btnMinus = document.getElementById("btn-qty-minus");
-    if (btnMinus) btnMinus.addEventListener("click", () => changeQuantity(-1));
+        const btnMinus = document.getElementById("btn-qty-minus");
+        if (btnMinus) btnMinus.addEventListener("click", () => changeQuantity(-1));
 
-    const btnPlus = document.getElementById("btn-qty-plus");
-    if (btnPlus) btnPlus.addEventListener("click", () => changeQuantity(1));
+        const btnPlus = document.getElementById("btn-qty-plus");
+        if (btnPlus) btnPlus.addEventListener("click", () => changeQuantity(1));
 
-    const btnConfirm = document.getElementById("btn-modal-confirm");
-    if (btnConfirm) btnConfirm.addEventListener("click", confirmPurchase);
+        const btnConfirm = document.getElementById("btn-modal-confirm");
+        if (btnConfirm) btnConfirm.addEventListener("click", confirmPurchase);
 
-    const btnCancel = document.getElementById("btn-modal-cancel");
-    if (btnCancel) btnCancel.addEventListener("click", closePurchaseModal);
-});
+        const btnCancel = document.getElementById("btn-modal-cancel");
+        if (btnCancel) btnCancel.addEventListener("click", closePurchaseModal);
+    });
 </script>
 </body>
 </html>
