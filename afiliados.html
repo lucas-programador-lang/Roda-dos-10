@@ -1010,7 +1010,6 @@ body::before {
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-    // 🚀 Adicionado onValue na importação
     import { getDatabase, ref, query, orderByChild, equalTo, get, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
     const firebaseConfig = {
@@ -1032,7 +1031,6 @@ body::before {
             const userSnapshot = await get(ref(db, `users/${user.uid}`));
             const userData = userSnapshot.val();
             
-            // GARANTIA: Define o apelido corretamente
             let apelido = "";
             if (userData?.username) {
                 apelido = userData.username.trim().toLowerCase();
@@ -1042,13 +1040,11 @@ body::before {
                 apelido = user.uid; 
             }
 
-            // Atualiza o rodapé da sidebar
             const welcomeUserEl = document.getElementById("welcome-user");
             if (welcomeUserEl) {
                 welcomeUserEl.textContent = userData?.fullName || userData?.username || "Membro Premium";
             }
 
-            // Define o link de convite
             const refLinkInput = document.getElementById("referral-link");
             if (refLinkInput) {
                 refLinkInput.value = window.location.origin + '/r.html?id=' + apelido;
@@ -1056,13 +1052,11 @@ body::before {
 
             console.log("Buscando indicados que possuem 'referredBy' igual a:", apelido);
 
-            // CONSULTA PÚBLICA: Foca no nó de afiliados
             const affiliatesRef = ref(db, 'affiliates');
             const q = query(affiliatesRef, orderByChild('referredBy'), equalTo(apelido));
             
             const tabela = document.getElementById("lista-afiliados");
 
-            // 🚀 CORREÇÃO: Substituído o 'get' por 'onValue' para atualizar em tempo real
             onValue(q, (snapshot) => {
                 tabela.innerHTML = "";
 
@@ -1071,15 +1065,13 @@ body::before {
                         const dados = childSnapshot.val();
                         const nomeIndicado = dados.fullName || dados.username || 'Indicado Sem Nome';
                         
-                        // O valor total gasto vem de 'totalSpent' (alimentado pelo Worker)
-                        // parseFloat garante que o sistema trate como número e não texto
                         const totalGasto = parseFloat(dados.totalSpent || 0); 
                         const comissao = (totalGasto * 0.20).toFixed(2).replace('.', ',');
                         
                         tabela.innerHTML += `
                             <tr style="border-bottom: 1px solid var(--border-soft);">
-                                <td style="padding: 12px 10px; color: var(--text-white); font-weight: 500;">${nomeIndicado}</td>
-                                <td style="padding: 12px 10px; color: var(--text-neon); font-weight: 700;">R$ ${comissao}</td>
+                                <td style="padding: 12px 10px; color: var(--text-primary); font-weight: 500;">${nomeIndicado}</td>
+                                <td style="padding: 12px 10px; color: var(--text-accent); font-weight: 700;">R$ ${comissao}</td>
                             </tr>
                         `;
                     });
@@ -1098,13 +1090,20 @@ body::before {
         }
     });
 
-    // Eventos de Botões
+    // Eventos de Botões (Com animação do Toast integrada)
     document.getElementById("btn-copy-link")?.addEventListener("click", () => {
         const linkInput = document.getElementById("referral-link");
         if (linkInput) {
             linkInput.select();
             navigator.clipboard.writeText(linkInput.value);
-            // Adicione seu feedback visual aqui (toast)
+            
+            const toast = document.getElementById("toastBox");
+            if (toast) {
+                toast.classList.add("active");
+                setTimeout(() => {
+                    toast.classList.remove("active");
+                }, 3000);
+            }
         }
     });
 
