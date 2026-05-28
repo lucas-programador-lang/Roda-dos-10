@@ -8,306 +8,301 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-/* ==========================================================================
-   AUTENTICAÇÃO ULTRA PREMIUM — RODA DOS 10
-   ========================================================================== */
-
-/* Container de Autenticação com centralização total e efeito de profundidade 3D */
-.auth-wrapper {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1.5rem;
-    background-color: var(--bg-dark-base);
-    
-    /* Mix de Linhas de Grade Modernas + Auras de Luz de Alta Performance */
-    background-image: 
-        /* 1. Aura de luz dourada focada atrás do card central */
-        radial-gradient(circle at 50% 50%, rgba(245, 166, 35, 0.07) 0%, transparent 45%),
-        /* 2. Aura esverdeada sutil no canto inferior direito para quebrar a monotonia */
-        radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
-        /* 3. Linhas horizontais milimétricas simulando uma tela de alta tecnologia */
-        linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
-        /* 4. Linhas verticais milimétricas completando o Grid Premium */
-        linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
-        
-    /* Define o tamanho exato dos quadradinhos da grade de fundo */
-    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
-    background-attachment: fixed;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Detalhe estético extra: Círculo de luz flutuante abstrato no canto superior */
-.auth-wrapper::before {
-    content: "";
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(245, 166, 35, 0.03) 0%, transparent 70%);
-    top: -200px;
-    left: -100px;
-    pointer-events: none;
-}
-
-/* Container Principal com efeito Glassmorphism avançado */
-.auth-container {
-    background: linear-gradient(145deg, rgba(18, 28, 50, 0.9) 0%, rgba(12, 19, 34, 0.95) 100%);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 24px;
-    width: 100%;
-    max-width: 430px;
-    padding: 3rem 2.5rem;
-    position: relative;
-    box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.2),
-        0 25px 60px -12px rgba(0, 0, 0, 0.7),
-        inset 0 1px 1px rgba(255, 255, 255, 0.08);
-    transition: var(--transition-smooth);
-    z-index: 2;
-}
-
-/* Linha de brilho metálico premium no topo do card */
-.auth-container::before {
-    content: "";
-    position: absolute;
-    top: 0; left: 10%; right: 10%; height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
-}
-
-/* Cabeçalho do Card */
-.auth-header { 
-    text-align: center; 
-    margin-bottom: 2.2rem; 
-}
-
-.auth-header .logo { 
-    font-size: 1.8rem; 
-    font-weight: 800; 
-    margin-bottom: 0.6rem; 
-    display: block; 
-    letter-spacing: -0.5px;
-}
-
-.auth-header p { 
-    color: var(--text-muted); 
-    font-size: 0.92rem; 
-    line-height: 1.5;
-}
-
-/* Estilização de Inputs Avançada */
-.input-group-icon { 
-    position: relative; 
-    margin-bottom: 1.4rem; 
-}
-
-.input-group-icon i {
-    position: absolute;
-    left: 1.2rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    transition: var(--transition-smooth);
-    pointer-events: none;
-}
-
-.input-group-icon input {
-    width: 100%;
-    background: #090E17;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1.1rem 1rem 1.1rem 3.2rem;
-    border-radius: 14px;
-    color: #FFFFFF;
-    font-size: 0.95rem;
-    font-weight: 500;
-    letter-spacing: 0.2px;
-    transition: var(--transition-smooth);
-}
-
-/* Placeholder sutil */
-.input-group-icon input::placeholder {
-    color: rgba(148, 163, 184, 0.4);
-}
-
-/* Efeito de foco neon e troca de cor do ícone */
-.input-group-icon input:focus {
-    border-color: #F5A623;
-    background: #0D1421;
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.12);
-}
-
-.input-group-icon input:focus + i { 
-    color: #F5A623; 
-    transform: translateY(-50%) scale(1.05);
-}
-
-/* Seção de Lembrar de Mim e Esqueceu a Senha */
-.remember-forgot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.88rem;
-    margin-bottom: 2rem;
-}
-
-/* Customização Premium do Checkbox */
-.checkbox-label { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    color: var(--text-muted); 
-    cursor: pointer; 
-    user-select: none;
-    transition: var(--transition-smooth);
-}
-
-.checkbox-label:hover {
-    color: var(--text-white);
-}
-
-.checkbox-label input { 
-    accent-color: #F5A623; 
-    width: 18px; 
-    height: 18px; 
-    cursor: pointer; 
-    border-radius: 6px;
-}
-
-/* Link de Recuperação Elegante */
-.forgot-link { 
-    color: var(--text-muted); 
-    text-decoration: none; 
-    font-weight: 500;
-    transition: var(--transition-smooth); 
-}
-
-.forgot-link:hover { 
-    color: #F5A623;
-    text-shadow: 0 0 8px rgba(245, 166, 35, 0.3);
-}
-
-/* Botão de Login Metálico Ouro */
-.btn-login {
-    width: 100%;
-    background: linear-gradient(135deg, #FFE57F 0%, #F5A623 50%, #D48C11 100%);
-    background-size: 200% auto;
-    border: none;
-    padding: 1.1rem;
-    border-radius: 14px;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    font-size: 1rem;
-    color: #05080E;
-    margin-bottom: 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 4px 15px rgba(245, 166, 35, 0.2);
-    transition: var(--transition-smooth);
-}
-
-.btn-login:hover { 
-    background-position: right center;
-    transform: translateY(-2px); 
-    box-shadow: 0 8px 25px rgba(245, 166, 35, 0.4); 
-}
-
-.btn-login:active {
-    transform: translateY(-0.5px);
-}
-
-/* Rodapé do Card */
-.auth-footer { 
-    text-align: center; 
-    margin-top: 1.8rem; 
-    font-size: 0.88rem; 
-    color: var(--text-muted); 
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    padding-top: 1.5rem;
-}
-
-.auth-footer a { 
-    color: var(--whatsapp-green); 
-    text-decoration: none; 
-    font-weight: 700; 
-    transition: var(--transition-smooth);
-}
-
-.auth-footer a:hover { 
-    color: #FFF;
-    text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
-}
-
-/* ==========================================================================
-   OTIMIZAÇÃO RESPONSIVA E COMPORTAMENTO DESKTOP
-   ========================================================================== */
-
-/* Dispositivos Grandes (Monitores e Telas de Alta Resolução) */
-@media (min-width: 1024px) {
-    .auth-container {
-        padding: 3.5rem 3rem;
-        max-width: 450px;
-    }
-    .auth-container:hover {
-        border-color: rgba(245, 166, 35, 0.2);
-        box-shadow: 
-            0 30px 60px -10px rgba(0, 0, 0, 0.8),
-            0 0 50px -5px rgba(245, 166, 35, 0.05);
-    }
-}
-
-/* Dispositivos Mobile (Smartphones) */
-@media (max-width: 480px) {
+ <style>
+    /* ==========================================================================
+       CONTAINER & CENÁRIO DE AUTENTICAÇÃO
+       ========================================================================== */
     .auth-wrapper {
-        padding: 1rem;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+        background-color: var(--surface-base);
+        
+        /* Mix de Linhas de Grade Modernas + Auras de Luz de Alta Performance */
+        background-image: 
+            /* 1. Aura de luz dourada focada atrás do card central */
+            radial-gradient(circle at 50% 50%, rgba(245, 166, 35, 0.07) 0%, transparent 45%),
+            /* 2. Aura esverdeada sutil no canto inferior direito */
+            radial-gradient(circle at 85% 85%, var(--accent-glow) 0%, transparent 40%),
+            /* 3. Linhas horizontais milimétricas simulando Grid Premium */
+            linear-gradient(rgba(255, 255, 255, 0.005) 1px, transparent 1px),
+            /* 4. Linhas verticais milimétricas completando o Grid */
+            linear-gradient(90deg, rgba(255, 255, 255, 0.005) 1px, transparent 1px);
+            
+        background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        background-attachment: fixed;
+        position: relative;
+        overflow: hidden;
     }
+
+    /* Detalhe estético extra: Círculo de luz flutuante abstrato */
+    .auth-wrapper::before {
+        content: "";
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(245, 166, 35, 0.03) 0%, transparent 70%);
+        top: -200px;
+        left: -100px;
+        pointer-events: none;
+    }
+
+    /* ==========================================================================
+       CONTAINER PRINCIPAL (GLASSMORPHISM)
+       ========================================================================== */
     .auth-container {
-        padding: 2.2rem 1.6rem;
-        border-radius: 20px;
+        background: linear-gradient(145deg, rgba(17, 26, 46, 0.9) 0%, rgba(11, 18, 31, 0.95) 100%);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border: 1px solid var(--border-hairline);
+        border-radius: var(--radius-lg);
+        width: 100%;
+        max-width: 430px;
+        padding: 3rem 2.5rem;
+        position: relative;
+        box-shadow: 
+            0 4px 6px -1px rgba(0, 0, 0, 0.2),
+            0 25px 60px -12px rgba(0, 0, 0, 0.7),
+            inset 0 1px 1px rgba(255, 255, 255, 0.08);
+        transition: all var(--duration-base) var(--ease-out);
+        z-index: 2;
     }
-    .auth-header .logo {
-        font-size: 1.6rem;
+
+    /* Linha de brilho metálico premium no topo do card */
+    .auth-container::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 10%; right: 10%; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(245, 166, 35, 0.4), transparent);
     }
+
+    /* ==========================================================================
+       ELEMENTOS DE MARCA E CABEÇALHO
+       ========================================================================== */
+    .logo-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+
+    .logo-img {
+        max-height: 70px;
+        width: auto;
+        filter: drop-shadow(0 4px 15px rgba(245, 166, 35, 0.3));
+        transition: all var(--duration-base) var(--ease-spring);
+    }
+
+    .logo-img:hover {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 25px rgba(245, 166, 35, 0.5));
+    }
+
+    .auth-header { 
+        text-align: center; 
+        margin-bottom: 2.2rem; 
+    }
+
+    .auth-header p { 
+        color: var(--text-muted); 
+        font-size: 0.92rem; 
+        line-height: 1.5;
+        font-weight: 300;
+    }
+
+    /* Oculta com segurança a redundância de texto antiga */
+    .auth-header .logo { display: none; }
+
+    /* ==========================================================================
+       FORMULÁRIOS & CAMPOS DE ENTRADA
+       ========================================================================== */
+    .input-group-icon { 
+        position: relative; 
+        margin-bottom: 1.4rem; 
+    }
+
+    .input-group-icon i {
+        position: absolute;
+        left: 1.2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        font-size: 1.05rem;
+        transition: all var(--duration-fast) var(--ease-out);
+        pointer-events: none;
+    }
+
+    .input-group-icon input {
+        width: 100%;
+        background: var(--surface-base);
+        border: 1px solid var(--border-hairline);
+        padding: 1.1rem 1rem 1.1rem 3.2rem;
+        border-radius: var(--radius-md);
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        font-weight: 500;
+        letter-spacing: 0.2px;
+        transition: all var(--duration-base) var(--ease-out);
+    }
+
+    .input-group-icon input::placeholder {
+        color: rgba(148, 163, 184, 0.35);
+    }
+
+    /* Efeito de foco neon alinhado com a paleta Ouro do Login */
+    .input-group-icon input:focus {
+        border-color: var(--gold-mid);
+        background: #0D1421;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.12);
+    }
+
+    .input-group-icon input:focus + i { 
+        color: var(--gold-mid); 
+        transform: translateY(-50%) scale(1.05);
+        filter: drop-shadow(0 0 4px var(--gold-glow));
+    }
+
+    /* ==========================================================================
+       LEMBRAR DE MIM & RECUPERAÇÃO DE SENHA
+       ========================================================================== */
     .remember-forgot {
-        flex-direction: row;
-        gap: 8px;
-        font-size: 0.82rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.88rem;
+        margin-bottom: 2rem;
     }
-    .checkbox-label input {
-        width: 16px;
-        height: 16px;
+
+    .checkbox-label { 
+        display: flex; 
+        align-items: center; 
+        gap: 10px; 
+        color: var(--text-muted); 
+        cursor: pointer; 
+        user-select: none;
+        transition: color var(--duration-fast) var(--ease-out);
     }
+
+    .checkbox-label:hover {
+        color: var(--text-primary);
+    }
+
+    .checkbox-label input { 
+        accent-color: var(--gold-mid); 
+        width: 18px; 
+        height: 18px; 
+        cursor: pointer; 
+        border-radius: 6px;
+    }
+
+    .forgot-link { 
+        color: var(--text-muted); 
+        text-decoration: none; 
+        font-weight: 500;
+        transition: all var(--duration-fast) var(--ease-out); 
+    }
+
+    .forgot-link:hover { 
+        color: var(--gold-mid);
+        text-shadow: 0 0 8px var(--gold-glow);
+    }
+
+    /* ==========================================================================
+       BOTÃO DE DISPARO (ESTILO OURO LÍQUIDO)
+       ========================================================================== */
     .btn-login {
-        padding: 1rem;
+        width: 100%;
+        background: var(--gold-gradient);
+        background-size: 200% auto;
+        border: none;
+        padding: 1.1rem;
+        border-radius: var(--radius-md);
+        font-family: var(--font-display);
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: var(--surface-base);
+        margin-bottom: 1.2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        box-shadow: 0 4px 15px rgba(245, 166, 35, 0.15);
+        transition: all var(--duration-base) var(--ease-spring);
     }
-}
 
-    /* --- Ajuste Premium para Logo em Autenticação --- */
-.logo-wrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1rem;
-}
+    .btn-login:hover { 
+        background-position: right center;
+        transform: translateY(-2px); 
+        box-shadow: 0 8px 25px var(--gold-glow); 
+    }
 
-.logo-img {
-    max-height: 70px; /* Tamanho imponente e equilibrado */
-    width: auto;
-    filter: drop-shadow(0 4px 15px rgba(245, 166, 35, 0.3));
-    transition: var(--transition-smooth);
-}
+    .btn-login:active {
+        transform: translateY(-0.5px);
+    }
 
-.logo-img:hover {
-    transform: scale(1.05);
-    filter: drop-shadow(0 0 25px rgba(245, 166, 35, 0.5));
-}
+    /* Rodapé da Caixa de Diálogo */
+    .auth-footer { 
+        text-align: center; 
+        margin-top: 1.8rem; 
+        font-size: 0.88rem; 
+        color: var(--text-muted); 
+        border-top: 1px solid rgba(255, 255, 255, 0.04);
+        padding-top: 1.5rem;
+    }
+
+    .auth-footer a { 
+        color: var(--accent-primary); 
+        text-decoration: none; 
+        font-weight: 700; 
+        transition: all var(--duration-fast) var(--ease-out);
+    }
+
+    .auth-footer a:hover { 
+        color: var(--text-primary);
+        text-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    /* ==========================================================================
+       OTIMIZAÇÕES DE COMPORTAMENTO RESPONSIVO
+       ========================================================================== */
+    @media (min-width: 1024px) {
+        .auth-container {
+            padding: 3.5rem 3rem;
+            max-width: 450px;
+        }
+        .auth-container:hover {
+            border-color: rgba(245, 166, 35, 0.2);
+            box-shadow: 
+                0 30px 60px -10px rgba(0, 0, 0, 0.8),
+                0 0 50px -5px rgba(245, 166, 35, 0.05);
+        }
+    }
+
+    @media (max-width: 480px) {
+        .auth-wrapper {
+            padding: 1rem;
+        }
+        .auth-container {
+            padding: 2.2rem 1.6rem;
+            border-radius: var(--radius-md);
+        }
+        .remember-forgot {
+            flex-direction: row;
+            gap: 8px;
+            font-size: 0.82rem;
+        }
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+        }
+        .btn-login {
+            padding: 1rem;
+        }
+    }
 </style>
     </head>
     <body>
