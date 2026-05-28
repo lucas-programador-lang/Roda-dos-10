@@ -66,104 +66,105 @@
             <p>Compre quantas cotas quiser. Seu nome será inserido múltiplas vezes no sorteio de metas!</p>
         </header>
 
-        <div class="metrics-grid">
-            <div class="metric-card">
+        <div class="dashboard-grid">
+            <div class="premium-card" style="display: flex; flex-direction: column; justify-content: space-between; gap: 15px;">
                 <div>
-                    <div class="card-meta"><span>SALDO RENDIMENTOS</span><i class="fa-solid fa-wallet icon-wallet"></i></div>
+                    <h3><i class="fa-solid fa-wallet card-icon" style="margin-bottom:0; font-size:1.2rem;"></i> SALDO RENDIMENTOS</h3>
                     <h2 id="dash-balance">R$ 0,00</h2>
-                    <div class="sub-text">Saque mínimo de R$ 25,00</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">Saque mínimo de R$ 25,00</div>
                 </div>
-                <button class="btn-dash-withdraw" id="btn-trigger-withdraw">Sacar Rendimentos</button>
+                <button class="btn-primary" id="btn-trigger-withdraw" style="padding: 0.7rem; font-size: 0.85rem;">Sacar Rendimentos</button>
             </div>
-            <div class="metric-card">
-                <div>
-                    <div class="card-meta"><span>COTAS COMPRADAS</span><i class="fa-solid fa-ticket icon-ticket"></i></div>
-                    <h2 id="dash-tickets">0</h2>
-                    <div class="sub-text" id="cotas-status-text">Mais compras aumentam sua chance</div>
-                </div>
+            <div class="premium-card">
+                <h3><i class="fa-solid fa-ticket card-icon" style="margin-bottom:0; font-size:1.2rem;"></i> COTAS COMPRADAS</h3>
+                <h2 id="dash-tickets">0</h2>
+                <div class="card-detail" id="cotas-status-text" style="color: var(--text-muted);">Mais compras aumentam sua chance</div>
             </div>
         </div>
 
-        <div class="progress-banner-card">
-            <div class="progress-info">
-                <h3><i class="fa-solid fa-clock-history"></i> Ciclo Ativo de 10 Dias</h3>
-                <p>Os sorteios ocorrem de 10 em 10 dias e os resultados são postados dentro do grupo oficial.</p>
+        <div class="premium-card" style="margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.8rem;">
+            <div style="margin-bottom: 1rem;">
+                <h3 style="color: var(--text-white); font-size: 1.2rem;"><i class="fa-solid fa-clock-history" style="color: #F5A623;"></i> Ciclo Ativo de 10 Dias</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Os sorteios ocorrem de 10 em 10 dias e os resultados são postados dentro do grupo oficial.</p>
             </div>
-            <div class="progress-bar-bg">
-                <div class="progress-bar-fill"></div>
+            <div style="width: 100%; height: 8px; background: var(--bg-dark-input); border-radius: 50px; overflow: hidden; margin-bottom: 10px; border: 1px solid var(--border-soft);">
+                <div class="progress-bar-fill" style="width: 0%; height: 100%; background: var(--primary-gold); transition: var(--transition-smooth);"></div>
             </div>
-            <div class="progress-text-status">
-                <span>STATUS DO SORTEIO</span>
-                <span>AGUARDANDO META DE COMPRAS</span>
+            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.5px;">
+                <span style="color: var(--text-muted);">STATUS DO SORTEIO</span>
+                <span style="color: var(--neon-green);">AGUARDANDO META DE COMPRAS</span>
             </div>
         </div>
 
-        <div class="group-banner-card">
-            <div class="banner-info">
-                <h3>Sorteios Divulgados no Grupo VIP</h3>
-                <p>Monitore as tabelas de nomes e apurações semanais e mensais entrando na comunidade.</p>
+        <div class="premium-card" style="margin-bottom: 1.5rem; padding: 1.8rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.5rem;">
+            <div>
+                <h3 style="color: var(--text-white); font-size: 1.2rem;">Sorteios Divulgados no Grupo VIP</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 4px;">Monitore as tabelas de nomes e apurações semanais e mensais entrando na comunidade.</p>
             </div>
-            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-join-group">
+            <a href="https://chat.whatsapp.com/GLbBLV6OUdqLcvg3gmDGTB" target="_blank" class="btn-primary" style="width: auto; padding: 0.8rem 1.5rem; background: #25D366; color: #fff;">
                 <i class="fa-brands fa-whatsapp"></i> Entrar no Grupo Oficial
             </a>
         </div>
 
-        <div class="price-tables-card">
-            <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem;"><i class="fa-solid fa-dice" style="color: #F5A623; margin-right: 6px;"></i> Escolha as Cotas para Adquirir</h3>
-            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;">Cada cota comprada adiciona seu nome uma vez a mais no sorteio do plano correspondente.</p>
+        <div class="premium-card" style="padding: 2.2rem 1.8rem;">
+            <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-white);"><i class="fa-solid fa-dice" style="color: #F5A623;"></i> Escolha as Cotas para Adquirir</h3>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 2rem;">Cada cota comprada adiciona seu nome uma vez a mais no sorteio do plano correspondente.</p>
             
-            <div class="investment-options-grid">
-                <div class="tier-item">
-                    <div class="tier-badge">Plano Bronze</div>
-                    <div class="tier-cost">Invista <strong>R$ 3,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 25,00 no PIX</strong></div>
-                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 7 / 20 compras</div>
-                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" id="btn-buy-bronze">Adquirir Cota</button>
+            <div class="dashboard-grid">
+                <div class="premium-card" style="background: rgba(255,255,255,0.01); text-align: center; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div class="hero-badge" style="margin: 0 auto 10px auto;">Plano Bronze</div>
+                    <div>Invista <strong style="color:#FFF;">R$ 3,50</strong></div>
+                    <div style="font-size: 0.95rem; color: var(--neon-green);">Concorra a <strong>R$ 25,00 no PIX</strong></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;"><i class="fa-solid fa-fire" style="color:#F5A623;"></i> Progresso: 7 / 20 compras</div>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-primary" id="btn-buy-bronze" style="margin-top: 10px;">Adquirir Cota</button>
                 </div>
-                <div class="tier-item" style="border-color: rgba(245, 166, 35, 0.25);">
-                    <div class="tier-badge" style="background: rgba(245, 166, 35, 0.15); color: #F5A623;">Plano Silver</div>
-                    <div class="tier-cost">Invista <strong>R$ 5,50</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 50,00 no PIX</strong></div>
-                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 12 / 20 compras</div>
-                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" id="btn-buy-silver">Adquirir Cota</button>
+                
+                <div class="premium-card" style="background: rgba(255,255,255,0.01); text-align: center; border-color: rgba(245, 166, 35, 0.25); display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div class="hero-badge" style="margin: 0 auto 10px auto; background: rgba(245, 166, 35, 0.15); color: #F5A623;">Plano Silver</div>
+                    <div>Invista <strong style="color:#FFF;">R$ 5,50</strong></div>
+                    <div style="font-size: 0.95rem; color: var(--neon-green);">Concorra a <strong>R$ 50,00 no PIX</strong></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;"><i class="fa-solid fa-fire" style="color:#F5A623;"></i> Progresso: 12 / 20 compras</div>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-primary" id="btn-buy-silver" style="margin-top: 10px;">Adquirir Cota</button>
                 </div>
-                <div class="tier-item">
-                    <div class="tier-badge">Plano Gold VIP</div>
-                    <div class="tier-cost">Invista <strong>R$ 10,00</strong></div>
-                    <div class="tier-prize">Concorra a <strong>R$ 100,00 no PIX</strong></div>
-                    <div class="quota-progress"><i class="fa-solid fa-fire"></i> Progresso: 4 / 20 compras</div>
-                    <p class="tier-rule-info">Sorteado assim que atingir 20 compras totais.</p>
-                    <button class="btn-buy-tier" id="btn-buy-gold">Adquirir Cota</button>
+
+                <div class="premium-card" style="background: rgba(255,255,255,0.01); text-align: center; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div class="hero-badge" style="margin: 0 auto 10px auto;">Plano Gold VIP</div>
+                    <div>Invista <strong style="color:#FFF;">R$ 10,00</strong></div>
+                    <div style="font-size: 0.95rem; color: var(--neon-green);">Concorra a <strong>R$ 100,00 no PIX</strong></div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 5px;"><i class="fa-solid fa-fire" style="color:#F5A623;"></i> Progresso: 4 / 20 compras</div>
+                    <p style="font-size: 0.75rem; color: var(--text-muted);">Sorteado assim que atingir 20 compras totais.</p>
+                    <button class="btn-primary" id="btn-buy-gold" style="margin-top: 10px;">Adquirir Cota</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <div class="modal-overlay" id="purchaseModal">
+    <div class="modal-backdrop" id="purchaseModal">
         <div class="modal-card">
+            <button class="modal-close-btn" id="btn-close-purchase" style="top: 1.5rem; right: 1.5rem;"><i class="fa-solid fa-xmark"></i></button>
             <div id="purchase-form-area">
-                <div class="modal-icon"><i class="fa-solid fa-qrcode"></i></div>
-                <h3 id="modalPlanTitle">Confirmar Pedido</h3>
-                <p id="modalPlanDesc">Aguardando carregamento do plano...</p>
+                <div class="card-icon text-center" style="font-size: 2.2rem;"><i class="fa-solid fa-qrcode"></i></div>
+                <h3 id="modalPlanTitle" class="text-center" style="font-size: 1.4rem; margin-bottom: 5px;">Confirmar Pedido</h3>
+                <p id="modalPlanDesc" class="text-center" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Aguardando carregamento...</p>
                 
-                <div style="margin-bottom: 1.2rem; text-align: left;">
-                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">NOME COMPLETO DO PARTICIPANTE:</label>
-                    <input type="text" id="client-name" placeholder="Digite seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+                <div class="input-block">
+                    <label>NOME COMPLETO DO PARTICIPANTE:</label>
+                    <input type="text" id="client-name" placeholder="Digite seu nome completo">
                 </div>
 
-                <div style="margin-bottom: 1.2rem; text-align: left;">
-                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px; letter-spacing: 0.5px;">CPF DO PARTICIPANTE:</label>
-                    <input type="text" id="client-document" placeholder="Digite apenas números" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+                <div class="input-block">
+                    <label>CPF DO PARTICIPANTE:</label>
+                    <input type="text" id="client-document" placeholder="Digite apenas números">
                 </div>
 
                 <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 10px; margin-bottom: 1.2rem; border: 1px solid var(--border-soft);">
                     <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-muted);">QTD DE COTAS:</span>
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <button id="btn-qty-minus" style="background: var(--surface-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">-</button>
+                        <button id="btn-qty-minus" class="qty-btn" style="padding: 0.2rem 0.8rem;">-</button>
                         <span id="qty-display" style="font-weight: 800; font-size: 1.1rem; min-width: 20px; text-align: center;">1</span>
-                        <button id="btn-qty-plus" style="background: var(--surface-input); border: 1px solid var(--border-soft); color: white; width: 32px; height: 32px; border-radius: 6px; cursor: pointer; font-weight: bold;">+</button>
+                        <button id="btn-qty-plus" class="qty-btn" style="padding: 0.2rem 0.8rem;">+</button>
                     </div>
                 </div>
 
@@ -172,52 +173,52 @@
                     <span id="total-display" style="font-size: 1.3rem; font-weight: 800; color: #FFE57F;">R$ 0,00</span>
                 </div>
 
-                <div class="modal-actions">
-                    <button class="btn-modal-confirm" id="btn-modal-confirm">Confirmar e Enviar ao Suporte</button>
-                    <button class="btn-modal-cancel" id="btn-modal-cancel">Cancelar</button>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <button class="btn-primary" id="btn-modal-confirm">Confirmar e Enviar ao Suporte</button>
+                    <button class="qty-btn" id="btn-modal-cancel" style="border: none; padding: 0.8rem;">Cancelar</button>
                 </div>
             </div>
 
-            <div id="pix-display-area">
-                <h3 style="color: var(--text-accent); margin-bottom: 15px;">QR Code Gerado!</h3>
-                <img id="pix-qr-image" alt="QR Code PIX" />
-                <button onclick="location.reload()" class="btn-modal-cancel" style="width: 100%;">Fechar e Recarregar</button>
+            <div id="pix-display-area" style="display: none; flex-direction: column; align-items: center; gap: 15px;">
+                <h3 style="color: #F5A623; margin-bottom: 5px;">QR Code Gerado!</h3>
+                <img id="pix-qr-image" alt="QR Code PIX" style="max-width: 200px; border-radius: 12px; border: 4px solid #fff;" />
+                <button onclick="location.reload()" class="btn-primary" style="background: var(--bg-dark-input); color: #fff; border: 1px solid var(--border-soft);">Fechar e Recarregar</button>
             </div>
         </div> 
     </div>
 
-    <div class="modal-overlay" id="withdrawModal">
+    <div class="modal-backdrop" id="withdrawModal">
         <div class="modal-card">
-            <div class="modal-icon"><i class="fa-solid fa-money-bill-transfer" style="color: #00E676;"></i></div>
-            <h3>Solicitar Saque</h3>
-            <p>Preencha os dados abaixo. Saldo disponível: <strong>R$ <span id="max-balance-text">0,00</span></strong></p>
+            <div class="card-icon text-center" style="font-size: 2.2rem; color: #10B981;"><i class="fa-solid fa-money-bill-transfer"></i></div>
+            <h3 class="text-center" style="font-size: 1.4rem; margin-bottom: 5px;">Solicitar Saque</h3>
+            <p class="text-center" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Saldo disponível: <strong style="color: #fff;">R$ <span id="max-balance-text">0,00</span></strong></p>
             
-            <div style="margin-bottom: 1.2rem; text-align: left;">
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">NOME COMPLETO:</label>
-                <input type="text" id="withdraw-name" placeholder="Seu nome completo" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            <div class="input-block">
+                <label>NOME COMPLETO:</label>
+                <input type="text" id="withdraw-name" placeholder="Seu nome completo">
             </div>
 
-            <div style="margin-bottom: 1.2rem; text-align: left;">
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">VALOR DO SAQUE (Mín. R$ 25,00):</label>
-                <input type="number" id="withdraw-amount" placeholder="Ex: 50,00" step="0.01" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+            <div class="input-block">
+                <label>VALOR DO SAQUE (Mín. R$ 25,00):</label>
+                <input type="number" id="withdraw-amount" placeholder="Ex: 50,00" step="0.01">
             </div>
 
-            <div style="margin-bottom: 1.2rem; text-align: left;">
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">TIPO DE CHAVE:</label>
-                <select id="withdraw-pix-type" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none; margin-bottom: 10px;">
+            <div class="input-block">
+                <label>TIPO DE CHAVE:</label>
+                <select id="withdraw-pix-type" style="width: 100%; padding: 0.9rem; background: var(--bg-dark-input); border: 1px solid var(--border-soft); border-radius: 10px; color: #fff; outline: none; margin-bottom: 15px;">
                     <option value="CPF">CPF</option>
                     <option value="E-mail">E-mail</option>
                     <option value="Telefone">Número de Telefone</option>
                     <option value="Chave Aleatória">Chave Aleatória</option>
                 </select>
 
-                <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; display: block; margin-bottom: 6px;">CHAVE PIX:</label>
-                <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui" style="width: 100%; padding: 0.8rem; background: var(--surface-input); border: 1px solid var(--border-soft); border-radius: 8px; color: #fff; outline: none;">
+                <label>CHAVE PIX:</label>
+                <input type="text" id="withdraw-pix" placeholder="Digite sua chave aqui">
             </div>
             
-            <div class="modal-actions">
-                <button class="btn-modal-confirm" id="btn-confirm-withdraw">Enviar Pedido via WhatsApp</button>
-                <button class="btn-modal-cancel" id="btn-cancel-withdraw">Cancelar</button>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                <button class="btn-submit-order" id="btn-confirm-withdraw" style="margin-top: 0;">Enviar Pedido via WhatsApp</button>
+                <button class="qty-btn" id="btn-cancel-withdraw" style="border: none; padding: 0.8rem;">Cancelar</button>
             </div>
         </div>
     </div>
@@ -273,7 +274,7 @@
                     if (elementoTexto) {
                         if (tickets > 0) {
                             elementoTexto.innerHTML = `Sua chance aumentou! Continue acumulando.`;
-                            elementoTexto.style.color = 'var(--text-accent)'; 
+                            elementoTexto.style.color = 'var(--neon-green)'; 
                         } else {
                             elementoTexto.innerText = "Mais compras aumentam sua chance";
                             elementoTexto.style.color = 'var(--text-muted)';
@@ -281,7 +282,7 @@
                     }
                     
                     const progresso = (tickets / 20) * 100;
-                    const barraProgresso = document.getElementById("progress-bar") || document.querySelector(".progress-bar-fill");
+                    const barraProgresso = document.querySelector(".progress-bar-fill");
                     if (barraProgresso) {
                         barraProgresso.style.width = `${Math.min(progresso, 100)}%`;
                     }
@@ -296,12 +297,12 @@
         if (globalUserBalance < 25) {
             fireToast("Saldo insuficiente! O valor mínimo de saque é R$ 25,00.", true);
         } else {
-            document.getElementById("withdrawModal").classList.add("active");
+            document.getElementById("withdrawModal").style.display = "flex";
         }
     }
 
     document.getElementById("btn-cancel-withdraw").addEventListener("click", () => {
-        document.getElementById("withdrawModal").classList.remove("active");
+        document.getElementById("withdrawModal").style.display = "none";
     });
 
     document.getElementById("btn-confirm-withdraw").addEventListener("click", () => {
@@ -346,7 +347,7 @@
                 });
         }
 
-        document.getElementById("withdrawModal").classList.remove("active");
+        document.getElementById("withdrawModal").style.display = "none";
     });
 
     function openPurchaseModal(planName, price) {
@@ -357,11 +358,11 @@
         document.getElementById("client-name").value = "";
         document.getElementById("client-document").value = "";
         recalculateTotal();
-        document.getElementById("purchaseModal").classList.add("active");
+        document.getElementById("purchaseModal").style.display = "flex";
     }
 
     function closePurchaseModal() {
-        document.getElementById("purchaseModal").classList.remove("active");
+        document.getElementById("purchaseModal").style.display = "none";
     }
 
     function changeQuantity(factor) {
@@ -473,7 +474,7 @@
         const icon = document.getElementById("toastIcon");
         const msg = document.getElementById("toastMsg");
         msg.innerText = message;
-        toast.style.borderLeftColor = isError ? "#EF4444" : "var(--accent-primary)";
+        toast.style.borderLeftColor = isError ? "#EF4444" : "var(--neon-green)";
         icon.className = isError ? "fa-solid fa-circle-xmark" : "fa-solid fa-circle-check";
         toast.classList.add("active");
         setTimeout(() => { toast.classList.remove("active"); }, 3500);
@@ -489,6 +490,9 @@
                 }).catch(err => console.error("Erro ao sair:", err));
             });
         }
+
+        const btnClosePurchase = document.getElementById("btn-close-purchase");
+        if (btnClosePurchase) btnClosePurchase.addEventListener("click", closePurchaseModal);
 
         const btnWithdraw = document.getElementById("btn-trigger-withdraw");
         if (btnWithdraw) btnWithdraw.addEventListener("click", handleWithdrawTrigger);
